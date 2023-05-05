@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LeaveForm;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,7 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = User::all();
+        $leaves = LeaveForm::all();
+        return view('home', compact('leaves', 'users'));
     }
 
     /**

@@ -25,11 +25,10 @@
         {{-- Container-fluid --}}
         <div class="container-fluid">
 
-            {{-- ปุ่มเพิ่มใบลา --}} 
+            {{-- ปุ่มเพิ่มใบลา --}}
             <div class="col-12 d-flex justify-content-end d-flex mb-4">
-                <a href="">
-                    <button class="btn btn-primary ms-auto">+ เพิ่มใบลา</button>
-                </a>
+                <a href="{{ route('create_leave_form') }}" class="btn btn-primary ms-auto">+ เพิ่มใบลา</a>
+
             </div>
             {{-- end ปุ่มเพิ่มใบลา --}}
 
@@ -159,9 +158,16 @@
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
                                 <i class="fas fa-list-alt mr-2"></i>
-                                รายการคำขอใบลา</h3>
+                                รายการคำขอใบลา
+                            </h3>
                         </div>
                         <div class="card-body">
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <span>{{ $message }}</span>
+                                </div>
+                            @endif
                             <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
@@ -180,54 +186,44 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>ลาป่วย</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>3 วัน 3 ชม. 3 นาที</td>
-                                    <td>john canobee</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td class="text-success">อนุมัติ</td>
-                                    <td>
-                                        <a href=""><i class="fas fa-file-invoice"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>ลาป่วย</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>3 วัน 3 ชม. 3 นาที</td>
-                                    <td>ไม่มีผู้ปฏิบัติงานแทน</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td>⌛</td>
-                                    <td>⌛</td>
-                                    <td class="text-secondary">กำลังดำเนินการ</td>
-                                    <td>
-                                        <a href=""><i class="fas fa-file-invoice"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>ลาป่วย</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>3 วัน 3 ชม. 3 นาที</td>
-                                    <td>john canobee</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td>❌</td>
-                                    <td>⌛</td>
-                                    <td class="text-danger">ไม่อนุมัติ</td>
-                                    <td>
-                                        <a href=""><i class="fas fa-file-invoice"></i></a>
-                                    </td>
-                                </tr>
+
+                                @foreach ($leaves as $row)
+                                    <tr>
+                                        <td>{{$row->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
+                                        <td>{{$row->leave_type}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y
+                                        H:i') }}
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y
+                                        H:i') }}
+                                        </td>
+                                        <td>{{$row->leave_total}}</td>
+                                        @if(!$row->sel_rep)
+                                            <td>ไม่มีผู้ปฏิบัติแทน</td>
+                                        @else
+                                            @foreach($users as $user)
+                                                @if($user->id == $row->sel_rep)
+                                                    <td>{{$user->name}} {{$user->last_name}}</td>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        {{-- <td>{{$row->sel_rep}}</td> --}}
+                                        <td>{{$row->approve_rep}}</td>
+                                        <td>{{$row->approve_pm}}</td>
+                                        <td>{{$row->approve_hr}}</td>
+                                        <td>{{$row->approve_ceo}}</td>
+                                        <td class="{{ $row->status == 'อนุมัติ' ? 'text-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
+                                            {{ $row->status }}
+                                        </td>
+                                        <td>
+                                            <a href="{{route('leaveform.show',$row->id)}}"><i
+                                                    class="fas fa-file-invoice"></i></a>
+                                        </td>
+
+
+                                    </tr>
+                                @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -243,7 +239,8 @@
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
                                 <i class="fas fa-list-alt mr-2"></i>
-                                รายการคำขอปฏิบัติแทน</h3>
+                                รายการคำขอปฏิบัติแทน
+                            </h3>
                         </div>
                         <div class="card-body">
                             <table id="rep_list_table" class="table table-bordered table-hover text-center">

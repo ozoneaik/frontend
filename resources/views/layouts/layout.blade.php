@@ -76,7 +76,8 @@
                 <div class="dropdown dropdown-menu-right">
                     <button class="btn btn-info dropdown-toggle " type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        [ID : {{Auth::user()->id}}] {{Auth::user()->name}} ตำแหน่ง {{Auth::user()->type}}
+                        [ID : {{Auth::user()->id}}] {{Auth::user()->name}} {{Auth::user()->last_name}} ตำแหน่ง
+                        {{Auth::user()->possition}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="{{ route('profile') }}">โปรฟายส่วนตัว</a>
@@ -149,7 +150,7 @@
                             </ul>
                         </li>
                         {{-- Project manager --}}
-                        @if (Auth::user()->type == "pm")    
+                        @if (Auth::user()->type == "pm")
                         <li class="nav-item menu-open">
                             <a href="#"
                                 class="nav-link {{ Request::routeIs('pm.req_list_emp') || Request::routeIs('pm.req_list_emp_detail') ? 'active':'' }}">
@@ -173,7 +174,7 @@
                         @endif
                         {{-- HR --}}
                         @if (Auth::user()->type == "hr")
-                            
+
                         <li class="nav-item menu-open">
                             <a href="#"
                                 class="nav-link
@@ -206,7 +207,7 @@
                         </li>
                         @endif
                         {{-- CEO --}}
-                        @if (Auth::user()->type == "ceo")    
+                        @if (Auth::user()->type == "ceo")
                         <li class="nav-item menu-open">
                             <a href="#"
                                 class="nav-link {{Request::routeIs('ceo.req_list_emp') || Request::routeIs('ceo.req_list_emp_detail') || Request::routeIs('ceo.data_emp') || Request::routeIs('ceo.data_emp_detail') ? 'active' : ''}}">
@@ -273,20 +274,24 @@
     <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script>
         $(function () {
-        $("#req_list_table").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-    $(function () {
-        $("#rep_list_table").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-    $(function () {
-        $("#data_emp_table").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
+            $("#req_list_table").DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "order": [[0, "desc"]]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function () {
+            $("#rep_list_table").DataTable({
+                "responsive": true, "lengthChange": true, "autoWidth": false,"order": [[0, "desc"]]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+        $(function () {
+            $("#data_emp_table").DataTable({
+                "responsive": true, "lengthChange": true, "autoWidth": false,"order": [[0, "desc"]]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
     </script>
     {{-- end DataTables & Plugins --}}
 
@@ -302,13 +307,13 @@
     <script src="{{asset('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
     <script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
     <script>
-        $('#datetime-picker-start').datetimepicker({icons: {time: 'far fa-clock'}, format: 'DD/MM/YYYY HH:mm'});
-    $('#datetime-picker-end').datetimepicker({icons: {time: 'far fa-clock'}, format: 'DD/MM/YYYY HH:mm'});
+        $('#datetime-picker-start').datetimepicker({icons: {time: 'far fa-clock'}, });
+    $('#datetime-picker-end').datetimepicker({icons: {time: 'far fa-clock'}, });
     </script>
     <script>
         function calculate() {
-        var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
-        var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
+        var startDate = moment(document.getElementById("start-date").value, 'MM/DD/YYYY HH:mm');
+        var endDate = moment(document.getElementById("end-date").value, 'MM/DD/YYYY HH:mm');
         var delta = endDate.diff(startDate);
         var days = Math.floor(delta / (1000 * 60 * 60 * 24));
         var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

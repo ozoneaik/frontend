@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
   
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\LeaveFormController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -27,11 +27,18 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::get('/profile', function () {
         $users = DB::table('users')->get();
         return view('profile', compact('users'));
     })->name('profile');
-    
+
+    Route::get('/form', [LeaveFormController::class, 'create'])->name('create_leave_form');
+    Route::post('/store',[LeaveFormController::class, 'store'])->name('leaveform.store');
+    Route::match(['get', 'post'],'/req_list_detail/{id}',[LeaveFormController::class, 'show'])->name('leaveform.show');
+
+
+
     //emp route list
     Route::middleware('user-access:emp')->group(function () {
         Route::get('/emp/home', [HomeController::class, 'empHome'])->name('emp.home');
