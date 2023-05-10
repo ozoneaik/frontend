@@ -60,7 +60,7 @@
                                                     <div class="form-group">
                                                         <label for="">ชื่อ-นามสกุล</label>
                                                         <input class="form-control"
-                                                               value="{{ Auth::user()->name }} {{Auth::user()->last_name}}" disabled>
+                                                               value="{{ Auth::user()->name }}" disabled>
                                                     </div>
                                                 </div>
                                                 {{-- ชื่อเล่น --}}

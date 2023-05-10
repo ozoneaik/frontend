@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LeaveForm extends Model
 {
     use HasFactory;
-
     /**
     * The attributes that are mass assignable.
     *
@@ -31,5 +30,12 @@ class LeaveForm extends Model
        'approve_ceo',
        'status',
        'case_no_rep',
+       'reason_pm',
+       'allowed_pm',
+       'not_allowed_pm',
+       'reason_hr',
+       'not_allowed_hr',
+       'reason_ceo',
+       'not_allowed_ceo',
    ];
 }

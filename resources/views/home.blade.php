@@ -11,7 +11,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <ol class="breadcrumb text-start">
-                        <li class="breadcrumb-item"><a href="#">เมนูหลัก</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home')}}">เมนูหลัก</a></li>
                         <li class="breadcrumb-item active"></li>
                     </ol>
                 </div>
@@ -162,12 +162,7 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            @if ($message = Session::get('success'))
-                                <div class="alert alert-success alert-block">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <span>{{ $message }}</span>
-                                </div>
-                            @endif
+
                             <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
@@ -188,42 +183,39 @@
                                 <tbody>
 
                                 @foreach ($leaves as $row)
-                                    <tr>
-                                        <td>{{$row->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
-                                        <td>{{$row->leave_type}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y
-                                        H:i') }}
-                                        </td>
-                                        <td>{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y
-                                        H:i') }}
-                                        </td>
-                                        <td>{{$row->leave_total}}</td>
-                                        @if(!$row->sel_rep)
-                                            <td>ไม่มีผู้ปฏิบัติแทน</td>
-                                        @else
-                                            @foreach($users as $user)
-                                                @if($user->id == $row->sel_rep)
-                                                    <td>{{$user->name}} {{$user->last_name}}</td>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                        {{-- <td>{{$row->sel_rep}}</td> --}}
-                                        <td>{{$row->approve_rep}}</td>
-                                        <td>{{$row->approve_pm}}</td>
-                                        <td>{{$row->approve_hr}}</td>
-                                        <td>{{$row->approve_ceo}}</td>
-                                        <td class="{{ $row->status == 'อนุมัติ' ? 'text-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
-                                            {{ $row->status }}
-                                        </td>
-                                        <td>
-                                            <a href="{{route('leaveform.show',$row->id)}}"><i
-                                                    class="fas fa-file-invoice"></i></a>
-                                        </td>
-
-
-                                    </tr>
+                                    @if($row->user_id == Auth::user()->id)
+                                        <tr>
+                                            <td>{{$row->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
+                                            <td>{{$row->leave_type}}</td>
+                                            <td>{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                            </td>
+                                            <td>{{$row->leave_total}}</td>
+                                            @if(!$row->sel_rep)
+                                                <td>ไม่มีผู้ปฏิบัติแทน</td>
+                                            @else
+                                                @foreach($users as $user)
+                                                    @if($user->id == $row->sel_rep)
+                                                        <td>{{$user->name}}</td>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                            {{-- <td>{{$row->sel_rep}}</td> --}}
+                                            <td>{{$row->approve_rep}}
+                                            <td>{{$row->approve_pm}}</td>
+                                            <td>{{$row->approve_hr}}</td>
+                                            <td>{{$row->approve_ceo}}</td>
+                                            <td class="{{ $row->status == 'อนุมัติ' ? 'text-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
+                                                {{ $row->status }}
+                                            </td>
+                                            <td>
+                                                <a href="{{route('req_list_detail',$row->id)}}"><i
+                                                        class="fas fa-file-invoice"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -261,70 +253,34 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>ลาป่วย</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>3 วัน 3 ชม. 3 นาที</td>
-                                    <td>john canobee</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td class="text-success">อนุมัติ</td>
-                                    <td>
-                                        <a href=""><i class="fas fa-file-invoice"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>ลาป่วย</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>3 วัน 3 ชม. 3 นาที</td>
-                                    <td>joker on the rock</td>
-                                    <td>✔️</td>
-                                    <td>✔️</td>
-                                    <td>⌛</td>
-                                    <td>⌛</td>
-                                    <td class="text-secondary">กำลังดำเนินการ</td>
-                                    <td>
-                                        <a href=""><i class="fas fa-file-invoice"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>ลาป่วย</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>3 วัน 3 ชม. 3 นาที</td>
-                                    <td>john canobee</td>
-                                    <td>❌</td>
-                                    <td>✔️</td>
-                                    <td>❌</td>
-                                    <td>⌛</td>
-                                    <td class="text-danger">ไม่อนุมัติ</td>
-                                    <td>
-                                        <a href=""><i class="fas fa-file-invoice"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>ลาป่วย</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>12-3-3 12:00 AM</td>
-                                    <td>3 วัน 3 ชม. 3 นาที</td>
-                                    <td>john canobee</td>
-                                    <td>⌛</td>
-                                    <td>⌛</td>
-                                    <td>⌛</td>
-                                    <td>⌛</td>
-                                    <td class="text-secondary">กำลังดำเนินการ</td>
-                                    <td>
-                                        <a href=""><i class="fas fa-file-invoice"></i></a>
-                                    </td>
-                                </tr>
+                                @foreach($leaves as $row)
+                                    @if($row->sel_rep == Auth::user()->id)
+                                        <tr>
+                                            <td>{{$row->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
+                                            <td>{{$row->leave_type}}</td>
+                                            <td>{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}</td>
+                                            <td>{{$row->leave_total}}</td>
+                                            @foreach($users as $user)
+                                                @if($user->id == $row->user_id)
+                                                    <td>{{$user->name}}</td>
+                                                @endif
+                                            @endforeach
+                                            <td>{{$row->approve_rep}}</td>
+                                            <td>{{$row->approve_pm}}</td>
+                                            <td>{{$row->approve_hr}}</td>
+                                            <td>{{$row->approve_ceo}}</td>
+                                            <td class="{{ $row->status == 'อนุมัติ' ? 'text-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
+                                                {{ $row->status }}
+                                            </td>
+                                            <td>
+                                                <a href="{{route('req_list_detail',$row->id)}}">
+                                                    <i class="fas fa-file-invoice"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

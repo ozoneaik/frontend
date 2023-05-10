@@ -23,15 +23,26 @@ return new class extends Migration
             $table->string('reason')->nullable();
             $table->string('file1')->nullable();
             $table->string('file2')->nullable();
+
             $table->string('sel_rep')->nullable();
             $table->string('approve_rep')->nullable()->default('⌛')->comment('อนุมัติโดย rep');//✔️❌⌛
-            $table->string('sel_pm')->nullable();
             $table->string('case_no_rep')->nullable()->comment('กรณีไม่มีผู้ปฏิบัติงานแทน');
+
+            $table->string('sel_pm')->nullable();
+            $table->string('reason_pm')->nullable()->default('ไม่มีความเห็น')->comment('ความเห็น PM');
+            $table->string('allowed_pm')->nullable()->comment('อนุญาตตามสิทธิ์พนักงาน');
+            $table->string('not_allowed_pm')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
             $table->string('approve_pm')->nullable()->default('⌛')->comment('อนุมัติโดย pm');
+
             $table->string('approve_hr')->nullable()->default('⌛')->comment('อนุมัติโดย hr');
-            $table->string('sel_ceo')->nullable();
+            $table->string('reason_hr')->nullable()->default('ไม่มีความเห็น')->comment('ความเห็น HR');
+            $table->string('not_allowed_hr')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
+
             $table->string('approve_ceo')->nullable()->default('⌛')->comment('อนุมัติโดย ceo');
-            $table->string('status')->default('approve');
+            $table->string('reason_ceo')->nullable()->default('ไม่มีความเห็น')->comment('ความเห็น CEO');
+            $table->string('not_allowed_ceo')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
+
+            $table->string('status')->default('กำลังดำเนินการ');
             $table->timestamps();
         });
         $now = Carbon::now();

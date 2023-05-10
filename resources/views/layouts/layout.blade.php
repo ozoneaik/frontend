@@ -40,6 +40,13 @@
     {{-- iCheck for checkboxes and radio inputs --}}
     <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
+    
+    {{-- Date Picker --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    {{-- <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css"> --}}
+
+
+
     {{-- Theme style --}}
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 
@@ -51,7 +58,7 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition sidebar-mini layout-fixed ">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
@@ -64,9 +71,9 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link font-weight-bold" style="color: black">ระบบการลาบริษัท บิ๊ก ดาต้า
-                        เอเจนซี่
-                        จำกัด (สาขาเชียงใหม่)</a>
+                    <a href="{{route('home')}}" class="nav-link font-weight-bold" style="color: black">
+                        ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
+                    </a>
                 </li>
             </ul>
             {{-- Left Navbar Links --}}
@@ -76,7 +83,7 @@
                 <div class="dropdown dropdown-menu-right">
                     <button class="btn btn-info dropdown-toggle " type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        [ID : {{Auth::user()->id}}] {{Auth::user()->name}} {{Auth::user()->last_name}} ตำแหน่ง
+                        [ID : {{Auth::user()->id}}] {{Auth::user()->name}} ตำแหน่ง
                         {{Auth::user()->possition}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -97,7 +104,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
             <!-- Brand Logo -->
-            <a href="#" class="brand-link text-center">
+            <a href="{{route('home')}}" class="brand-link text-center">
                 <span class="brand-text font-weight-bold mx-auto">
                     <img src="{{ asset('img/logosidebar.png') }}" height="54px" width="184px" alt="no picture">
                 </span>
@@ -108,21 +115,19 @@
             <div class="sidebar">
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
+                    <br>
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         {{-- เมนูหลัก --}}
                         <li class="nav-item">
-                            <a href=""
-                                class="nav-link {{Request::routeIs('index') || Request::routeIs('home') ? 'active' : ''}}">
+                            <a href="{{route('home')}}" class="nav-link {{Request::routeIs('home') ? 'active' : ''}}">
                                 <i class="nav-icon fa-solid fa-house"></i>
                                 <p>เมนูหลัก</p>
                             </a>
                         </li>
-                        {{-- รายการคำขอ --}}
                         <li class="nav-item menu-open">
                             <a href="#"
-                                class="nav-link
-                        {{ Request::routeIs('req_list') || Request::routeIs('req_list_detail') || Request::routeIs('form') || Request::routeIs('rep_list') || Request::routeIs('rep_list_detail') ? 'active' : ''}}">
+                                class="nav-link {{Request::routeIs('req.list','req_list_detail','rep.list','rep_list_detail','create_leave_form') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>
                                     รายการคำขอ
@@ -132,8 +137,8 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href=""
-                                        class="nav-link {{Request::routeIs('req_list') || Request::routeIs('req_list_detail') || Request::routeIs('form') ? 'active' : ''}}">
+                                    <a href="{{route('req.list')}}"
+                                        class="nav-link {{Request::routeIs('req.list','req_list_detail','create_leave_form') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลา</p>
                                     </a>
@@ -141,8 +146,8 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href=""
-                                        class="nav-link {{ Request::routeIs('rep_list') || Request::routeIs('rep_list_detail') ? 'active' : ''}}">
+                                    <a href="{{route('rep.list')}}"
+                                        class="nav-link {{Request::routeIs('rep.list','rep_list_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำปฏิบัติแทน</p>
                                     </a>
@@ -150,10 +155,8 @@
                             </ul>
                         </li>
                         {{-- Project manager --}}
-                        @if (Auth::user()->type == "pm")
                         <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link {{ Request::routeIs('pm.req_list_emp') || Request::routeIs('pm.req_list_emp_detail') ? 'active':'' }}">
+                            <a href="#" class="nav-link {{Request::routeIs('req.list.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
                                     Project manager
@@ -162,23 +165,18 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href=""
-                                        class="nav-link {{ Request::routeIs('pm.req_list_emp') || Request::routeIs('pm.req_list_emp_detail') ? 'active':'' }}">
+                                <li class="nav-item ">
+                                    <a href="{{route('req.list.emp.pm')}}" class="nav-link {{Request::routeIs('req.list.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        @endif
-                        {{-- HR --}}
-                        @if (Auth::user()->type == "hr")
 
+                        {{-- HR --}}
                         <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link
-                        {{Request::routeIs('hr.req_list_emp') || Request::routeIs('hr.req_list_emp_detail') || Request::routeIs('hr.data_emp') || Request::routeIs('hr.data_emp_detail') ? 'active' : ''}}">
+                            <a href="#" class="nav-link {{Request::routeIs('req.list.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
                                     HR
@@ -188,8 +186,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href=""
-                                        class="nav-link {{Request::routeIs('hr.req_list_emp') || Request::routeIs('hr.req_list_emp_detail') ? 'active' : ''}}">
+                                    <a href="{{route('req.list.emp.hr')}}" class="nav-link {{Request::routeIs('req.list.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลาพนักงาน</p>
                                     </a>
@@ -197,20 +194,18 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href=""
-                                        class="nav-link {{Request::routeIs('hr.data_emp') || Request::routeIs('hr.data_emp_detail') ? 'active' : ''}}">
+                                    <a href="" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>ข้อมูลพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        @endif
+
                         {{-- CEO --}}
-                        @if (Auth::user()->type == "ceo")
+
                         <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link {{Request::routeIs('ceo.req_list_emp') || Request::routeIs('ceo.req_list_emp_detail') || Request::routeIs('ceo.data_emp') || Request::routeIs('ceo.data_emp_detail') ? 'active' : ''}}">
+                            <a href="#" class="nav-link {{Request::routeIs('req.list.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
                                     CEO
@@ -220,8 +215,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href=""
-                                        class="nav-link {{ Request::routeIs('ceo.req_list_emp') || Request::routeIs('ceo.req_list_emp_detail') ? 'active' : ''}}">
+                                    <a href="{{route('req.list.emp.ceo')}}" class="nav-link {{Request::routeIs('req.list.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลาพนักงาน</p>
                                     </a>
@@ -229,15 +223,14 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href=""
-                                        class="nav-link {{ Request::routeIs('ceo.data_emp') || Request::routeIs('ceo.data_emp_detail') ? 'active' : '' }}">
+                                    <a href="" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>ข้อมูลพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        @endif
+
                     </ul>
                 </nav>
                 <!-- end sidebar-menu -->
@@ -255,45 +248,89 @@
     </div>
     {{-- end Main Wrapper --}}
 
+
     {{-- jQuery --}}
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 
     {{-- Bootstrap 4 --}}
     <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
     {{-- overlayScrollbars --}}
     <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+
     {{-- Font Awesome script cdn --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
         integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     {{-- DataTables & Plugins --}}
     <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
     <script>
-        $(function () {
-            $("#req_list_table").DataTable({
-                "responsive": true,
-                "lengthChange": true,
-                "autoWidth": false,
-                "order": [[0, "desc"]]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
-
-        $(function () {
-            $("#rep_list_table").DataTable({
-                "responsive": true, "lengthChange": true, "autoWidth": false,"order": [[0, "desc"]]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
-        $(function () {
-            $("#data_emp_table").DataTable({
-                "responsive": true, "lengthChange": true, "autoWidth": false,"order": [[0, "desc"]]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $(document).ready(function() {
+            function initDataTable(tableId) {
+                var table = $("#" + tableId).DataTable({
+                    "responsive": true,
+                    "lengthChange": true,
+                    "autoWidth": false,
+                    "order": [
+                        [0, "desc"]
+                    ],
+                });
+            }
+            $(function() {
+                initDataTable("req_list_table");
+                initDataTable("rep_list_table");
+                initDataTable("data_emp_table");
+            });
         });
     </script>
     {{-- end DataTables & Plugins --}}
+
+    {{-- Datatime Picker --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
+    <script>
+        flatpickr("input[type=datetime-local]", {
+            "locale": "th",
+            allowInput: true,
+            altInput: false,
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            minDate: "today",
+            minDate: new Date(),
+            defaultDate: "now",
+            time_24hr: true,
+            disableMobile: "true",
+
+        });
+    </script>
+    <script>
+        function calculate() {
+            var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
+            var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
+            var delta = endDate.diff(startDate);
+            var days = Math.floor(delta / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+            console.log("value is " + days + hours + minutes);
+            if (isNaN(days) || isNaN(hours) || isNaN(minutes)) {
+                console.log("เกิดข้อผิดพลาดในการคำนซณเนื่องจากไม่ได้เลือกเวลา ดั้งนั้นเลยเซตค่าเท่ากับ 0");
+                days = 0;
+                hours = 0;
+                minutes = 0;
+            }
+            var result = days + " วัน " +
+                hours + " ชั่วโมง " +
+                minutes + " นาที";
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+    {{-- end datatime picker --}}
 
     {{-- Form Select 2 --}}
     <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
@@ -302,49 +339,115 @@
     </script>
     {{-- end form select 2 --}}
 
-    {{-- Datatime Picker --}}
-    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-    <script src="{{asset('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-    <script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    {{-- modal ปฏิบัติงานแทน --}}
     <script>
-        $('#datetime-picker-start').datetimepicker({icons: {time: 'far fa-clock'}, });
-    $('#datetime-picker-end').datetimepicker({icons: {time: 'far fa-clock'}, });
-    </script>
-    <script>
-        function calculate() {
-        var startDate = moment(document.getElementById("start-date").value, 'MM/DD/YYYY HH:mm');
-        var endDate = moment(document.getElementById("end-date").value, 'MM/DD/YYYY HH:mm');
-        var delta = endDate.diff(startDate);
-        var days = Math.floor(delta / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
-        console.log("value is " + days + hours + minutes);
-        if (isNaN(days) || isNaN(hours) || isNaN(minutes)) {
-            console.log("เกิดข้อผิดพลาดในการคำนซณเนื่องจากไม่ได้เลือกเวลา ดั้งนั้นเลยเซตค่าเท่ากับ 0");
-            days = 0;
-            hours = 0;
-            minutes = 0;
-        }
-        var result = days + " วัน " +
-            hours + " ชั่วโมง " +
-            minutes + " นาที";
-        document.getElementById("result").innerHTML = result;
-    }
-    </script>
-    {{-- end datatime picker --}}
+        $(document).ready(function() {
+            $('button[name=approve_rep]').click(function() {
+                var value = $(this).val();
+                var confirmModal = $('#confirmModal_rep');
+                console.log(value);
+                confirmModal.find('input[name=approve_rep]').val(value);
+                if (value === '❌') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                } else if (value === '✔️') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                }
+                confirmModal.modal('show');
 
-    {{-- Upload Files --}}
-    <script>
-        var fileInputs = document.querySelectorAll('input[type="file"]');
-    var labels = document.querySelectorAll('.custom-file-label');
-    fileInputs.forEach(function (fileInput, index) {
-        fileInput.addEventListener('change', function () {
-            var fileName = this.files[0].name;
-            labels[index].innerText = fileName;
+            });
+            console.log($("form").serialize());
+            $('#confirmModal form').submit(function(e) {
+                console.log("Form submitted");
+                $('#confirmModal').modal('hide');
+            });
         });
-    });
     </script>
-    {{--end upload fliles--}}
+
+    {{-- modal PM --}}
+    <script>
+        $(document).ready(function() {
+            $('button[name=approve_pm]').click(function() {
+                var value = $(this).val();
+                var confirmModal = $('#confirmModal_pm');
+                console.log(value);
+                confirmModal.find('input[name=approve_pm]').val(value);
+                if (value === '❌') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
+                    confirmModal.find('.allowed').hide();
+                    confirmModal.find('.modal-body #not_allowed').show();
+                    confirmModal.find('.reason_pm').hide();
+                    
+                } else if (value === '✔️') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
+                    confirmModal.find('.modal-body .form-group').show();
+                    confirmModal.find('#not_allowed').hide();
+                }
+                confirmModal.modal('show');
+
+            });
+            console.log($("form").serialize());
+            $('#confirmModal form').submit(function(e) {
+                console.log("Form submitted");
+                $('#confirmModal_pm').modal('hide');
+            });
+        });
+    </script>
+
+    {{-- modal HR --}}
+    <script>
+        $(document).ready(function() {
+            $('button[name=approve_hr]').click(function() {
+                var value = $(this).val();
+                var confirmModal = $('#confirmModal_hr');
+                console.log(value);
+                confirmModal.find('input[name=approve_hr]').val(value);
+                if (value === '❌') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                    confirmModal.find('.reason_hr').hide();
+                    confirmModal.find('#not_allowed_hr').show();
+                } else if (value === '✔️') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                    confirmModal.find('.modal-body .form-group').show();
+                    confirmModal.find('#not_allowed_hr').hide();
+                }
+                confirmModal.modal('show');
+
+            });
+            console.log($("form").serialize());
+            $('#confirmModal form').submit(function(e) {
+                console.log("Form submitted");
+                $('#confirmModal').modal('hide');
+            });
+        });
+    </script>
+
+    {{-- modal CEO --}}
+    <script>
+        $(document).ready(function() {
+            $('button[name=approve_ceo]').click(function() {
+                var value = $(this).val();
+                var confirmModal = $('#confirmModal_ceo');
+                console.log(value);
+                confirmModal.find('input[name=approve_ceo]').val(value);
+                if (value === '❌') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                    confirmModal.find('.reason_ceo').hide();
+                    confirmModal.find('#not_allowed_ceo').show();
+                } else if (value === '✔️') {
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                    confirmModal.find('.modal-body .form-group').show();
+                    confirmModal.find('#not_allowed_ceo').hide();
+                }
+                confirmModal.modal('show');
+
+            });
+            console.log($("form").serialize());
+            $('#confirmModal form').submit(function(e) {
+                console.log("Form submitted");
+                $('#confirmModal').modal('hide');
+            });
+        });
+    </script>
 
     {{-- Theme App --}}
     <script src="{{asset('dist/js/adminlte.js')}}"></script>
