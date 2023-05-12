@@ -167,7 +167,6 @@ class LeaveFormController extends Controller
         }else{
             LeaveForm::find($id)->update([
                 'approve_rep' => $request->approve_rep,
-                'sel_rep' => 'ไม่มีผู้ปฏิบัติแทน'
             ]);
         }
 
@@ -292,6 +291,7 @@ class LeaveFormController extends Controller
     public function CEO_req(){
         $leaves = LeaveForm::all();
         $users = User::all();
+//        dd($leaves);
         return view('ceo.ceo_req_list_emp',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น [CEO]
@@ -328,7 +328,7 @@ class LeaveFormController extends Controller
             'status' => $status,
         ]);
         // dd(LeaveForm::find($id)->not_allowed_ceo);
-        // dd($request->not_allowed_ceo);
+
         return redirect()->route('ceo.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
 

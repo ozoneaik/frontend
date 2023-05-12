@@ -162,7 +162,7 @@
                                                         @php
                                                         $user = $users->firstWhere('id', $leaveforms->sel_rep);
                                                         @endphp
-                                                        @if ($user)
+                                                        @if ($leaveforms->sel_rep)
                                                         <p class="form-control " readonly>
                                                             [{{ $leaveforms->sel_rep }}] {{$user->name}}{{$user->possition}}
                                                         </p>
