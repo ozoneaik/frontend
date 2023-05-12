@@ -153,9 +153,12 @@ class LeaveFormController extends Controller
             ['approve_rep.required' => 'no requ']
         );
 
+        $approve_ceo = '⌛';
         if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'hr'){
             if ($request->approve_rep == '❌'){
                 $request->status = 'ไม่อนุมัติ';
+                $approve_ceo = '-';
+                LeaveForm::find($id)->update(['approve_ceo' => $approve_ceo]);
             }else{
                 $request->status = 'กำลังดำเนินการ';
             }
@@ -222,16 +225,21 @@ class LeaveFormController extends Controller
         }
 
         // dd($request->approve_pm,$allowed_pm,$request->reason_pm,$request->not_allowed_pm);
-
+        $approve_hr = '⌛';
+        $approve_ceo = '⌛';
         $status = 'กำลังดำเนินการ';
         if ($request->approve_pm == '❌') {
             $status = 'ไม่อนุมัติ';
+            $approve_ceo = '-';
+            $approve_hr = '-';
         }
         LeaveForm::find($id)->update([
             'reason_pm' => $request->reason_pm,
             'approve_pm' => $request->approve_pm,
             'allowed_pm' => $allowed_pm,
             'not_allowed_pm' => $request->not_allowed_pm,
+            'approve_hr' => $approve_hr,
+            'approve_ceo' => $approve_ceo,
             'status' => $status,
         ]);
         return redirect()->route('pm.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
@@ -268,8 +276,10 @@ class LeaveFormController extends Controller
             ]
         );
 
+        $approve_ceo = '⌛';
         if ($request->approve_hr == '❌') {
             $status = 'ไม่อนุมัติ';
+            $approve_ceo = '-';
         } else {
             $status = 'กำลังดำเนินการ';
         }
@@ -277,6 +287,7 @@ class LeaveFormController extends Controller
             'reason_hr' => $request->reason_hr,
             'approve_hr' => $request->approve_hr,
             'not_allowed_hr' => $request->not_allowed_hr,
+            'approve_ceo' => $approve_ceo,
             'status' => $status,
         ]);
         // dd(LeaveForm::find($id)->not_allowed_hr);
@@ -315,7 +326,6 @@ class LeaveFormController extends Controller
                 // 'allowed_pm.required' => 'โปรดเลือก',
             ]
         );
-
         if ($request->approve_ceo == '❌') {
             $status = 'ไม่อนุมัติ';
         } else {

@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
-
-
     {{-- Google Font: Source Sans Pro --}}
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     {{-- Google Font: TH sarabun --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,14 +19,14 @@
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- Sidebar Scrollbars --}}
     <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 
     {{-- Data tables --}}
-     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
@@ -56,405 +54,407 @@
         * {
             font-family: 'Sarabun', sans-serif;
         }
-        .small-box .inner h3{
-            white-space: pre-wrap;
-        }
-        @media screen and (max-width: 1300px) {
-            #nav-title {
-                visibility: hidden;
-            }
-        }
+        /*.sidebar p{*/
+        /*    color: white;*/
+        /*}*/
+
+        /*link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {*/
+        /*    background-color: #e8cff8;*/
+        /*    color: #000000;*/
+
+        /*}*/
+        /*.small-box h3{*/
+        /*    !*white-space: pre-wrap;*!*/
+        /*    overflow: hidden;*/
+        /*    text-overflow: ellipsis;*/
+        /*}*/
     </style>
-    @vite('resources/js/app.js')
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
-    {{-- Main Wrapper --}}
-    <div class="wrapper">
+{{-- Main Wrapper --}}
+<div class="wrapper">
 
-        {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            {{-- Left Navbar Links --}}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <span class="nav-link font-weight-bold" id="nav-title">
-                        ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
-                    </span>
-                </li>
-            </ul>
-            {{-- Left Navbar Links --}}
+    {{-- Nav bar --}}
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        {{-- Left Navbar Links --}}
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{route('home')}}" class="nav-link font-weight-bold" style="color: black;">
+                    ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
+                </a>
+            </li>
+        </ul>
+        {{-- Left Navbar Links --}}
 
-            {{-- Right Navbar Links --}}
-            <ul class="navbar-nav ml-auto">
-                <div class="dropdown dropdown-menu-right">
-                    <button class="btn btn-info dropdown-toggle " type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        [ID : {{Auth::user()->id}}] {{Auth::user()->name}} ตำแหน่ง
-                        {{Auth::user()->possition}} {{Auth::user()->type}}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{ route('profile') }}">โปรฟายส่วนตัว</a>
-                        <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ออกจากระบบ</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
+        {{-- Right Navbar Links --}}
+        <ul class="navbar-nav ml-auto">
+            <div class="dropdown dropdown-menu-right">
+                <button class="btn dropdown-toggle " type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #e8cff8">
+                    [ID : {{Auth::user()->id}}] {{Auth::user()->name}} ตำแหน่ง
+                    {{Auth::user()->possition}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{ route('profile') }}">โปรฟายส่วนตัว</a>
+                    <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ออกจากระบบ</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
-            </ul>
-            {{-- end Right navbar links --}}
-        </nav>
-        {{-- end navbar --}}
+            </div>
+        </ul>
+        {{-- end Right navbar links --}}
+    </nav>
+    {{-- end navbar --}}
 
-        {{-- Main Sidebar Container --}}
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    {{-- Main Sidebar Container --}}
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" >
 
-            <!-- Brand Logo -->
-            <a href="{{route('home')}}" class="brand-link text-center">
-                <span class="brand-text font-weight-bold mx-auto">
+        <!-- Brand Logo -->
+        <a href="{{route('home')}}" class="brand-link text-center">
+                <span class="brand-text font-weight-bold mx-auto" >
                     <img src="{{ asset('img/logosidebar.png') }}" height="54px" width="184px" alt="no picture">
                 </span>
-            </a>
-            <!-- end Brand Logo -->
+        </a>
+        <!-- end Brand Logo -->
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <br>
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        {{-- เมนูหลัก --}}
-                        <li class="nav-item">
-                            <a href="{{route('home')}}" class="nav-link {{Request::routeIs('home') ? 'active' : ''}}">
-                                <i class="nav-icon fa-solid fa-house"></i>
-                                <p>เมนูหลัก</p>
-                            </a>
-                        </li>
-                        <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link {{Request::routeIs('req.list','req_list_detail','rep.list','rep_list_detail','create_leave_form') ? 'active' : ''}}">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>
-                                    รายการคำขอ
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('req')}}"
-                                        class="nav-link {{Request::routeIs('req.list','req_list_detail','create_leave_form') ? 'active' : ''}}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลา</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('rep')}}"
-                                        class="nav-link {{Request::routeIs('rep.list','rep_list_detail') ? 'active' : ''}}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำปฏิบัติแทน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        {{-- Project manager --}}
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link {{Request::routeIs('req.list.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Project manager
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">1</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
-                                    <a href="{{route('pm.req.emp')}}" class="nav-link {{Request::routeIs('req.list.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+        <!-- Sidebar -->
+        <div class="sidebar" >
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <br>
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    {{-- เมนูหลัก --}}
+                    <li class="nav-item">
+                        <a href="{{route('home')}}" class="nav-link {{Request::routeIs('home') ? 'active' : ''}}">
+                            <i class="nav-icon fa-solid fa-house"></i>
+                            <p>เมนูหลัก</p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="#"
+                           class="nav-link {{Request::routeIs('req','req_list_detail','rep.list','rep_list_detail','create_leave_form') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-file-alt"></i>
+                            <p>
+                                รายการคำขอ
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('req')}}"
+                                   class="nav-link {{Request::routeIs('req','req_list_detail','create_leave_form') ? 'active' : ''}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>รายการคำขอใบลา</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('rep')}}"
+                                   class="nav-link {{Request::routeIs('rep.list','rep_list_detail') ? 'active' : ''}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>รายการคำปฏิบัติแทน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Project manager --}}
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link {{Request::routeIs('req.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>
+                                Project manager
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">1</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item ">
+                                <a href="{{route('pm.req.emp')}}" class="nav-link {{Request::routeIs('req.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>รายการคำขอใบลาพนักงาน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        {{-- HR --}}
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link {{Request::routeIs('req.list.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
-                                    HR
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('hr.req.emp')}}" class="nav-link {{Request::routeIs('req.list.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    {{-- HR --}}
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link {{Request::routeIs('req.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-user-cog"></i>
+                            <p>
+                                HR
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('hr.req.emp')}}" class="nav-link {{Request::routeIs('req.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>รายการคำขอใบลาพนักงาน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        {{-- CEO --}}
+                    {{-- CEO --}}
 
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link {{Request::routeIs('req.list.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
-                                <i class="nav-icon fas fa-user-lock"></i>
-                                <p>
-                                    CEO
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('ceo.req.emp')}}" class="nav-link {{Request::routeIs('req.list.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('data.users')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ข้อมูลพนักงาน</p>
-                            </a>
-                        </li>
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link {{Request::routeIs('req.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-user-lock"></i>
+                            <p>
+                                CEO
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('ceo.req.emp')}}" class="nav-link {{Request::routeIs('req.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>รายการคำขอใบลาพนักงาน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    <li class="nav-item">
+                        <a href="{{route('data.users')}}" class="nav-link {{Request::routeIs('data_emp','data_emp_detail') ? 'active' : ''}}">
+                            <i class="fa-solid fa-users nav-icon"></i>
+                            <p>ข้อมูลพนักงาน</p>
+                        </a>
+                    </li>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end sidebar-menu -->
+        </div>
+        <!-- end sidebar -->
+    </aside>
+    {{-- end main sidebar container --}}
 
-                    </ul>
-                </nav>
-                <!-- end sidebar-menu -->
-            </div>
-            <!-- end sidebar -->
-        </aside>
-        {{-- end main sidebar container --}}
+    {{-- Content Wrapper --}}
+    <section class="content-wrapper">
+        @yield('content')
+    </section>
+    {{-- end content-wrapper --}}
 
-        {{-- Content Wrapper --}}
-        <section class="content-wrapper">
-            @yield('content')
-        </section>
-        {{-- end content-wrapper --}}
-
-    </div>
-    {{-- end Main Wrapper --}}
+</div>
+{{-- end Main Wrapper --}}
 
 
-    {{-- jQuery --}}
-    <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+{{-- jQuery --}}
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 
-    {{-- Bootstrap 4 --}}
-    <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+{{-- Bootstrap 4 --}}
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-    {{-- overlayScrollbars --}}
-    <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+{{-- overlayScrollbars --}}
+<script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 
-    {{-- Font Awesome script cdn --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+{{-- Font Awesome script cdn --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
         integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-    {{-- DataTables & Plugins --}}
-    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-
-    <script>
-        $(document).ready(function() {
-            function initDataTable(tableId) {
-                var table = $("#" + tableId).DataTable({
-                    "responsive": true,
-                    "lengthChange": true,
-                    "autoWidth": false,
-                    "order": [
-                        [0, "desc"]
-                    ],
-                });
-            }
-            $(function() {
-                initDataTable("req_list_table");
-                initDataTable("rep_list_table");
-                initDataTable("data_emp_table");
-                initDataTable("data_table");
+{{-- DataTables & Plugins --}}
+<script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        function initDataTable(tableId) {
+            var table = $("#" + tableId).DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "order": [
+                    [0, "desc"]
+                ],
             });
-        });
-    </script>
-    {{-- end DataTables & Plugins --}}
-
-    {{-- Datatime Picker --}}
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
-    <script>
-        var instant =  flatpickr("input[type=datetime-local]", {
-            "locale": "th",
-            allowInput: true,
-            altInput: false,
-            enableTime: true,
-            dateFormat: "d/m/Y H:i",
-            minDate: "today",
-            minTime: '09:00',
-            maxTime: '18:00',
-            minDate: new Date(),
-            time_24hr: true,
-            disableMobile: "true",
-        });
-    </script>
-
-    <script>
-        function calculate() {
-            var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
-            var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
-            var delta = endDate.diff(startDate);
-            var days = Math.floor(delta / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
-            console.log("value is " + days + hours + minutes);
-            if (isNaN(days) || isNaN(hours) || isNaN(minutes)) {
-                console.log("เกิดข้อผิดพลาดในการคำนซณเนื่องจากไม่ได้เลือกเวลา ดั้งนั้นเลยเซตค่าเท่ากับ 0");
-                days = 0;
-                hours = 0;
-                minutes = 0;
-            }
-            var result = days + " วัน " +
-                hours + " ชั่วโมง " +
-                minutes + " นาที";
-            document.getElementById("result").innerHTML = result;
         }
-    </script>
-    {{-- end datatime picker --}}
-
-    {{-- Form Select 2 --}}
-    <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
-    <script>
-        $('.select2').select2()
-    </script>
-    {{-- end form select 2 --}}
-
-    {{-- modal ปฏิบัติงานแทน --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_rep]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_rep');
-                console.log(value);
-                confirmModal.find('input[name=approve_rep]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
-                }
-                confirmModal.modal('show');
-
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal').modal('hide');
-            });
+        $(function() {
+            initDataTable("req_list_table");
+            initDataTable("rep_list_table");
+            initDataTable("data_emp_table");
+            initDataTable("data_table");
         });
-    </script>
+    });
+</script>
+{{-- end DataTables & Plugins --}}
 
-    {{-- modal PM --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_pm]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_pm');
-                console.log(value);
-                confirmModal.find('input[name=approve_pm]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
-                    confirmModal.find('.allowed').hide();
-                    confirmModal.find('.modal-body #not_allowed').show();
-                    confirmModal.find('.reason_pm').hide();
+{{-- Datatime Picker --}}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
+<script>
+    flatpickr("input[type=datetime-local]", {
+        "locale": "th",
+        allowInput: true,
+        altInput: false,
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        minDate: "today",
+        minDate: new Date(),
+        defaultDate: "now",
+        time_24hr: true,
+        disableMobile: "true",
 
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
-                    confirmModal.find('.modal-body .form-group').show();
-                    confirmModal.find('#not_allowed').hide();
-                }
-                confirmModal.modal('show');
+    });
+</script>
+<script>
+    function calculate() {
+        var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
+        var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
+        var delta = endDate.diff(startDate);
+        var days = Math.floor(delta / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+        console.log("value is " + days + hours + minutes);
+        if (isNaN(days) || isNaN(hours) || isNaN(minutes)) {
+            console.log("เกิดข้อผิดพลาดในการคำนซณเนื่องจากไม่ได้เลือกเวลา ดั้งนั้นเลยเซตค่าเท่ากับ 0");
+            days = 0;
+            hours = 0;
+            minutes = 0;
+        }
+        var result = days + " วัน " +
+            hours + " ชั่วโมง " +
+            minutes + " นาที";
+        document.getElementById("result").innerHTML = result;
+    }
+</script>
+{{-- end datatime picker --}}
 
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal_pm').modal('hide');
-            });
+{{-- Form Select 2 --}}
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<script>
+    $('.select2').select2()
+</script>
+{{-- end form select 2 --}}
+
+{{-- modal ปฏิบัติงานแทน --}}
+<script>
+    $(document).ready(function() {
+        $('button[name=approve_rep]').click(function() {
+            var value = $(this).val();
+            var confirmModal = $('#confirmModal_rep');
+            console.log(value);
+            confirmModal.find('input[name=approve_rep]').val(value);
+            if (value === '❌') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+            } else if (value === '✔️') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+            }
+            confirmModal.modal('show');
+
         });
-    </script>
-
-    {{-- modal HR --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_hr]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_hr');
-                console.log(value);
-                confirmModal.find('input[name=approve_hr]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
-                    confirmModal.find('.reason_hr').hide();
-                    confirmModal.find('#not_allowed_hr').show();
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
-                    confirmModal.find('.modal-body .form-group').show();
-                    confirmModal.find('#not_allowed_hr').hide();
-                }
-                confirmModal.modal('show');
-
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal').modal('hide');
-            });
+        console.log($("form").serialize());
+        $('#confirmModal form').submit(function(e) {
+            console.log("Form submitted");
+            $('#confirmModal').modal('hide');
         });
-    </script>
+    });
+</script>
 
-    {{-- modal CEO --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_ceo]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_ceo');
-                console.log(value);
-                confirmModal.find('input[name=approve_ceo]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
-                    confirmModal.find('.reason_ceo').hide();
-                    confirmModal.find('#not_allowed_ceo').show();
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
-                    confirmModal.find('.modal-body .form-group').show();
-                    confirmModal.find('#not_allowed_ceo').hide();
-                }
-                confirmModal.modal('show');
+{{-- modal PM --}}
+<script>
+    $(document).ready(function() {
+        $('button[name=approve_pm]').click(function() {
+            var value = $(this).val();
+            var confirmModal = $('#confirmModal_pm');
+            console.log(value);
+            confirmModal.find('input[name=approve_pm]').val(value);
+            if (value === '❌') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
+                confirmModal.find('.allowed').hide();
+                confirmModal.find('.modal-body #not_allowed').show();
+                confirmModal.find('.reason_pm').hide();
 
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal').modal('hide');
-            });
+            } else if (value === '✔️') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
+                confirmModal.find('.modal-body .form-group').show();
+                confirmModal.find('#not_allowed').hide();
+            }
+            confirmModal.modal('show');
+
         });
-    </script>
+        console.log($("form").serialize());
+        $('#confirmModal form').submit(function(e) {
+            console.log("Form submitted");
+            $('#confirmModal_pm').modal('hide');
+        });
+    });
+</script>
 
-    {{-- Theme App --}}
-    <script src="{{asset('dist/js/adminlte.js')}}"></script>
+{{-- modal HR --}}
+<script>
+    $(document).ready(function() {
+        $('button[name=approve_hr]').click(function() {
+            var value = $(this).val();
+            var confirmModal = $('#confirmModal_hr');
+            console.log(value);
+            confirmModal.find('input[name=approve_hr]').val(value);
+            if (value === '❌') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                confirmModal.find('.reason_hr').hide();
+                confirmModal.find('#not_allowed_hr').show();
+            } else if (value === '✔️') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                confirmModal.find('.modal-body .form-group').show();
+                confirmModal.find('#not_allowed_hr').hide();
+            }
+            confirmModal.modal('show');
+
+        });
+        console.log($("form").serialize());
+        $('#confirmModal form').submit(function(e) {
+            console.log("Form submitted");
+            $('#confirmModal').modal('hide');
+        });
+    });
+</script>
+
+{{-- modal CEO --}}
+<script>
+    $(document).ready(function() {
+        $('button[name=approve_ceo]').click(function() {
+            var value = $(this).val();
+            var confirmModal = $('#confirmModal_ceo');
+            console.log(value);
+            confirmModal.find('input[name=approve_ceo]').val(value);
+            if (value === '❌') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                confirmModal.find('.reason_ceo').hide();
+                confirmModal.find('#not_allowed_ceo').show();
+            } else if (value === '✔️') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                confirmModal.find('.modal-body .form-group').show();
+                confirmModal.find('#not_allowed_ceo').hide();
+            }
+            confirmModal.modal('show');
+
+        });
+        console.log($("form").serialize());
+        $('#confirmModal form').submit(function(e) {
+            console.log("Form submitted");
+            $('#confirmModal').modal('hide');
+        });
+    });
+</script>
+
+{{-- Theme App --}}
+<script src="{{asset('dist/js/adminlte.js')}}"></script>
 </body>
 
 </html>

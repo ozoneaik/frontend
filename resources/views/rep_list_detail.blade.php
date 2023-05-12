@@ -256,7 +256,7 @@
 
                             <!-- Modal ยอมรับปฏิบัติงานแทน -->
                             <div class="modal fade" id="confirmModal_rep" tabindex="-1" role="dialog"
-                                aria-labelledby="confirmModalLabel_rep" aria-hidden="true">
+                                 aria-labelledby="confirmModalLabel_rep" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -272,7 +272,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">ปิด</button>
+                                                    data-dismiss="modal">ปิด</button>
                                             <button type="submit" class="btn btn-primary">ยืนยัน</button>
                                         </div>
                                         <input type="hidden" name="approve_rep" value="">
