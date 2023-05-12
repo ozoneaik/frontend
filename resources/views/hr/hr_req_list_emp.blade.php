@@ -61,8 +61,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($leaves as $leave)
-                                
-                                @if ($leave->approve_pm == '✔️')
+
+                                @if (($leave->approve_pm == '✔️' || $leave->approve_pm == '-') && $leave->approve_hr != '-')
                                 <tr>
                                     <td>{{$leave->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
                                     @foreach($users as $user)
@@ -85,7 +85,7 @@
                                         class="{{ $leave->status == 'อนุมัติ' ? 'text-success' : ($leave->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
                                         {{ $leave->status }}</td>
                                     <td>
-                                        <a href="{{route('hr_req_list_emp_detail',$leave->id)}}"><i
+                                        <a href="{{route('hr.req.emp.detail',$leave->id)}}"><i
                                                 class="fas fa-file-invoice"></i>
                                         </a>
                                     </td>

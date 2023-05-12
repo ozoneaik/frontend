@@ -79,7 +79,7 @@
                                                 {{ $row->status }}
                                             </td>
                                             <td>
-                                                <a href="{{route('rep_list_detail',$row->id)}}">
+                                                <a href="{{route('rep.detail',$row->id)}}">
                                                     <i class="fas fa-file-invoice"></i>
                                                 </a>
                                             </td>

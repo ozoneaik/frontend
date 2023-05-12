@@ -12,7 +12,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb text-start">
                     <li class="breadcrumb-item">รายการคำขอ</li>
-                    <li class="breadcrumb-item active"><a href="{{route('req.list')}}">รายการคำขอใบลา</a></li>
+                    <li class="breadcrumb-item active"><a href="{{route('req')}}">รายการคำขอใบลา</a></li>
                     <li class="breadcrumb-item active">รายละเอียด</li>
                 </ol>
             </div>
@@ -276,7 +276,7 @@
                             {{-- ปุ่มบันทึกการลา --}}
                             <div class="col-md-12 justify-content-end d-flex ">
                                 <a href="" class="btn btn-info mr-3">พิมพ์ใบลา</a>
-                                <a href="{{route('req.list')}}" class="btn btn-primary">กลับสู่หน้าหลัก</a>
+                                <a href="{{route('req')}}" class="btn btn-primary">กลับสู่หน้าหลัก</a>
                             </div>
                         </div>
                     </div>

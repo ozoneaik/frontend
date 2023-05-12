@@ -245,7 +245,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="{{route('hr_req_list_emp_detail_update',$leaveforms->id)}}" method="post">
+                        <form action="{{route('hr.req.emp.update',$leaveforms->id)}}" method="post">
                             @csrf
                             {{-- อนุมัติ HR --}}
                             <div class="col-md-12 justify-content-end d-flex pr-0">
@@ -284,7 +284,7 @@
                                                 <textarea class="form-control" id="reason_hr" name="reason_hr"
                                                     rows="3"></textarea>
                                             </div>
-                                            
+
                                             <div class="form-group" id="not_allowed_hr">
                                                 <label for="not_allowed_hr">ไม่อนุมัติเนื่องจาก</label>
                                                 <textarea class="form-control" name="not_allowed_hr" id="" cols="30"

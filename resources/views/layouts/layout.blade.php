@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
+
+
     {{-- Google Font: Source Sans Pro --}}
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,7 +28,7 @@
     <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 
     {{-- Data tables --}}
-    <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
@@ -40,7 +42,7 @@
     {{-- iCheck for checkboxes and radio inputs --}}
     <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
-    
+
     {{-- Date Picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     {{-- <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css"> --}}
@@ -54,7 +56,16 @@
         * {
             font-family: 'Sarabun', sans-serif;
         }
+        .small-box .inner h3{
+            white-space: pre-wrap;
+        }
+        @media screen and (max-width: 1300px) {
+            #nav-title {
+                visibility: hidden;
+            }
+        }
     </style>
+    @vite('resources/js/app.js')
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
@@ -71,9 +82,9 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{route('home')}}" class="nav-link font-weight-bold" style="color: black">
+                    <span class="nav-link font-weight-bold" id="nav-title">
                         ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
-                    </a>
+                    </span>
                 </li>
             </ul>
             {{-- Left Navbar Links --}}
@@ -84,7 +95,7 @@
                     <button class="btn btn-info dropdown-toggle " type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         [ID : {{Auth::user()->id}}] {{Auth::user()->name}} ตำแหน่ง
-                        {{Auth::user()->possition}}
+                        {{Auth::user()->possition}} {{Auth::user()->type}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="{{ route('profile') }}">โปรฟายส่วนตัว</a>
@@ -137,7 +148,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('req.list')}}"
+                                    <a href="{{route('req')}}"
                                         class="nav-link {{Request::routeIs('req.list','req_list_detail','create_leave_form') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลา</p>
@@ -146,7 +157,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('rep.list')}}"
+                                    <a href="{{route('rep')}}"
                                         class="nav-link {{Request::routeIs('rep.list','rep_list_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำปฏิบัติแทน</p>
@@ -166,7 +177,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item ">
-                                    <a href="{{route('req.list.emp.pm')}}" class="nav-link {{Request::routeIs('req.list.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
+                                    <a href="{{route('pm.req.emp')}}" class="nav-link {{Request::routeIs('req.list.emp.pm','req_list_emp_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลาพนักงาน</p>
                                     </a>
@@ -186,17 +197,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('req.list.emp.hr')}}" class="nav-link {{Request::routeIs('req.list.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
+                                    <a href="{{route('hr.req.emp')}}" class="nav-link {{Request::routeIs('req.list.emp.hr','hr_req_list_emp_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>ข้อมูลพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
@@ -215,20 +218,18 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('req.list.emp.ceo')}}" class="nav-link {{Request::routeIs('req.list.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
+                                    <a href="{{route('ceo.req.emp')}}" class="nav-link {{Request::routeIs('req.list.emp.ceo','ceo_req_list_emp_detail') ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>ข้อมูลพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('data.users')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ข้อมูลพนักงาน</p>
+                            </a>
                         </li>
 
                     </ul>
@@ -270,6 +271,7 @@
     <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             function initDataTable(tableId) {
@@ -286,6 +288,7 @@
                 initDataTable("req_list_table");
                 initDataTable("rep_list_table");
                 initDataTable("data_emp_table");
+                initDataTable("data_table");
             });
         });
     </script>
@@ -295,20 +298,21 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
     <script>
-        flatpickr("input[type=datetime-local]", {
+        var instant =  flatpickr("input[type=datetime-local]", {
             "locale": "th",
             allowInput: true,
             altInput: false,
             enableTime: true,
             dateFormat: "d/m/Y H:i",
             minDate: "today",
+            minTime: '09:00',
+            maxTime: '18:00',
             minDate: new Date(),
-            defaultDate: "now",
             time_24hr: true,
             disableMobile: "true",
-
         });
     </script>
+
     <script>
         function calculate() {
             var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
@@ -376,7 +380,7 @@
                     confirmModal.find('.allowed').hide();
                     confirmModal.find('.modal-body #not_allowed').show();
                     confirmModal.find('.reason_pm').hide();
-                    
+
                 } else if (value === '✔️') {
                     confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                     confirmModal.find('.modal-body .form-group').show();

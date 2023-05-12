@@ -31,43 +31,20 @@ class HomeController extends Controller
         return view('home', compact('leaves', 'users'));
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function empHome()
-    {
-        return view('emp.home');
+    public function profile(){
+        $users = User::all();
+        return view('profile', compact('users'));
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function pmHome()
-    {
-        return view('pm.home');
+    public function data_users(){
+        $users = User::all();
+        return view('data_users', compact('users'));
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function hrHome()
-    {
-        return view('hr.home');
-    }
+    public function data_user_detail($id){
+        $users = User::findOrFail($id);
+        $leaveforms = LeaveForm::all();
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function ceoHome()
-    {
-        return view('ceo.home');
+        return view('data_user_detail', compact( 'users','leaveforms'));
     }
 }

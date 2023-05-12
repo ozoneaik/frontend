@@ -12,7 +12,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb text-start">
                         <li class="breadcrumb-item">รายการคำขอ</li>
-                        <li class="breadcrumb-item active"><a href="{{route('req.list')}}">รายการคำขอใบลา</a></li>
+                        <li class="breadcrumb-item active"><a href="{{route('req')}}">รายการคำขอใบลา</a></li>
                         <li class="breadcrumb-item active">เพิ่มใบลา</li>
                     </ol>
                 </div>
@@ -79,16 +79,18 @@
                                                 <div class="form-group">
                                                     <label>ลาตั้งแต่ :</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local" class="form-control @error('leave_start') is-invalid @enderror"
-                                                           name="leave_start" id="start-date" onchange="calculate()"
-                                                           value="{{ old('leave_start')}}" placeholder="เลือกวันที่ลาตั้งแต่..."/>
-                                                           <div class="input-group-append">
+                                                        <input type="datetime-local"
+                                                               class="form-control @error('leave_start') is-invalid @enderror"
+                                                               name="leave_start" id="start-date" onchange="calculate()"
+                                                               value="{{ old('leave_start')}}"
+                                                               placeholder="เลือกวันที่ลาตั้งแต่..."/>
+                                                        <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                        
+
                                                     @if ($errors->has('leave_start'))
                                                         <span
                                                             class="text-danger">{{ $errors->first('leave_start') }}
@@ -101,16 +103,18 @@
                                                 <div class="form-group">
                                                     <label>ถึง :</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local" class="form-control @error('leave_end') is-invalid @enderror"
-                                                           name="leave_end" id="end-date" onchange="calculate()"
-                                                           value="{{ old('leave_end') }}" placeholder="เลือกวันที่ลาถึง..."/>
-                                                           <div class="input-group-append">
+                                                        <input type="datetime-local"
+                                                               class="form-control @error('leave_end') is-invalid @enderror"
+                                                               name="leave_end" id="end-date" onchange="calculate()"
+                                                               value="{{ old('leave_end') }}"
+                                                               placeholder="เลือกวันที่ลาถึง..."/>
+                                                        <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>
                                                             </div>
-                                                           </div>
+                                                        </div>
                                                     </div>
-                                                    
+
                                                     @if ($errors->has('leave_end'))
                                                         <span
                                                             class="text-danger">{{ $errors->first('leave_end') }}
@@ -179,82 +183,91 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- ระหว่างการลามอบหมายให้ --}}
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title font-weight-bold">
-                                            <i class="fa-solid fa-user mr-2"></i>
-                                            ระหว่างการลามอบหมายให้
-                                        </h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                    <select name="sel_rep" id="" class="form-control select2"
-                                                            style="width:100%;">
-                                                        <option value="">ไม่มีผู้ปฏิบัติงานแทน</option>
-                                                        @foreach($users as $user_rep)
-                                                            <option value="{{$user_rep->id}}"
-                                                                    @if(old('sel_rep') == $user_rep->id)
-                                                                        selected
+                                @if(Auth::user()->type != 'pm')
+                                    {{-- ระหว่างการลามอบหมายให้ --}}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title font-weight-bold">
+                                                <i class="fa-solid fa-user mr-2"></i>
+                                                ระหว่างการลามอบหมายให้
+                                            </h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
+                                                        <select name="sel_rep" id="" class="form-control select2"
+                                                                style="width:100%;">
+                                                            @if(Auth::user()->type != 'hr' && Auth::user()->type != 'hr(admin)')
+                                                                <option value="">ไม่มีผู้ปฏิบัติงานแทน</option>
+                                                            @endif
+                                                                @foreach($users as $user_rep)
+                                                                    @php
+                                                                        $isDisabled = ($user_rep->id == Auth::user()->id) ? 'disabled="disabled"' : '';
+                                                                    @endphp
+
+                                                                    @if(Auth::user()->type == 'emp' && $user_rep->type == '0' ||
+                                                                        (in_array(Auth::user()->type, ['hr', 'hr(admin)']) && in_array($user_rep->type, ['4', '2'])))
+                                                                        <option value="{{$user_rep->id}}" {{ old('sel_rep') == $user_rep->id ? 'selected' : '' }} {{$isDisabled}}>
+                                                                            {{$user_rep->id}} {{$user_rep->name}} {{$user_rep->possition}}
+                                                                        </option>
                                                                     @endif
-                                                                    @if($user_rep->id == Auth::user()->id)
-                                                                        disabled="disabled"
-                                                                @endif>
-                                                                {{$user_rep->id}} {{$user_rep->name}} {{$user_rep->possition}}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                                @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="">กรณีไม่มีผู้ปฏิบัติงานแทนสามารถ(ติดต่อ)</label>
-                                                    <input class="form-control @error('case_no_rep') is-invalid @enderror" type="text" name="case_no_rep"
-                                                           value="{{ old('case_no_rep', Auth::user()->phone_no_1) }}">
-                                                    @if ($errors->has('case_no_rep'))
-                                                        <span class="text-danger">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">กรณีไม่มีผู้ปฏิบัติงานแทนสามารถ(ติดต่อ)</label>
+                                                        <input
+                                                            class="form-control @error('case_no_rep') is-invalid @enderror"
+                                                            type="text" name="case_no_rep"
+                                                            value="{{ old('case_no_rep', Auth::user()->phone_no_1) }}">
+                                                        @if ($errors->has('case_no_rep'))
+                                                            <span class="text-danger">
                                                             {{ $errors->first('case_no_rep') }}
                                                         </span>
-                                                    @endif
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                {{-- เลือก Project manager --}}
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title font-weight-bold">
-                                            <i class="fa-solid fa-user-gear mr-2"></i>
-                                            เลือก Project manager
-                                        </h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                    <select name="sel_pm" id="" class="form-control select2"
-                                                            style="width:100%;">
-                                                        @foreach($users as $user_pm)
-                                                            @if ($user_pm->type == '1')
-                                                                <option
-                                                                    value="{{$user_pm->id}}">{{$user_pm->id}} {{$user_pm->name}} {{$user_pm->nick_name}}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
+                                    @if(Auth::user()->type != 'hr' && Auth::user()->type != 'hr(admin)')
+                                        {{-- เลือก Project manager --}}
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title font-weight-bold">
+                                                    <i class="fa-solid fa-user-gear mr-2"></i>
+                                                    เลือก Project manager
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
+                                                            <select name="sel_pm" id="" class="form-control select2"
+                                                                    style="width:100%;">
+                                                                @foreach($users as $user_pm)
+                                                                    @if ($user_pm->type == '1')
+                                                                        <option
+                                                                            value="{{$user_pm->id}}">{{$user_pm->id}} {{$user_pm->name}} {{$user_pm->nick_name}}
+                                                                        </option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    @endif
+                                @endif
                                 {{-- ปุ่มบันทึกการลา --}}
                                 <div class="col-md-12 justify-content-end d-flex ">
-                                    <a href="" class="btn btn-danger">ยกเลิก</a>
+                                    <a href="{{route('home')}}" class="btn btn-danger">ยกเลิก</a>
                                     <button class="btn btn-primary ms-auto ml-2" type="button" data-toggle="modal"
                                             data-target="#modal-default">บันทึก
                                     </button>

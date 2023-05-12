@@ -12,7 +12,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb text-start">
                     <li class="breadcrumb-item">รายการคำขอ</li>
-                    <li class="breadcrumb-item active"><a href="{{route('rep.list')}}">รายการคำขอปฏิบัติแทน</a></li>
+                    <li class="breadcrumb-item active"><a href="{{route('rep')}}">รายการคำขอปฏิบัติแทน</a></li>
                     <li class="breadcrumb-item active">รายละเอียด</li>
                 </ol>
             </div>
@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="{{route('rep_list_detail_update',$leaveforms->id)}}" method="post">
+                        <form action="{{route('rep.update',$leaveforms->id)}}" method="post">
                             @csrf
                             {{-- ปุ่มปฏิบัติงานแทน --}}
                             <div class="col-md-12 justify-content-end d-flex pr-0">

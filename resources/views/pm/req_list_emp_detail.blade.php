@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="{{route('req_list_emp_detail_update',$leaveforms->id)}}" method="post">
+                        <form action="{{route('pm.req.emp.update',$leaveforms->id)}}" method="post">
                             @csrf
                             {{-- อนุมัติ PM --}}
                             <div class="col-md-12 justify-content-end d-flex pr-0">

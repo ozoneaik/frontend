@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\LeaveForm;
 use app\Models\User;
-use Attribute;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Laravel\Ui\Presets\React;
 
 class LeaveFormController extends Controller
 {
@@ -32,7 +30,7 @@ class LeaveFormController extends Controller
                 'file1' => 'nullable|mimes:pdf,png,jpg',
                 'file2' => 'nullable|mimes:pdf,png,jpg',
                 'sel_rep' => 'nullable',
-                'sel_pm' => 'required',
+                'sel_pm' => 'nullable',
                 'case_no_rep' => 'nullable|numeric|digits:10',
             ],
             [
@@ -80,10 +78,22 @@ class LeaveFormController extends Controller
         $leaveform->case_no_rep = $request->input('case_no_rep');
 
 
+
+
         if (!$leaveform->sel_rep) {
-            $leaveform->approve_rep = '🚫';
+            $leaveform->approve_rep = '-';
+            if (Auth::user()->type == 'pm'){
+                $leaveform->approve_pm = $leaveform->approve_rep;
+            }
         } else {
-            $leaveform->approve_rep = '⌛';
+
+            if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'hr'){
+                $leaveform->approve_pm = '-';
+                $leaveform->approve_hr = '-';
+            }else{
+                $leaveform->approve_rep = '⌛';
+            }
+
         }
 
         $leaveform->sel_pm = $request->input('sel_pm');
@@ -100,15 +110,30 @@ class LeaveFormController extends Controller
 
         // dd($request->all(),$leaveform->all());
         $leaveform->save();
-        return redirect()->route('req.list')->with('success', 'บันทึกข้อมูลใบลาเสร็จสมบูรณ์');
+        return redirect()->route('req')->with('success', 'บันทึกข้อมูลใบลาเสร็จสมบูรณ์');
     }
 
-    // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลา
+
+
+    //ตารางแสดงขอใบลา
+    public function req(){
+        $leaves = LeaveForm::all();
+        $users = User::all();
+        return view('req_list',compact('leaves','users'));
+    }
+    // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลารายละเอียด
     public function req_list_detail($id)
     {
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('req_list_detail', compact('leaveforms', 'users'));
+    }
+
+    //ตารางแสดงขอปฏิบัติแทน
+    public function rep(){
+        $leaves = LeaveForm::all();
+        $users = User::all();
+        return view('rep_list',compact('leaves','users'));
     }
 
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอปฎิบัติแทน
@@ -127,20 +152,46 @@ class LeaveFormController extends Controller
             ['approve_rep' => 'required',],
             ['approve_rep.required' => 'no requ']
         );
-        LeaveForm::find($id)->update([
-            'approve_rep' => $request->approve_rep
-        ]);
-        return redirect()->route('rep.list')->with('success', 'บันทึกข้อมูลสำเร็จ');
+
+        if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'hr'){
+            if ($request->approve_rep == '❌'){
+                $request->status = 'ไม่อนุมัติ';
+            }else{
+                $request->status = 'กำลังดำเนินการ';
+            }
+            LeaveForm::find($id)->update([
+                'approve_rep' => $request->approve_rep,
+                'approve_hr' => $request->approve_rep,
+                'status' => $request->status
+            ]);
+        }else{
+            LeaveForm::find($id)->update([
+                'approve_rep' => $request->approve_rep,
+                'sel_rep' => 'ไม่มีผู้ปฏิบัติแทน'
+            ]);
+        }
+
+
+        return redirect()->route('rep')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
 
-    // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน[Project manager]
+
+
+
+
+    //เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน[Project manager]
+    public function PM_req(){
+        $leaves = leaveform::all();
+        $users = User::all();
+        return view('pm.req_list_emp',compact('leaves','users'));
+    }
+    // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น[Project manager]
     public function req_list_emp_detail($id)
     {
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('pm.req_list_emp_detail', compact('leaveforms', 'users'));
     }
-
     // ทำการอัปเดทข้อมูลการอนุมัติของ Project manager
     public function req_list_emp_detail_update(Request $request, $id)
     {
@@ -184,17 +235,25 @@ class LeaveFormController extends Controller
             'not_allowed_pm' => $request->not_allowed_pm,
             'status' => $status,
         ]);
-        return redirect()->route('req.list.emp.pm')->with('success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('pm.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
 
-    // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน [HR]
+
+
+
+    //เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน[HR]
+    public function HR_req(){
+        $leaves = LeaveForm::all();
+        $users = User::all();
+        return view('hr.hr_req_list_emp',compact('leaves','users'));
+    }
+    // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น [HR]
     public function hr_req_list_emp_detail($id)
     {
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('hr.hr_req_list_emp_detail', compact('leaveforms', 'users'));
     }
-
     // ทำการอัปเดทข้อมูลการอนุมัติของ HR
     public function hr_req_list_emp_detail_update(Request $request, $id)
     {
@@ -223,17 +282,25 @@ class LeaveFormController extends Controller
         ]);
         // dd(LeaveForm::find($id)->not_allowed_hr);
         // dd($request->not_allowed_hr);
-        return redirect()->route('req.list.emp.hr')->with('success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('hr.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
 
+
+
+
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน [CEO]
+    public function CEO_req(){
+        $leaves = LeaveForm::all();
+        $users = User::all();
+        return view('ceo.ceo_req_list_emp',compact('leaves','users'));
+    }
+    // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น [CEO]
     public function ceo_req_list_emp_detail($id)
     {
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('ceo.ceo_req_list_emp_detail', compact('leaveforms', 'users'));
     }
-
     // ทำการอัปเดทข้อมูลการอนุมัติของ CEO
     public function ceo_req_list_emp_detail_update(Request $request, $id)
     {
@@ -262,6 +329,7 @@ class LeaveFormController extends Controller
         ]);
         // dd(LeaveForm::find($id)->not_allowed_ceo);
         // dd($request->not_allowed_ceo);
-        return redirect()->route('req.list.emp.ceo')->with('success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('ceo.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
+
 }

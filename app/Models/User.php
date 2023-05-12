@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-  
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +20,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'last_name',
         'nick_name',
         'possition',
         'birthday',
@@ -54,7 +53,8 @@ class User extends Authenticatable
     protected function type(): Attribute
     {
         return new Attribute(
-            get: fn ($value) =>  ["emp", "pm", "hr", "ceo"][$value],
+            // 0emp 1pm 2admin 3ceo 4hr
+            get: fn ($value) =>  ["emp", "pm", "hr(admin)", "ceo", "hr"][$value],
         );
     }
 }

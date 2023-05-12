@@ -28,7 +28,7 @@
 
                 {{-- ปุ่มเพิ่มใบลา --}}
                 <div class="col-12 d-flex justify-content-end d-flex mb-4">
-                    <a href="{{route('create_leave_form')}}">
+                    <a href="{{route('create')}}">
                         <button class="btn btn-primary ms-auto">+ เพิ่มใบลา</button>
                     </a>
                 </div>
@@ -50,6 +50,7 @@
                                     <span>{{ $message }}</span>
                                 </div>
                             @endif
+
                             <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
@@ -71,10 +72,10 @@
                                 @foreach ($leaves as $row)
                                     @if($row->user_id == Auth::user()->id)
                                         <tr>
-                                            <td>{{$row->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
+                                            <td>{{$row->created_at}}</td>
                                             <td>{{$row->leave_type}}</td>
-                                             <td>{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($row->leave_start)->format('d/m/Y H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($row->leave_end)->format('d/m/Y H:i') }}</td>
                                             <td>{{$row->leave_total}}</td>
                                             @if(!$row->sel_rep)
                                                 <td>ไม่มีผู้ปฏิบัติแทน</td>
@@ -92,8 +93,8 @@
                                             <td>{{$row->approve_ceo}}</td>
                                             <td class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $row->status }}</td>
                                             <td>
-                                                <a href="{{route('req_list_detail',$row->id)}}"><i
-                                                        class="fas fa-file-invoice"></i>
+                                                <a href="{{route('req.detail',$row->id)}}">
+                                                    <i class="fas fa-file-invoice"></i>
                                                 </a>
                                             </td>
                                         </tr>

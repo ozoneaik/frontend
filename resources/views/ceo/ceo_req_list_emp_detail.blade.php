@@ -257,7 +257,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="{{route('ceo_req_list_emp_detail_update',$leaveforms->id)}}" method="post">
+                        <form action="{{route('ceo.req.emp.update',$leaveforms->id)}}" method="post">
                             @csrf
                             {{-- อนุมัติ CEO --}}
                             <div class="col-md-12 justify-content-end d-flex pr-0">
@@ -296,7 +296,7 @@
                                                 <textarea class="form-control" id="reason_ceo" name="reason_ceo"
                                                     rows="3"></textarea>
                                             </div>
-                                            
+
                                             <div class="form-group" id="not_allowed_ceo">
                                                 <label for="not_allowed_ceo">ไม่อนุมัติเนื่องจาก</label>
                                                 <textarea class="form-control" name="not_allowed_ceo" id="" cols="30"

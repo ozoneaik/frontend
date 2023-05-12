@@ -27,7 +27,7 @@
 
             {{-- ปุ่มเพิ่มใบลา --}}
             <div class="col-12 d-flex justify-content-end d-flex mb-4">
-                <a href="{{ route('create_leave_form') }}" class="btn btn-primary ms-auto">+ เพิ่มใบลา</a>
+                <a href="{{ route('create') }}" class="btn btn-primary ms-auto">+ เพิ่มใบลา</a>
 
             </div>
             {{-- end ปุ่มเพิ่มใบลา --}}
@@ -162,8 +162,7 @@
                             </h3>
                         </div>
                         <div class="card-body">
-
-                            <table id="req_list_table" class="table table-bordered table-hover text-center">
+                            <table id="req_list_table" class="table table-bordered table-hover text-center data-table">
                                 <thead>
                                 <tr>
                                     <th>วันที่ยื่นคำร้อง</th>
@@ -181,7 +180,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
                                 @foreach ($leaves as $row)
                                     @if($row->user_id == Auth::user()->id)
                                         <tr>
@@ -210,7 +208,7 @@
                                                 {{ $row->status }}
                                             </td>
                                             <td>
-                                                <a href="{{route('req_list_detail',$row->id)}}"><i
+                                                <a href="{{route('req.detail',$row->id)}}"><i
                                                         class="fas fa-file-invoice"></i></a>
                                             </td>
                                         </tr>
@@ -274,7 +272,7 @@
                                                 {{ $row->status }}
                                             </td>
                                             <td>
-                                                <a href="{{route('req_list_detail',$row->id)}}">
+                                                <a href="{{route('req.detail',$row->id)}}">
                                                     <i class="fas fa-file-invoice"></i>
                                                 </a>
                                             </td>
@@ -292,4 +290,6 @@
         {{-- end Container-fluid --}}
     </section>
     <!-- end main content -->
+
+
 @endsection

@@ -12,7 +12,7 @@
                         @csrf
                         {{-- name --}}
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">ชื่อ</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">ชื่อ - นามสกุล</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -25,22 +25,7 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- lastname --}}
-                        <div class="row mb-3">
-                            <label for="last_name" class="col-md-4 col-form-label text-md-end">นามสกุล</label>
 
-                            <div class="col-md-6">
-                                <input id="last_name" type="text"
-                                    class="form-control @error('last_name') is-invalid @enderror" name="last_name"
-                                    value="111" required autocomplete="last_name" autofocus>
-
-                                @error('last_name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>นามสกุลผิด</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
                         {{-- nick_name --}}
                         <div class="row mb-3">
                             <label for="nick_name" class="col-md-4 col-form-label text-md-end">ชื่อเล่น</label>
@@ -182,10 +167,10 @@
                             <div class="col-md-6">
                                 <select id="type" class="form-control" name="type" required autocomplete="type">
                                     <option value="">-- Select Type --</option>
-                                    <option value="0">emp</option>
-                                    <option value="1">pm</option>
-                                    <option value="2">hr</option>
-                                    <option value="3">ceo</option>
+                                    <option value="0">พนักงานทั่วไป</option>
+                                    <option value="1">Project Manager</option>
+                                    <option value="2">HR (รับผิดชอบในส่วนของใบลา)</option>
+                                    <option value="4">HR</option>
                                 </select>
 
                             </div>

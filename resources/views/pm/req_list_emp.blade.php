@@ -85,7 +85,7 @@
                                         class="{{ $leave->status == 'อนุมัติ' ? 'text-success' : ($leave->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
                                         {{ $leave->status }}</td>
                                     <td>
-                                        <a href="{{route('req_list_emp_detail',$leave->id)}}"><i
+                                        <a href="{{route('pm.req.emp.detail',$leave->id)}}"><i
                                                 class="fas fa-file-invoice"></i>
                                         </a>
                                     </td>
