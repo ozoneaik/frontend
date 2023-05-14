@@ -27,7 +27,8 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::all();
-        $leaves = LeaveForm::all();
+        $leaves = LeaveForm::latest()->get();
+        // dd($leaves);
         return view('home', compact('leaves', 'users'));
     }
 

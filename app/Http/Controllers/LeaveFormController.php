@@ -18,8 +18,7 @@ class LeaveFormController extends Controller
         return view('form', compact('users'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
 
         $request->validate(
             [
@@ -112,9 +111,7 @@ class LeaveFormController extends Controller
         $leaveform->save();
         return redirect()->route('req')->with('success', 'บันทึกข้อมูลใบลาเสร็จสมบูรณ์');
     }
-
-
-
+    
     //ตารางแสดงขอใบลา
     public function req(){
         $leaves = LeaveForm::all();

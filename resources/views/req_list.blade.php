@@ -50,58 +50,76 @@
                                     <span>{{ $message }}</span>
                                 </div>
                             @endif
-
-                            <table id="req_list_table" class="table table-bordered table-hover text-center">
-                                <thead>
-                                <tr>
-                                    <th>วันที่ยื่นคำร้อง</th>
-                                    <th>ประเภทการลา</th>
-                                    <th>วันที่ลาตั้งแต่</th>
-                                    <th>ถึง</th>
-                                    <th>ลาทั้งหมด</th>
-                                    <th>ผู้ปฏิบัติงานแทน</th>
-                                    <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th>อนุมัติ(PM)</th>
-                                    <th>อนุมัติ(HR)</th>
-                                    <th>อนุมัติ(CEO)</th>
-                                    <th>สถานะ</th>
-                                    <th>รายละเอียด</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($leaves as $row)
-                                    @if($row->user_id == Auth::user()->id)
+                            <div class="" id="table-container">
+                                <table id="req_list_table" class="table table-bordered table-hover text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>วันที่ยื่นคำร้อง</th>
+                                        <th>ประเภทการลา</th>
+                                        <th>วันที่ลาตั้งแต่</th>
+                                        <th>ถึง</th>
+                                        <th>ลาทั้งหมด</th>
+                                        <th>ผู้ปฏิบัติงานแทน</th>
+                                        <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
+                                        <th>อนุมัติ(PM)</th>
+                                        <th>อนุมัติ(HR)</th>
+                                        <th>อนุมัติ(CEO)</th>
+                                        <th>สถานะ</th>
+                                        <th>รายละเอียด</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($leaves as $row)
+                                        @if($row->user_id == Auth::user()->id)
+                                            <tr>
+                                                <td>{{$row->created_at}}</td>
+                                                <td>{{$row->leave_type}}</td>
+                                                <td>{{$row->leave_start}}</td>
+                                                <td>{{$row->leave_end}}</td>
+                                                <td>{{$row->leave_total}}</td>
+                                                @if(!$row->sel_rep)
+                                                    <td>ไม่มีผู้ปฏิบัติแทน</td>
+                                                @else
+                                                    @foreach($users as $user)
+                                                        @if($user->id == $row->sel_rep)
+                                                            <td>{{$user->name}}</td>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                                {{-- <td>{{$row->sel_rep}}</td> --}}
+                                                <td>{{$row->approve_rep}}</td>
+                                                <td>{{$row->approve_pm}}</td>
+                                                <td>{{$row->approve_hr}}</td>
+                                                <td>{{$row->approve_ceo}}</td>
+                                                <td class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $row->status }}</td>
+                                                <td>
+                                                    <a href="{{route('req.detail',$row->id)}}">
+                                                        <i class="fas fa-file-invoice"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot>
                                         <tr>
-                                            <td>{{$row->created_at}}</td>
-                                            <td>{{$row->leave_type}}</td>
-                                            <td>{{ \Carbon\Carbon::parse($row->leave_start)->format('d/m/Y H:i') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($row->leave_end)->format('d/m/Y H:i') }}</td>
-                                            <td>{{$row->leave_total}}</td>
-                                            @if(!$row->sel_rep)
-                                                <td>ไม่มีผู้ปฏิบัติแทน</td>
-                                            @else
-                                                @foreach($users as $user)
-                                                    @if($user->id == $row->sel_rep)
-                                                        <td>{{$user->name}}</td>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                            {{-- <td>{{$row->sel_rep}}</td> --}}
-                                            <td>{{$row->approve_rep}}</td>
-                                            <td>{{$row->approve_pm}}</td>
-                                            <td>{{$row->approve_hr}}</td>
-                                            <td>{{$row->approve_ceo}}</td>
-                                            <td class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $row->status }}</td>
-                                            <td>
-                                                <a href="{{route('req.detail',$row->id)}}">
-                                                    <i class="fas fa-file-invoice"></i>
-                                                </a>
-                                            </td>
+                                        <th>วันที่ยื่นคำร้อง</th>
+                                        <th>ประเภทการลา</th>
+                                        <th>วันที่ลาตั้งแต่</th>
+                                        <th>ถึง</th>
+                                        <th>ลาทั้งหมด</th>
+                                        <th>ผู้ปฏิบัติงานแทน</th>
+                                        <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
+                                        <th>อนุมัติ(PM)</th>
+                                        <th>อนุมัติ(HR)</th>
+                                        <th>อนุมัติ(CEO)</th>
+                                        <th>สถานะ</th>
+                                        <th> </th>
                                         </tr>
-                                    @endif
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </tfoot>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                 </div>

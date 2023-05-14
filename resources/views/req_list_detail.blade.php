@@ -201,15 +201,18 @@
                                             class="pb-4 display-3 font-weight-bold {{ $leaveforms->status == 'อนุมัติ' ? 'text-success' : ($leaveforms->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
                                             {{$leaveforms->status}}
                                         </h1>
-                                        <h5 class="pb-3 text-muted font-weight-light"></h5>
-                                        <h5 class="pb-3">ผู้อนุมัติ</h5>
-                                        <h5 class="pb-3 text-muted font-weight-light">นายณัฐดนัย หอมดง</h5>
-                                        <h5 class="pb-3">
-                                            ตำแหน่ง
-                                            <span class="text-muted font-weight-light">
-                                                Solution Architect Director
-                                            </span>
-                                        </h5>
+                                        @if ($leaveforms->status == 'อนุมัติ')
+                                            <h5 class="pb-3 text-muted font-weight-light"></h5>
+                                            <h5 class="pb-3">ผู้อนุมัติ</h5>
+                                            <h5 class="pb-3 text-muted font-weight-light">นายณัฐดนัย หอมดง</h5>
+                                            <h5 class="pb-3">
+                                                ตำแหน่ง
+                                                <span class="text-muted font-weight-light">
+                                                    Solution Architect Director
+                                                </span>
+                                            </h5>
+                                        @endif
+                                        
                                     </div>
                                 </div>
                                 {{-- ความเห็น Project manager --}}
