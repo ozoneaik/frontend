@@ -34,6 +34,7 @@ class LeaveFormController extends Controller
             ],
             [
                 'reason.max' => 'ข้อความต้องไม่เกิน 255 ตัวอักษร',
+                'case_no_rep.required' => 'กรุณากรอกเบอร์โทร',
                 'case_no_rep.numeric' => 'กรุณากรอกเบอร์โทรศัพท์เป็นตัวเลขเท่านั้น',
                 'case_no_rep.digits' => 'กรุณากรอกเบอร์โทรศัพท์ที่มีความยาว 10 หลัก',
                 'leave_start.required' => 'กรุณากรอกวันที่เริ่มต้นการลา',
