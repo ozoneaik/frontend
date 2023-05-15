@@ -30,7 +30,7 @@ class LeaveFormController extends Controller
                 'file2' => 'nullable|mimes:pdf,png,jpg',
                 'sel_rep' => 'nullable',
                 'sel_pm' => 'nullable',
-                'case_no_rep' => 'nullable|numeric|digits:10',
+                'case_no_rep' => 'required|numeric|digits:10',
             ],
             [
                 'reason.max' => 'ข้อความต้องไม่เกิน 255 ตัวอักษร',
