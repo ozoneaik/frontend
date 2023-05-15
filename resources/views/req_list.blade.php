@@ -72,10 +72,10 @@
                                     @foreach ($leaves as $row)
                                         @if($row->user_id == Auth::user()->id)
                                             <tr>
-                                                <td>{{$row->created_at}}</td>
+                                                <td>{{\Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i')}}</td>
                                                 <td>{{$row->leave_type}}</td>
-                                                <td>{{$row->leave_start}}</td>
-                                                <td>{{$row->leave_end}}</td>
+                                                <td>{{\Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i')}}</td>
+                                                <td>{{\Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i')}}</td>
                                                 <td>{{$row->leave_total}}</td>
                                                 @if(!$row->sel_rep)
                                                     <td>ไม่มีผู้ปฏิบัติแทน</td>

@@ -19,11 +19,26 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <style>
+        nav {
+        background-color: rgba(0, 0, 0, 0.5); /* Change the last value (0.5) to adjust the transparency */
+        color: white; /* Set the text color to white or any other color that suits your design */
+    }
+    @media (max-width: 590px) {
+        .navbar-brand {
+            display: none;
+        }
+    }
+
+    body{
+        background-image: url('https://bda.co.th/assets/img/bda_photo/004.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
     </style>
 </head>
-<body style="background-image: url('https://images7.alphacoders.com/472/thumb-1920-472347.jpg')">
+<body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark  shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)

@@ -82,7 +82,7 @@
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                    H:i') }}
+                                                                                                                                                                                                                                            H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                    H:i') }}
+                                                                                                                                                                                                                                            H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -163,7 +163,9 @@
                                                 {{ $leaveforms->status }}
                                             </h1>
                                             @if ($leaveforms->status == 'อนุมัติ')
-                                                <h5 class="pb-3 text-muted font-weight-light"></h5>
+                                                <h6 class="pb-3 text-muted font-weight-light">
+                                                    อนุมัติเมื่อ {{ $leaveforms->updated_at }}
+                                                </h6>
                                                 <h5 class="pb-3">ผู้อนุมัติ</h5>
                                                 <h5 class="pb-3 text-muted font-weight-light">นายณัฐดนัย หอมดง</h5>
                                                 <h5 class="pb-3">
@@ -176,65 +178,80 @@
                                         </div>
                                     </div>
                                     {{-- ความเห็น Project manager --}}
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title font-weight-bold">
-                                                <i class="fa-solid fa-comment mr-2"></i>
-                                                ความเห็น Project manager
-                                            </h3>
+                                    @if ($leaveforms->approve_pm != '⌛' && $leaveforms->approve_pm != '-')
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title font-weight-bold">
+                                                    <i class="fa-solid fa-comment mr-2"></i>
+                                                    ความเห็น Project manager
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <span>
+                                                    @if ($leaveforms->reason_pm)
+                                                        {{ $leaveforms->reason_pm }}
+                                                    @else
+                                                        ไม่มีความเห็น
+                                                    @endif
+                                                    @if ($leaveforms->allowed_pm)
+                                                        <hr>
+                                                        <span class="font-weight-bold text-success">อนุญาติตามสิทธิ์พนักงาน
+                                                            โดย:</span>
+                                                        <br>
+                                                        {{ $leaveforms->allowed_pm }}
+                                                    @elseif ($leaveforms->not_allowed_pm)
+                                                        <hr>
+                                                        <span class="font-weight-bold text-danger">ไม่อนุญาติเนื่องจาก
+                                                            :</span>
+                                                        <br>
+                                                        {{ $leaveforms->not_allowed_pm }}
+                                                    @endif
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <span>
-                                                @if ($leaveforms->reason_pm)
-                                                    {{ $leaveforms->reason_pm }}
-                                                @else
-                                                    ไม่มีความเห็น
-                                                    <br>
-                                                @endif
-                                                @if ($leaveforms->allowed_pm)
-                                                    <hr>
-                                                    <span class="font-weight-bold text-success">อนุญาติตามสิทธิ์พนักงาน
-                                                        โดย:</span>
-                                                    <br>
-                                                    {{ $leaveforms->allowed_pm }}
-                                                @elseif ($leaveforms->not_allowed_pm)
-                                                    <hr>
-                                                    <span class="font-weight-bold text-danger">ไม่อนุญาติเนื่องจาก :</span>
-                                                    <br>
-                                                    {{ $leaveforms->not_allowed_pm }}
-                                                @endif
-                                                <br>
-                                            </span>
-                                        </div>
-                                    </div>
+                                    @endif
                                     {{-- ความเห็น Human Resources (HR) --}}
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title font-weight-bold">
-                                                <i class="fa-solid fa-message mr-2"></i>
-                                                ความเห็น Human Resources (HR)
-                                            </h3>
+                                    @if ($leaveforms->approve_hr != '⌛' && $leaveforms->approve_hr != '-')
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title font-weight-bold">
+                                                    <i class="fa-solid fa-message mr-2"></i>
+                                                    ความเห็น Human Resources (HR)
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <span>
+                                                    @if ($leaveforms->reason_hr)
+                                                        {{ $leaveforms->reason_hr }}
+                                                    @endif
+                                                    @if ($leaveforms->not_allowed_hr)
+                                                        {{ $leaveforms->not_allowed_hr }}
+                                                    @endif
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <span>
-                                                {{ $leaveforms->reason_hr }}
-                                            </span>
-                                        </div>
-                                    </div>
+                                    @endif
                                     {{-- ความเห็น Solution Architect Director --}}
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title font-weight-bold">
-                                                <i class="fa-solid fa-comment-dots mr-2"></i>
-                                                ความเห็น Solution Architect Director
-                                            </h3>
+                                    @if ($leaveforms->approve_ceo != '⌛' && $leaveforms->approve_ceo != '-')
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title font-weight-bold">
+                                                    <i class="fa-solid fa-comment-dots mr-2"></i>
+                                                    ความเห็น Solution Architect Director
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <span>
+                                                    @if ($leaveforms->reason_ceo)
+                                                        {{ $leaveforms->reason_ceo }}
+                                                    @endif
+                                                    @if ($leaveforms->not_allowed_ceo)
+                                                        {{ $leaveforms->not_allowed_ceo }}
+                                                    @endif
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <span>
-                                                {{ $leaveforms->reason_ceo }}
-                                            </span>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                             <form action="{{ route('rep.update', $leaveforms->id) }}" method="post">

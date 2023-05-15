@@ -29,17 +29,17 @@ return new class extends Migration
             $table->string('case_no_rep')->nullable()->comment('กรณีไม่มีผู้ปฏิบัติงานแทน');
 
             $table->string('sel_pm')->nullable();
-            $table->string('reason_pm')->nullable()->default('ไม่มีความเห็น')->comment('ความเห็น PM');
+            $table->string('reason_pm')->nullable()->comment('ความเห็น PM');
             $table->string('allowed_pm')->nullable()->comment('อนุญาตตามสิทธิ์พนักงาน');
             $table->string('not_allowed_pm')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
             $table->string('approve_pm')->nullable()->default('⌛')->comment('อนุมัติโดย pm');
 
             $table->string('approve_hr')->nullable()->default('⌛')->comment('อนุมัติโดย hr');
-            $table->string('reason_hr')->nullable()->default('ไม่มีความเห็น')->comment('ความเห็น HR');
+            $table->string('reason_hr')->nullable()->comment('ความเห็น HR');
             $table->string('not_allowed_hr')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
 
             $table->string('approve_ceo')->nullable()->default('⌛')->comment('อนุมัติโดย ceo');
-            $table->string('reason_ceo')->nullable()->default('ไม่มีความเห็น')->comment('ความเห็น CEO');
+            $table->string('reason_ceo')->nullable()->comment('ความเห็น CEO');
             $table->string('not_allowed_ceo')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
 
             $table->string('status')->default('กำลังดำเนินการ');
