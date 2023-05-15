@@ -212,10 +212,7 @@
                                                         <td>{{ $row->approve_pm }}</td>
                                                         <td>{{ $row->approve_hr }}</td>
                                                         <td>{{ $row->approve_ceo }}</td>
-                                                        <td
-                                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
-                                                            {{ $row->status }}
-                                                        </td>
+                                                        <td class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $row->status }}</td>
                                                         <td>
                                                             <a href="{{ route('req.detail', $row->id) }}"><i
                                                                     class="fas fa-file-invoice"></i></a>
@@ -296,10 +293,7 @@
                                                         <td>{{ $row->approve_pm }}</td>
                                                         <td>{{ $row->approve_hr }}</td>
                                                         <td>{{ $row->approve_ceo }}</td>
-                                                        <td
-                                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
-                                                            {{ $row->status }}
-                                                        </td>
+                                                        <td class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $row->status }}</td>
                                                         <td>
                                                             <a href="{{ route('req.detail', $row->id) }}">
                                                                 <i class="fas fa-file-invoice"></i>

@@ -74,7 +74,7 @@
                                                             <label>ลาตั้งแต่ :</label>
                                                             <div class="input-group">
                                                                 <p class="form-control" readonly>
-                                                                    {{\Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i')}}
+                                                                    {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i') }}
                                                                 </p>
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text">
@@ -90,7 +90,7 @@
                                                             <label>ถึง :</label>
                                                             <div class="input-group">
                                                                 <p class="form-control" readonly>
-                                                                    {{\Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i')}}
+                                                                    {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i') }}
                                                                 </p>
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text">
@@ -167,7 +167,11 @@
                                                             @if ($leaveforms->sel_rep)
                                                                 <p class="form-control " readonly>
                                                                     [{{ $leaveforms->sel_rep }}]
-                                                                    {{ $user->name }}{{ $user->possition }}
+                                                                    {{ $user->name }} {{ $user->possition }}
+                                                                    @if ($leaveforms->approve_rep == '❌')
+                                                                        <span class="text-danger">ปฏิเสธในการปฏิบัติทำแทน❌
+                                                                        </span>
+                                                                    @endif
                                                                 </p>
                                                             @else
                                                                 <p class="form-control" readonly>ไม่มี</p>
@@ -207,7 +211,8 @@
                                                 </h1>
                                                 @if ($leaveforms->status == 'อนุมัติ')
                                                     <h6 class="pb-3 text-muted font-weight-light">
-                                                        อนุมัติเมื่อ {{\Carbon\Carbon::parse($leaveforms->updated_at)->addYears(543)->format('d/m/Y H:i:s')}}
+                                                        อนุมัติเมื่อ
+                                                        {{ \Carbon\Carbon::parse($leaveforms->updated_at)->addYears(543)->format('d/m/Y H:i:s') }}
                                                     </h6>
                                                     <h5 class="pb-3">ผู้อนุมัติ</h5>
                                                     <h5 class="pb-3 text-muted font-weight-light">นายณัฐดนัย หอมดง</h5>
@@ -267,11 +272,11 @@
                                                 <div class="card-body">
                                                     <span>
                                                         @if ($leaveforms->reason_hr)
-                                                        {{ $leaveforms->reason_hr }}
-                                                    @endif
-                                                    @if ($leaveforms->not_allowed_hr)
-                                                        {{ $leaveforms->not_allowed_hr }}
-                                                    @endif
+                                                            {{ $leaveforms->reason_hr }}
+                                                        @endif
+                                                        @if ($leaveforms->not_allowed_hr)
+                                                            {{ $leaveforms->not_allowed_hr }}
+                                                        @endif
                                                     </span>
                                                 </div>
                                             </div>
@@ -302,7 +307,7 @@
                                 {{-- ปุ่มบันทึกการลา --}}
                                 <div class="col-md-12 justify-content-end d-flex ">
                                     <a href="" class="btn btn-info mr-3">พิมพ์ใบลา</a>
-                                    <a href="{{ route('req') }}" class="btn btn-primary">กลับสู่หน้าหลัก</a>
+                                    <a href="{{ route('req') }}" class="btn btn-primary">ย้อนกลับ</a>
                                 </div>
                             </div>
                         </div>

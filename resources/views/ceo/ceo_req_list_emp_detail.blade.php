@@ -82,7 +82,7 @@
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                H:i') }}
+                                                                                                                                                                                                                                                                                                        H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                H:i') }}
+                                                                                                                                                                                                                                                                                                        H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -144,6 +144,53 @@
                                                     </div>
                                                 </div>
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- ระหว่างการลามอบหมายให้ --}}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title font-weight-bold">
+                                                <i class="fa-solid fa-user mr-2"></i>
+                                                ระหว่างการลามอบหมายให้
+                                            </h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
+                                                        @php
+                                                            $user = $users->firstWhere('id', $leaveforms->sel_rep);
+                                                        @endphp
+                                                        @if ($leaveforms->sel_rep)
+                                                            <p class="form-control " readonly>
+                                                                [{{ $leaveforms->sel_rep }}]
+                                                                {{ $user->name }}{{ $user->possition }}
+                                                                @if ($leaveforms->approve_rep == '❌')
+                                                                    <span class="text-danger">
+                                                                        ปฏิเสธในการปฏิบัติทำแทน❌
+                                                                    </span>
+                                                                @endif
+                                                            </p>
+                                                        @else
+                                                            <p class="form-control" readonly>ไม่มี</p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="">กรณีไม่มีผู้ปฏิบัติงานแทนสามารถ(ติดต่อ)</label>
+                                                        @if ($leaveforms->case_no_rep)
+                                                            <p class="form-control" readonly>
+                                                                {{ $leaveforms->case_no_rep }}
+                                                            </p>
+                                                        @else
+                                                            <p class="form-control" readonly>-</p>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -265,8 +312,8 @@
                                 </div>
 
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
-                                    <button type="button" class="btn btn-danger mr-3 " name="approve_ceo" value="❌"
-                                        @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
+                                    <button type="button" class="btn btn-danger mr-3 " name="approve_ceo"
+                                        value="❌" @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
                                         ไม่อนุมัติ
                                     </button>
                                     <button type="button" class="btn btn-primary" name="approve_ceo" value="✔️"

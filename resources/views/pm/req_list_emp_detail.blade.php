@@ -82,7 +82,7 @@
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                H:i') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                H:i') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -166,6 +166,11 @@
                                                             <p class="form-control " readonly>
                                                                 [{{ $leaveforms->sel_rep }}]
                                                                 {{ $user->name }}{{ $user->possition }}
+                                                                @if ($leaveforms->approve_rep == '❌')
+                                                                    <span class="text-danger">
+                                                                        ปฏิเสธในการปฏิบัติทำแทน❌
+                                                                    </span>
+                                                                @endif
                                                             </p>
                                                         @else
                                                             <p class="form-control" readonly>ไม่มี</p>
@@ -327,9 +332,6 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-
-
-
                                                 <div class="form-group reason_pm">
                                                     <label for="reason_pm">ความเห็น Project Manager</label>
                                                     <textarea class="form-control" id="reason_pm" name="reason_pm" rows="3"></textarea>
@@ -364,8 +366,6 @@
                                                     <textarea class="form-control" name="not_allowed_pm" id="" cols="30" rows="4"></textarea>
                                                 </div>
 
-
-
                                                 <span class="content"></span>
                                                 <br>
                                                 <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
@@ -380,7 +380,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>

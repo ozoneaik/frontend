@@ -81,8 +81,7 @@
                                                     <div class="form-group">
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                            H:i') }}
+                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -91,8 +90,7 @@
                                                     <div class="form-group">
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                            H:i') }}
+                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -108,10 +106,12 @@
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
                                                         <textarea class="form-control p-2" rows="4" readonly>
-@if ($leaveforms->reason)
-{{ $leaveforms->reason }}@elseไม่ได้กรอกเหตุผลการลา
+                                                            @if ($leaveforms->reason)
+{{ $leaveforms->reason }}
+@else
+ไม่ได้กรอกเหตุผลการลา
 @endif
-</textarea>
+                                                        </textarea>
                                                     </div>
                                                 </div>
                                                 {{-- เอกสารประกอบการลา --}}
@@ -144,6 +144,53 @@
                                                     </div>
                                                 </div>
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- ระหว่างการลามอบหมายให้ --}}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title font-weight-bold">
+                                                <i class="fa-solid fa-user mr-2"></i>
+                                                ระหว่างการลามอบหมายให้
+                                            </h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
+                                                        @php
+                                                            $user = $users->firstWhere('id', $leaveforms->sel_rep);
+                                                        @endphp
+                                                        @if ($leaveforms->sel_rep)
+                                                            <p class="form-control " readonly>
+                                                                [{{ $leaveforms->sel_rep }}]
+                                                                {{ $user->name }}{{ $user->possition }}
+                                                                @if ($leaveforms->approve_rep == '❌')
+                                                                    <span class="text-danger">
+                                                                        ปฏิเสธในการปฏิบัติทำแทน❌
+                                                                    </span>
+                                                                @endif
+                                                            </p>
+                                                        @else
+                                                            <p class="form-control" readonly>ไม่มี</p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="">กรณีไม่มีผู้ปฏิบัติงานแทนสามารถ(ติดต่อ)</label>
+                                                        @if ($leaveforms->case_no_rep)
+                                                            <p class="form-control" readonly>
+                                                                {{ $leaveforms->case_no_rep }}
+                                                            </p>
+                                                        @else
+                                                            <p class="form-control" readonly>-</p>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

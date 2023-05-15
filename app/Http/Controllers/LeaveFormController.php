@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\DB;
 class LeaveFormController extends Controller
 {
     //
-    public function create()
-    {
+    public function create(){
         $users = DB::table('users')->get();
         return view('form', compact('users'));
     }
@@ -120,8 +119,7 @@ class LeaveFormController extends Controller
         return view('req_list',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลารายละเอียด
-    public function req_list_detail($id)
-    {
+    public function req_list_detail($id){
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('req_list_detail', compact('leaveforms', 'users'));
@@ -135,8 +133,7 @@ class LeaveFormController extends Controller
     }
 
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอปฎิบัติแทน
-    public function rep_list_detail($id)
-    {
+    public function rep_list_detail($id){
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         // dd($leaveforms->all());
@@ -144,8 +141,7 @@ class LeaveFormController extends Controller
     }
 
     // ทำการอัปเดทข้อมูลการอนุมัติของผู้ปฏิบัติงานแทน
-    public function rep_list_detail_update(Request $request, $id)
-    {
+    public function rep_list_detail_update(Request $request, $id){
         // dd($request->all());
         $request->validate(
             ['approve_rep' => 'required',],
@@ -187,16 +183,14 @@ class LeaveFormController extends Controller
         return view('pm.req_list_emp',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น[Project manager]
-    public function req_list_emp_detail($id)
-    {
+    public function req_list_emp_detail($id){
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('pm.req_list_emp_detail', compact('leaveforms', 'users'));
     }
     // ทำการอัปเดทข้อมูลการอนุมัติของ Project manager
-    public function req_list_emp_detail_update(Request $request, $id)
-    {
-        // dd($request->all());
+    public function req_list_emp_detail_update(Request $request, $id){
+        dd($request->all());
 
         $request->validate(
             [
@@ -254,15 +248,13 @@ class LeaveFormController extends Controller
         return view('hr.hr_req_list_emp',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น [HR]
-    public function hr_req_list_emp_detail($id)
-    {
+    public function hr_req_list_emp_detail($id){
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('hr.hr_req_list_emp_detail', compact('leaveforms', 'users'));
     }
     // ทำการอัปเดทข้อมูลการอนุมัติของ HR
-    public function hr_req_list_emp_detail_update(Request $request, $id)
-    {
+    public function hr_req_list_emp_detail_update(Request $request, $id){
         $request->validate(
             [
                 'approve_hr' => 'required',
@@ -305,15 +297,13 @@ class LeaveFormController extends Controller
         return view('ceo.ceo_req_list_emp',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น [CEO]
-    public function ceo_req_list_emp_detail($id)
-    {
+    public function ceo_req_list_emp_detail($id){
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
         return view('ceo.ceo_req_list_emp_detail', compact('leaveforms', 'users'));
     }
     // ทำการอัปเดทข้อมูลการอนุมัติของ CEO
-    public function ceo_req_list_emp_detail_update(Request $request, $id)
-    {
+    public function ceo_req_list_emp_detail_update(Request $request, $id){
         $request->validate(
             [
                 'approve_ceo' => 'required',

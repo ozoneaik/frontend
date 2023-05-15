@@ -78,9 +78,7 @@
                                                 <td>{{ $leave->approve_pm }}</td>
                                                 <td>{{ $leave->approve_hr }}</td>
                                                 <td>{{ $leave->approve_ceo }}</td>
-                                                <td
-                                                    class="{{ $leave->status == 'อนุมัติ' ? 'text-success' : ($leave->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
-                                                    {{ $leave->status }}</td>
+                                                <td class="{{ $leave->status == 'อนุมัติ' ? 'text-success table-success' : ($leave->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $leave->status }}</td>
                                                 <td>
                                                     <a href="{{ route('ceo.req.emp.detail', $leave->id) }}"><i
                                                             class="fas fa-file-invoice"></i>
