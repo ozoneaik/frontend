@@ -190,7 +190,7 @@ class LeaveFormController extends Controller
     }
     // ทำการอัปเดทข้อมูลการอนุมัติของ Project manager
     public function req_list_emp_detail_update(Request $request, $id){
-        dd($request->all());
+        // dd($request->all());
 
         $request->validate(
             [
