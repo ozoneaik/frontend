@@ -205,6 +205,19 @@ class LeaveFormController extends Controller
             ]
         );
 
+        if($request->approve_pm == '✔️'){
+            $request->validate(
+                [
+                'allowed_pm' => 'required'
+                ],
+                [
+                    'allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ'
+                ]
+        );
+        }else{
+
+        }
+
         $day = $request->day;
         $hour = $request->hour;
         $minutes = $request->minutes;

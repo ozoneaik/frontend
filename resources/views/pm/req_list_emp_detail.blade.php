@@ -35,11 +35,14 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            @if ($errors->has('approve_rep'))
-                                <span class="text-danger">{{ $errors->first('approve_rep') }}
-                                </span>
-                            @endif
                             <div class="row">
+                                <div class="col-md-12">
+                                        @if ($errors->has('allowed_pm'))
+                                            <span class="text-danger">
+                                                ถ้ากดอนุมัติกรุณาเลือก ตัวเลือกกดอนุญาติตามสิทธิ์พนักงานหลังกดยืนยันด้วยครับ
+                                            </span>
+                                        @endif
+                                </div>
                                 <div class="col-md-8">
                                     {{-- รายละเอียดใบลา --}}
                                     <div class="card">
@@ -81,8 +84,7 @@
                                                     <div class="form-group">
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
+                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -91,8 +93,7 @@
                                                     <div class="form-group">
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
+                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -337,7 +338,16 @@
                                                     <textarea class="form-control" id="reason_pm" name="reason_pm" rows="3"></textarea>
                                                 </div>
                                                 <div class="form-group allowed">
-                                                    <label for="allowed_pm">อนุญาตตามสิทธิ์พนักงาน</label>
+                                                    <label for="allowed_pm">
+                                                        อนุญาตตามสิทธิ์พนักงาน
+                                                    </label>
+
+                                                    @if ($errors->has('allowed_pm'))
+                                                        <br>
+                                                        <span class="text-danger">
+                                                            {{ $errors->first('allowed_pm') }}
+                                                        </span>
+                                                    @endif
                                                     <br>
                                                     <input type="radio" name="allowed_pm" id="1"
                                                         value="ไม่รับค่าแรงตามจำนวนวันที่ลา">
@@ -401,5 +411,6 @@
             document.getElementById("hour").style.display = "none"; // hide hour input field
             document.getElementById("minutes").style.display = "none"; // hide minutes input field
         }
+
     }
 </script>
