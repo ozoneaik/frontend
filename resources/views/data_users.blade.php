@@ -1,9 +1,9 @@
 @extends('layouts.layout')
 ​
 @section('title')
-    {{'รายการคำขอใบลา'}}
+    {{ 'รายการคำขอใบลา' }}
 @endsection
-@if(Auth::user()->type == 'hr(admin)'||Auth::user()->type == 'ceo')
+@if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'ceo')
     @section('content')
         {{-- Part --}}
         <div class="content-header">
@@ -22,19 +22,20 @@
 
         {{--  Mian Content  --}}
         <section class="content">
-            {{-- Container Fluid--}}
+            {{-- Container Fluid --}}
             <div class="container-fluid">
                 <div class="row">
 
 
                     {{-- end ปุ่มเพิ่มใบลา --}}
-                    {{--ตารางรายการคำขอใบลา--}}
+                    {{-- ตารางรายการคำขอใบลา --}}
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title font-weight-bold">
                                     <i class="fas fa-list-alt mr-2"></i>
-                                    รายการคำขอใบลา</h3>
+                                    รายการคำขอใบลา
+                                </h3>
                             </div>
                             <div class="card-body">
                                 @if ($message = Session::get('success'))
@@ -45,7 +46,35 @@
                                 @endif
                                 <table id="data_emp_table" class="table table-bordered table-hover text-center">
                                     <thead>
-                                    <tr>
+                                        <tr>
+                                            <th>รหัสพนักงาน</th>
+                                            <th>ชื่อ - นามสกุล</th>
+                                            <th>ชื่อเล่น</th>
+                                            <th>ตำแหน่ง</th>
+                                            <th>อีเมล</th>
+                                            <th>เบอร์โทรศัพท์</th>
+                                            <th>ข้อมูลการลา</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $user->id }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->nick_name }}</td>
+                                                <td>{{ $user->possition }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->phone_no_1 }}</td>
+                                                <td>
+                                                    <a href="{{ route('data.user.detail', $user->id) }}">
+                                                        <i class="fas fa-file-invoice"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <thead>
+                                    <tfoot>
                                         <th>รหัสพนักงาน</th>
                                         <th>ชื่อ - นามสกุล</th>
                                         <th>ชื่อเล่น</th>
@@ -53,25 +82,8 @@
                                         <th>อีเมล</th>
                                         <th>เบอร์โทรศัพท์</th>
                                         <th>ข้อมูลการลา</th>
-                                    </tr>
+                                    </tfoot>
                                     </thead>
-                                    <tbody>
-                                    @foreach($users as $user)
-                                        <tr>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->nick_name }}</td>
-                                            <td>{{ $user->possition }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->phone_no_1 }}</td>
-                                            <td>
-                                                <a href="{{route('data.user.detail', $user->id)}}">
-                                                    <i class="fas fa-file-invoice"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -79,7 +91,7 @@
                     {{-- end ตารางรายการคำขอใบลา --}}
                 </div>
             </div>
-            {{-- end container fluid--}}
+            {{-- end container fluid --}}
         </section>
         {{--  end mian content  --}}
     @endsection

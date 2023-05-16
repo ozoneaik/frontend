@@ -306,7 +306,9 @@
                                 </div>
                                 {{-- ปุ่มบันทึกการลา --}}
                                 <div class="col-md-12 justify-content-end d-flex ">
-                                    <a href="" class="btn btn-info mr-3">พิมพ์ใบลา</a>
+                                    @if ($leaveforms->status == 'อนุมัติ')
+                                        <a href="" class="btn btn-info mr-3">พิมพ์ใบลา</a>
+                                    @endif
                                     <a href="{{ route('req') }}" class="btn btn-primary">ย้อนกลับ</a>
                                 </div>
                             </div>

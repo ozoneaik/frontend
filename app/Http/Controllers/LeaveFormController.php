@@ -198,6 +198,7 @@ class LeaveFormController extends Controller
                 'reason_pm' => 'nullable',
                 'allowed_pm' => 'nullable',
                 'not_allowed_pm' => 'nullable',
+                'day' => 'nullable'
             ],
             [
                 'approve_pm.required' => 'no requ',
@@ -207,21 +208,24 @@ class LeaveFormController extends Controller
 
         if($request->approve_pm == '✔️'){
             $request->validate(
-                [
-                'allowed_pm' => 'required'
-                ],
-                [
-                    'allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ'
-                ]
-        );
-        }else{
-
+                [ 'allowed_pm' => 'required'],['allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ',]
+            );
         }
 
         $day = $request->day;
         $hour = $request->hour;
         $minutes = $request->minutes;
         $allowed_pm = '';
+        if(!$day){
+            $day = '0';
+        }
+        if(!$hour){
+            $hour = '0';
+        }
+        if(!$minutes){
+            $minutes = '0';
+        }
+        
         if ($request->allowed_pm == 'ทำงานชดเชยเป็นจำนวน') {
             $allowed_pm = $request->allowed_pm . ' ' . $day . ' วัน ' . $hour . ' ชั่วโมง ' . $minutes . ' นาที ';
         } else if ($request->allowed_pm == 'อื่นๆ...') {
@@ -306,7 +310,6 @@ class LeaveFormController extends Controller
     public function CEO_req(){
         $leaves = LeaveForm::all();
         $users = User::all();
-//        dd($leaves);
         return view('ceo.ceo_req_list_emp',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงานคนนั้น [CEO]
