@@ -70,213 +70,17 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition sidebar-collapse layout-fixed layout-navbar-fixed">
+<body class="">
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
 
         {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            {{-- Left Navbar Links --}}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
-                </li>
-                {{-- <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('home') }}" class="nav-link font-weight-bold" style="color: black;">
-                        <span class="text-hide-md">
-                            ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
-                        </span>
-                    </a>
-                </li> --}}
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('home') }}"
-                        class="nav-link {{ Request::routeIs('home') ? 'btn btn-primary text-white ' : '' }} text-hide-md">
-                        <span class="text-hide-md">
-                            เมนูหลัก
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('req') }}"
-                        class="nav-link {{ Request::routeIs('req', 'req.detail', 'create') ? 'btn btn-primary text-white' : '' }} text-hide-md">
-                        <span class="text-hide-md">
-                            รายการคำขอใบลา
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('rep') }}"
-                        class="nav-link {{ Request::routeIs('rep', 'rep.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
-                        <span class="text-hide-md">
-                            รายการคำขอปฏิบัติแทน
-                        </span>
-                    </a>
-                </li>
-            </ul>
-            {{-- Left Navbar Links --}}
-
-            {{-- Right Navbar Links --}}
-            <ul class="navbar-nav ml-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <img src="https://www.w3schools.com/bootstrap4/newyork.jpg" class="rounded-circle"
-                            alt="Cinque Terre" width="40px" height="40px">
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('profile') }}" class="nav-link">[ID : {{ Auth::user()->id }}]
-                            {{ Auth::user()->name }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn bg-danger">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-
-            </ul>
-            {{-- end Right navbar links --}}
-        </nav>
+        
         {{-- end navbar --}}
 
         {{-- Main Sidebar Container --}}
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-            <!-- Brand Logo -->
-            <a href="{{ route('home') }}" class="brand-link text-center">
-                <span class="brand-text font-weight-bold mx-auto">
-                    <img src="{{ asset('img/logosidebar1.png') }}" height="54px" width="184px" alt="no picture">
-                </span>
-            </a>
-            <!-- end Brand Logo -->
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <br>
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        {{-- เมนูหลัก --}}
-                        <li class="nav-item">
-                            <a href="{{ route('home') }}"
-                                class="nav-link {{ Request::routeIs('home') ? 'active' : '' }}">
-                                <i class="nav-icon fa-solid fa-house"></i>
-                                <p>เมนูหลัก</p>
-                            </a>
-                        </li>
-                        <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>
-                                    รายการคำขอ
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('req') }}"
-                                        class="nav-link {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลา</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('rep') }}"
-                                        class="nav-link {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำปฏิบัติแทน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        {{-- Project manager --}}
-                        <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Project manager
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">1</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
-                                    <a href="{{ route('pm.req.emp') }}"
-                                        class="nav-link {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        {{-- HR --}}
-                        <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
-                                    HR
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('hr.req.emp') }}"
-                                        class="nav-link {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        {{-- CEO --}}
-
-                        <li class="nav-item menu-open">
-                            <a href="#"
-                                class="nav-link {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-lock"></i>
-                                <p>
-                                    CEO
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('ceo.req.emp') }}"
-                                        class="nav-link {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        <li class="nav-item">
-                            <a href="{{ route('data.users') }}"
-                                class="nav-link {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
-                                <i class="fa-solid fa-users nav-icon"></i>
-                                <p>ข้อมูลพนักงาน</p>
-                            </a>
-                        </li>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- end sidebar-menu -->
-            </div>
-            <!-- end sidebar -->
-        </aside>
+        
         {{-- end main sidebar container --}}
 
         {{-- Content Wrapper --}}
@@ -313,6 +117,8 @@
 
     <script>
         $(document).ready(function() {
+
+
             function initDataTable(tableId) {
                 var table = $("#" + tableId).DataTable({
                     "responsive": true,
@@ -330,21 +136,26 @@
                                 var select = $(
                                         '<select class="custom-select"><option value=""></option></select>'
                                     )
-                                    .appendTo($(column.footer()).empty()).on('change',
-                                        function() {
-                                            var val = $.fn.dataTable.util.escapeRegex($(this)
-                                                .val());
-                                            column.search(val ? '^' + val + '$' : '', true,
-                                                false).draw();
-                                        });
+                                    .appendTo($(column.footer()).empty())
+                                    .on('change', function() {
+                                        var val = $.fn.dataTable.util.escapeRegex($(this)
+                                            .val());
 
-                                column.data().unique().sort().each(function(d, j) {
-                                    var option = $(
-                                        '<option class="my-option-class" value="' +
-                                        d + '">' + d + '</option>');
+                                        column.search(val ? '^' + val + '$' : '', true,
+                                            false).draw();
+                                    });
 
-                                    select.append(option);
-                                });
+                                column
+                                    .data()
+                                    .unique()
+                                    .sort()
+                                    .each(function(d, j) {
+                                        var option = $(
+                                            '<option class="my-option-class" value="' +
+                                            d + '">' + d + '</option>');
+
+                                        select.append(option);
+                                    });
                             }
                         });
                     }
@@ -357,33 +168,6 @@
             });
         });
     </script>
-    <script>
-        $("#data-table").DataTable({
-            "responsive": true,
-            "lengthChange": true,
-            "autoWidth": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "order": [
-                [0, "desc"]
-            ],
-        });
-    </script>
-    <script>
-        $("#data-table1").DataTable({
-            "responsive": true,
-            "lengthChange": true,
-            "autoWidth": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "order": [
-                [0, "desc"]
-            ],
-        });
-    </script>
-
 
     {{-- end DataTables & Plugins --}}
 

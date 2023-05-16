@@ -37,18 +37,18 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                        @if ($errors->has('allowed_pm'))
-                                            <span class="text-danger">
-                                                ถ้ากดอนุมัติกรุณาเลือก ตัวเลือกกดอนุญาติตามสิทธิ์พนักงานหลังกดยืนยันด้วยครับ
-                                            </span>
-                                        @endif
+                                    @if ($errors->has('allowed_pm'))
+                                        <span class="text-danger">
+                                            ถ้ากดอนุมัติกรุณาเลือก ตัวเลือกกดอนุญาติตามสิทธิ์พนักงานหลังกดยืนยันด้วยครับ
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="col-md-12">
-                                        @if ($errors->has('other'))
-                                            <span class="text-danger">
-                                                ถ้ากดอนุมัติแล้วเป็น ตัวเลือก "อื่นๆ" พิมพ์ข้อความหลังอื่นๆด้วยครับ
-                                            </span>
-                                        @endif
+                                    @if ($errors->has('other'))
+                                        <span class="text-danger">
+                                            ถ้ากดอนุมัติแล้วเป็น ตัวเลือก "อื่นๆ" พิมพ์ข้อความหลังอื่นๆด้วยครับ
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="col-md-8">
                                     {{-- รายละเอียดใบลา --}}
@@ -275,6 +275,8 @@
                                                 <span>
                                                     @if ($leaveforms->reason_hr)
                                                         {{ $leaveforms->reason_hr }}
+                                                    @else
+                                                        ไม่มีความเห็น
                                                     @endif
                                                     @if ($leaveforms->not_allowed_hr)
                                                         {{ $leaveforms->not_allowed_hr }}
@@ -296,6 +298,8 @@
                                                 <span>
                                                     @if ($leaveforms->reason_ceo)
                                                         {{ $leaveforms->reason_ceo }}
+                                                    @else
+                                                        ไม่มีความเห็น
                                                     @endif
                                                     @if ($leaveforms->not_allowed_ceo)
                                                         {{ $leaveforms->not_allowed_ceo }}

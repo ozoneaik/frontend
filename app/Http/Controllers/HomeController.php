@@ -36,7 +36,7 @@ class HomeController extends Controller
     // โปรไฟล์ตัวเอง
     public function profile(){
         $users = User::all();
-        return view('profile', compact('users'));
+        return view('users.profile', compact('users'));
     }
 
     public function profile_edit($id){
@@ -47,7 +47,7 @@ class HomeController extends Controller
     // ดูข้อมูลของพนักงานทั้งหมด
     public function data_users(){
         $users = User::all();
-        return view('data_users', compact('users'));
+        return view('users.data_users', compact('users'));
     }
 
     // ดูรายละเอียดของพนักงานคนนั้น
