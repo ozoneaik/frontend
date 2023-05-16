@@ -162,7 +162,7 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive" style="max-height: 300px; overflow-y: scroll;">
+                            <div class="table-responsive" style="max-height: 500px; overflow-y: scroll;">
                                 <table id="data-table"
                                     class="table table-bordered table-hover text-center data-table table-responsive">
                                     <thead>
@@ -251,7 +251,7 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive" style="max-height:300px; overflow-y: scroll;">
+                            <div class="table-responsive" style="max-height:500px; overflow-y: scroll;">
 
                                 <table id="data-table"
                                     class="table table-bordered table-hover text-center data-table table-responsive">
@@ -295,7 +295,7 @@
                                                         <td>{{ $row->approve_ceo }}</td>
                                                         <td class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $row->status }}</td>
                                                         <td>
-                                                            <a href="{{ route('req.detail', $row->id) }}">
+                                                            <a href="{{ route('rep.detail', $row->id) }}">
                                                                 <i class="fas fa-file-invoice"></i>
                                                             </a>
                                                         </td>

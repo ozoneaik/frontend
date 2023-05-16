@@ -43,6 +43,13 @@
                                             </span>
                                         @endif
                                 </div>
+                                <div class="col-md-12">
+                                        @if ($errors->has('other'))
+                                            <span class="text-danger">
+                                                ถ้ากดอนุมัติแล้วเป็น ตัวเลือก "อื่นๆ" พิมพ์ข้อความหลังอื่นๆด้วยครับ
+                                            </span>
+                                        @endif
+                                </div>
                                 <div class="col-md-8">
                                     {{-- รายละเอียดใบลา --}}
                                     <div class="card">
@@ -365,7 +372,12 @@
                                                     <input type="text" name="minutes" id="minutes"
                                                         style="width: 10%; display: none;"> นาที
                                                     <br>
-
+                                                    @if ($errors->has('other'))
+                                                        <br>
+                                                        <span class="text-danger">
+                                                            {{ $errors->first('other') }}
+                                                        </span>
+                                                    @endif
                                                     <input type="radio" name="allowed_pm" id="3"
                                                         value="อื่นๆ...">
                                                     <label class="font-weight-normal" for="3">อื่นๆ<input

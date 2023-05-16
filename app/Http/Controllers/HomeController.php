@@ -24,6 +24,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    // หน้าเมนูหลัก
     public function index()
     {
         $users = User::all();
@@ -32,16 +33,19 @@ class HomeController extends Controller
         return view('home', compact('leaves', 'users'));
     }
 
+    // โปรไฟล์ตัวเอง
     public function profile(){
         $users = User::all();
         return view('profile', compact('users'));
     }
 
+    // ดูข้อมูลของพนักงานทั้งหมด
     public function data_users(){
         $users = User::all();
         return view('data_users', compact('users'));
     }
 
+    // ดูรายละเอียดของพนักงานคนนั้น
     public function data_user_detail($id){
         $users = User::findOrFail($id);
         $leaveforms = LeaveForm::all();
