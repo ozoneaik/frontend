@@ -82,7 +82,7 @@
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                        H:i') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                        H:i') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -271,6 +271,8 @@
                                                 <span>
                                                     @if ($leaveforms->reason_hr)
                                                         {{ $leaveforms->reason_hr }}
+                                                    @else
+                                                        ไม่มีความเห็น
                                                     @endif
                                                     @if ($leaveforms->not_allowed_hr)
                                                         {{ $leaveforms->not_allowed_hr }}
@@ -292,6 +294,8 @@
                                                 <span>
                                                     @if ($leaveforms->reason_ceo)
                                                         {{ $leaveforms->reason_ceo }}
+                                                    @else
+                                                        ไม่มีความเห็น
                                                     @endif
                                                     @if ($leaveforms->not_allowed_ceo)
                                                         {{ $leaveforms->not_allowed_ceo }}

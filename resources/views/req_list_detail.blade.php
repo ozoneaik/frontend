@@ -273,6 +273,8 @@
                                                     <span>
                                                         @if ($leaveforms->reason_hr)
                                                             {{ $leaveforms->reason_hr }}
+                                                        @else
+                                                            ไม่มีความเห็น
                                                         @endif
                                                         @if ($leaveforms->not_allowed_hr)
                                                             {{ $leaveforms->not_allowed_hr }}
@@ -294,6 +296,8 @@
                                                     <span>
                                                         @if ($leaveforms->reason_ceo)
                                                             {{ $leaveforms->reason_ceo }}
+                                                        @else
+                                                            ไม่มีความเห็น
                                                         @endif
                                                         @if ($leaveforms->not_allowed_ceo)
                                                             {{ $leaveforms->not_allowed_ceo }}
