@@ -50,7 +50,6 @@
                                     <span>{{ $message }}</span>
                                 </div>
                             @endif
-                            <div class="" id="table-container">
                                 <table id="req_list_table" class="table table-bordered table-hover text-center">
                                     <thead>
                                     <tr>
@@ -59,7 +58,6 @@
                                         <th>วันที่ลาตั้งแต่</th>
                                         <th>ถึง</th>
                                         <th>ลาทั้งหมด</th>
-                                        <th>ผู้ปฏิบัติงานแทน</th>
                                         <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
                                         <th>อนุมัติ(PM)</th>
                                         <th>อนุมัติ(HR)</th>
@@ -82,12 +80,11 @@
                                                 @else
                                                     @foreach($users as $user)
                                                         @if($user->id == $row->sel_rep)
-                                                            <td>{{$user->name}}</td>
+                                                            <td>{{$user->name}} {{$row->approve_rep}}</td>
                                                         @endif
                                                     @endforeach
                                                 @endif
                                                 {{-- <td>{{$row->sel_rep}}</td> --}}
-                                                <td>{{$row->approve_rep}}</td>
                                                 <td>{{$row->approve_pm}}</td>
                                                 <td>{{$row->approve_hr}}</td>
                                                 <td>{{$row->approve_ceo}}</td>
@@ -108,7 +105,6 @@
                                         <th>วันที่ลาตั้งแต่</th>
                                         <th>ถึง</th>
                                         <th>ลาทั้งหมด</th>
-                                        <th>ผู้ปฏิบัติงานแทน</th>
                                         <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
                                         <th>อนุมัติ(PM)</th>
                                         <th>อนุมัติ(HR)</th>
@@ -118,7 +114,6 @@
                                         </tr>
                                     </tfoot>
                                 </table>
-                            </div>
 
                         </div>
                     </div>
