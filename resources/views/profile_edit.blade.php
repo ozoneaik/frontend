@@ -39,37 +39,54 @@
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-body">
+                                            <style>
+                                                .image-container {
+                                                    position: relative;
+                                                }
+
+                                                .edit-icon {
+                                                    position: absolute;
+                                                    top: 10px;
+                                                    right: 10px;
+                                                    color: rgb(0, 0, 0);
+                                                    padding: 5px;
+                                                    border-radius: 50%;
+                                                }
+                                            </style>
                                             <center>
                                                 <img class="rounded-circle d-flex justify-content-end"
                                                     src="{{ asset('dist/img/avatar5.png') }}" alt=""
                                                     onerror="this.src='https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg';"
                                                     style="max-width: 200px; height: 200px;">
+                                                <div class="edit-icon">
+                                                    <i class="fas fa-edit"></i>
+                                                </div>
                                                 <br>
                                                 <span>
                                                     <span class="font-weight-bold">รหัสพนักงาน : </span>
-                                                    {{ Auth::user()->id }}
+                                                    {{$user->id}}
                                                 </span>
                                                 <br>
                                                 <span>
                                                     <span class="font-weight-bold">ชื่อ-นามสกุล : </span>
-                                                    {{ Auth::user()->name }} ({{ Auth::user()->nick_name }})
+                                                    {{$user->name}} ({{$user->nick_name}})
                                                 </span>
                                                 <br>
                                                 <span>
                                                     <span class="font-weight-bold">ตำแหน่ง : </span>
-                                                    {{ Auth::user()->possition }}
+                                                    {{ $user->possition }}
                                                 </span>
                                             </center>
                                         </div>
                                     </div>
-                                        <div class="row justify-content-end">
-                                            <div class="col-md-12">
-                                                <a href="{{route('profile.edit',Auth::user()->id)}}">
-                                                    <button type="submit" class="btn btn-outline-primary btn-block"
-                                                        style="float: right;max-width:100%">แก้ไขข้อมูลส่วนตัว</button>
-                                                </a>
-                                            </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-12">
+                                            <a href="{{ route('profile.edit', Auth::user()->id) }}">
+                                                <button type="submit" class="btn btn-outline-primary btn-block"
+                                                    style="float: right;max-width:100%">บันทึก</button>
+                                            </a>
                                         </div>
+                                    </div>
                                 </div>
                                 {{-- ข้อมูลพนักงาน  --}}
                                 <div class="col-md-6">
@@ -83,41 +100,36 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">วันเดือนปีเกิด</label>
-                                                        <input class="form-control"
-                                                            value="{{ \Carbon\Carbon::parse(Auth::user()->birthday)->addYears(543)->format('d/m/Y') }}"
-                                                            disabled>
+                                                        <input type="text" class="form-control" name="birthday"
+                                                            value="{{ \Carbon\Carbon::parse($user->birthday)->addYears(543)->format('d/m/Y') }}" disabled>
                                                     </div>
                                                 </div>
                                                 {{-- email --}}
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">อีเมล</label>
-                                                        <input class="form-control" value="{{ Auth::user()->email }}"
-                                                            disabled>
+                                                        <input type="email" class="form-control" value="{{ $user->email }}" name="email">
                                                     </div>
                                                 </div>
                                                 {{-- เบอร์โทรศัพท์ (หลัก) --}}
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">เบอร์โทรศัพท์ (หลัก)</label>
-                                                        <input class="form-control" value="{{ Auth::user()->phone_no_1 }}"
-                                                            disabled>
+                                                        <input type="text" class="form-control" value="{{ $user->phone_no_1 }}" name="phone_no_1">
                                                     </div>
                                                 </div>
                                                 {{-- เบอร์โทรศัพท์ (รอง) --}}
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">เบอร์โทรศัพท์ (รอง)</label>
-                                                        <input class="form-control" value="{{ Auth::user()->phone_no_2 }}"
-                                                            disabled>
+                                                        <input type="text" class="form-control" value="{{ $user->phone_no_2 }}" name="phone_no_2">
                                                     </div>
                                                 </div>
                                                 {{-- ที่อยู่ --}}
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">ที่อยู่</label>
-                                                        <input class="form-control" value="{{ Auth::user()->address }}"
-                                                            disabled>
+                                                        <input type="text" class="form-control" value="{{ $user->address }}" name="address">
                                                     </div>
                                                 </div>
                                             </div>

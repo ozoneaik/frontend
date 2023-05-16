@@ -18,7 +18,11 @@ Route::get('/test',function(){
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::get('/profile', [HomeController::class,'profile'])->name('profile');
+    Route::get('/profile_edit/{id}',[HomeController::class,'profile_edit'])->name('profile.edit');
+    Route::get('/profile_update/{id}',[HomeController::class,'profile_update'])->name('profile.update');
+
     Route::get('/data_users',[HomeController::class,'data_users'])->name('data.users');
     Route::get('/data_user_detail/{id}',[HomeController::class,'data_user_detail'])->name('data.user.detail');
 

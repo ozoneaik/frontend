@@ -143,7 +143,7 @@
                         </li>
                         <li class="nav-item menu-open">
                             <a href="#"
-                                class="nav-link {{ Request::routeIs('req', 'req_list_detail', 'rep.list', 'rep_list_detail', 'create_leave_form') ? 'active' : '' }}">
+                                class="nav-link {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>
                                     รายการคำขอ
@@ -154,7 +154,7 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('req') }}"
-                                        class="nav-link {{ Request::routeIs('req', 'req_list_detail', 'create_leave_form') ? 'active' : '' }}">
+                                        class="nav-link {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำขอใบลา</p>
                                     </a>
@@ -163,7 +163,7 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('rep') }}"
-                                        class="nav-link {{ Request::routeIs('rep.list', 'rep_list_detail') ? 'active' : '' }}">
+                                        class="nav-link {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>รายการคำปฏิบัติแทน</p>
                                     </a>

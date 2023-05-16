@@ -18,7 +18,6 @@ class LeaveFormController extends Controller
     }
 
     public function store(Request $request){
-
         $request->validate(
             [
                 'leave_type' => 'required',
@@ -29,7 +28,7 @@ class LeaveFormController extends Controller
                 'file2' => 'nullable|mimes:pdf,png,jpg',
                 'sel_rep' => 'nullable',
                 'sel_pm' => 'nullable',
-                'case_no_rep' => 'required|numeric|digits:10',
+                'case_no_rep' => 'nullable|numeric|digits:10',
             ],
             [
                 'reason.max' => 'ข้อความต้องไม่เกิน 255 ตัวอักษร',
@@ -42,6 +41,7 @@ class LeaveFormController extends Controller
                 'file2.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น'
             ]
         );
+        
 
         $leaveform = new LeaveForm();
         $leaveform->user_id = Auth::user()->id;

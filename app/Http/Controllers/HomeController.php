@@ -39,6 +39,11 @@ class HomeController extends Controller
         return view('profile', compact('users'));
     }
 
+    public function profile_edit($id){
+        $user = User::findOrFail($id);
+        return view('profile_edit',compact('user'));
+    }
+
     // ดูข้อมูลของพนักงานทั้งหมด
     public function data_users(){
         $users = User::all();
