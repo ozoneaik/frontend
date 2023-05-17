@@ -270,16 +270,22 @@
                                                     </h3>
                                                 </div>
                                                 <div class="card-body">
-                                                    <span>
+                                                <span>
+                                                    @if($leaveforms->approve_hr != '❌')
                                                         @if ($leaveforms->reason_hr)
-                                                            {{ $leaveforms->reason_hr }}
+                                                            {{ $leaveforms->reason_hr}}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
+                                                    @endif
+                                                    @if($leaveforms->approve_hr != '✔️')
                                                         @if ($leaveforms->not_allowed_hr)
                                                             {{ $leaveforms->not_allowed_hr }}
+                                                        @else
+                                                            ไม่มีความเห็น
                                                         @endif
-                                                    </span>
+                                                    @endif
+                                                </span>
                                                 </div>
                                             </div>
                                         @endif
@@ -293,16 +299,22 @@
                                                     </h3>
                                                 </div>
                                                 <div class="card-body">
-                                                    <span>
+                                                <span>
+                                                    @if($leaveforms->approve_ceo != '❌')
                                                         @if ($leaveforms->reason_ceo)
-                                                            {{ $leaveforms->reason_ceo }}
+                                                            {{ $leaveforms->reason_ceo}}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
+                                                    @endif
+                                                    @if($leaveforms->approve_ceo != '✔️')
                                                         @if ($leaveforms->not_allowed_ceo)
                                                             {{ $leaveforms->not_allowed_ceo }}
+                                                        @else
+                                                            ไม่มีความเห็น
                                                         @endif
-                                                    </span>
+                                                    @endif
+                                                </span>
                                                 </div>
                                             </div>
                                         @endif
