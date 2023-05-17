@@ -111,7 +111,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>เหตุผลการลา</label>
-                                                            <textarea class="form-control" rows="5" readonly>{{ $leaveforms->reason }}</textarea>
+                                                            <textarea class="form-control" rows="5" readonly>@if($leaveforms->reason){{ $leaveforms->reason }} @else ไม่ได้กรอกเหตุผลการลา @endif</textarea>
                                                         </div>
                                                     </div>
                                                     {{-- เอกสารประกอบการลา --}}

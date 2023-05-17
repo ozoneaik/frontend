@@ -16,7 +16,6 @@ class LeaveFormController extends Controller
         $users = DB::table('users')->get();
         return view('form', compact('users'));
     }
-
     public function store(Request $request){
         $request->validate(
             [
@@ -41,7 +40,7 @@ class LeaveFormController extends Controller
                 'file2.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น'
             ]
         );
-        
+
 
         $leaveform = new LeaveForm();
         $leaveform->user_id = Auth::user()->id;
@@ -111,7 +110,7 @@ class LeaveFormController extends Controller
         $leaveform->save();
         return redirect()->route('req')->with('success', 'บันทึกข้อมูลใบลาเสร็จสมบูรณ์');
     }
-    
+
     //ตารางแสดงขอใบลา
     public function req(){
         $leaves = LeaveForm::all();
@@ -124,14 +123,12 @@ class LeaveFormController extends Controller
         $leaveforms = LeaveForm::findOrFail($id);
         return view('req_list_detail', compact('leaveforms', 'users'));
     }
-
     //ตารางแสดงขอปฏิบัติแทน
     public function rep(){
         $leaves = LeaveForm::all();
         $users = User::all();
         return view('rep_list',compact('leaves','users'));
     }
-
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอปฎิบัติแทน
     public function rep_list_detail($id){
         $users = User::all();
@@ -139,7 +136,6 @@ class LeaveFormController extends Controller
         // dd($leaveforms->all());
         return view('rep_list_detail', compact('leaveforms', 'users'));
     }
-
     // ทำการอัปเดทข้อมูลการอนุมัติของผู้ปฏิบัติงานแทน
     public function rep_list_detail_update(Request $request, $id){
         // dd($request->all());
@@ -188,6 +184,9 @@ class LeaveFormController extends Controller
         $leaveforms = LeaveForm::findOrFail($id);
         return view('pm.req_list_emp_detail', compact('leaveforms', 'users'));
     }
+
+
+
     // ทำการอัปเดทข้อมูลการอนุมัติของ Project manager
     public function req_list_emp_detail_update(Request $request, $id){
         // dd($request->all());
@@ -195,14 +194,16 @@ class LeaveFormController extends Controller
         $request->validate(
             [
                 'approve_pm' => 'required',
-                'reason_pm' => 'nullable',
+                'reason_pm' => 'nullable|max:255',
                 'allowed_pm' => 'nullable',
-                'not_allowed_pm' => 'nullable',
+                'not_allowed_pm' => 'nullable|max:255',
                 'day' => 'nullable'
             ],
             [
                 'approve_pm.required' => 'no requ',
                 // 'allowed_pm.required' => 'โปรดเลือก',
+                'reason_pm.max' => 'ป้อนเกิน 255',
+                'not_allowed_pm' => 'ป้อนเกิน 255',
             ]
         );
 
@@ -225,7 +226,7 @@ class LeaveFormController extends Controller
         if(!$minutes){
             $minutes = '0';
         }
-        
+
         if ($request->allowed_pm == 'ทำงานชดเชยเป็นจำนวน') {
             $allowed_pm = $request->allowed_pm . ' ' . $day . ' วัน ' . $hour . ' ชั่วโมง ' . $minutes . ' นาที ';
         } else if ($request->allowed_pm == 'อื่นๆ...') {
@@ -257,10 +258,6 @@ class LeaveFormController extends Controller
         ]);
         return redirect()->route('pm.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
-
-
-
-
     //เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน[HR]
     public function HR_req(){
         $leaves = LeaveForm::all();
@@ -278,12 +275,14 @@ class LeaveFormController extends Controller
         $request->validate(
             [
                 'approve_hr' => 'required',
-                'reason_hr' => 'nullable',
-                'not_allowed_hr' => 'nullable',
+                'reason_hr' => 'nullable|max:255',
+                'not_allowed_hr' => 'nullable|max:255',
             ],
             [
                 'approve_hr.required' => 'no requ',
                 // 'allowed_pm.required' => 'โปรดเลือก',
+                'reason_hr.max' => 'ป้อนอักขระเกิน 255',
+                'not_allowed_hr.max' => 'ป้อนเกิน 255',
             ]
         );
 
@@ -326,12 +325,14 @@ class LeaveFormController extends Controller
         $request->validate(
             [
                 'approve_ceo' => 'required',
-                'reason_ceo' => 'nullable',
-                'not_allowed_ceo' => 'nullable',
+                'reason_ceo' => 'nullable|max:255',
+                'not_allowed_ceo' => 'nullable|max:255',
             ],
             [
                 'approve_ceo.required' => 'no requ',
                 // 'allowed_pm.required' => 'โปรดเลือก',
+                'reason_ceo.max' => 'ป้อนเกิน 255',
+                'not_allowed_ceo.max' => 'ป้อนเกิน 255',
             ]
         );
         if ($request->approve_ceo == '❌') {

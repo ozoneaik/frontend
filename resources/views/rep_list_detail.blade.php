@@ -107,11 +107,11 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
-                                                        <textarea class="form-control p-2" rows="4" readonly>
-@if ($leaveforms->reason)
-{{ $leaveforms->reason }}@elseไม่ได้กรอกเหตุผลการลา
-@endif
-</textarea>
+                                                        <textarea class="form-control p-2" rows="4" readonly>@if ($leaveforms->reason)
+                                                                {{ $leaveforms->reason }}
+                                                            @else
+                                                                ไม่ได้กรอกเหตุผลการลา
+                                                            @endif</textarea>
                                                     </div>
                                                 </div>
                                                 {{-- เอกสารประกอบการลา --}}
@@ -269,36 +269,38 @@
 
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
                                     <button type="button" class="btn btn-danger mr-3 " name="approve_rep" value="❌"
-                                        @if ($leaveforms->approve_rep != '⌛') disabled @endif>
+                                            @if ($leaveforms->approve_rep != '⌛') disabled @endif>
                                         ปฏิเสธการปฏิบัติงานแทน
                                     </button>
                                     <button type="button" class="btn btn-primary" name="approve_rep" value="✔️"
-                                        @if ($leaveforms->approve_rep != '⌛') disabled @endif>
+                                            @if ($leaveforms->approve_rep != '⌛') disabled @endif>
                                         ยินยอมปฏิบัติงานแทน
                                     </button>
-                                    <input type="hidden" name="approve_rep" value="{{ $leaveforms->approve_rep }}" />
+                                    <input type="hidden" name="approve_rep" value="{{ $leaveforms->approve_rep }}"/>
                                 </div>
 
                                 <!-- Modal ยอมรับปฏิบัติงานแทน -->
                                 <div class="modal fade" id="confirmModal_rep" tabindex="-1" role="dialog"
-                                    aria-labelledby="confirmModalLabel_rep" aria-hidden="true">
+                                     aria-labelledby="confirmModalLabel_rep" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="confirmModalLabel_rep">บันทึกข้อมูล</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <span class="content"></span>
                                                 <br>
-                                                <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
+                                                <span
+                                                    class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">ปิด</button>
+                                                        data-dismiss="modal">ปิด
+                                                </button>
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
                                             </div>
                                             <input type="hidden" name="approve_rep" value="">

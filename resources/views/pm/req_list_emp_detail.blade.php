@@ -217,7 +217,7 @@
                                                 {{ $leaveforms->status }}
                                             </h1>
                                             @if ($leaveforms->status == 'อนุมัติ')
-                                                <h5 class="pb-3 text-muted font-weight-light"></h5>
+                                                <h6 class="pb-3 text-muted font-weight-light">{{\Carbon\Carbon::parse($leaveforms->updated_at)->addYear(543)->format('d/m/Y H:i')}}</h6>
                                                 <h5 class="pb-3">ผู้อนุมัติ</h5>
                                                 <h5 class="pb-3 text-muted font-weight-light">นายณัฐดนัย หอมดง</h5>
                                                 <h5 class="pb-3">
@@ -346,7 +346,12 @@
                                             <div class="modal-body">
                                                 <div class="form-group reason_pm">
                                                     <label for="reason_pm">ความเห็น Project Manager</label>
-                                                    <textarea class="form-control" id="reason_pm" name="reason_pm" rows="3"></textarea>
+                                                    @if ($errors->has('reason_pm'))
+                                                        <span
+                                                            class="text-danger">{{ $errors->first('reason_pm') }}
+                                                        </span>
+                                                    @endif
+                                                    <textarea class="form-control @error('reason_pm') is-invalid @enderror " id="reason_pm" name="reason_pm" rows="3"></textarea>
                                                 </div>
                                                 <div class="form-group allowed">
                                                     <label for="allowed_pm">
@@ -389,7 +394,12 @@
                                                 </div>
                                                 <div class="form-group" id="not_allowed">
                                                     <label for="not_allowed">ไม่อนุญาติเนื่องจาก</label>
-                                                    <textarea class="form-control" name="not_allowed_pm" id="" cols="30" rows="4"></textarea>
+                                                    @if($errors->has('not_allowed_pm'))
+                                                        <span class="text-danger">
+                                                            {{$errors->first('not_allowed_pm')}}
+                                                        </span>
+                                                    @endif
+                                                    <textarea class="form-control @error('not_allowed_pm') is-invalid @enderror" name="not_allowed_pm" id="" cols="30" rows="4"></textarea>
                                                 </div>
 
                                                 <span class="content"></span>

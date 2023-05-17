@@ -105,8 +105,11 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
-                                                        <textarea class="form-control p-2" rows="4" readonly>@if ($leaveforms->reason){{ $leaveforms->reason }}@else ไม่ได้กรอกเหตุผลการลา@endif
-                                                        </textarea>
+                                                        @if ($leaveforms->reason)
+                                                            <textarea class="form-control p-2" rows="4" readonly>{{ $leaveforms->reason }}</textarea>
+                                                        @else
+                                                            <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 {{-- เอกสารประกอบการลา --}}
@@ -311,25 +314,25 @@
 
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
                                     <button type="button" class="btn btn-danger mr-3 " name="approve_hr" value="❌"
-                                        @if ($leaveforms->approve_hr != '⌛') disabled @endif>
+                                            @if ($leaveforms->approve_hr != '⌛') disabled @endif>
                                         ไม่อนุมัติ
                                     </button>
                                     <button type="button" class="btn btn-primary" name="approve_hr" value="✔️"
-                                        @if ($leaveforms->approve_hr != '⌛') disabled @endif>
+                                            @if ($leaveforms->approve_hr != '⌛') disabled @endif>
                                         อนุมัติ
                                     </button>
-                                    <input type="hidden" name="approve_hr" value="{{ $leaveforms->approve_hr }}" />
+                                    <input type="hidden" name="approve_hr" value="{{ $leaveforms->approve_hr }}"/>
                                 </div>
 
                                 <!-- Modal อนุมัติ HR -->
                                 <div class="modal fade" id="confirmModal_hr" tabindex="-1" role="dialog"
-                                    aria-labelledby="confirmModalLabel_hr" aria-hidden="true">
+                                     aria-labelledby="confirmModalLabel_hr" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="confirmModalLabel_hr">บันทึกข้อมูล</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -337,21 +340,35 @@
 
                                                 <div class="form-group reason_hr">
                                                     <label for="reason_hr">ความเห็น Human Resources (HR)</label>
-                                                    <textarea class="form-control" id="reason_hr" name="reason_hr" rows="3"></textarea>
+                                                    @if ($errors->has('reason_hr'))
+                                                        <span
+                                                            class="text-danger">{{ $errors->first('reason_hr') }}
+                                                        </span>
+                                                    @endif
+                                                    <textarea
+                                                        class="form-control @error('reason_hr') is-invalid @enderror"
+                                                        id="reason_hr" name="reason_hr" rows="3"></textarea>
                                                 </div>
 
                                                 <div class="form-group" id="not_allowed_hr">
                                                     <label for="not_allowed_hr">ไม่อนุมัติเนื่องจาก</label>
-                                                    <textarea class="form-control" name="not_allowed_hr" id="" cols="30" rows="4"></textarea>
+                                                    @if($errors->has('not_allowed_hr'))
+                                                        <span
+                                                            class="text-danger">{{$errors->first('not_allowed_hr')}}</span>
+                                                    @endif
+                                                    <textarea
+                                                        class="form-control @error('not_allowed_hr') is-invalid @enderror"
+                                                        name="not_allowed_hr" id="" cols="30" rows="4"></textarea>
                                                 </div>
-
                                                 <span class="content"></span>
                                                 <br>
-                                                <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
+                                                <span
+                                                    class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">ปิด</button>
+                                                        data-dismiss="modal">ปิด
+                                                </button>
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
                                             </div>
                                             <input type="hidden" name="approve_hr" value="">
@@ -359,7 +376,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>

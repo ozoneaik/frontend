@@ -138,7 +138,7 @@
                                                         </span>
                                                     </label>
 
-                                                    <textarea id="reason" class="form-control" rows="5" name="reason"
+                                                    <textarea id="reason" class="form-control @error('reason') is-invalid @enderror" rows="5" name="reason"
                                                               placeholder="กรอกเหตุผลการลาที่นี่...">{{ old('reason') }}</textarea>
 
                                                     @if ($errors->has('reason'))

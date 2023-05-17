@@ -343,12 +343,22 @@
 
                                                 <div class="form-group reason_ceo">
                                                     <label for="reason_ceo">ความเห็น (CEO)</label>
-                                                    <textarea class="form-control" id="reason_ceo" name="reason_ceo" rows="3"></textarea>
+                                                    @if($errors->has('reason_ceo'))
+                                                        <span class="text-danger">
+                                                            {{$errors->first('reason_ceo')}}
+                                                        </span>
+                                                    @endif
+                                                    <textarea class="form-control @error('reason_ceo') is-invalid @enderror" id="reason_ceo" name="reason_ceo" rows="3"></textarea>
                                                 </div>
 
                                                 <div class="form-group" id="not_allowed_ceo">
                                                     <label for="not_allowed_ceo">ไม่อนุมัติเนื่องจาก</label>
-                                                    <textarea class="form-control" name="not_allowed_ceo" id="" cols="30" rows="4"></textarea>
+                                                    @if($errors->has('not_allowed_ceo'))
+                                                        <span class="text-danger">
+                                                            {{$errors->first('not_allowed_ceo')}}
+                                                        </span>
+                                                    @endif
+                                                    <textarea class="form-control @error('not_allowed_ceo') is-invalid @enderror" name="not_allowed_ceo" id="" cols="30" rows="4"></textarea>
                                                 </div>
 
                                                 <span class="content"></span>
