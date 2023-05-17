@@ -268,7 +268,7 @@
                                 {{-- ปุ่มบันทึกการลา --}}
                                 <div class="col-md-12 justify-content-end d-flex ">
                                     <a href="{{route('home')}}" class="btn btn-danger">ยกเลิก</a>
-                                    <button class="btn btn-primary ms-auto ml-2" type="button" data-toggle="modal"
+                                    <button class="btn btn-primary ml-2" type="button" data-toggle="modal"
                                             data-target="#modal-default">บันทึก
                                     </button>
                                     {{-- Modal --}}

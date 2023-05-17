@@ -414,8 +414,7 @@
         {{-- end container fluid --}}
     </section>
     {{-- end mian content --}}
-@endsection
-<script>
+    <script>
     function showInputFields() {
         var radio = document.querySelector('input[name="allowed_pm"]:checked');
         if (radio && radio.value === "ทำงานชดเชยเป็นจำนวน") {
@@ -430,3 +429,5 @@
 
     }
 </script>
+@endsection
+

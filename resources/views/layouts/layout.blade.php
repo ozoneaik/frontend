@@ -18,9 +18,6 @@
 
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
 
     {{-- Sidebar Scrollbars --}}
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
@@ -83,13 +80,6 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                {{-- <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('home') }}" class="nav-link font-weight-bold" style="color: black;">
-                        <span class="text-hide-md">
-                            ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
-                        </span>
-                    </a>
-                </li> --}}
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('home') }}"
                         class="nav-link {{ Request::routeIs('home') ? 'btn btn-primary text-white ' : '' }} text-hide-md">
@@ -106,14 +96,48 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('rep') }}"
-                        class="nav-link {{ Request::routeIs('rep', 'rep.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
-                        <span class="text-hide-md">
-                            รายการคำขอปฏิบัติแทน
-                        </span>
-                    </a>
-                </li>
+                @if (Auth::user()->type != 'pm')
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ route('rep') }}"
+                            class="nav-link {{ Request::routeIs('rep', 'rep.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
+                            <span class="text-hide-md">
+                                รายการคำขอปฏิบัติแทน
+                            </span>
+                        </a>
+                    </li>
+                @endif
+                @php
+                    $userTypes = [
+                        'pm' => 'pm.req.emp',
+                        'hr(admin)' => 'hr.req.emp',
+                        'ceo' => 'ceo.req.emp',
+                    ];
+                    $currentUserType = Auth::user()->type;
+                @endphp
+
+                @if (isset($userTypes[$currentUserType]))
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ route($userTypes[$currentUserType]) }}"
+                            class="nav-link {{ Request::routeIs($userTypes[$currentUserType], $userTypes[$currentUserType] . '.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
+                            <span class="text-hide-md">
+                                รายการคำขอใบลาของพนักงาน
+                            </span>
+                        </a>
+                    </li>
+                @endif
+
+                @if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'ceo')
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ route('data.users') }}"
+                            class="nav-link {{ Request::routeIs('data.users', 'data.users.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
+                            <span class="text-hide-md">
+                                ข้อมูลพนักงาน
+                            </span>
+                        </a>
+                    </li>
+                @endif
+
+
             </ul>
             {{-- Left Navbar Links --}}
 
@@ -121,14 +145,16 @@
             <ul class="navbar-nav ml-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <img src="https://www.w3schools.com/bootstrap4/newyork.jpg" class="rounded-circle"
-                            alt="Cinque Terre" width="40px" height="40px">
+                        <a href="{{ route('profile') }}">
+                            <img src="https://www.w3schools.com/bootstrap4/newyork.jpg" class="rounded-circle"
+                                alt="Cinque Terre" width="40px" height="40px">
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('profile') }}" class="nav-link">[ID : {{ Auth::user()->id }}]
+                        <a href="{{ route('profile') }}" class="nav-link text-hide-md">[ID : {{ Auth::user()->id }}]
                             {{ Auth::user()->name }}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ml-3">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn bg-danger">
@@ -402,6 +428,7 @@
             defaultDate: "now",
             time_24hr: true,
             disableMobile: "true",
+
 
         });
     </script>

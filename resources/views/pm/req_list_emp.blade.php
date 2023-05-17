@@ -56,7 +56,7 @@
                                     <th>อนุมัติ(HR)</th>
                                     <th>อนุมัติ(CEO)</th>
                                     <th>สถานะ</th>
-                                    <th>รายละเอียด</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>

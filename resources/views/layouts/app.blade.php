@@ -30,7 +30,7 @@
     }
 
     body{
-        background-image: url('https://bda.co.th/assets/img/bda_photo/004.jpg');
+        background-image: url('https://images8.alphacoders.com/486/486625.jpg');
         background-size: cover;
         background-repeat: no-repeat;
     }
