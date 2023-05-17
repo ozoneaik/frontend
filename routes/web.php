@@ -1,16 +1,17 @@
 <?php
 
-use App\Models\LeaveForm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveFormController;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+Auth::routes([
+    'verify' => true
+]);
 
 Route::get('/test',function(){
     return view('test');
