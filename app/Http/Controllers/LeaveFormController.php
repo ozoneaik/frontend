@@ -197,13 +197,19 @@ class LeaveFormController extends Controller
                 'reason_pm' => 'nullable|max:255',
                 'allowed_pm' => 'nullable',
                 'not_allowed_pm' => 'nullable|max:255',
-                'day' => 'nullable'
+                'day' => 'nullable|numeric',
+                'hour' => 'nullable|numeric',
+                'minutes' => 'nullable|numeric',
             ],
             [
                 'approve_pm.required' => 'no requ',
                 // 'allowed_pm.required' => 'โปรดเลือก',
                 'reason_pm.max' => 'ป้อนเกิน 255',
                 'not_allowed_pm' => 'ป้อนเกิน 255',
+
+                'day.numeric' => 'ป้อนตัวเลขเท่านั้น',
+                'hour.numeric' => 'ป้อนตัวเลขเท่านั้น',
+                'minutes.numeric' => 'ป้อนตัวเลขเท่านั้น',
             ]
         );
 

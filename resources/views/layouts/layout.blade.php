@@ -66,7 +66,7 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition sidebar-collapse layout-fixed layout-navbar-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
 {{-- Main Wrapper --}}
 <div class="wrapper">
@@ -87,56 +87,6 @@
                         </span>
                 </a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route('req') }}"
-                   class="nav-link {{ Request::routeIs('req', 'req.detail', 'create') ? 'btn btn-primary text-white' : '' }} text-hide-md">
-                        <span class="text-hide-md">
-                            รายการคำขอใบลา
-                        </span>
-                </a>
-            </li>
-            @if (Auth::user()->type != 'pm')
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('rep') }}"
-                       class="nav-link {{ Request::routeIs('rep', 'rep.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
-                            <span class="text-hide-md">
-                                รายการคำขอปฏิบัติแทน
-                            </span>
-                    </a>
-                </li>
-            @endif
-            @php
-                $userTypes = [
-                    'pm' => 'pm.req.emp',
-                    'hr(admin)' => 'hr.req.emp',
-                    'ceo' => 'ceo.req.emp',
-                ];
-                $currentUserType = Auth::user()->type;
-            @endphp
-
-            @if (isset($userTypes[$currentUserType]))
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route($userTypes[$currentUserType]) }}"
-                       class="nav-link {{ Request::routeIs($userTypes[$currentUserType], $userTypes[$currentUserType] . '.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
-                            <span class="text-hide-md">
-                                รายการคำขอใบลาของพนักงาน
-                            </span>
-                    </a>
-                </li>
-            @endif
-
-            @if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'ceo')
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('data.users') }}"
-                       class="nav-link {{ Request::routeIs('data.users', 'data.users.detail') ? 'btn btn-primary text-white' : '' }} text-hide-md">
-                            <span class="text-hide-md">
-                                ข้อมูลพนักงาน
-                            </span>
-                    </a>
-                </li>
-            @endif
-
-
         </ul>
         {{-- Left Navbar Links --}}
 
@@ -169,7 +119,13 @@
     {{-- end navbar --}}
 
     {{-- Main Sidebar Container --}}
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark elevation-4" style="background-color: rgb(19, 20, 50)">
+
+        <style>
+            p{
+                color: white
+            }
+        </style>
 
         <!-- Brand Logo -->
         <a href="{{ route('home') }}" class="brand-link text-center">
@@ -333,6 +289,8 @@
 <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+
+
 
 <script>
     $(document).ready(function () {
