@@ -6,6 +6,7 @@ use App\Models\LeaveForm;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\users_leave_data;
 
 class HomeController extends Controller
 {
@@ -29,8 +30,9 @@ class HomeController extends Controller
     {
         $users = User::all();
         $leaves = LeaveForm::latest()->get();
+        $users_data = users_leave_data::all();
         // dd($leaves);
-        return view('home', compact('leaves', 'users'));
+        return view('home', compact('leaves', 'users', 'users_data'));
     }
 
     // โปรไฟล์ตัวเอง
