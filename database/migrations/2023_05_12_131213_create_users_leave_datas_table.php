@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('users_leave_datas', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('leave_type_id');
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('leave_type_id');
             $table->string('leave_type_name');
+            $table->string('time_remain')->nullable();
+            $table->string('time_already_used')->nullable();
             $table->timestamps();
         });
     }

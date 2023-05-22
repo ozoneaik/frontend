@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\users_leave_data;
 
 class LeaveFormController extends Controller
 {
@@ -49,13 +50,34 @@ class LeaveFormController extends Controller
         // คำนวณหาจำนวนวันลาทั้งหมด
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->input('leave_start'));
         $endDate = Carbon::createFromFormat('d/m/Y H:i', $request->input('leave_end'));
-        $diffMinutes = $startDate->floatDiffInRealMinutes($endDate);
-        $days = floor($diffMinutes / 1440);
-        $hours = floor(($diffMinutes - $days * 1440) / 60);
-        $minutes = round($diffMinutes - $days * 1440 - $hours * 60);
+        $startDate->hours(max(9, min(18, $startDate->hour)))->minutes(0)->seconds(0);
+        $endDate->hours(max(9, min(18, $endDate->hour)))->minutes(0)->seconds(0);
+        $duration = $endDate->diff($startDate);
+        $days = $duration->days;
+        $remainingHours = $duration->h % 24;
+        $minutes = $duration->i;
+
+        for ($i = 0; $i <= $days; $i++) {
+            $currentDate = $startDate->copy()->addDays($i);
+            if ($currentDate->isoWeekday() === 6 || $currentDate->isoWeekday() === 7) {
+                $days -= 1;
+            }
+        }
+        if ($startDate->hour <= 12 && $endDate->hour >= 13) {
+            $remainingHours -= 1;
+        }
+        if ($startDate->hour >= 13 && $endDate->hour <= 12){
+            $remainingHours -= 15;
+        }
+
+        if ($remainingHours >= 8) {
+            $days += 1;
+            $remainingHours -= 8;
+        }
+
         $leaveform->leave_start = $startDate;
         $leaveform->leave_end = $endDate;
-        $leaveform->leave_total = "{$days} วัน {$hours} ชั่วโมง {$minutes} นาที";
+        $leaveform->leave_total = "{$days} วัน {$remainingHours} ชั่วโมง {$minutes} นาที";
         // dd($leaveform->leave_total,$request->leave_start,$request->leave_end);
 
         $leaveform->reason = $request->input('reason');
@@ -344,10 +366,64 @@ class LeaveFormController extends Controller
                 'not_allowed_ceo.max' => 'ป้อนเกิน 255',
             ]
         );
+        $leaveForm = LeaveForm::find($id);
+        $item = users_leave_data::all();
         if ($request->approve_ceo == '❌') {
             $status = 'ไม่อนุมัติ';
         } else {
             $status = 'อนุมัติ';
+
+            foreach ($item as $time) {
+
+                if ($leaveForm->leave_type == $time->leave_type_name && $leaveForm->id >= $id && $time->user_id == $leaveForm->user_id) {
+                    // Calculate remaining time
+                    $parts = explode(' ', $time->time_remain);
+                    $D = (int)$parts[0];
+                    $H = (int)$parts[2];
+                    $M = (int)$parts[4];
+                    $totalMinutes = ($D * 8 * 60) + ($H * 60) + $M;
+
+                    // Calculate used time
+                    $parts1 = explode(' ', $time->time_already_used);
+                    $D1 = (int)$parts1[0];
+                    $H1 = (int)$parts1[2];
+                    $M1 = (int)$parts1[4];
+                    $totalMinutes1 = ($D1 * 8 * 60) + ($H1 * 60) + $M1;
+
+                    // Calculate total leave time
+                    $parts2 = explode(' ', $leaveForm->leave_total);
+                    $D2 = (int)$parts2[0];
+                    $H2 = (int)$parts2[2];
+                    $M2 = (int)$parts2[4];
+                    $totalMinutes2 = ($D2 * 8 * 60) + ($H2 * 60) + $M2;
+
+                    // Subtract leave time from remaining time
+                    $difference = $totalMinutes - $totalMinutes2;
+                    $D = floor($difference / (8 * 60));
+                    $H = floor(($difference % (8 * 60)) / 60);
+                    $M = $difference % 60;
+
+                    // Add leave time to used time
+                    $sum = $totalMinutes1 + $totalMinutes2;
+                    $D1 = floor($sum / (8 * 60));
+                    $H1 = floor(($sum % (8 * 60)) / 60);
+                    $M1 = $sum % 60;
+
+                    // Update time remaining and used
+                    $parts[0] = $D;
+                    $parts[2] = $H;
+                    $parts[4] = $M;
+                    $parts1[0] = $D1;
+                    $parts1[2] = $H1;
+                    $parts1[4] = $M1;
+
+                    $time_remain = implode(' ', $parts);
+                    $time_already_used = implode(' ', $parts1);
+                    $time->time_remain = $time_remain;
+                    $time->time_already_used = $time_already_used;
+                    $time->save();
+                }
+            }
         }
         LeaveForm::find($id)->update([
             'reason_ceo' => $request->reason_ceo,
