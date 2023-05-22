@@ -244,14 +244,14 @@
                                                     @endif
                                                     @if ($leaveforms->allowed_pm)
                                                         <hr>
-                                                        <span class="font-weight-bold text-success">อนุญาติตามสิทธิ์พนักงาน
+                                                        <span class="font-weight-bold text-success">อนุญาตตามสิทธิ์พนักงาน
                                                             โดย:</span>
                                                         <br>
                                                         {{ $leaveforms->allowed_pm }}
                                                     @elseif ($leaveforms->not_allowed_pm)
                                                         <hr>
                                                         <span
-                                                            class="font-weight-bold text-danger">ไม่อนุญาติเนื่องจากDirector
+                                                            class="font-weight-bold text-danger">ไม่อนุญาตเนื่องจากDirector
                                                             :</span>
                                                         <br>
                                                         {{ $leaveforms->not_allowed_pm }}

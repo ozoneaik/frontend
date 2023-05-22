@@ -39,7 +39,7 @@
                                 <div class="col-md-12">
                                     @if ($errors->has('allowed_pm'))
                                         <span class="text-danger">
-                                            ถ้ากดอนุมัติกรุณาเลือก ตัวเลือกกดอนุญาติตามสิทธิ์พนักงานหลังกดยืนยันด้วยครับ
+                                            ถ้ากดอนุมัติกรุณาเลือก ตัวเลือกกดอนุญาตตามสิทธิ์พนักงานหลังกดยืนยันด้วยครับ
                                         </span>
                                     @endif
                                 </div>
@@ -247,13 +247,13 @@
                                                     @endif
                                                     @if ($leaveforms->allowed_pm)
                                                         <hr>
-                                                        <span class="font-weight-bold text-success">อนุญาติตามสิทธิ์พนักงาน
+                                                        <span class="font-weight-bold text-success">อนุญาตตามสิทธิ์พนักงาน
                                                             โดย:</span>
                                                         <br>
                                                         {{ $leaveforms->allowed_pm }}
                                                     @elseif ($leaveforms->not_allowed_pm)
                                                         <hr>
-                                                        <span class="font-weight-bold text-danger">ไม่อนุญาติเนื่องจาก
+                                                        <span class="font-weight-bold text-danger">ไม่อนุญาตเนื่องจาก
                                                             :</span>
                                                         <br>
                                                         {{ $leaveforms->not_allowed_pm }}

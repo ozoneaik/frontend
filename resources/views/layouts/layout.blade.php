@@ -132,25 +132,22 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed dark-mode">
+<body class="hold-transition layout-fixed layout-navbar-fixed">
 
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
 
         {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand navbar-dark navbar-dark">
+        <nav class="main-header navbar navbar-expand navbar-light navbar-light">
             {{-- Left Navbar Links --}}
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                <li class="nav-item d-none d-sm-inline-block ">
+                    <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">บริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
                 </li>
             </ul>
 
@@ -280,7 +277,7 @@
                                     <a href="{{ route('hr.req.emp') }}"
                                         class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                         <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ขอใบลาพนักงาน</p>
+                                        <p>ใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
@@ -304,7 +301,7 @@
                                     <a href="{{ route('ceo.req.emp') }}"
                                         class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
                                         <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ขอใบลาพนักงาน</p>
+                                        <p>ใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>

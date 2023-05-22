@@ -189,7 +189,7 @@
                                 <div class="row">
                                     @php
                                         $bg = ['#f1fbff;', '#ffe6f5', '#f9e3ff', '#e2f5de', '#fff7f0', '#eff4f9'];
-                                        $icon_color = ['00b7fe', 'ff009b', 'c600fe', '1fb500', 'ff6a00', '507090'];
+                                        $icon_color = ['#00b7fe', '#ff009b', '#c600fe', '#1fb500', '#ff6a00', '#507090'];
                                         $name = ['ลาคลอดบุตร', 'ลาเพื่อสมรส', 'ลาเพื่อทำหมัน', 'ลารับราชการทหาร', 'ลาอุปสมบท', 'ลาเพื่อฝึกอบรม'];
                                         $icon = ['fa-solid fa-baby', 'fa-solid fa-heart', 'fa-solid fa-hospital-user', 'fa-solid fa-person-rifle', 'fa-solid fa-hands-praying', 'fa-solid fa-book'];
                                     @endphp
