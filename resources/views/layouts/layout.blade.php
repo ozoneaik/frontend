@@ -147,7 +147,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block ">
-                    <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">บริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
+                    <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
                 </li>
             </ul>
 
@@ -244,7 +244,7 @@
                                 class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
-                                    Project manager
+                                    Project manager (PM)
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">1</span>
                                 </p>
@@ -267,7 +267,7 @@
                                 class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
-                                    HR
+                                    Human Resources (HR)
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">2</span>
                                 </p>
