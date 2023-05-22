@@ -48,6 +48,11 @@
     {{-- Theme style --}}
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
+
+
+
+
+
     <style>
         * {
             font-family: 'Sarabun', sans-serif;
@@ -62,30 +67,93 @@
                 display: none;
             }
         }
+
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active,
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:focus,
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:hover {
+            background-color: rgb(255 255 255 / 0%);
+            color: rgb(0 123 255);
+        }
+
+        [class*=sidebar-dark-] .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link,
+        [class*=sidebar-dark-] .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link.active {
+            border-color: rgb(0 123 255);
+        }
+
+        .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+        .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+            background-color: #1d2531;
+            color: #fff;
+            border-left: 3px solid #007bff;
+        }
+
+        [class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link,
+        [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link,
+        [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
+            background-color: #1d2531;
+            color: #fff;
+            border-left: 0.2rem solid #007bff;
+        }
+
+        [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link.active {
+            color: #fff;
+            box-shadow: none;
+
+
+        }
+
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active,
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:focus,
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:hover {
+            background-color: #222d3b;
+            color: rgb(0 123 255);
+        }
+
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link,
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:focus,
+        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:hover {
+            background-color: #222d3b;
+        }
+
+        .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*=navbar]) {
+            background-color: #263544;
+        }
+
+        .nav-sidebar .nav-link>.right,
+        .nav-sidebar .nav-link>p>.right {
+            position: absolute;
+            right: 1rem;
+            top: 1.2rem;
+        }
     </style>
+
+
+
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed">
+<body class="hold-transition layout-fixed layout-navbar-fixed dark-mode">
+
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
 
         {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-dark navbar-dark">
             {{-- Left Navbar Links --}}
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+                            class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
+                    <a href="index3.html" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                    <a href="#" class="nav-link">Contact</a>
                 </li>
-                </ul>
-                
+            </ul>
+
             {{-- Left Navbar Links --}}
 
             {{-- Right Navbar Links --}}
@@ -117,7 +185,7 @@
         {{-- end navbar --}}
 
         {{-- Main Sidebar Container --}}
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4 text-sm" style="background: #263544">
 
             <!-- Brand Logo -->
             <a href="{{ route('home') }}" class="brand-link text-center">
@@ -132,19 +200,20 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <br>
-                    <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-child-indent" data-widget="treeview" role="menu"
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
                         data-accordion="false">
                         {{-- เมนูหลัก --}}
                         <li class="nav-item">
                             <a href="{{ route('home') }}"
-                                class="nav-link {{ Request::routeIs('home') ? 'active' : '' }}">
+                                class="nav-link pt-3 pb-3 {{ Request::routeIs('home') ? 'active' : '' }}">
                                 <i class="nav-icon fa-solid fa-house"></i>
                                 <p>เมนูหลัก</p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
+                        <li
+                            class="nav-item {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'active' : '' }}">
+                                class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>
                                     รายการคำขอ
@@ -155,8 +224,8 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('req') }}"
-                                        class="nav-link {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
                                         <p>รายการคำขอใบลา</p>
                                     </a>
                                 </li>
@@ -164,17 +233,18 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('rep') }}"
-                                        class="nav-link {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
                                         <p>รายการคำปฏิบัติแทน</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         {{-- Project manager --}}
-                        <li class="nav-item menu-open">
+                        <li
+                            class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
+                                class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
                                     Project manager
@@ -185,8 +255,8 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item ">
                                     <a href="{{ route('pm.req.emp') }}"
-                                        class="nav-link {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        class="nav-link  pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
                                         <p>ใบลาพนักงาน</p>
                                     </a>
                                 </li>
@@ -194,9 +264,10 @@
                         </li>
 
                         {{-- HR --}}
-                        <li class="nav-item menu-open">
+                        <li
+                            class="nav-item {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
+                                class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
                                     HR
@@ -207,8 +278,8 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('hr.req.emp') }}"
-                                        class="nav-link {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
                                         <p>ขอใบลาพนักงาน</p>
                                     </a>
                                 </li>
@@ -217,9 +288,10 @@
 
                         {{-- CEO --}}
 
-                        <li class="nav-item menu-open">
+                        <li
+                            class="nav-item {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
+                                class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
                                     CEO
@@ -230,15 +302,15 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('ceo.req.emp') }}"
-                                        class="nav-link {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
                                         <p>ขอใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
                         <li class="nav-item">
                             <a href="{{ route('data.users') }}"
-                                class="nav-link {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
+                                class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
                                 <i class="fa-solid fa-users nav-icon"></i>
                                 <p>ข้อมูลพนักงาน</p>
                             </a>

@@ -82,7 +82,7 @@
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
                                                             {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                                                                                                                                                H:i') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -109,10 +109,10 @@
                                                         <label>เหตุผลการลา</label>
                                                         <textarea class="form-control p-2" rows="4" readonly>
 @if ($leaveforms->reason)
-                                                                {{ $leaveforms->reason }}
-                                                            @else
-                                                                ไม่ได้กรอกเหตุผลการลา
-                                                            @endif
+{{ $leaveforms->reason }}
+@else
+ไม่ได้กรอกเหตุผลการลา
+@endif
 </textarea>
                                                     </div>
                                                 </div>
@@ -271,14 +271,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>
-                                                    @if($leaveforms->approve_hr != '❌')
+                                                    @if ($leaveforms->approve_hr != '❌')
                                                         @if ($leaveforms->reason_hr)
-                                                            {{ $leaveforms->reason_hr}}
+                                                            {{ $leaveforms->reason_hr }}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
                                                     @endif
-                                                    @if($leaveforms->approve_hr != '✔️')
+                                                    @if ($leaveforms->approve_hr != '✔️')
                                                         @if ($leaveforms->not_allowed_hr)
                                                             {{ $leaveforms->not_allowed_hr }}
                                                         @else
@@ -300,14 +300,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>
-                                                    @if($leaveforms->approve_ceo != '❌')
+                                                    @if ($leaveforms->approve_ceo != '❌')
                                                         @if ($leaveforms->reason_ceo)
-                                                            {{ $leaveforms->reason_ceo}}
+                                                            {{ $leaveforms->reason_ceo }}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
                                                     @endif
-                                                    @if($leaveforms->approve_ceo != '✔️')
+                                                    @if ($leaveforms->approve_ceo != '✔️')
                                                         @if ($leaveforms->not_allowed_ceo)
                                                             {{ $leaveforms->not_allowed_ceo }}
                                                         @else
@@ -331,25 +331,25 @@
 
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
                                     <button type="button" class="btn btn-danger mr-3 " name="approve_ceo"
-                                            value="❌" @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
+                                        value="❌" @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
                                         ไม่อนุมัติ
                                     </button>
                                     <button type="button" class="btn btn-primary" name="approve_ceo" value="✔️"
-                                            @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
+                                        @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
                                         อนุมัติ
                                     </button>
-                                    <input type="hidden" name="approve_ceo" value="{{ $leaveforms->approve_ceo }}"/>
+                                    <input type="hidden" name="approve_ceo" value="{{ $leaveforms->approve_ceo }}" />
                                 </div>
 
                                 <!-- Modal อนุมัติ CEO -->
                                 <div class="modal fade" id="confirmModal_ceo" tabindex="-1" role="dialog"
-                                     aria-labelledby="confirmModalLabel_ceo" aria-hidden="true">
+                                    aria-labelledby="confirmModalLabel_ceo" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="confirmModalLabel_ceo">บันทึกข้อมูล</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -357,36 +357,32 @@
 
                                                 <div class="form-group reason_ceo">
                                                     <label for="reason_ceo">ความเห็น (CEO)</label>
-                                                    @if($errors->has('reason_ceo'))
+                                                    @if ($errors->has('reason_ceo'))
                                                         <span class="text-danger">
-                                                            {{$errors->first('reason_ceo')}}
+                                                            {{ $errors->first('reason_ceo') }}
                                                         </span>
                                                     @endif
-                                                    <textarea
-                                                        class="form-control @error('reason_ceo') is-invalid @enderror"
-                                                        id="reason_ceo" name="reason_ceo" rows="3"></textarea>
+                                                    <textarea class="form-control @error('reason_ceo') is-invalid @enderror" id="reason_ceo" name="reason_ceo"
+                                                        rows="3"></textarea>
                                                 </div>
 
                                                 <div class="form-group" id="not_allowed_ceo">
                                                     <label for="not_allowed_ceo">ไม่อนุมัติเนื่องจาก</label>
-                                                    @if($errors->has('not_allowed_ceo'))
+                                                    @if ($errors->has('not_allowed_ceo'))
                                                         <span class="text-danger">
-                                                            {{$errors->first('not_allowed_ceo')}}
+                                                            {{ $errors->first('not_allowed_ceo') }}
                                                         </span>
                                                     @endif
-                                                    <textarea
-                                                        class="form-control @error('not_allowed_ceo') is-invalid @enderror"
-                                                        name="not_allowed_ceo" id="" cols="30" rows="4"></textarea>
+                                                    <textarea class="form-control @error('not_allowed_ceo') is-invalid @enderror" name="not_allowed_ceo" id=""
+                                                        cols="30" rows="4"></textarea>
                                                 </div>
 
                                                 <span class="content"></span>
                                                 <br>
-                                                <span
-                                                    class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
+                                                <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">ปิด
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
                                             </div>
