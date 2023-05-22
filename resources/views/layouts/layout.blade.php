@@ -414,6 +414,10 @@
             if (startDate.hours() >= 13 && endDate.hours() <= 12){
                 remainingHours -= 15;
             }
+            if (startDate.hours() >= 13 && endDate.hours() >= 13 && startDate.hours() > endDate.hours()){
+                remainingHours -= 8;
+                days -= 1;
+            }
 
             if (remainingHours >= 8) {
                 days += 1;

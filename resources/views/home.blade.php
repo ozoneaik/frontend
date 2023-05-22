@@ -29,11 +29,17 @@
                                         @php
                                             $parts = explode(' ', $row->time_already_used);
                                             $D = (int)$parts[0];
+                                            $H = (int)$parts[2];
                                             $parts = explode(' ', $row->time_remain);
                                             $D1 = (int)$parts[0];
+                                            $H1 = (int)$parts[2];
+                                            $D2 = $D1 + $D;
+                                            if ($H1 != 0 || $H != 0){
+                                                $D2 += 1;
+                                            }
                                         @endphp
                                         <div class="day">
-                                            <span class="Hday">{{ $D }}</span><span class="Sday">/{{ $D1 }}</span> <span
+                                            <span class="Hday">{{ $D }}</span><span class="Sday">/{{ $D2 }}</span> <span
                                                 class="SSday">วัน</span>
                                         </div>
                                     </div>
@@ -135,10 +141,11 @@
                                                         $D = (int)$parts[0];
                                                         $parts = explode(' ', $row->time_remain);
                                                         $D1 = (int)$parts[0];
+                                                        $D2 = $D1 + $D;
                                                     @endphp
                                                     <div class="ml-3 d-flex flex-column justify-content-center bd-highlight">
                                                         <p class="text-dark font-weight-bold mb-0" style="font-size: 18px">{{ $row->leave_type_name }}</p>
-                                                        <p class="mb-0" style="color:black">{{ $D }}/{{ $D1 }} วัน</p>
+                                                        <p class="mb-0" style="color:black">{{ $D }}/{{ $D2 }} วัน</p>
                                                     </div>
                                                 </div>
                                             </div>
