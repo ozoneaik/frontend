@@ -83,7 +83,7 @@
                                                                class="form-control @error('leave_start') is-invalid @enderror"
                                                                name="leave_start" id="start-date" onchange="calculate()"
                                                                value="{{ old('leave_start')}}"
-                                                               placeholder="เลือกวันที่ลาตั้งแต่..."/>
+                                                               placeholder="เลือกวันที่ลาตั้งแต่..." readonly/>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>
@@ -107,7 +107,7 @@
                                                                class="form-control @error('leave_end') is-invalid @enderror"
                                                                name="leave_end" id="end-date" onchange="calculate()"
                                                                value="{{ old('leave_end') }}"
-                                                               placeholder="เลือกวันที่ลาถึง..."/>
+                                                               placeholder="เลือกวันที่ลาถึง..." readonly/>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>

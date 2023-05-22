@@ -4,9 +4,19 @@
 border-radius: 25px;
 box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 padding: 20px;
-
 }
 
+.card-box-other {
+    border-radius: 10px;
+    padding: 10px;
+    border: solid 1px rgb(237, 237, 237);
+    }
+
+    .card-box-other:hover {
+        background-color: #8686862e;
+        cursor: pointer;
+        border-radius: 10px;
+      }
 
 .content1{
     display: flex;

@@ -9,7 +9,7 @@
             <div class="row mt-2">
                 <link rel="stylesheet" href="{{ asset('style/css.css') }}">
                 {{-- ลาป่วย --}}
-                <div class="col-lg-3 mb-2">
+                <div class="col-lg-4 mb-2">
                     <div class="card-box" style="background-color: #E8533D;">
                         <div class="content1">
                             <div class="icon-card" style="background-color:#F37762">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 {{-- ลากิจ --}}
-                <div class="col-lg-3 mb-2">
+                <div class="col-lg-4 mb-2">
                     <div class="card-box" style="background-color: #5182FF;">
                         <div class="content1">
                             <div class="icon-card" style="background-color:#759CFF">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 {{-- ลาพักผ่อน --}}
-                <div class="col-lg-3 mb-2">
+                <div class="col-lg-4 mb-2">
                     <div class="card-box" style="background-color: #FEAD10;">
                         <div class="content1">
                             <div class="icon-card" style="background-color:#FFCA62">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 {{-- ลาเพื่ออบรม --}}
-                <div class="col-lg-3 mb-2">
+                {{-- <div class="col-lg-4 mb-2">
                     <div class="card-box" style="background-color: #1F998E;">
                         <div class="content1">
                             <div class="icon-card" style="background-color:#50BDB3">
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <br>
@@ -126,125 +126,34 @@
 
                     <div class="collapse" id="collapseExample">
                         <div class="card">
-                            <div class="card-body d-flex justify-content-between">
-                                <style>
-                                    .separator {
-                                        width: 2px;
-                                        background-color: #a0a0a03d;
-                                        margin: 0px 10px;
-                                        margin-left: 20px;
-                                        margin-right: 20px;
-                                    }
-
-                                    .h5 {
-                                        color: #424242;
-                                        font-weight: bold
-                                    }
-
-                                    .other {
-                                        border: solid 1px #ececec;
-                                        border-radius: 10px;
-                                        padding: 10px;
-                                        width: 280px;
-                                        /* Set width to 300px */
-                                        height: 90px;
-                                        /* Set height to 70px */
-                                    }
-
-                                    .other:hover {
-                                        background-color: #8686862e;
-                                        cursor: pointer;
-                                        border-radius: 10px
-                                    }
-
-                                    @media (max-width: 576px) {
-                                        .card-body {
-                                            flex-direction: column;
-                                            align-items:center;
-                                        }
-
-                                        .separator {
-                                            margin-left: 0;
-                                            margin-top: 10px;
-                                        }
-                                    }
-                                </style>
-                                {{-- ลาคลอดบุตร --}}
-                                {{-- d-flex flex-row --}}
-                                <div class="d-flex flex-row justify-content-center">
-                                    <div class="other d-flex flex-row">
-                                        <div class="align-items-center d-flex justify-content-center"
-                                            style="background-color: #f1fbff; height:70px;width:70px;border-radius:50px">
-                                            <i class="fa-solid fa-baby fa-2xl" style="color:#00b7fe"></i>
+                            <div class="card-body">
+                                <div class="row">
+                                    @php
+                                        $bg = ['#f9e3ff;', '#f1fbff', '#f1fbff', '#f1fbff', '#f1fbff', '#f1fbff'];
+                                        $name = ['ลาคลอดบุตร', 'ลาเพื่อสมรส', 'ลาเพื่อทำหมัน', 'ลารับราชการทหาร', 'ลาอุปสมบท', 'ลาเพื่อฝึกอบรม'];
+                                    @endphp
+                                    @for ($i = 0; $i < 6; $i++)
+                                        <div class="col-md-2">
+                                            <div class="card-box-other d-flex justify-content-between align-items-center">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="align-items-center d-flex justify-content-center"
+                                                        style="background-color: {{ $bg[$i] }}; height:70px;width:70px;border-radius:50px">
+                                                        <i class="fa-solid fa-hospital-user fa-2xl"
+                                                            style="color:#c600fe"></i>
+                                                    </div>
+                                                    <div class="ml-2 d-flex flex-column justify-content-center">
+                                                        <p class="text-dark font-weight-bold mb-0"
+                                                            style="font-size: 18px;">
+                                                            {{ $name[$i] }}
+                                                        </p>
+                                                        <p class="mb-0" style="color:black">3/10 วัน</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="ml-3 d-flex flex-column justify-content-center bd-highlight">
-                                            <p class="text-dark font-weight-bold mb-0" style="font-size: 24px">ลาคลอดบุตร
-                                            </p>
-                                            <p class="mb-0" style="color:black">3/10 วัน</p>
-                                        </div>
-                                    </div>
+                                    @endfor
                                 </div>
-                                <div class="separator"></div>
 
-                                {{-- ลาสมรส --}}
-                                <div class="d-flex flex-row justify-content-center">
-                                    <div class="other d-flex flex-row bd-highlight">
-                                        <div class="align-items-center d-flex justify-content-center"
-                                            style="background-color: #FFE6F5; height:70px;width:70px;border-radius:50px">
-                                            <i class="fa-solid fa-heart fa-2xl" style="color:#FF009B"></i>
-                                        </div>
-                                        <div class="ml-3 d-flex flex-column justify-content-center bd-highlight">
-                                            <p class="text-dark font-weight-bold mb-0" style="font-size: 24px">ลาเพื่อสมรส
-                                            </p>
-                                            <p class="mb-0" style="color:black">3/10 วัน</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="separator"></div>
-                                {{-- ลาทำหมัน --}}
-                                <div class="d-flex flex-row justify-content-center">
-                                    <div class="other d-flex flex-row bd-highlight">
-                                        <div class="align-items-center d-flex justify-content-center"
-                                            style="background-color: #f9e3ff; height:70px;width:70px;border-radius:50px">
-                                            <i class="fa-solid fa-hospital-user fa-2xl" style="color:#c600fe"></i>
-                                        </div>
-                                        <div class="ml-3 d-flex flex-column justify-content-center bd-highlight">
-                                            <p class="text-dark font-weight-bold mb-0" style="font-size: 24px">
-                                                ลาเพื่อทำหมัน</p>
-                                            <p class="mb-0" style="color:black">3/10 วัน</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="separator"></div>
-                                {{-- ลาราชการหาร --}}
-                                <div class="d-flex flex-row justify-content-center">
-                                    <div class="other d-flex flex-row bd-highlight">
-                                        <div class="align-items-center d-flex justify-content-center"
-                                            style="background-color: #1fb50021; height:70px;width:70px;border-radius:50px">
-                                            <i class="fa-solid fa-person-rifle fa-2xl" style="color:#1fb500"></i>
-                                        </div>
-                                        <div class="ml-3 d-flex flex-column justify-content-center bd-highlight">
-                                            <p class="text-dark font-weight-bold mb-0" style="font-size: 24px">
-                                                ลารับการทหาร</p>
-                                            <p class="mb-0" style="color:black">3/10 วัน</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="separator"></div>
-                                {{-- ลาบวช --}}
-                                <div class="d-flex flex-row justify-content-center">
-                                    <div class="other d-flex flex-row bd-highlight">
-                                        <div class="align-items-center d-flex justify-content-center"
-                                            style="background-color: #fff7f0; height:70px;width:70px;border-radius:50px">
-                                            <i class="fa-solid fa-hands-praying fa-2xl" style="color:#ff6a00"></i>
-                                        </div>
-                                        <div class="ml-3 d-flex flex-column justify-content-center bd-highlight">
-                                            <p class="text-dark font-weight-bold mb-0" style="font-size: 24px">ลาอุปสมบท
-                                            </p>
-                                            <p class="mb-0" style="color:black">3/10 วัน</p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -272,19 +181,23 @@
                         <div class="card-body">
                             <table id="data-table" class="table table-bordered table-hover text-center">
                                 <thead>
+                                    @php
+                                        $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+                                    @endphp
                                     <tr>
-                                        <th>วันที่ยื่นคำร้อง</th>
-                                        <th>ประเภทการลา</th>
-                                        <th>ลาตั้งแต่</th>
-                                        <th>ถึง</th>
-                                        <th>ลาทั้งหมด</th>
-                                        <th>ผู้ปฏิบัติงานแทน</th>
-                                        <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                        <th>อนุมัติ(PM)</th>
-                                        <th>อนุมัติ(HR)</th>
-                                        <th>อนุมัติ(CEO)</th>
+                                        <th>วันที่ยื่น</th>
+                                        <th style="{{ $style }} max-width: 80px;">ประเภทการลา</th>
+                                        <th style="{{ $style }} max-width: 80px;">ลาตั้งแต่ - ถึง</th>
+                                        <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
+                                        <th style="{{ $style }} max-width: 80px;">ผู้ปฏิบัติงานแทน</th>
+                                        <th style="{{ $style }} max-width: 50px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
+                                        <th style="{{ $style }} max-width: 50px;">อนุมัติ(PM)</th>
+                                        <th style="{{ $style }} max-width: 50px;">อนุมัติ(HR)</th>
+                                        <th style="{{ $style }} max-width: 50px;">อนุมัติ(CEO)</th>
                                         <th>สถานะ</th>
-                                        <th>รายละเอียด</th>
+                                        <th
+                                            style="{{$style}} max-width: 50px;">
+                                            รายละเอียด</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -296,14 +209,17 @@
                                         @if ($counter_req < 10)
                                             @if ($row->user_id == Auth::user()->id)
                                                 <tr>
-                                                    <td>{{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
+                                                    <td style="{{ $style }} max-width: 80px;">
+                                                        {{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
                                                     </td>
                                                     <td>{{ $row->leave_type }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                                    <td style="{{ $style }} max-width: 100px;">
+                                                        {{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                                        ถึง
+                                                        {{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
                                                     </td>
-                                                    <td>{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
-                                                    </td>
-                                                    <td>{{ $row->leave_total }}</td>
+                                                    <td style="{{ $style }} max-width: 100px;">
+                                                        {{ $row->leave_total }}</td>
                                                     @if (!$row->sel_rep)
                                                         <td>ไม่มีผู้ปฏิบัติแทน</td>
                                                     @else
@@ -318,7 +234,7 @@
                                                     <td>{{ $row->approve_pm }}</td>
                                                     <td>{{ $row->approve_hr }}</td>
                                                     <td>{{ $row->approve_ceo }}</td>
-                                                    <td
+                                                    <td style="{{ $style }} max-width: 50px;"
                                                         class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
                                                         {{ $row->status }}</td>
                                                     <td>

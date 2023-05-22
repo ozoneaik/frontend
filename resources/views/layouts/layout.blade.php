@@ -66,7 +66,7 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<body class="hold-transition layout-fixed layout-navbar-fixed">
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
@@ -117,13 +117,7 @@
         {{-- end navbar --}}
 
         {{-- Main Sidebar Container --}}
-        <aside class="main-sidebar sidebar-dark bg-dark elevation-4">
-
-            <style>
-                p {
-                    color: white
-                }
-            </style>
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
             <!-- Brand Logo -->
             <a href="{{ route('home') }}" class="brand-link text-center">
@@ -138,7 +132,7 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <br>
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-child-indent" data-widget="treeview" role="menu"
                         data-accordion="false">
                         {{-- เมนูหลัก --}}
                         <li class="nav-item">
@@ -193,7 +187,7 @@
                                     <a href="{{ route('pm.req.emp') }}"
                                         class="nav-link {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
+                                        <p>ใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
@@ -215,7 +209,7 @@
                                     <a href="{{ route('hr.req.emp') }}"
                                         class="nav-link {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
+                                        <p>ขอใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>
@@ -238,7 +232,7 @@
                                     <a href="{{ route('ceo.req.emp') }}"
                                         class="nav-link {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการคำขอใบลาพนักงาน</p>
+                                        <p>ขอใบลาพนักงาน</p>
                                     </a>
                                 </li>
                             </ul>

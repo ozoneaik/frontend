@@ -17,7 +17,7 @@
         rel="stylesheet">
 
     {{-- Font Awesome --}}
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
@@ -70,17 +70,185 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
 
         {{-- Nav bar --}}
-        
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            {{-- Left Navbar Links --}}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+                            class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('home') }}" class="nav-link font-weight-bold" style="color: black;">
+                        <span class="text-hide-md">
+                            ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            {{-- Left Navbar Links --}}
+
+            {{-- Right Navbar Links --}}
+            <ul class="navbar-nav ml-auto">
+                <div class="dropdown dropdown-menu-right">
+                    <button class="btn dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="background-color: #e8cff8">
+                        [ID : {{ Auth::user()->id }}] {{ Auth::user()->name }} ตำแหน่ง
+                        {{ Auth::user()->possition }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ route('profile') }}">โปรฟายส่วนตัว</a>
+                        <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ออกจากระบบ</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </div>
+            </ul>
+            {{-- end Right navbar links --}}
+        </nav>
         {{-- end navbar --}}
 
         {{-- Main Sidebar Container --}}
-        
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+            <!-- Brand Logo -->
+            <a href="{{ route('home') }}" class="brand-link text-center">
+                <span class="brand-text font-weight-bold mx-auto">
+                    <img src="{{ asset('img/logosidebar1.png') }}" height="54px" width="184px" alt="no picture">
+                </span>
+            </a>
+            <!-- end Brand Logo -->
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <br>
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        {{-- เมนูหลัก --}}
+                        <li class="nav-item">
+                            <a href="{{ route('home') }}"
+                                class="nav-link {{ Request::routeIs('home') ? 'active' : '' }}">
+                                <i class="nav-icon fa-solid fa-house"></i>
+                                <p>เมนูหลัก</p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="#"
+                                class="nav-link {{ Request::routeIs('req', 'req_list_detail', 'rep.list', 'rep_list_detail', 'create_leave_form') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    รายการคำขอ
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('req') }}"
+                                        class="nav-link {{ Request::routeIs('req', 'req_list_detail', 'create_leave_form') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>รายการคำขอใบลา</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('rep') }}"
+                                        class="nav-link {{ Request::routeIs('rep.list', 'rep_list_detail') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>รายการคำปฏิบัติแทน</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {{-- Project manager --}}
+                        <li class="nav-item menu-open">
+                            <a href="#"
+                                class="nav-link {{ Request::routeIs('req.emp.pm', 'req_list_emp_detail') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Project manager
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">1</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item ">
+                                    <a href="{{ route('pm.req.emp') }}"
+                                        class="nav-link {{ Request::routeIs('req.emp.pm', 'req_list_emp_detail') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>รายการคำขอใบลาพนักงาน</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {{-- HR --}}
+                        <li class="nav-item menu-open">
+                            <a href="#"
+                                class="nav-link {{ Request::routeIs('req.emp.hr', 'hr_req_list_emp_detail') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>
+                                    HR
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('hr.req.emp') }}"
+                                        class="nav-link {{ Request::routeIs('req.emp.hr', 'hr_req_list_emp_detail') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>รายการคำขอใบลาพนักงาน</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {{-- CEO --}}
+
+                        <li class="nav-item menu-open">
+                            <a href="#"
+                                class="nav-link {{ Request::routeIs('req.emp.ceo', 'ceo_req_list_emp_detail') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-lock"></i>
+                                <p>
+                                    CEO
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('ceo.req.emp') }}"
+                                        class="nav-link {{ Request::routeIs('req.emp.ceo', 'ceo_req_list_emp_detail') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>รายการคำขอใบลาพนักงาน</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        <li class="nav-item">
+                            <a href="{{ route('data.users') }}"
+                                class="nav-link {{ Request::routeIs('data_emp', 'data_emp_detail') ? 'active' : '' }}">
+                                <i class="fa-solid fa-users nav-icon"></i>
+                                <p>ข้อมูลพนักงาน</p>
+                            </a>
+                        </li>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- end sidebar-menu -->
+            </div>
+            <!-- end sidebar -->
+        </aside>
         {{-- end main sidebar container --}}
 
         {{-- Content Wrapper --}}
