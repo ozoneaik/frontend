@@ -441,32 +441,63 @@
             enableTime: true,
             dateFormat: "d/m/Y H:i",
             minDate: "today",
+            minTime: '09:00',
+            maxTime: '18:00',
             minDate: new Date(),
             defaultDate: "now",
             time_24hr: true,
             disableMobile: "true",
-
-
         });
     </script>
     <script>
         function calculate() {
             var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
             var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
-            var delta = endDate.diff(startDate);
-            var days = Math.floor(delta / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
-            console.log("value is " + days + hours + minutes);
-            if (isNaN(days) || isNaN(hours) || isNaN(minutes)) {
-                console.log("เกิดข้อผิดพลาดในการคำนซณเนื่องจากไม่ได้เลือกเวลา ดั้งนั้นเลยเซตค่าเท่ากับ 0");
+
+            startDate.hours(Math.max(9, Math.min(18, startDate.hours()))).minutes(0).seconds(0);
+            endDate.hours(Math.max(9, Math.min(18, endDate.hours()))).minutes(0).seconds(0);
+
+            var duration = moment.duration(endDate.diff(startDate));
+            var days = Math.floor(duration.asDays());
+            var remainingHours = Math.floor(duration.hours() % 24);
+            var minutes = Math.floor(duration.minutes() % 60);
+
+            for (var i = 0; i <= days; i++) {
+                var currentDate = moment(startDate).add(i, 'days');
+                if (currentDate.isoWeekday() === 6 || currentDate.isoWeekday() === 7) {
+                    days -= 1;
+                }
+            }
+
+            if (startDate.hours() <= 12 && endDate.hours() >= 13) {
+                remainingHours -= 1;
+            }
+            if (startDate.hours() >= 13 && endDate.hours() <= 12){
+                remainingHours -= 15;
+            }
+            if (startDate.hours() >= 13 && endDate.hours() >= 13 && startDate.hours() > endDate.hours()){
+                remainingHours -= 8;
+                days -= 1;
+            }
+
+            if (remainingHours >= 8) {
+                days += 1;
+                remainingHours -= 8;
+            }
+
+            if (isNaN(days) || isNaN(remainingHours) || isNaN(minutes)) {
+                console.log("An error occurred while calculating due to missing time selection. Setting values to 0.");
                 days = 0;
-                hours = 0;
+                remainingHours = 0;
                 minutes = 0;
             }
+
+            minutes += remainingHours * 60;
+
             var result = days + " วัน " +
-                hours + " ชั่วโมง " +
-                minutes + " นาที";
+                Math.floor(minutes / 60) + " ชั่วโมง " +
+                (minutes % 60) + " นาที ";
+
             document.getElementById("result").innerHTML = result;
         }
     </script>

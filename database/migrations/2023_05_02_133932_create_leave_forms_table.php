@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('leave_forms', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('leave_type')->nullable();
             $table->timestamp('leave_start')->nullable();
             $table->timestamp('leave_end')->nullable();
@@ -24,11 +25,13 @@ return new class extends Migration
             $table->string('file1')->nullable();
             $table->string('file2')->nullable();
 
-            $table->string('sel_rep')->nullable();
+            $table->unsignedBigInteger('sel_rep')->index()->nullable();
+            $table->foreign('sel_rep')->references('id')->on('users');
             $table->string('approve_rep')->nullable()->default('⌛')->comment('อนุมัติโดย rep');//✔️❌⌛
             $table->string('case_no_rep')->nullable()->comment('กรณีไม่มีผู้ปฏิบัติงานแทน');
 
-            $table->string('sel_pm')->nullable();
+            $table->unsignedBigInteger('sel_pm')->index()->nullable();
+            $table->foreign('sel_pm')->references('id')->on('users');
             $table->string('reason_pm')->nullable()->comment('ความเห็น PM');
             $table->string('allowed_pm')->nullable()->comment('อนุญาตตามสิทธิ์พนักงาน');
             $table->string('not_allowed_pm')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
@@ -47,9 +50,9 @@ return new class extends Migration
         });
         $now = Carbon::now();
         DB::table('leave_forms')->update([
-        'created_at' => $now,
-        'updated_at' => $now,
-    ]);
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
     }
 
     /**
