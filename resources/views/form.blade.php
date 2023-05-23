@@ -31,7 +31,7 @@
 
         {{-- Container Fluid--}}
         <div class="container-fluid">
-            <form action="{{ route('leaveform.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('leaveform.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                 @csrf
                 <div class="row">
                     <div class="col-12">
@@ -77,7 +77,7 @@
                                             {{-- ลาตังแต่ --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>ลาตั้งแต่ :</label>
+                                                    <label for="start-date">ลาตั้งแต่ :</label>
                                                     <div class="input-group">
                                                         <input type="datetime-local"
                                                                class="form-control @error('leave_start') is-invalid @enderror"

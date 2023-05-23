@@ -147,7 +147,8 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block ">
-                    <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
+                    <a href="{{ route('home') }}" class="nav-link font-weight-bold text-black">ระบบการลาบริษัท บิ๊ก
+                        ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
                 </li>
             </ul>
 
@@ -453,54 +454,47 @@
         function calculate() {
             var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
             var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
-
-            startDate.hours(Math.max(9, Math.min(18, startDate.hours()))).minutes(0).seconds(0);
-            endDate.hours(Math.max(9, Math.min(18, endDate.hours()))).minutes(0).seconds(0);
-
             var duration = moment.duration(endDate.diff(startDate));
-            var days = Math.floor(duration.asDays());
-            var remainingHours = Math.floor(duration.hours() % 24);
-            var minutes = Math.floor(duration.minutes() % 60);
-
-            for (var i = 0; i <= days; i++) {
-                var currentDate = moment(startDate).add(i, 'days');
-                if (currentDate.isoWeekday() === 6 || currentDate.isoWeekday() === 7) {
-                    days -= 1;
-                }
-            }
-
-            if (startDate.hours() <= 12 && endDate.hours() >= 13) {
-                remainingHours -= 1;
-            }
-            if (startDate.hours() >= 13 && endDate.hours() <= 12){
-                remainingHours -= 15;
-            }
-            if (startDate.hours() >= 13 && endDate.hours() >= 13 && startDate.hours() > endDate.hours()){
-                remainingHours -= 8;
-                days -= 1;
-            }
-
-            if (remainingHours >= 8) {
-                days += 1;
-                remainingHours -= 8;
-            }
-
-            if (isNaN(days) || isNaN(remainingHours) || isNaN(minutes)) {
-                console.log("An error occurred while calculating due to missing time selection. Setting values to 0.");
-                days = 0;
+            var totalHours = duration.asHours() - 1; // Deduct 1 hour for lunch break
+            var totalDays = Math.floor(totalHours / 24);
+            var remainingHours = totalHours % 24;
+            var minutes = Math.floor(duration.asMinutes() % 60);
+    
+            if (isNaN(totalDays) || isNaN(remainingHours) || isNaN(minutes)) {
+                console.log("เกิดข้อผิดพลาดในการคำนวณเนื่องจากไม่ได้เลือกเวลา ดังนั้นจึงเซ็ตค่าเท่ากับ 0");
+                totalDays = 0;
                 remainingHours = 0;
                 minutes = 0;
+            } else {
+                // Adjust the totalDays if there are remaining hours
+                if (remainingHours > 0) {
+                    totalDays++;
+                }
+    
+                // Adjust the totalDays if the start time is in the afternoon
+                if (startDate.hour() >= 12) {
+                    totalDays++;
+                }
+    
+                // Adjust the totalDays if the end time is in the morning
+                if (endDate.hour() < 12) {
+                    totalDays--;
+                }
             }
-
-            minutes += remainingHours * 60;
-
-            var result = days + " วัน " +
-                Math.floor(minutes / 60) + " ชั่วโมง " +
-                (minutes % 60) + " นาที ";
-
+    
+            var result = totalDays + " วัน " +
+                remainingHours + " ชั่วโมง " +
+                minutes + " นาที";
             document.getElementById("result").innerHTML = result;
         }
     </script>
+    
+    
+    
+    
+    
+    
+    
     {{-- end datatime picker --}}
 
     {{-- Form Select 2 --}}

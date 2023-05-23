@@ -219,9 +219,9 @@ class LeaveFormController extends Controller
                 'reason_pm' => 'nullable|max:255',
                 'allowed_pm' => 'nullable',
                 'not_allowed_pm' => 'nullable|max:255',
-                'day' => 'nullable|numeric|between:1,2',
-                'hour' => 'nullable|numeric|between:1,2',
-                'minutes' => 'nullable|numeric|between:1,2',
+                'day' => 'nullable|numeric|min:0|max:99',
+                'hour' => 'nullable|numeric|min:0|max:8',
+                'minutes' => 'nullable|numeric|min:0|max:60',
             ],
             [
                 'approve_pm.required' => 'no requ',
@@ -232,9 +232,12 @@ class LeaveFormController extends Controller
                 'day.numeric' => 'ป้อนตัวเลขเท่านั้น',
                 'hour.numeric' => 'ป้อนตัวเลขเท่านั้น',
                 'minutes.numeric' => 'ป้อนตัวเลขเท่านั้น',
-                'day.between' => 'ป้อนเลข 2 ตัว',
-                'hour.between' => 'ป้อนเลข 2 ตัว',
-                'minutes.between' => 'ป้อนเลข 2 ตัว',
+                'day.min' => 'ป้อนเลข 2 ตัว',
+                'hour.min' => 'ป้อนเลข 2 ตัว',
+                'minutes.min' => 'ป้อนเลข 2 ตัว',
+                'day.max' => 'ป้อนเลข 2 ตัว',
+                'hour.max' => 'ป้อนเลข 2 ตัว',
+                'minutes.max' => 'ป้อนเลข 2 ตัว',
             ]
         );
 

@@ -399,6 +399,15 @@
                                                             {{ $errors->first('other') }}
                                                         </span>
                                                     @endif
+
+                                                    @if ($errors->has('day'))
+                                                        <br>
+                                                        <span class="text-danger">
+                                                            {{ $errors->first('day') }}
+                                                        </span>
+                                                    @endif
+
+
                                                     <input type="radio" name="allowed_pm" id="3"
                                                         value="อื่นๆ...">
                                                     <label class="font-weight-normal" for="3">อื่นๆ<input
