@@ -468,7 +468,6 @@
                     days -= 1;
                 }
             }
-
             if (startDate.hours() <= 12 && endDate.hours() >= 13) {
                 remainingHours -= 1;
             }
