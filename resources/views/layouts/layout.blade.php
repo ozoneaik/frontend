@@ -132,14 +132,14 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed">
+<body class="hold-transition layout-fixed layout-navbar-fixed {{ date('H') >= 19 || date('H') < 6 ? 'dark-mode' : '' }}">
 
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
 
         {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand navbar-light navbar-light">
+        <nav class="main-header navbar navbar-expand  {{ date('H') >= 19 || date('H') < 6 ? 'navbar-dark navbar-dark' : 'navbar-light navbar-light' }}">
             {{-- Left Navbar Links --}}
             <ul class="navbar-nav">
                 <li class="nav-item">

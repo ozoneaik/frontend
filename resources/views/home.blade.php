@@ -7,6 +7,7 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
+            {{-- ลา 3 อันแรก--}}
             <div class="row mb-3">
                 <link rel="stylesheet" href="{{ asset('style/css.css') }}">
                 @php
@@ -58,9 +59,6 @@
                                     </div>
                                 </div>
                                 {{-- modal ลาป่วย --}}
-                                @php
-                                    error_log($row->leave_type_name);
-                                @endphp
                                 <div class="modal fade" id="card{{$count}}" tabindex="-1" role="dialog"
                                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -144,7 +142,7 @@
                                                                style="font-size: 18px;">
                                                                 {{ $row->leave_type_name }}
                                                             </p>
-                                                            <p class="mb-0" style="color:black">{{ $D }}/{{ $D2 }}
+                                                            <p class="text-dark mb-0" style="color:black">{{ $D }}/{{ $D2 }}
                                                                 วัน</p>
                                                         </div>
                                                     </div>
