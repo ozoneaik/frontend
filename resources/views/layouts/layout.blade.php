@@ -373,7 +373,7 @@
     <script>
         flatpickr("input[type=datetime-local]", {
             "locale": "th",
-            allowInput: true,
+            allowInput: false,
             altInput: false,
             enableTime: true,
             dateFormat: "d/m/Y H:i",
@@ -393,8 +393,8 @@
             var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
             var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
 
-            startDate.hours(Math.max(9, Math.min(18, startDate.hours()))).minutes(0).seconds(0);
-            endDate.hours(Math.max(9, Math.min(18, endDate.hours()))).minutes(0).seconds(0);
+            startDate.minutes(Math.max(0, Math.min(59, startDate.minutes()))).seconds(0);
+            endDate.minutes(Math.max(0, Math.min(59, endDate.minutes()))).seconds(0);
 
             var duration = moment.duration(endDate.diff(startDate));
             var days = Math.floor(duration.asDays());
@@ -431,11 +431,11 @@
                 minutes = 0;
             }
 
-            minutes += remainingHours * 60;
+            var totalMinutes = minutes + remainingHours * 60;
 
             var result = days + " วัน " +
-                Math.floor(minutes / 60) + " ชั่วโมง " +
-                (minutes % 60) + " นาที ";
+                Math.floor(totalMinutes / 60) + " ชั่วโมง " +
+                (totalMinutes % 60) + " นาที ";
 
             document.getElementById("result").innerHTML = result;
         }

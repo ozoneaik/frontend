@@ -50,8 +50,8 @@ class LeaveFormController extends Controller
         // คำนวณหาจำนวนวันลาทั้งหมด
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->input('leave_start'));
         $endDate = Carbon::createFromFormat('d/m/Y H:i', $request->input('leave_end'));
-        $startDate->hours(max(9, min(18, $startDate->hour)))->minutes(0)->seconds(0);
-        $endDate->hours(max(9, min(18, $endDate->hour)))->minutes(0)->seconds(0);
+        $startDate->setMinutes(max(0, min(59, $startDate->minute)))->setSeconds(0);
+        $endDate->setMinutes(max(0, min(59, $endDate->minute)))->setSeconds(0);
         $duration = $endDate->diff($startDate);
         $days = $duration->days;
         $remainingHours = $duration->h % 24;
@@ -63,10 +63,11 @@ class LeaveFormController extends Controller
                 $days -= 1;
             }
         }
+
         if ($startDate->hour <= 12 && $endDate->hour >= 13) {
             $remainingHours -= 1;
         }
-        if ($startDate->hour >= 13 && $endDate->hour <= 12){
+        if ($startDate->hour >= 13 && $endDate->hour <= 12) {
             $remainingHours -= 15;
         }
 
