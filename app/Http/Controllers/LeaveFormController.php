@@ -137,7 +137,7 @@ class LeaveFormController extends Controller
     //ตารางแสดงขอใบลา
     public function req(){
         $leaves = LeaveForm::where('user_id', Auth::user()->id)->get();
-        $users = User::find(Auth::user()->id);
+        $users = User::all();
         return view('req_list',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลารายละเอียด
