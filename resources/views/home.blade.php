@@ -7,9 +7,8 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mt-2">
+            <div class="row mb-3">
                 <link rel="stylesheet" href="{{ asset('style/css.css') }}">
-                {{-- ลาป่วย --}}
                 @php
                     $colors = array('#E8533D', '#5182FF', '#FEAD10');
                     $colors1 = array('#F37762', '#759CFF', '#FFCA62');
@@ -67,7 +66,8 @@
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $row->leave_type_name }}</h5>
+                                                <h5 class="modal-title"
+                                                    id="exampleModalLongTitle">{{ $row->leave_type_name }}</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -92,18 +92,16 @@
                 @endforeach
             </div>
 
-            <br>
 
             {{-- ลาอื่นๆ --}}
             <div class="row">
                 <div class="col-lg-12">
-                    <p>
-                        <a class="btn btn-outline-primary btn-block" data-toggle="collapse" href="#collapseExample"
-                           role="button" aria-expanded="false" aria-controls="collapseExample">
-                            ประเภทการลาเพิ่มเติม
-                        </a>
-                    </p>
+                    <a class="btn btn-outline-primary btn-block mb-3" data-toggle="collapse" href="#collapseExample"
+                       role="button" aria-expanded="false" aria-controls="collapseExample">
+                        ประเภทการลาเพิ่มเติม
+                    </a>
                 </div>
+                {{-- collaps ลาอิ่นๆ --}}
                 <div class="col-lg-12">
                     <div class="collapse" id="collapseExample">
                         <div class="card">
@@ -116,71 +114,72 @@
                                         $count = 0;
                                     @endphp
                                     @foreach($users_data as $row)
-                                        @if($row->user_id == Auth::user()->id)
-                                            @if ($count >= 3 && $count < 9)
-                                                {{-- ลาอื่นๆ --}}
-                                                <div class="col-md-2">
-                                                    <div
-                                                        class="card-box-other d-flex justify-content-between align-items-center"
-                                                        data-toggle="modal" data-target="#modal{{ $count }}">
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="align-items-center d-flex justify-content-center"
-                                                                 style="background-color: {{ $bg[$count] }}; height:70px;width:70px;border-radius:50px">
-                                                                <i class="{{ $icon[$count] }} fa-2xl"
-                                                                   style="color:{{ $icon_color[$count] }}"></i>
-                                                            </div>
-                                                            @php
-                                                                $parts = explode(' ', $row->time_already_used);
-                                                                $D = (int)$parts[0];
-                                                                $H = (int)$parts[2];
-                                                                $parts = explode(' ', $row->time_remain);
-                                                                $D1 = (int)$parts[0];
-                                                                $H1 = (int)$parts[2];
-                                                                $D2 = $D1 + $D;
-                                                                if ($H1 != 0 || $H != 0){
-                                                                    $D2 += 1;
-                                                                }
-                                                            @endphp
-                                                            <div class="ml-2 d-flex flex-column justify-content-center">
-                                                                <p class="text-dark font-weight-bold mb-0"
-                                                                   style="font-size: 18px;">
-                                                                    {{ $row->leave_type_name }}
-                                                                </p>
-                                                                <p class="mb-0" style="color:black">{{ $D }}/{{ $D2 }} วัน</p>
-                                                            </div>
+
+                                        @if ($count >= 3 && $count < 9)
+                                            {{-- ลาอื่นๆ --}}
+                                            <div class="col-md-2">
+                                                <div
+                                                    class="card-box-other d-flex justify-content-between align-items-center"
+                                                    data-toggle="modal" data-target="#modal{{ $count }}">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="align-items-center d-flex justify-content-center"
+                                                             style="background-color: {{ $bg[$count] }}; height:70px;width:70px;border-radius:50px">
+                                                            <i class="{{ $icon[$count] }} fa-2xl"
+                                                               style="color:{{ $icon_color[$count] }}"></i>
+                                                        </div>
+                                                        @php
+                                                            $parts = explode(' ', $row->time_already_used);
+                                                            $D = (int)$parts[0];
+                                                            $H = (int)$parts[2];
+                                                            $parts = explode(' ', $row->time_remain);
+                                                            $D1 = (int)$parts[0];
+                                                            $H1 = (int)$parts[2];
+                                                            $D2 = $D1 + $D;
+                                                            if ($H1 != 0 || $H != 0){
+                                                                $D2 += 1;
+                                                            }
+                                                        @endphp
+                                                        <div class="ml-2 d-flex flex-column justify-content-center">
+                                                            <p class="text-dark font-weight-bold mb-0"
+                                                               style="font-size: 18px;">
+                                                                {{ $row->leave_type_name }}
+                                                            </p>
+                                                            <p class="mb-0" style="color:black">{{ $D }}/{{ $D2 }}
+                                                                วัน</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Modal ลาอื่นๆ -->
-                                                <div class="modal fade" id="modal{{ $count }}" tabindex="-1"
-                                                     role="dialog" aria-labelledby="modal{{ $count }}Label"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modal{{ $count }}Label">
-                                                                    {{ $row->leave_type_name  }}</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                ลาไปแล้ว {{ $row->time_already_used }}
-                                                                <br>
-                                                                คงเหลือ {{ $row->time_remain }}
-                                                            </div>
+                                            </div>
+                                            <!-- Modal ลาอื่นๆ -->
+                                            <div class="modal fade" id="modal{{ $count }}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="modal{{ $count }}Label"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modal{{ $count }}Label">
+                                                                {{ $row->leave_type_name  }}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            ลาไปแล้ว {{ $row->time_already_used }}
+                                                            <br>
+                                                            คงเหลือ {{ $row->time_remain }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                            @php
-                                                $count++;
-                                                if ($count >= 9) {
-                                                    break;
-                                                }
-                                            @endphp
+                                            </div>
                                         @endif
+                                        @php
+                                            $count++;
+                                            if ($count >= 9) {
+                                                break;
+                                            }
+                                        @endphp
+
                                     @endforeach
                                 </div>
                             </div>
@@ -188,14 +187,16 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="col-12 d-flex justify-content-end d-flex">
+            <div class="col-12 d-flex justify-content-end d-flex pr-0">
                 <a href="{{ route('create') }}" class="btn btn-primary ms-auto">+ เพิ่มใบลา</a>
             </div>
         </div>
     </section>
     @php
         $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+        foreach ($users as $user) {
+            $usersMap[$user->id] = $user->name;
+        }
     @endphp
     <section class="content">
         <div class="container-fluid">
@@ -234,46 +235,36 @@
                                 @endphp
                                 @foreach ($leaves as $row)
                                     @if ($counter_req < 10)
-                                        @if ($row->user_id == Auth::user()->id)
-                                            <tr>
-                                                <td style="{{ $style }} max-width: 80px;">
-                                                    {{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
-                                                </td>
-                                                <td>{{ $row->leave_type }}</td>
-                                                <td style="{{ $style }} max-width: 100px;">
-                                                    {{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
-                                                    ถึง
-                                                    {{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
-                                                </td>
-                                                <td style="{{ $style }} max-width: 100px;">
-                                                    {{ $row->leave_total }}</td>
-                                                @if (!$row->sel_rep)
-                                                    <td>ไม่มีผู้ปฏิบัติแทน</td>
-                                                @else
-                                                    @foreach ($users as $user)
-                                                        @if ($user->id == $row->sel_rep)
-                                                            <td>{{ $user->name }}</td>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                                {{-- <td>{{$row->sel_rep }}</td> --}}
-                                                <td>{{ $row->approve_rep }}
-                                                <td>{{ $row->approve_pm }}</td>
-                                                <td>{{ $row->approve_hr }}</td>
-                                                <td>{{ $row->approve_ceo }}</td>
-                                                <td style="{{ $style }} max-width: 50px;"
-                                                    class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
-                                                    {{ $row->status }}</td>
-                                                <td>
-                                                    <a href="{{ route('req.detail', $row->id) }}"><i
-                                                            class="fas fa-file-invoice"></i></a>
-                                                </td>
-                                            </tr>
-                                        @else
-                                            @php
-                                                $counter_req--;
-                                            @endphp
-                                        @endif
+                                        <tr>
+                                            <td style="{{ $style }} max-width: 80px;">
+                                                {{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
+                                            </td>
+                                            <td>{{ $row->leave_type }}</td>
+                                            <td style="{{ $style }} max-width: 100px;">
+                                                {{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                                ถึง
+                                                {{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                            </td>
+                                            <td style="{{ $style }} max-width: 100px;">
+                                                {{ $row->leave_total }}</td>
+                                            @if (!$row->sel_rep)
+                                                <td>ไม่มีผู้ปฏิบัติแทน</td>
+                                            @else
+                                                <td>{{ $usersMap[$row->sel_rep] }}</td>
+                                            @endif
+                                            {{-- <td>{{$row->sel_rep }}</td> --}}
+                                            <td>{{ $row->approve_rep }}
+                                            <td>{{ $row->approve_pm }}</td>
+                                            <td>{{ $row->approve_hr }}</td>
+                                            <td>{{ $row->approve_ceo }}</td>
+                                            <td style="{{ $style }} max-width: 50px;"
+                                                class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
+                                                {{ $row->status }}</td>
+                                            <td>
+                                                <a href="{{ route('req.detail', $row->id) }}"><i
+                                                        class="fas fa-file-invoice"></i></a>
+                                            </td>
+                                        </tr>
                                     @endif
                                     @php
                                         $counter_req++;

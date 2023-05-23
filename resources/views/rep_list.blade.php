@@ -20,10 +20,6 @@
     </div>
     {{-- end part --}}
 
-    @php
-        $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
-    @endphp
-
     {{--  Mian Content  --}}
     <section class="content">
         {{-- Container Fluid --}}
@@ -45,70 +41,71 @@
                                     <span>{{ $message }}</span>
                                 </div>
                             @endif
+                            @php
+                                $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+                                $usersMap = [];
+                                foreach ($users as $user) {
+                                    $usersMap[$user->id] = $user->name;
+                                }
+                            @endphp
                             <table id="rep_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
-                                    <tr>
-                                        <th style="{{ $style }} max-width: 80px;">วันที่ยื่นคำร้อง</th>
-                                        <th style="{{ $style }} max-width: 80px;">ประเภทการลา</th>
-                                        <th style="{{ $style }} max-width: 80px;">วันที่ลาตั้งแต่</th>
-                                        <th style="{{ $style }} max-width: 80px;">ถึง</th>
-                                        <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
-                                        <th style="{{ $style }} max-width: 50px;">จาก</th>
-                                        <th style="{{ $style }} max-width: 50px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                        <th style="{{ $style }} max-width: 80px;">อนุมัติ(PM)</th>
-                                        <th style="{{ $style }} max-width: 80px;">อนุมัติ(HR)</th>
-                                        <th style="{{ $style }} max-width: 80px;">อนุมัติ(CEO)</th>
-                                        <th style="{{ $style }} max-width: 30px;">สถานะ</th>
-                                        <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
-                                    </tr>
+                                <tr>
+                                    <th style="{{ $style }} max-width: 80px;">วันที่ยื่นคำร้อง</th>
+                                    <th style="{{ $style }} max-width: 80px;">ประเภทการลา</th>
+                                    <th style="{{ $style }} max-width: 80px;">วันที่ลาตั้งแต่</th>
+                                    <th style="{{ $style }} max-width: 80px;">ถึง</th>
+                                    <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
+                                    <th style="{{ $style }} max-width: 50px;">จาก</th>
+                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
+                                    <th style="{{ $style }} max-width: 80px;">อนุมัติ(PM)</th>
+                                    <th style="{{ $style }} max-width: 80px;">อนุมัติ(HR)</th>
+                                    <th style="{{ $style }} max-width: 80px;">อนุมัติ(CEO)</th>
+                                    <th style="{{ $style }} max-width: 30px;">สถานะ</th>
+                                    <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($leaves as $row)
-                                        @if ($row->sel_rep == Auth::user()->id)
-                                            <tr>
-                                                <td style="{{ $style }} max-width: 50px;">{{ $row->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
-                                                <td style="{{ $style }} max-width: 50px;">{{ $row->leave_type }}</td>
-                                                <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
-                                                </td>
-                                                <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
-                                                </td>
-                                                <td style="{{ $style }} max-width: 50px;">{{ $row->leave_total }}</td>
-                                                @foreach ($users as $user)
-                                                    @if ($user->id == $row->user_id)
-                                                        <td style="{{ $style }} max-width: 50px;">{{ $user->name }}</td>
-                                                    @endif
-                                                @endforeach
-                                                <td style="{{ $style }} max-width: 50px;">{{ $row->approve_rep }}</td>
-                                                <td style="{{ $style }} max-width: 50px;">{{ $row->approve_pm }}</td>
-                                                <td style="{{ $style }} max-width: 50px;">{{ $row->approve_hr }}</td>
-                                                <td style="{{ $style }} max-width: 50px;">{{ $row->approve_ceo }}</td>
-                                                <td style="{{ $style }} max-width: 50px;"
-                                                    class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
-                                                    {{ $row->status }}</td>
-                                                <td style="{{ $style }} max-width: 50px;">
-                                                    <a href="{{ route('rep.detail', $row->id) }}">
-                                                        <i class="fas fa-file-invoice"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
+                                @foreach ($leaves as $row)
+                                    <tr>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->leave_type }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->leave_total }}</td>
+                                        <td>{{ $usersMap[$row->user_id] }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_rep }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_pm }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_hr }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_ceo }}</td>
+                                        <td style="{{ $style }} max-width: 50px;"
+                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
+                                            {{ $row->status }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">
+                                            <a href="{{ route('rep.detail', $row->id) }}">
+                                                <i class="fas fa-file-invoice"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <th>วันที่ยื่นคำร้อง</th>
-                                        <th>ประเภทการลา</th>
-                                        <th>วันที่ลาตั้งแต่</th>
-                                        <th>ถึง</th>
-                                        <th>ลาทั้งหมด</th>
-                                        <th>จาก</th>
-                                        <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                        <th>อนุมัติ(PM)</th>
-                                        <th>อนุมัติ(HR)</th>
-                                        <th>อนุมัติ(CEO)</th>
-                                        <th>สถานะ</th>
-                                        <th></th>
-                                    </tr>
+                                <tr>
+                                    <th>วันที่ยื่นคำร้อง</th>
+                                    <th>ประเภทการลา</th>
+                                    <th>วันที่ลาตั้งแต่</th>
+                                    <th>ถึง</th>
+                                    <th>ลาทั้งหมด</th>
+                                    <th>จาก</th>
+                                    <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
+                                    <th>อนุมัติ(PM)</th>
+                                    <th>อนุมัติ(HR)</th>
+                                    <th>อนุมัติ(CEO)</th>
+                                    <th>สถานะ</th>
+                                    <th></th>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>

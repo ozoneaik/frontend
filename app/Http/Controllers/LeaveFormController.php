@@ -148,7 +148,7 @@ class LeaveFormController extends Controller
     }
     //ตารางแสดงขอปฏิบัติแทน
     public function rep(){
-        $leaves = LeaveForm::all();
+        $leaves = LeaveForm::where('sel_rep',Auth::user()->id)->get();
         $users = User::all();
         return view('rep_list',compact('leaves','users'));
     }
