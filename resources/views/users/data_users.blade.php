@@ -47,7 +47,6 @@
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone_no_1}}</td>
                                                 <td>{{$user->name}}</td>
-                                                
                                             </tr>
                                         @endforeach
                                     </tbody>
