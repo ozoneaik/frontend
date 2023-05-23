@@ -73,7 +73,6 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($leaves as $row)
-                                        @if ($row->user_id == Auth::user()->id)
                                             <tr>
                                                 <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}
                                                 </td>
@@ -106,7 +105,6 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endif
                                     @endforeach
                                 </tbody>
                                 <tfoot>

@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveFormController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes([
-    'verify' => true
-]);
+Auth::routes();
 
 Route::get('/test',function(){
     return view('test');
@@ -19,6 +19,14 @@ Route::get('/test',function(){
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+    Route::match(['get', 'post'],'/leave_update/{id}',[HomeController::class, 'update_leave_data'])->name('leave.update');
+
+
+
 
     Route::get('/profile', [HomeController::class,'profile'])->name('profile');
     Route::get('/profile_edit/{id}',[HomeController::class,'profile_edit'])->name('profile.edit');

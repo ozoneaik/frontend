@@ -618,7 +618,11 @@
             });
         });
     </script>
+    <script>
+        function calculate_data(){
 
+        }
+    </script>
     {{-- Theme App --}}
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 </body>

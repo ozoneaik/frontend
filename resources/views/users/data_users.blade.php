@@ -46,7 +46,10 @@
                                                 <td>{{$user->nick_name}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone_no_1}}</td>
-                                                <td>{{$user->name}}</td>
+                                                <td><a href="{{route('data.user.detail', $user->id)}}">
+                                                        <i class="fas fa-file-invoice"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
