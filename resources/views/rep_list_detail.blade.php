@@ -50,21 +50,44 @@
                                             </h3>
                                         </div>
                                         <div class="card-body">
+                                            @php
+                                                $user = $users->firstWhere('id', $leaveforms->user_id);
+                                            @endphp
                                             <div class="row">
                                                 {{-- รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง --}}
-                                                <div class="col-md-12">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="">รหัสพนักงาน ชื่อ-นามสกุล ชื่อเล่น ตำแหน่ง
-                                                            ผู้ลา</label>
-                                                        @php
-                                                            $user = $users->firstWhere('id', $leaveforms->user_id);
-                                                        @endphp
-                                                        @if ($user)
-                                                            <p class="form-control" readonly>
-                                                                [{{ $leaveforms->user_id }}] {{ $user->name }}
-                                                                {{ $user->possition }}
-                                                            </p>
-                                                        @endif
+                                                        <label for="">รหัสพนักงาน</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $leaveforms->user_id }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อ-นามสกุล --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อ-นามสกุล</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->name }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อเล่น --}}
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อเล่น</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->nick_name }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ตำแหน่ง --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ตำแหน่ง</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->possition }}
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 {{-- ประเภทการลา --}}
@@ -129,7 +152,6 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
                                                 {{-- เอกสารประกอบการลาเพิ่มเติม (ถ้ามี) --}}
                                                 <div class="col-md-12">
                                                     <div class="form-group">
@@ -144,7 +166,6 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +205,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
                                                     <i class="fa-solid fa-comment mr-2"></i>
-                                                    ความเห็น Project manager
+                                                    ความเห็น Project manager (PM)
                                                 </h3>
                                             </div>
                                             <div class="card-body">

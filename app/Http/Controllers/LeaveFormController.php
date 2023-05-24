@@ -220,7 +220,7 @@ class LeaveFormController extends Controller
                 'reason_pm' => 'nullable|max:255',
                 'allowed_pm' => 'nullable',
                 'not_allowed_pm' => 'nullable|max:255',
-                'day' => 'nullable|numeric|between:0,99',
+                'day' => 'nullable|numeric|between:0,150',
                 'hour' => 'nullable|numeric|between:0,8',
                 'minutes' => 'nullable|numeric|between:0,60',
             ],

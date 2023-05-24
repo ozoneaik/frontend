@@ -267,7 +267,7 @@
                                 class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
-                                    HR
+                                    Human Resources
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">2</span>
                                 </p>
@@ -291,7 +291,7 @@
                                 class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    CEO
+                                    Solution Architect ...
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">2</span>
                                 </p>
@@ -579,11 +579,11 @@
                 console.log(value);
                 confirmModal.find('input[name=approve_hr]').val(value);
                 if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                     confirmModal.find('.reason_hr').hide();
                     confirmModal.find('#not_allowed_hr').show();
                 } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                     confirmModal.find('.modal-body .form-group').show();
                     confirmModal.find('#not_allowed_hr').hide();
                 }
@@ -607,11 +607,11 @@
                 console.log(value);
                 confirmModal.find('input[name=approve_ceo]').val(value);
                 if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                     confirmModal.find('.reason_ceo').hide();
                     confirmModal.find('#not_allowed_ceo').show();
                 } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                     confirmModal.find('.modal-body .form-group').show();
                     confirmModal.find('#not_allowed_ceo').hide();
                 }

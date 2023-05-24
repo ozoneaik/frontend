@@ -50,21 +50,44 @@
                                             </h3>
                                         </div>
                                         <div class="card-body">
+                                            @php
+                                                $user = $users->firstWhere('id', $leaveforms->user_id);
+                                            @endphp
                                             <div class="row">
                                                 {{-- รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง --}}
-                                                <div class="col-md-12">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="">รหัสพนักงาน ชื่อ-นามสกุล ชื่อเล่น ตำแหน่ง
-                                                            ผู้ลา</label>
-                                                        @php
-                                                            $user = $users->firstWhere('id', $leaveforms->user_id);
-                                                        @endphp
-                                                        @if ($user)
-                                                            <p class="form-control" readonly>
-                                                                [{{ $leaveforms->user_id }}] {{ $user->name }}
-                                                                {{ $user->possition }}
-                                                            </p>
-                                                        @endif
+                                                        <label for="">รหัสพนักงาน</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $leaveforms->user_id }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อ-นามสกุล --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อ-นามสกุล</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->name }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อเล่น --}}
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อเล่น</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->nick_name }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ตำแหน่ง --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ตำแหน่ง</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->possition }}
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 {{-- ประเภทการลา --}}
@@ -107,13 +130,13 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
-                                                        <textarea class="form-control p-2" rows="4" readonly>
-@if ($leaveforms->reason)
-{{ $leaveforms->reason }}
-@else
-ไม่ได้กรอกเหตุผลการลา
-@endif
-</textarea>
+                                                        @if ($leaveforms->reason)
+                                                            <textarea class="form-control p-2" rows="4"
+                                                                      readonly>{{ $leaveforms->reason }}</textarea>
+                                                        @else
+                                                            <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                                 {{-- เอกสารประกอบการลา --}}
@@ -232,7 +255,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
                                                     <i class="fa-solid fa-comment mr-2"></i>
-                                                    ความเห็น Project manager
+                                                    ความเห็น Project manager (PM)
                                                 </h3>
                                             </div>
                                             <div class="card-body">
@@ -251,8 +274,7 @@
                                                     @elseif ($leaveforms->not_allowed_pm)
                                                         <hr>
                                                         <span
-                                                            class="font-weight-bold text-danger">ไม่อนุญาตเนื่องจากDirector
-                                                            :</span>
+                                                            class="font-weight-bold text-danger">ไม่อนุญาตเนื่องจาก:</span>
                                                         <br>
                                                         {{ $leaveforms->not_allowed_pm }}
                                                     @endif
@@ -331,55 +353,61 @@
 
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
                                     <button type="button" class="btn btn-danger mr-3 " name="approve_ceo"
-                                        value="❌" @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
+                                            value="❌" @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
                                         ไม่อนุมัติ
                                     </button>
                                     <button type="button" class="btn btn-primary" name="approve_ceo" value="✔️"
-                                        @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
+                                            @if ($leaveforms->approve_ceo != '⌛') disabled @endif>
                                         อนุมัติ
                                     </button>
-                                    <input type="hidden" name="approve_ceo" value="{{ $leaveforms->approve_ceo }}" />
+                                    <input type="hidden" name="approve_ceo" value="{{ $leaveforms->approve_ceo }}"/>
                                 </div>
 
                                 <!-- Modal อนุมัติ CEO -->
                                 <div class="modal fade" id="confirmModal_ceo" tabindex="-1" role="dialog"
-                                    aria-labelledby="confirmModalLabel_ceo" aria-hidden="true">
+                                     aria-labelledby="confirmModalLabel_ceo" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="confirmModalLabel_ceo">บันทึกข้อมูล</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
 
                                                 <div class="form-group reason_ceo">
-                                                    <label for="reason_ceo">ความเห็น (CEO)</label>
+                                                    <label for="reason_ceo">ความเห็น Solution Architect Director</label>
                                                     @if ($errors->has('reason_ceo'))
                                                         <span class="text-danger">
                                                             {{ $errors->first('reason_ceo') }}
                                                         </span>
                                                     @endif
-                                                    <textarea class="form-control @error('reason_ceo') is-invalid @enderror" id="reason_ceo" name="reason_ceo"
+                                                    <textarea
+                                                        class="form-control @error('reason_ceo') is-invalid @enderror"
+                                                        id="reason_ceo" name="reason_ceo"
                                                         rows="3"></textarea>
                                                 </div>
 
                                                 <div class="form-group" id="not_allowed_ceo">
-                                                    <label for="not_allowed_ceo">ไม่อนุมัติเนื่องจาก</label>
+                                                    <label for="not_allowed_ceo">ความเห็น Solution Architect
+                                                        Director</label>
                                                     @if ($errors->has('not_allowed_ceo'))
                                                         <span class="text-danger">
                                                             {{ $errors->first('not_allowed_ceo') }}
                                                         </span>
                                                     @endif
-                                                    <textarea class="form-control @error('not_allowed_ceo') is-invalid @enderror" name="not_allowed_ceo" id=""
+                                                    <textarea
+                                                        class="form-control @error('not_allowed_ceo') is-invalid @enderror"
+                                                        name="not_allowed_ceo" id=""
                                                         cols="30" rows="4"></textarea>
                                                 </div>
 
                                                 <span class="content"></span>
                                                 <br>
-                                                <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
+                                                <span
+                                                    class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด
