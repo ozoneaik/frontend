@@ -50,12 +50,38 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     {{-- รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง --}}
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-2">
                                                         <div class="form-group">
-                                                            <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
+                                                            <label for="">รหัสพนักงาน</label>
                                                             <p class="form-control" readonly>
                                                                 {{ Auth::user()->id }}
-                                                                {{ Auth::user()->name }}{{ Auth::user()->possition }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    {{-- ชื่อ-นามสกุล --}}
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="">ชื่อ-นามสกุล</label>
+                                                            <p class="form-control" readonly>
+                                                                {{ Auth::user()->name }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    {{-- ชื่อเล่น --}}
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label for="">ชื่อเล่น</label>
+                                                            <p class="form-control" readonly>
+                                                                {{ Auth::user()->nick_name }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    {{-- ตำแหน่ง --}}
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="">ตำแหน่ง</label>
+                                                            <p class="form-control" readonly>
+                                                                {{ Auth::user()->possition }}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -111,7 +137,11 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>เหตุผลการลา</label>
-                                                            <textarea class="form-control" rows="5" readonly>@if($leaveforms->reason){{ $leaveforms->reason }} @else ไม่ได้กรอกเหตุผลการลา @endif</textarea>
+                                                            @if ($leaveforms->reason)
+                                                                <textarea class="form-control p-2" rows="4" readonly>{{ $leaveforms->reason }}</textarea>
+                                                            @else
+                                                                <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     {{-- เอกสารประกอบการลา --}}
@@ -139,7 +169,8 @@
                                                                     ดาวน์โหลด
                                                                 </a>
                                                             @else
-                                                                <p class="text-secondary">ไม่มีเอกสารประกอบการลาเพิ่มเติม
+                                                                <p class="text-secondary">
+                                                                    ไม่มีเอกสารประกอบการลาเพิ่มเติม
                                                                 </p>
                                                             @endif
                                                         </div>
@@ -232,7 +263,7 @@
                                                 <div class="card-header">
                                                     <h3 class="card-title font-weight-bold">
                                                         <i class="fa-solid fa-comment mr-2"></i>
-                                                        ความเห็น Project manager
+                                                        ความเห็น Project manager (PM)
                                                     </h3>
                                                 </div>
                                                 <div class="card-body">

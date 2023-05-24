@@ -132,14 +132,14 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed">
+<body class="hold-transition layout-fixed layout-navbar-fixed {{ date('H') >= 19 || date('H') < 6 ? 'dark-mode' : '' }}">
 
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
 
         {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand navbar-light navbar-light">
+        <nav class="main-header navbar navbar-expand  {{ date('H') >= 19 || date('H') < 6 ? 'navbar-dark navbar-dark' : 'navbar-light navbar-light' }}">
             {{-- Left Navbar Links --}}
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -267,7 +267,7 @@
                                 class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
-                                    HR
+                                    Human Resources
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">2</span>
                                 </p>
@@ -291,7 +291,7 @@
                                 class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    CEO
+                                    Solution Architect ...
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">2</span>
                                 </p>
@@ -447,6 +447,13 @@
             defaultDate: "now",
             time_24hr: true,
             disableMobile: "true",
+            "disable": [
+                function(date) {
+                    // return true to disable
+                    return (date.getDay() === 0 || date.getDay() === 6);
+
+                }
+            ],
         });
     </script>
     <script>
@@ -572,11 +579,11 @@
                 console.log(value);
                 confirmModal.find('input[name=approve_hr]').val(value);
                 if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                     confirmModal.find('.reason_hr').hide();
                     confirmModal.find('#not_allowed_hr').show();
                 } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                     confirmModal.find('.modal-body .form-group').show();
                     confirmModal.find('#not_allowed_hr').hide();
                 }
@@ -600,11 +607,11 @@
                 console.log(value);
                 confirmModal.find('input[name=approve_ceo]').val(value);
                 if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                     confirmModal.find('.reason_ceo').hide();
                     confirmModal.find('#not_allowed_ceo').show();
                 } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                     confirmModal.find('.modal-body .form-group').show();
                     confirmModal.find('#not_allowed_ceo').hide();
                 }

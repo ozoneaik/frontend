@@ -137,7 +137,7 @@ class LeaveFormController extends Controller
     //ตารางแสดงขอใบลา
     public function req(){
         $leaves = LeaveForm::where('user_id', Auth::user()->id)->get();
-        $users = User::find(Auth::user()->id);
+        $users = User::all();
         return view('req_list',compact('leaves','users'));
     }
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลารายละเอียด
@@ -148,7 +148,7 @@ class LeaveFormController extends Controller
     }
     //ตารางแสดงขอปฏิบัติแทน
     public function rep(){
-        $leaves = LeaveForm::all();
+        $leaves = LeaveForm::where('sel_rep',Auth::user()->id)->get();
         $users = User::all();
         return view('rep_list',compact('leaves','users'));
     }
@@ -220,9 +220,9 @@ class LeaveFormController extends Controller
                 'reason_pm' => 'nullable|max:255',
                 'allowed_pm' => 'nullable',
                 'not_allowed_pm' => 'nullable|max:255',
-                'day' => 'nullable|numeric|between:1,2',
-                'hour' => 'nullable|numeric|between:1,2',
-                'minutes' => 'nullable|numeric|between:1,2',
+                'day' => 'nullable|numeric|between:0,150',
+                'hour' => 'nullable|numeric|between:0,8',
+                'minutes' => 'nullable|numeric|between:0,60',
             ],
             [
                 'approve_pm.required' => 'no requ',

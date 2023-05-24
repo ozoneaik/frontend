@@ -50,21 +50,44 @@
                                             </h3>
                                         </div>
                                         <div class="card-body">
+                                            @php
+                                                $user = $users->firstWhere('id', $leaveforms->user_id);
+                                            @endphp
                                             <div class="row">
                                                 {{-- รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง --}}
-                                                <div class="col-md-12">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="">รหัสพนักงาน ชื่อ-นามสกุล ชื่อเล่น ตำแหน่ง
-                                                            ผู้ลา</label>
-                                                        @php
-                                                            $user = $users->firstWhere('id', $leaveforms->user_id);
-                                                        @endphp
-                                                        @if ($user)
-                                                            <p class="form-control" readonly>
-                                                                [{{ $leaveforms->user_id }}] {{ $user->name }}
-                                                                {{ $user->possition }}
-                                                            </p>
-                                                        @endif
+                                                        <label for="">รหัสพนักงาน</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $leaveforms->user_id }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อ-นามสกุล --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อ-นามสกุล</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->name }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อเล่น --}}
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อเล่น</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->nick_name }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- ตำแหน่ง --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ตำแหน่ง</label>
+                                                        <p class="form-control" readonly>
+                                                            {{ $user->possition }}
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 {{-- ประเภทการลา --}}
@@ -107,13 +130,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
-                                                        <textarea class="form-control p-2" rows="4" readonly>
-@if ($leaveforms->reason)
-{{ $leaveforms->reason }}
-@else
-ไม่ได้กรอกเหตุผลการลา
-@endif
-</textarea>
+                                                        @if ($leaveforms->reason)
+                                                            <textarea class="form-control p-2" rows="4"
+                                                                      readonly>{{ $leaveforms->reason }}</textarea>
+                                                        @else
+                                                            <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 {{-- เอกสารประกอบการลา --}}
@@ -130,7 +152,6 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
                                                 {{-- เอกสารประกอบการลาเพิ่มเติม (ถ้ามี) --}}
                                                 <div class="col-md-12">
                                                     <div class="form-group">
@@ -145,7 +166,6 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +205,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
                                                     <i class="fa-solid fa-comment mr-2"></i>
-                                                    ความเห็น Project manager
+                                                    ความเห็น Project manager (PM)
                                                 </h3>
                                             </div>
                                             <div class="card-body">
@@ -283,32 +303,33 @@
 
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
                                     <button type="button" class="btn btn-danger mr-3 " name="approve_rep" value="❌"
-                                        @if ($leaveforms->approve_rep != '⌛') disabled @endif>
+                                            @if ($leaveforms->approve_rep != '⌛') disabled @endif>
                                         ปฏิเสธการปฏิบัติงานแทน
                                     </button>
                                     <button type="button" class="btn btn-primary" name="approve_rep" value="✔️"
-                                        @if ($leaveforms->approve_rep != '⌛') disabled @endif>
+                                            @if ($leaveforms->approve_rep != '⌛') disabled @endif>
                                         ยินยอมปฏิบัติงานแทน
                                     </button>
-                                    <input type="hidden" name="approve_rep" value="{{ $leaveforms->approve_rep }}" />
+                                    <input type="hidden" name="approve_rep" value="{{ $leaveforms->approve_rep }}"/>
                                 </div>
 
                                 <!-- Modal ยอมรับปฏิบัติงานแทน -->
                                 <div class="modal fade" id="confirmModal_rep" tabindex="-1" role="dialog"
-                                    aria-labelledby="confirmModalLabel_rep" aria-hidden="true">
+                                     aria-labelledby="confirmModalLabel_rep" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="confirmModalLabel_rep">บันทึกข้อมูล</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <span class="content"></span>
                                                 <br>
-                                                <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
+                                                <span
+                                                    class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด

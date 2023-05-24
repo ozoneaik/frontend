@@ -27,6 +27,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-7">
+                                    {{-- ข้อมูลพนักงาน --}}
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title font-weight-bold">
@@ -114,6 +115,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5">
+                                    {{-- ข้อมูลการลา --}}
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title font-weight-bold">
@@ -121,23 +123,26 @@
                                                 ข้อมูลการลา
                                             </h3>
                                             <style>
-                                                .b1:hover
-                                                {
+                                                .b1:hover {
                                                     background: greenyellow !important;
                                                     border-radius: 10px;
                                                 }
                                             </style>
-                                            <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button" class="float-right b1" style="border:none; background: none">
+                                            <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
+                                                    class="float-right b1" style="border:none; background: none">
                                                 <i class="fa-solid fa-pen-to-square "></i>
                                             </button>
                                             <form action="{{route('leave.update',$user->id)}}" method="post">
                                                 @csrf
-                                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <h5 class="modal-title" id="exampleModalLabel">New
+                                                                    message</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
@@ -145,10 +150,12 @@
                                                                 <table class="table table-bordered mb-0 text-center">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th rowspan="2" colspan="1" class="table-danger ">
+                                                                        <th rowspan="2" colspan="1"
+                                                                            class="table-danger ">
                                                                             ประเภทการลา
                                                                         </th>
-                                                                        <th rowspan="1" colspan="3" class="table-warning ">
+                                                                        <th rowspan="1" colspan="3"
+                                                                            class="table-warning ">
                                                                             ลาไปแล้ว
                                                                         </th>
                                                                         <th rowspan="1" colspan="3" class="table-info ">
@@ -169,7 +176,7 @@
                                                                         $i = -1;
                                                                     @endphp
                                                                     @foreach($leave_datas as $leave_data)
-                                                                        <?php
+                                                                            <?php
                                                                             $i = $i + 1;
                                                                             ?>
                                                                         <tr>
@@ -183,6 +190,7 @@
                                                                                 $D1 = (int)$parts[0];
                                                                                 $H1 = (int)$parts[2];
                                                                                 $M1 = (int)$parts[4];
+<<<<<<< HEAD
                                                                                 $style = 'width:50px;border-radius: 5px; border:red';
                                                                                 $D2 = $D + $D1;
                                                                                 $H2 = $H + $H1;
@@ -215,33 +223,78 @@
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
                                                                     <button type="submit" class="btn btn-primary">บันทึก</button>
                                                                 </div>
+=======
+                                                                                $style = 'width: 55px;border-radius: 5px; border:red';
+                                                                            @endphp
+                                                                            <td class="table-warning ">
+                                                                                <input type="number" value="{{ $D }}"
+                                                                                       style="{{$style}}"
+                                                                                       name="D_used{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-warning ">
+                                                                                <input type="number" value="{{ $H }}"
+                                                                                       style="{{$style}}"
+                                                                                       name="H_used{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-warning ">
+                                                                                <input type="number" value="{{ $M }}"
+                                                                                       style="{{$style}}"
+                                                                                       name="M_used{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-info ">
+                                                                                <input type="number" value="{{ $D1 }}"
+                                                                                       style="{{$style}}"
+                                                                                       name="D_remain{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-info ">
+                                                                                <input type="number" value="{{ $H1 }}"
+                                                                                       style="{{$style}}"
+                                                                                       name="H_remain{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-info ">
+                                                                                <input type="number" value="{{ $M1 }}"
+                                                                                       style="{{$style}}"
+                                                                                       name="M_remain{{$i}}">
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">ปิด
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary">บันทึก
+                                                                </button>
+>>>>>>> 2e033db3d3b0b675bd610af229ecf6eba12e5d13
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <table class="table table-bordered mb-0">
-                                                            <thead>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table class="table table-bordered mb-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ประเภทการลา</th>
+                                                            <th>ลาไปแล้ว</th>
+                                                            <th>ลาคงเหลือ</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($leave_datas as $leave_data)
                                                             <tr>
-                                                                <th>ประเภทการลา</th>
-                                                                <th>ลาไปแล้ว</th>
-                                                                <th>ลาคงเหลือ</th>
+                                                                <td>{{ $leave_data->leave_type_name }}</td>
+                                                                <td>{{ $leave_data->time_already_used }}</td>
+                                                                <td>{{ $leave_data->time_remain }}</td>
                                                             </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            @foreach($leave_datas as $leave_data)
-                                                                <tr>
-                                                                    <td>{{ $leave_data->leave_type_name }}</td>
-                                                                    <td>{{ $leave_data->time_already_used }}</td>
-                                                                    <td>{{ $leave_data->time_remain }}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -251,14 +304,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">ประวัติการของ </h3>
-                            </div>
-                            @php
-                                $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{-- ประวัติการของ --}}
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">ประวัติการของ </h3>
+                        </div>
+                        @php
+                            $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+                            $counter_req = 0;
+                            $counter_rep = 0;
                         @endphp
                         <div class="card-body">
                             <table id="data-table" class="table table-bordered table-hover text-center">
@@ -280,10 +337,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php
-                                    $counter_req = 0;
-                                    $counter_rep = 0;
-                                @endphp
                                 @foreach ($leaveforms as $row)
                                     @if ($counter_req < 10)
                                         @if ($row->user_id == $user->id)
