@@ -447,6 +447,13 @@
             defaultDate: "now",
             time_24hr: true,
             disableMobile: "true",
+            "disable": [
+                function(date) {
+                    // return true to disable
+                    return (date.getDay() === 0 || date.getDay() === 6);
+
+                }
+            ],
         });
     </script>
     <script>
