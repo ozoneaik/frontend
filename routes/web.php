@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveFormController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Http\Middleware\UserAccess;
 
 
 Route::get('/', function () {
@@ -20,20 +20,15 @@ Route::get('/test',function(){
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
-
-    Route::match(['get', 'post'],'/leave_update/{id}',[HomeController::class, 'update_leave_data'])->name('leave.update');
-
-
-
+    Route::middleware(['auth', 'user-access:hr(admin),ceo'])->group(function () {
+        Route::get('/data_users',[HomeController::class,'data_users'])->name('data.users');
+        Route::get('/data_user_detail/{id}',[HomeController::class,'data_user_detail'])->name('data.user.detail');
+        Route::match(['get', 'post'],'/leave_update/{id}',[HomeController::class, 'update_leave_data'])->name('leave.update');
+    })->middleware(UserAccess::class);
 
     Route::get('/profile', [HomeController::class,'profile'])->name('profile');
     Route::get('/profile_edit/{id}',[HomeController::class,'profile_edit'])->name('profile.edit');
     Route::get('/profile_update/{id}',[HomeController::class,'profile_update'])->name('profile.update');
-
-    Route::get('/data_users',[HomeController::class,'data_users'])->name('data.users');
-    Route::get('/data_user_detail/{id}',[HomeController::class,'data_user_detail'])->name('data.user.detail');
 
     Route::get('/req_list',[LeaveFormController::class,'req'])->name('req');
     Route::match(['get', 'post'],'/req_list_detail/{id}',[LeaveFormController::class, 'req_list_detail'])->name('req.detail');

@@ -183,28 +183,31 @@
                                                                                 $D1 = (int)$parts[0];
                                                                                 $H1 = (int)$parts[2];
                                                                                 $M1 = (int)$parts[4];
-                                                                                $style = 'width: 35px;border-radius: 5px; border:red';
+                                                                                $style = 'width:50px;border-radius: 5px; border:red';
+                                                                                $D2 = $D + $D1;
+                                                                                $H2 = $H + $H1;
+                                                                                $M2 = $M + $M1;
                                                                             @endphp
                                                                             <td class="table-warning ">
-                                                                                <input type="number" value="{{ $D }}" style="{{$style}}" name="D_used{{$i}}">
+                                                                                <input type="number" min="0" value="{{ $D }}" style="{{$style}}" name="D_used{{$i}}">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" value="{{ $H }}" style="{{$style}}" name="H_used{{$i}}">
+                                                                                <input type="number" min="0" max="7" value="{{ $H }}" style="{{$style}}" name="H_used{{$i}}">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" value="{{ $M }}" style="{{$style}}" name="M_used{{$i}}">
+                                                                                <input type="number" min="0" max="59" value="{{ $M }}" style="{{$style}}" name="M_used{{$i}}">
                                                                             </td>
                                                                             <td class="table-info ">
-                                                                                <input type="number" value="{{ $D1 }}" style="{{$style}}" name="D_remain{{$i}}">
+                                                                                <input type="number" min="0" value="{{ $D1 }}" style="{{$style}}" name="D_remain{{$i}}">
                                                                             </td>
                                                                             <td class="table-info ">
-                                                                                <input type="number" value="{{ $H1 }}" style="{{$style}}" name="H_remain{{$i}}">
+                                                                                <input type="number" min="0" max="7" value="{{ $H1 }}" style="{{$style}}" name="H_remain{{$i}}">
                                                                             </td>
                                                                             <td class="table-info ">
-                                                                                <input type="number" value="{{ $M1 }}" style="{{$style}}" name="M_remain{{$i}}">
+                                                                                <input type="number" min="0" max="59" value="{{ $M1 }}" style="{{$style}}" name="M_remain{{$i}}">
                                                                             </td>
                                                                         </tr>
-                                                                        @endforeach
+                                                                    @endforeach
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
