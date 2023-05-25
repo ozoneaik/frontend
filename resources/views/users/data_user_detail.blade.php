@@ -190,6 +190,40 @@
                                                                                 $D1 = (int)$parts[0];
                                                                                 $H1 = (int)$parts[2];
                                                                                 $M1 = (int)$parts[4];
+<<<<<<< HEAD
+                                                                                $style = 'width:50px;border-radius: 5px; border:red';
+                                                                                $D2 = $D + $D1;
+                                                                                $H2 = $H + $H1;
+                                                                                $M2 = $M + $M1;
+                                                                            @endphp
+                                                                            <td class="table-warning ">
+                                                                                <input type="number" min="0" value="{{ $D }}" style="{{$style}}" name="D_used{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-warning ">
+                                                                                <input type="number" min="0" max="7" value="{{ $H }}" style="{{$style}}" name="H_used{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-warning ">
+                                                                                <input type="number" min="0" max="59" value="{{ $M }}" style="{{$style}}" name="M_used{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-info ">
+                                                                                <input type="number" min="0" value="{{ $D1 }}" style="{{$style}}" name="D_remain{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-info ">
+                                                                                <input type="number" min="0" max="7" value="{{ $H1 }}" style="{{$style}}" name="H_remain{{$i}}">
+                                                                            </td>
+                                                                            <td class="table-info ">
+                                                                                <input type="number" min="0" max="59" value="{{ $M1 }}" style="{{$style}}" name="M_remain{{$i}}">
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                                                                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                                </div>
+=======
                                                                                 $style = 'width: 55px;border-radius: 5px; border:red';
                                                                             @endphp
                                                                             <td class="table-warning ">
@@ -233,6 +267,7 @@
                                                                 </button>
                                                                 <button type="submit" class="btn btn-primary">บันทึก
                                                                 </button>
+>>>>>>> 2e033db3d3b0b675bd610af229ecf6eba12e5d13
                                                             </div>
                                                         </div>
                                                     </div>
