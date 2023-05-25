@@ -25,7 +25,7 @@
         {{-- Container-fluid --}}
         <div class="container-fluid">
 
-            {{-- ปุ่มเพิ่มใบลา --}} 
+            {{-- ปุ่มเพิ่มใบลา --}}
             <div class="col-12 d-flex justify-content-end d-flex mb-4">
                 <a href="">
                     <button class="btn btn-primary ms-auto">+ เพิ่มใบลา</button>

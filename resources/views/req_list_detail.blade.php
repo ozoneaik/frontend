@@ -138,7 +138,8 @@
                                                         <div class="form-group">
                                                             <label>เหตุผลการลา</label>
                                                             @if ($leaveforms->reason)
-                                                                <textarea class="form-control p-2" rows="4" readonly>{{ $leaveforms->reason }}</textarea>
+                                                                <textarea class="form-control p-2" rows="4"
+                                                                          readonly>{{ $leaveforms->reason }}</textarea>
                                                             @else
                                                                 <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
                                                             @endif
@@ -180,32 +181,70 @@
                                             </div>
                                         </div>
                                         {{-- ระหว่างการลามอบหมายให้ --}}
-                                        <div class="card">
+                                        <div class="card  mb-3">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
                                                     <i class="fa-solid fa-user mr-2"></i>
                                                     ระหว่างการลามอบหมายให้
                                                 </h3>
+                                                @if ($leaveforms->approve_rep == '❌')
+                                                    <span class="card-title float-right text-sm btn btn-xs btn-danger">ปฏิเสธในการปฏิบัติทำแทนแล้ว</span>
+                                                @endif
                                             </div>
                                             <div class="card-body">
+                                                @php
+                                                    $user = $users->firstWhere('id', $leaveforms->sel_rep);
+                                                @endphp
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    {{-- รหัสพนักงาน --}}
+                                                    <div class="col-md-2">
                                                         <div class="form-group">
-                                                            <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                            @php
-                                                                $user = $users->firstWhere('id', $leaveforms->sel_rep);
-                                                            @endphp
+                                                            <label for="">รหัสพนักงาน</label>
                                                             @if ($leaveforms->sel_rep)
                                                                 <p class="form-control " readonly>
                                                                     [{{ $leaveforms->sel_rep }}]
-                                                                    {{ $user->name }} {{ $user->possition }}
-                                                                    @if ($leaveforms->approve_rep == '❌')
-                                                                        <span class="text-danger">ปฏิเสธในการปฏิบัติทำแทน❌
-                                                                        </span>
-                                                                    @endif
                                                                 </p>
                                                             @else
-                                                                <p class="form-control" readonly>ไม่มี</p>
+                                                                <p class="form-control" readonly> - </p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    {{-- ชื่อ-นามสกุล --}}
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="">ชื่อ-นามสกุล</label>
+                                                            @if ($leaveforms->sel_rep)
+                                                                <p class="form-control " readonly>
+                                                                    {{ $user->name }}
+                                                                </p>
+                                                            @else
+                                                                <p class="form-control" readonly> - </p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    {{-- ชื่อเล่น --}}
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label for="">ชื่อเล่น</label>
+                                                            @if ($leaveforms->sel_rep)
+                                                                <p class="form-control " readonly>
+                                                                    {{ $user->nick_name }}
+                                                                </p>
+                                                            @else
+                                                                <p class="form-control" readonly> - </p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    {{-- ตำแหน่ง --}}
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="">ตำแหน่ง</label>
+                                                            @if ($leaveforms->sel_rep)
+                                                                <p class="form-control " readonly>
+                                                                    {{ $user->possition }}
+                                                                </p>
+                                                            @else
+                                                                <p class="form-control" readonly> - </p>
                                                             @endif
                                                         </div>
                                                     </div>

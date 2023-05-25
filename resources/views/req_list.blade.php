@@ -62,45 +62,45 @@
                             <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
-                                    <th style="{{ $style }} max-width: 80px;">วันที่ยื่นคำร้อง</th>
-                                    <th style="{{ $style }} max-width: 80px;">ประเภทการลา</th>
-                                    <th style="{{ $style }} max-width: 80px;">วันที่ลาตั้งแต่</th>
-                                    <th style="{{ $style }} max-width: 80px;">ถึง</th>
-                                    <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
-                                    <th style="{{ $style }} max-width: 50px;">ผู้ปฏิบัติงานแทน</th>
-                                    <th style="{{ $style }} max-width: 80px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th style="{{ $style }} max-width: 80px;">อนุมัติ(PM)</th>
-                                    <th style="{{ $style }} max-width: 80px;">อนุมัติ(HR)</th>
-                                    <th style="{{ $style }} max-width: 80px;">อนุมัติ(CEO)</th>
+                                    <th style="{{ $style }} max-width: 40px;">วันที่ยื่นคำร้อง</th>
+                                    <th style="{{ $style }} max-width: 40px;">ประเภทการลา</th>
+                                    <th style="{{ $style }} max-width: 40px;">วันที่ลาตั้งแต่</th>
+                                    <th style="{{ $style }} max-width: 40px;">ถึง</th>
+                                    <th style="{{ $style }} max-width: 40px;">ลาทั้งหมด</th>
+                                    <th style="{{ $style }} max-width: 30px;">ผู้ปฏิบัติงานแทน</th>
+                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
+                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(PM)</th>
+                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(HR)</th>
+                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(CEO)</th>
                                     <th style="{{ $style }} max-width: 50px;">สถานะ</th>
-                                    <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
+                                    <th style="{{ $style }} max-width: 50px;">รายละเอียด</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($leaves as $row)
                                     <tr>
-                                        <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}
                                         </td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ $row->leave_type }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->leave_type }}</td>
+                                        <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
                                         </td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
                                         </td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ $row->leave_total }}</td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->leave_total }}</td>
                                         @if (!$row->sel_rep)
-                                            <td>ไม่มีผู้ปฏิบัติแทน</td>
+                                            <td style="{{ $style }} max-width: 40px;">ไม่มีผู้ปฏิบัติแทน</td>
                                         @else
-                                            <td>{{ $usersMap[$row->sel_rep] }}</td>
+                                            <td style="{{ $style }} max-width: 40px;">{{ $usersMap[$row->sel_rep] }}</td>
                                         @endif
                                         {{-- <td>{{$row->sel_rep}}</td> --}}
-                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_rep }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_pm }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_hr }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ $row->approve_ceo }}</td>
-                                        <td style="{{ $style }} max-width: 50px;"
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_rep }}</td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_pm }}</td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_hr }}</td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_ceo }}</td>
+                                        <td style="{{ $style }} max-width: 40px;"
                                             class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
                                             {{ $row->status }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">
+                                        <td style="{{ $style }} max-width: 20px;">
                                             <a href="{{ route('req.detail', $row->id) }}">
                                                 <i class="fas fa-file-invoice"></i>
                                             </a>

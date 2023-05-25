@@ -38,11 +38,13 @@
         href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
     {{-- iCheck for checkboxes and radio inputs --}}
-    {{-- <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}"> --}}
+     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
 
     {{-- Date Picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
 
 
     {{-- Theme style --}}
@@ -132,14 +134,14 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed {{ date('H') >= 19 || date('H') < 6 ? 'dark-mode' : '' }}">
+<body class="hold-transition layout-fixed layout-navbar-fixed {{ date('H') >= 23 || date('H') < 6 ? 'dark-mode' : '' }}">
 
 
     {{-- Main Wrapper --}}
     <div class="wrapper">
 
         {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand  {{ date('H') >= 19 || date('H') < 6 ? 'navbar-dark navbar-dark' : 'navbar-light navbar-light' }}">
+        <nav class="main-header navbar navbar-expand  {{ date('H') >= 23  || date('H') < 6 ? 'navbar-dark navbar-dark' : 'navbar-light navbar-light' }}">
             {{-- Left Navbar Links --}}
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -232,7 +234,7 @@
                                     <a href="{{ route('rep') }}"
                                         class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
                                         <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>รายการคำปฏิบัติแทน</p>
+                                        <p>รายการคำขอปฏิบัติแทน</p>
                                     </a>
                                 </li>
                             </ul>
@@ -541,34 +543,34 @@
     </script>
 
     {{-- modal PM --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_pm]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_pm');
-                console.log(value);
-                confirmModal.find('input[name=approve_pm]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
-                    confirmModal.find('.allowed').hide();
-                    confirmModal.find('.modal-body #not_allowed').show();
-                    confirmModal.find('.reason_pm').hide();
+{{--    <script>--}}
+{{--        $(document).ready(function() {--}}
+{{--            $('button[name=approve_pm]').click(function() {--}}
+{{--                var value = $(this).val();--}}
+{{--                var confirmModal = $('#confirmModal_pm');--}}
+{{--                console.log(value);--}}
+{{--                confirmModal.find('input[name=approve_pm]').val(value);--}}
+{{--                if (value === '❌') {--}}
+{{--                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');--}}
+{{--                    confirmModal.find('.allowed').hide();--}}
+{{--                    confirmModal.find('.modal-body #not_allowed').show();--}}
+{{--                    confirmModal.find('.reason_pm').hide();--}}
 
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
-                    confirmModal.find('.modal-body .form-group').show();
-                    confirmModal.find('#not_allowed').hide();
-                }
-                confirmModal.modal('show');
+{{--                } else if (value === '✔️') {--}}
+{{--                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');--}}
+{{--                    confirmModal.find('.modal-body .form-group').show();--}}
+{{--                    confirmModal.find('#not_allowed').hide();--}}
+{{--                }--}}
+{{--                confirmModal.modal('show');--}}
 
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal_pm').modal('hide');
-            });
-        });
-    </script>
+{{--            });--}}
+{{--            console.log($("form").serialize());--}}
+{{--            $('#confirmModal form').submit(function(e) {--}}
+{{--                console.log("Form submitted");--}}
+{{--                $('#confirmModal_pm').modal('hide');--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 
     {{-- modal HR --}}
     <script>
@@ -630,6 +632,8 @@
 
         }
     </script>
+
+
     {{-- Theme App --}}
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 </body>

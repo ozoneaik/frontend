@@ -11,8 +11,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <ol class="breadcrumb text-start">
-                        <li class="breadcrumb-item">รายการคำขอ</li>
-                        <li class="breadcrumb-item active"><a href="">รายการคำขอใบลา</a></li>
+                        <li class="breadcrumb-item">Project Manager</li>
+                        <li class="breadcrumb-item active"><a href="{{route('pm.req.emp')}}">ใบลาพนักงาน</a></li>
                         <li class="breadcrumb-item active">รายละเอียด</li>
                     </ol>
                 </div>
@@ -38,10 +38,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     @if ($errors->has('allowed_pm'))
-                                        <span class="text-danger">
-                                            ถ้ากดอนุมัติกรุณาเลือก ตัวเลือกกดอนุญาตตามสิทธิ์พนักงานหลังกดยืนยันด้วยครับ
-                                        </span>
+                                        <span id="allowedPmError" class="text-danger">ถ้ากดอนุมัติกรุณาเลือก ตัวเลือกกดอนุญาตตามสิทธิ์พนักงานหลังกดยืนยันด้วยครับ</span>
                                     @endif
+
                                 </div>
                                 <div class="col-md-12">
                                     @if ($errors->has('other'))
@@ -139,7 +138,8 @@
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
                                                         @if ($leaveforms->reason)
-                                                            <textarea class="form-control p-2" rows="4" readonly>{{ $leaveforms->reason }}</textarea>
+                                                            <textarea class="form-control p-2" rows="4"
+                                                                      readonly>{{ $leaveforms->reason }}</textarea>
                                                         @else
                                                             <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
                                                         @endif
@@ -178,33 +178,70 @@
                                         </div>
                                     </div>
                                     {{-- ระหว่างการลามอบหมายให้ --}}
-                                    <div class="card">
+                                    <div class="card  mb-3">
                                         <div class="card-header">
                                             <h3 class="card-title font-weight-bold">
                                                 <i class="fa-solid fa-user mr-2"></i>
                                                 ระหว่างการลามอบหมายให้
                                             </h3>
+                                            @if ($leaveforms->approve_rep == '❌')
+                                                <span class="card-title float-right text-sm btn btn-xs btn-danger">ปฏิเสธในการปฏิบัติทำแทนแล้ว</span>
+                                            @endif
                                         </div>
                                         <div class="card-body">
+                                            @php
+                                                $user = $users->firstWhere('id', $leaveforms->sel_rep);
+                                            @endphp
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                {{-- รหัสพนักงาน --}}
+                                                <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                        @php
-                                                            $user = $users->firstWhere('id', $leaveforms->sel_rep);
-                                                        @endphp
+                                                        <label for="">รหัสพนักงาน</label>
                                                         @if ($leaveforms->sel_rep)
                                                             <p class="form-control " readonly>
                                                                 [{{ $leaveforms->sel_rep }}]
-                                                                {{ $user->name }}{{ $user->possition }}
-                                                                @if ($leaveforms->approve_rep == '❌')
-                                                                    <span class="text-danger">
-                                                                        ปฏิเสธในการปฏิบัติทำแทน❌
-                                                                    </span>
-                                                                @endif
                                                             </p>
                                                         @else
-                                                            <p class="form-control" readonly>ไม่มี</p>
+                                                            <p class="form-control" readonly> - </p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อ-นามสกุล --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อ-นามสกุล</label>
+                                                        @if ($leaveforms->sel_rep)
+                                                            <p class="form-control " readonly>
+                                                                {{ $user->name }}
+                                                            </p>
+                                                        @else
+                                                            <p class="form-control" readonly> - </p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                {{-- ชื่อเล่น --}}
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="">ชื่อเล่น</label>
+                                                        @if ($leaveforms->sel_rep)
+                                                            <p class="form-control " readonly>
+                                                                {{ $user->nick_name }}
+                                                            </p>
+                                                        @else
+                                                            <p class="form-control" readonly> - </p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                {{-- ตำแหน่ง --}}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">ตำแหน่ง</label>
+                                                        @if ($leaveforms->sel_rep)
+                                                            <p class="form-control " readonly>
+                                                                {{ $user->possition }}
+                                                            </p>
+                                                        @else
+                                                            <p class="form-control" readonly> - </p>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -344,121 +381,180 @@
                                     @endif
                                 </div>
                             </div>
-                            <form action="{{ route('pm.req.emp.update', $leaveforms->id) }}" method="post">
-                                @csrf
-                                {{-- อนุมัติ PM --}}
-                                <div class="col-md-12 justify-content-end d-flex pr-0">
-                                    @if ($leaveforms->approve_pm != '⌛')
-                                        <span class="text-danger">ไม่สามารถแก้ไขได้ เนื่องจากคุณได้ดำเนินการแล้ว</span>
-                                    @endif
-                                </div>
+                            <div class="col-md-12 justify-content-end d-flex pr-0">
+                                @if ($leaveforms->approve_pm != '⌛')
+                                    <span class="text-danger">ไม่สามารถแก้ไขได้ เนื่องจากคุณได้ดำเนินการแล้ว</span>
+                                @endif
+                            </div>
 
-                                <div class="col-md-12 justify-content-end d-flex pr-0">
-                                    <button type="button" class="btn btn-danger mr-3 " name="approve_pm" value="❌"
-                                            @if ($leaveforms->approve_pm != '⌛') disabled @endif>
-                                        ไม่อนุมัติ
-                                    </button>
-                                    <button type="button" class="btn btn-primary" name="approve_pm" value="✔️"
-                                            @if ($leaveforms->approve_pm != '⌛') disabled @endif>
+                            <div class="row flex-row-reverse">
+
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    {{-- อนุมัติ PM --}}
+                                    <button type="button" class="btn btn-primary mr-3"
+                                            @if ($leaveforms->approve_pm != '⌛') disabled @endif data-toggle="modal"
+                                            data-target="#confirmModal_pm">
                                         อนุมัติ
                                     </button>
-                                    <input type="hidden" name="approve_pm" value="{{ $leaveforms->approve_pm }}"/>
-                                </div>
+                                    {{-- modal อนุมัติ PM --}}
+                                    <form  action="{{ route('pm.req.emp.update1', $leaveforms->id) }}" method="post">
+                                        @csrf
+                                        <div class="modal fade" id="confirmModal_pm" tabindex="-1" role="dialog"
+                                             aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel_pm">
+                                                            บันทึกข้อมูล</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group reason_pm">
+                                                            <label for="reason_pm">ความเห็น Project Manager</label>
+                                                            @if ($errors->has('reason_pm'))
+                                                                <span
+                                                                    class="text-danger">{{ $errors->first('reason_pm') }}
+                                                            </span>
+                                                            @endif
+                                                            <textarea
+                                                                class="form-control @error('reason_pm') is-invalid @enderror "
+                                                                id="reason_pm" name="reason_pm" rows="3"></textarea>
+                                                        </div>
+                                                        <div class="form-group allowed">
+                                                            <label for="allowed_pm">
+                                                                อนุญาตตามสิทธิ์พนักงาน
+                                                            </label>
 
-                                <!-- Modal อนุมัติ PM -->
-                                <div class="modal fade" id="confirmModal_pm" tabindex="-1" role="dialog"
-                                     aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="confirmModalLabel_pm">บันทึกข้อมูล</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group reason_pm">
-                                                    <label for="reason_pm">ความเห็น Project Manager</label>
-                                                    @if ($errors->has('reason_pm'))
+                                                            @if ($errors->has('allowed_pm'))
+                                                                <br>
+                                                                <span class="text-danger">
+                                                                {{ $errors->first('allowed_pm') }}
+                                                            </span>
+                                                            @endif
+                                                            <br>
+                                                            <input type="hidden" name="approve_pm" value="✔️">
+                                                            <div class="icheck-primary d-block">
+                                                                <input type="radio" name="allowed_pm" id="1"
+                                                                       value="ไม่รับค่าแรงตามจำนวนวันที่ลา" required>
+                                                                <label class="font-weight-normal" for="1">
+                                                                    ไม่รับค่าแรงตามจำนวนวันที่ลา
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="icheck-primary d-block">
+                                                                <input type="radio" name="allowed_pm" id="2"
+                                                                       value="ทำงานชดเชยเป็นจำนวน"
+                                                                       onchange="showInputFields()"
+                                                                       required>
+                                                                <label class="font-weight-normal"
+                                                                       for="2">
+                                                                    ทำงานชดเชยเป็นจำนวน
+                                                                </label>
+                                                                <input type="number" name="day" id="day"
+                                                                       style="width: 10%; display: none;" min="0"
+                                                                       max="150"
+                                                                > วัน
+                                                                <input type="number" name="hour" id="hour"
+                                                                       style="width: 10%; display: none;" min="0"
+                                                                       max="8">
+                                                                ชั่วโมง
+                                                                <input type="number" name="minutes" id="minutes"
+                                                                       style="width: 10%; display: none;" min="0"
+                                                                       max="59">
+                                                                นาที
+                                                            </div>
+                                                            <div class="icheck-primary d-block">
+                                                                <input type="radio" name="allowed_pm" id="3"
+                                                                       value="อื่นๆ..." required>
+                                                                <label class="font-weight-normal" for="3">
+                                                                    อื่นๆ
+                                                                    <input type="text" name="other"
+                                                                           style="width: 350px">
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                        <span>
+                                                            ยืนยันที่จะอนุมัติ[✔️]หรือไม่?
+                                                        </span>
+                                                        <br>
                                                         <span
-                                                            class="text-danger">{{ $errors->first('reason_pm') }}
-                                                        </span>
-                                                    @endif
-                                                    <textarea
-                                                        class="form-control @error('reason_pm') is-invalid @enderror "
-                                                        id="reason_pm" name="reason_pm" rows="3"></textarea>
+                                                            class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">ปิด
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group allowed">
-                                                    <label for="allowed_pm">
-                                                        อนุญาตตามสิทธิ์พนักงาน
-                                                    </label>
-
-                                                    @if ($errors->has('allowed_pm'))
-                                                        <br>
-                                                        <span class="text-danger">
-                                                            {{ $errors->first('allowed_pm') }}
-                                                        </span>
-                                                    @endif
-                                                    <br>
-                                                    <input type="radio" name="allowed_pm" id="1"
-                                                           value="ไม่รับค่าแรงตามจำนวนวันที่ลา">
-                                                    <label class="font-weight-normal" for="1">ไม่รับค่าแรงตามจำนวนวันที่ลา</label>
-                                                    <br>
-                                                    <input type="radio" name="allowed_pm" id="2"
-                                                           value="ทำงานชดเชยเป็นจำนวน" onchange="showInputFields()">
-                                                    <label class="font-weight-normal"
-                                                           for="2">ทำงานชดเชยเป็นจำนวน</label>
-                                                    <input type="number" name="day" id="day"
-                                                           style="width: 10%; display: none;" min="0" max="150"
-                                                           > วัน
-                                                    <input type="number" name="hour" id="hour"
-                                                           style="width: 10%; display: none;" min="0" max="8" >
-                                                    ชั่วโมง
-                                                    <input type="number" name="minutes" id="minutes"
-                                                           style="width: 10%; display: none;" min="0" max="59" >
-                                                    นาที
-
-                                                    <br>
-                                                    @if ($errors->has('other'))
-                                                        <br>
-                                                        <span class="text-danger">
-                                                            {{ $errors->first('other') }}
-                                                        </span>
-                                                    @endif
-                                                    <input type="radio" name="allowed_pm" id="3"
-                                                           value="อื่นๆ...">
-                                                    <label class="font-weight-normal" for="3">อื่นๆ<input
-                                                            type="text" name="other"></label>
-                                                </div>
-                                                <div class="form-group" id="not_allowed">
-                                                    <label for="not_allowed">ไม่อนุญาติเนื่องจาก</label>
-                                                    @if($errors->has('not_allowed_pm'))
-                                                        <span class="text-danger">
-                                                            {{$errors->first('not_allowed_pm')}}
-                                                        </span>
-                                                    @endif
-                                                    <textarea
-                                                        class="form-control @error('not_allowed_pm') is-invalid @enderror"
-                                                        name="not_allowed_pm" id="" cols="30" rows="4"></textarea>
-                                                </div>
-
-                                                <span class="content"></span>
-                                                <br>
-                                                <span
-                                                    class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">ปิด
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                            </div>
-                                            <input type="hidden" name="approve_pm" value="">
                                         </div>
-                                    </div>
+                                    </form>
+
+                                    {{-- ไม่อนุมัติ PM --}}
+                                    <button type="button" class="btn btn-danger"
+                                            @if ($leaveforms->approve_pm != '⌛') disabled
+                                            @endif  data-toggle="modal"
+                                            data-target="#not_confirmModal_pm">
+                                        ไม่อนุมัติ
+                                    </button>
+                                    {{-- Modal ไม่อนุมัติ PM --}}
+                                    <form action="{{ route('pm.req.emp.update', $leaveforms->id) }}" method="post">
+                                        @csrf
+                                        <div class="modal fade" id="not_confirmModal_pm" tabindex="-1" role="dialog"
+                                             aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel_pm">
+                                                            บันทึกข้อมูล</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="approve_pm" value="❌">
+                                                        <div class="form-group" id="not_allowed">
+                                                            <label for="not_allowed">ไม่อนุญาติเนื่องจาก</label>
+                                                            @if($errors->has('not_allowed_pm'))
+                                                                <span class="text-danger">
+                                                                {{$errors->first('not_allowed_pm')}}
+                                                            </span>
+                                                            @endif
+                                                            <textarea
+                                                                class="form-control @error('not_allowed_pm') is-invalid @enderror"
+                                                                name="not_allowed_pm" id="" cols="30"
+                                                                rows="4"></textarea>
+                                                        </div>
+                                                        <span>
+                                                            ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?
+                                                        </span>
+                                                        <br>
+                                                        <span class="text-danger">
+                                                            *เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้
+                                                        </span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">ปิด
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+
+
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -482,5 +578,6 @@
 
         }
     </script>
+
 @endsection
 
