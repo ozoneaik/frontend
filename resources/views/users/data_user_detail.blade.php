@@ -139,8 +139,8 @@
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">New
-                                                                    message</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    แก้ไขข้อมูลการลา</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -190,73 +190,60 @@
                                                                                 $D1 = (int)$parts[0];
                                                                                 $H1 = (int)$parts[2];
                                                                                 $M1 = (int)$parts[4];
-<<<<<<< HEAD
-                                                                                $style = 'width:50px;border-radius: 5px; border:red';
+                                                                                $style = 'width: 55px;border-radius: 5px; border:red';
                                                                                 $D2 = $D + $D1;
                                                                                 $H2 = $H + $H1;
                                                                                 $M2 = $M + $M1;
+                                                                                error_log($D2);
                                                                             @endphp
-                                                                            <td class="table-warning ">
-                                                                                <input type="number" min="0" value="{{ $D }}" style="{{$style}}" name="D_used{{$i}}">
-                                                                            </td>
-                                                                            <td class="table-warning ">
-                                                                                <input type="number" min="0" max="7" value="{{ $H }}" style="{{$style}}" name="H_used{{$i}}">
-                                                                            </td>
-                                                                            <td class="table-warning ">
-                                                                                <input type="number" min="0" max="59" value="{{ $M }}" style="{{$style}}" name="M_used{{$i}}">
-                                                                            </td>
-                                                                            <td class="table-info ">
-                                                                                <input type="number" min="0" value="{{ $D1 }}" style="{{$style}}" name="D_remain{{$i}}">
-                                                                            </td>
-                                                                            <td class="table-info ">
-                                                                                <input type="number" min="0" max="7" value="{{ $H1 }}" style="{{$style}}" name="H_remain{{$i}}">
-                                                                            </td>
-                                                                            <td class="table-info ">
-                                                                                <input type="number" min="0" max="59" value="{{ $M1 }}" style="{{$style}}" name="M_remain{{$i}}">
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                                                                    <button type="submit" class="btn btn-primary">บันทึก</button>
-                                                                </div>
-=======
-                                                                                $style = 'width: 55px;border-radius: 5px; border:red';
-                                                                            @endphp
-                                                                            <td class="table-warning ">
-                                                                                <input type="number" value="{{ $D }}"
+                                                                            <td class="table-warning">
+                                                                                <input type="number" min="0"
+                                                                                       value="{{ $D }}"
                                                                                        style="{{$style}}"
-                                                                                       name="D_used{{$i}}">
+                                                                                       name="D_used{{$i}}" onchange="updateRemainingValue(this, {{$D1}}, {{$i}})">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" value="{{ $H }}"
+                                                                                <input type="number" min="0" max="7"
+                                                                                       value="{{ $H }}"
                                                                                        style="{{$style}}"
                                                                                        name="H_used{{$i}}">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" value="{{ $M }}"
+                                                                                <input type="number" min="0" max="59"
+                                                                                       value="{{ $M }}"
                                                                                        style="{{$style}}"
                                                                                        name="M_used{{$i}}">
                                                                             </td>
-                                                                            <td class="table-info ">
-                                                                                <input type="number" value="{{ $D1 }}"
+                                                                            <td class="table-info">
+                                                                                <input type="number" min="0"
+                                                                                       value="{{ $D1 }}"
                                                                                        style="{{$style}}"
-                                                                                       name="D_remain{{$i}}">
+                                                                                       name="D_remain{{$i}}" readonly>
                                                                             </td>
                                                                             <td class="table-info ">
-                                                                                <input type="number" value="{{ $H1 }}"
+                                                                                <input type="number" min="0" max="7"
+                                                                                       value="{{ $H1 }}"
                                                                                        style="{{$style}}"
-                                                                                       name="H_remain{{$i}}">
+                                                                                       name="H_remain{{$i}}" readonly>
                                                                             </td>
                                                                             <td class="table-info ">
-                                                                                <input type="number" value="{{ $M1 }}"
+                                                                                <input type="number" min="0" max="59"
+                                                                                       value="{{ $M1 }}"
                                                                                        style="{{$style}}"
-                                                                                       name="M_remain{{$i}}">
+                                                                                       name="M_remain{{$i}}" readonly>
                                                                             </td>
                                                                         </tr>
+                                                                        <script>
+                                                                            function updateRemainingValue(input, $D2, index) {
+                                                                                var value = parseInt(input.value);
+                                                                                var remainingField = document.getElementsByName('D_remain'  + index)[0];
+                                                                                var usedField = document.getElementsByName('D_used' + index)[0];
+                                                                                var newValue = $D2 - value;
+                                                                                remainingField.value = newValue < 0 ? 0 : newValue;
+                                                                                usedField.value = value;
+                                                                                console.log(index,$D2,remainingField.value,usedField.value);
+                                                                            }
+                                                                        </script>
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table>
@@ -267,7 +254,6 @@
                                                                 </button>
                                                                 <button type="submit" class="btn btn-primary">บันทึก
                                                                 </button>
->>>>>>> 2e033db3d3b0b675bd610af229ecf6eba12e5d13
                                                             </div>
                                                         </div>
                                                     </div>
