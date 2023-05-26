@@ -128,10 +128,12 @@
                                                     border-radius: 10px;
                                                 }
                                             </style>
-                                            <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
-                                                    class="float-right b1" style="border:none; background: none">
-                                                <i class="fa-solid fa-pen-to-square "></i>
-                                            </button>
+                                            @if(Auth::user()->type == 'hr(admin)')
+                                                <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
+                                                        class="float-right b1" style="border:none; background: none">
+                                                    <i class="fa-solid fa-pen-to-square "></i>
+                                                </button>
+                                            @endif
                                             <form action="{{route('leave.update',$user->id)}}" method="post">
                                                 @csrf
                                                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -239,10 +241,10 @@
                                                                                 var value = parseInt(input.value);
                                                                                 var remainingField = document.getElementsByName('D_remain' + index)[0];
                                                                                 var usedField = document.getElementsByName('D_used' + index)[0];
-                                                                                var newValue = $D2 - value;
-                                                                                remainingField.value = newValue < 0 ? 0 : newValue;
+                                                                                $D2 -= value;
+                                                                                remainingField.value = $D2 < 0 ? 0 : $D2;
                                                                                 usedField.value = value;
-                                                                                console.log(index, $D2, remainingField.value, usedField.value);
+                                                                                console.log($D2, remainingField.value, usedField.value);
                                                                             }
                                                                         </script>
                                                                     @endforeach
