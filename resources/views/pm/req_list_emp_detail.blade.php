@@ -397,7 +397,7 @@
                                         อนุมัติ
                                     </button>
                                     {{-- modal อนุมัติ PM --}}
-                                    <form  action="{{ route('pm.req.emp.update1', $leaveforms->id) }}" method="post">
+                                    <form  action="{{ route('pm.req.emp.update', $leaveforms->id) }}" method="post">
                                         @csrf
                                         <div class="modal fade" id="confirmModal_pm" tabindex="-1" role="dialog"
                                              aria-labelledby="confirmModalLabel_pm" aria-hidden="true">

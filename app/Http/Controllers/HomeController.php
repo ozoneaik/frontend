@@ -57,10 +57,11 @@ class HomeController extends Controller
     // ดูรายละเอียดของพนักงานคนนั้น
     public function data_user_detail($id){
         $user = User::findOrFail($id);
+        $users = User::all();
         $leaveforms = LeaveForm::all();
         $leave_datas = users_leave_data::where('user_id', $id)->get();
 
-        return view('users.data_user_detail', compact( 'user','leave_datas','leaveforms'));
+        return view('users.data_user_detail', compact( 'user','users','leave_datas','leaveforms'));
     }
 
     public function update_leave_data(Request $request, $id){

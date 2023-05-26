@@ -200,7 +200,8 @@
                                                                                 <input type="number" min="0"
                                                                                        value="{{ $D }}"
                                                                                        style="{{$style}}"
-                                                                                       name="D_used{{$i}}" onchange="updateRemainingValue(this, {{$D1}}, {{$i}})">
+                                                                                       name="D_used{{$i}}"
+                                                                                       onchange="updateRemainingValue(this, {{$D1}}, {{$i}})">
                                                                             </td>
                                                                             <td class="table-warning ">
                                                                                 <input type="number" min="0" max="7"
@@ -236,12 +237,12 @@
                                                                         <script>
                                                                             function updateRemainingValue(input, $D2, index) {
                                                                                 var value = parseInt(input.value);
-                                                                                var remainingField = document.getElementsByName('D_remain'  + index)[0];
+                                                                                var remainingField = document.getElementsByName('D_remain' + index)[0];
                                                                                 var usedField = document.getElementsByName('D_used' + index)[0];
                                                                                 var newValue = $D2 - value;
                                                                                 remainingField.value = newValue < 0 ? 0 : newValue;
                                                                                 usedField.value = value;
-                                                                                console.log(index,$D2,remainingField.value,usedField.value);
+                                                                                console.log(index, $D2, remainingField.value, usedField.value);
                                                                             }
                                                                         </script>
                                                                     @endforeach

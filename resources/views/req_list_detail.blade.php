@@ -81,7 +81,7 @@
                                                         <div class="form-group">
                                                             <label for="">ตำแหน่ง</label>
                                                             <p class="form-control" readonly>
-                                                                {{ Auth::user()->possition }}
+                                                                {{ Auth::user()->position }}
                                                             </p>
                                                         </div>
                                                     </div>

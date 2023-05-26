@@ -49,7 +49,6 @@
                                     $usersMap[$user->id] = $user->name;
                                 }
                             @endphp
-
                             <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
@@ -68,16 +67,12 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($leaves as $leave)
-                                    @if (($leave->approve_pm == '✔️' || $leave->approve_pm == '-') && $leave->approve_hr == '-')
+                                    @if (($leave->approve_pm == '✔️' || $leave->approve_pm == '-') && $leave->approve_hr != '-')
                                         <tr>
                                             <td style="{{ $style }} max-width: 50px;">{{$leave->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
                                             <td style="{{ $style }} max-width: 50px;">{{ $usersMap[$leave->user_id] }}</td>
-                                            <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($leave->leave_start)->addYears(543)->format('d/m/Y
-                                        H:i')
-                                        }}</td>
-                                            <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($leave->leave_end)->addYears(543)->format('d/m/Y H:i')
-                                        }}
-                                            </td>
+                                            <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($leave->leave_start)->addYears(543)->format('d/m/Y H:i')}}</td>
+                                            <td style="{{ $style }} max-width: 50px;">{{ \Carbon\Carbon::parse($leave->leave_end)->addYears(543)->format('d/m/Y H:i')}}</td>
                                             <td style="{{ $style }} max-width: 50px;">{{$leave->leave_total}}</td>
                                             <td style="{{ $style }} max-width: 50px;">{{$leave->approve_rep}}</td>
                                             <td style="{{ $style }} max-width: 50px;">{{$leave->approve_pm}}</td>
