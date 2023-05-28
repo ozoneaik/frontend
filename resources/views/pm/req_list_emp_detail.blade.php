@@ -390,8 +390,64 @@
                             <div class="row flex-row-reverse">
 
                                 <div class="col-md-12 d-flex justify-content-end">
+
+                                    {{-- ไม่อนุมัติ PM --}}
+                                    <button type="button" class="btn btn-danger mr-3"
+                                            @if ($leaveforms->approve_pm != '⌛') disabled
+                                            @endif  data-toggle="modal"
+                                            data-target="#not_confirmModal_pm">
+                                        ไม่อนุมัติ
+                                    </button>
+                                    {{-- Modal ไม่อนุมัติ PM --}}
+                                    <form action="{{ route('pm.req.emp.update', $leaveforms->id) }}" method="post">
+                                        @csrf
+                                        <div class="modal fade" id="not_confirmModal_pm" tabindex="-1" role="dialog"
+                                             aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel_pm">
+                                                            บันทึกข้อมูล</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="approve_pm" value="❌">
+                                                        <div class="form-group" id="not_allowed">
+                                                            <label for="not_allowed">ไม่อนุญาติเนื่องจาก</label>
+                                                            @if($errors->has('not_allowed_pm'))
+                                                                <span class="text-danger">
+                                                                {{$errors->first('not_allowed_pm')}}
+                                                            </span>
+                                                            @endif
+                                                            <textarea
+                                                                class="form-control @error('not_allowed_pm') is-invalid @enderror"
+                                                                name="not_allowed_pm" id="" cols="30"
+                                                                rows="4"></textarea>
+                                                        </div>
+                                                        <span>
+                                                            ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?
+                                                        </span>
+                                                        <br>
+                                                        <span class="text-danger">
+                                                            *เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้
+                                                        </span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">ปิด
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                     {{-- อนุมัติ PM --}}
-                                    <button type="button" class="btn btn-primary mr-3"
+                                    <button type="button" class="btn btn-primary"
                                             @if ($leaveforms->approve_pm != '⌛') disabled @endif data-toggle="modal"
                                             data-target="#confirmModal_pm">
                                         อนุมัติ
@@ -483,61 +539,6 @@
                                                         <br>
                                                         <span
                                                             class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">ปิด
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                    {{-- ไม่อนุมัติ PM --}}
-                                    <button type="button" class="btn btn-danger"
-                                            @if ($leaveforms->approve_pm != '⌛') disabled
-                                            @endif  data-toggle="modal"
-                                            data-target="#not_confirmModal_pm">
-                                        ไม่อนุมัติ
-                                    </button>
-                                    {{-- Modal ไม่อนุมัติ PM --}}
-                                    <form action="{{ route('pm.req.emp.update', $leaveforms->id) }}" method="post">
-                                        @csrf
-                                        <div class="modal fade" id="not_confirmModal_pm" tabindex="-1" role="dialog"
-                                             aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="confirmModalLabel_pm">
-                                                            บันทึกข้อมูล</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="approve_pm" value="❌">
-                                                        <div class="form-group" id="not_allowed">
-                                                            <label for="not_allowed">ไม่อนุญาติเนื่องจาก</label>
-                                                            @if($errors->has('not_allowed_pm'))
-                                                                <span class="text-danger">
-                                                                {{$errors->first('not_allowed_pm')}}
-                                                            </span>
-                                                            @endif
-                                                            <textarea
-                                                                class="form-control @error('not_allowed_pm') is-invalid @enderror"
-                                                                name="not_allowed_pm" id="" cols="30"
-                                                                rows="4"></textarea>
-                                                        </div>
-                                                        <span>
-                                                            ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?
-                                                        </span>
-                                                        <br>
-                                                        <span class="text-danger">
-                                                            *เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้
-                                                        </span>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"

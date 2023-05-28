@@ -146,8 +146,15 @@ class LeaveFormController extends Controller
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลารายละเอียด
     public function req_list_detail($id)
     {
-        $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
+
+        // Check if the logged-in user is the owner of the leave form
+        if ($leaveforms->user_id !== auth()->user()->id) {
+            abort(403, 'ไม่ได้รับอนุญาต');
+        }
+
+        $users = User::all();
+
         return view('req_list_detail', compact('leaveforms', 'users'));
     }
 

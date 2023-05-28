@@ -11,13 +11,15 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+Auth::routes([
+    'verify' => true
+]);
 
 Route::get('/test',function(){
     return view('test');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::middleware(['auth', 'user-access:hr(admin),ceo'])->group(function () {
@@ -26,7 +28,7 @@ Route::middleware('auth')->group(function () {
         Route::match(['get', 'post'],'/leave_update/{id}',[HomeController::class, 'update_leave_data'])->name('leave.update');
     })->middleware(UserAccess::class);
 
-    Route::get('/profile', [HomeController::class,'profile'])->name('profile');
+    Route::get('/profile/{id}', [HomeController::class,'profile'])->name('profile');
     Route::get('/profile_edit/{id}',[HomeController::class,'profile_edit'])->name('profile.edit');
     Route::get('/profile_update/{id}',[HomeController::class,'profile_update'])->name('profile.update');
 

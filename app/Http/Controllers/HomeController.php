@@ -38,14 +38,14 @@ class HomeController extends Controller
     }
 
     // โปรไฟล์ตัวเอง
-    public function profile(){
-        $users = User::all();
-        return view('users.profile', compact('users'));
+    public function profile($id){
+        $user = User::findOrFail($id);
+        return view('users.profile', compact('user'));
     }
 
     public function profile_edit($id){
         $user = User::findOrFail($id);
-        return view('users.profile_edit',compact('user'));
+        return view('users.profile',compact('user'));
     }
 
     // ดูข้อมูลของพนักงานทั้งหมด
@@ -57,10 +57,12 @@ class HomeController extends Controller
     // ดูรายละเอียดของพนักงานคนนั้น
     public function data_user_detail($id){
         $user = User::findOrFail($id);
-        $leaveforms = LeaveForm::all();
+        $users = User::all();
+        $leaveforms = LeaveForm::where('user_id',$id)->get();
         $leave_datas = users_leave_data::where('user_id', $id)->get();
+//        dd($leaveforms);
 
-        return view('users.data_user_detail', compact( 'user','leave_datas','leaveforms'));
+        return view('users.data_user_detail', compact( 'user','users','leave_datas','leaveforms'));
     }
 
     public function update_leave_data(Request $request, $id){

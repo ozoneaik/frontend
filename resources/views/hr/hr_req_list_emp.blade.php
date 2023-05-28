@@ -68,7 +68,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($leaves as $leave)
-                                    @if (($leave->approve_pm == '✔️' || $leave->approve_pm == '-') && $leave->approve_hr == '-')
+                                    @if (($leave->approve_pm == '✔️' || $leave->approve_pm == '-') || $leave->approve_hr == '-')
                                         <tr>
                                             <td style="{{ $style }} max-width: 50px;">{{$leave->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
                                             <td style="{{ $style }} max-width: 50px;">{{ $usersMap[$leave->user_id] }}</td>

@@ -29,39 +29,48 @@
                             <div class="card-body">
                                 <table class="table table-bordered" id="data_emp_table">
                                     <thead>
-                                        <tr>
-                                            <th>รหัสพนักงาน</th>
-                                            <th>ชื่อ-นามสกุล</th>
-                                            <th>ชื่อเล่น</th>
-                                            <th>อีเมล</th>
-                                            <th>เบอร์โทรศัพท์</th>
-                                            <th>รายละเอียด</th>
-                                        </tr>
+                                    <tr>
+                                        <th>รหัสพนักงาน</th>
+                                        <th>ชื่อ-นามสกุล</th>
+                                        <th>ชื่อเล่น</th>
+                                        <th>อีเมล</th>
+                                        <th>เบอร์โทรศัพท์</th>
+                                        <th>ยืนยันอีเมล</th>
+                                        <th>รายละเอียด</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
-                                            <tr>
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->name}}</td>
-                                                <td>{{$user->nick_name}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->phone_no_1}}</td>
-                                                <td><a href="{{route('data.user.detail', $user->id)}}">
-                                                        <i class="fas fa-file-invoice"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{$user->id}}</td>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->nick_name}}</td>
+                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->phone_no_1}}</td>
+                                            @if($user->email_verified_at)
+                                                <td class="text-success">
+                                                    ยืนยันแล้วเมื่อ {{$user->email_verified_at}}</td>
+                                            @else
+                                                <td class="text-danger">ยังไม่ได้ยืนยัน</td>
+                                            @endif
+
+                                            <td><a href="{{route('data.user.detail', $user->id)}}">
+                                                    <i class="fas fa-file-invoice"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                     <tfoot>
-                                        <tr>
-                                            <th>รหัสพนักงาน</th>
-                                            <th>ชื่อ-นามสกุล</th>
-                                            <th>ชื่อเล่น</th>
-                                            <th>อีเมล</th>
-                                            <th>เบอร์โทรศัพท์</th>
-                                            <th>รายละเอียด</th>
-                                        </tr>
+                                    <tr>
+                                        <th>รหัสพนักงาน</th>
+                                        <th>ชื่อ-นามสกุล</th>
+                                        <th>ชื่อเล่น</th>
+                                        <th>อีเมล</th>
+                                        <th>เบอร์โทรศัพท์</th>
+                                        <th>ยืนยันอีเมล</th>
+                                        <th>รายละเอียด</th>
+                                    </tr>
                                     </tfoot>
                                 </table>
                             </div>

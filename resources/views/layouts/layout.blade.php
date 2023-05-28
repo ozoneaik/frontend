@@ -134,7 +134,7 @@
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed {{ date('H') >= 23 || date('H') < 6 ? 'dark-mode' : '' }}">
+<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-mini {{ date('H') >= 23 || date('H') < 6 ? 'dark-mode' : '' }}">
 
 
     {{-- Main Wrapper --}}
@@ -159,13 +159,13 @@
             <ul class="navbar-nav ml-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ route('profile') }}">
+                        <a href="{{ route('profile',Auth::user()->id) }}">
                             <img src="https://www.w3schools.com/bootstrap4/newyork.jpg" class="rounded-circle"
                                 alt="Cinque Terre" width="40px" height="40px">
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('profile') }}" class="nav-link text-hide-md">[ID : {{ Auth::user()->id }}]
+                        <a href="{{ route('profile',Auth::user()->id) }}" class="nav-link text-hide-md">[ID : {{ Auth::user()->id }}]
                             {{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item ml-3">

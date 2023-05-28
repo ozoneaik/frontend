@@ -34,8 +34,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = 'profile';
+     protected $redirectTo = RouteServiceProvider::HOME;
+//    protected $redirectTo = 'verify';
 
     /**
      * Create a new controller instance.

@@ -125,7 +125,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="1@gmail.com" required autocomplete="email">
+                                    name="email" value="1@gmail.com" pattern=".+@bda.co.th" required title="อีเมลต้องเป็น @bda.co.th เท่านั้น" autocomplete="email">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">

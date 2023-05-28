@@ -55,6 +55,7 @@
                                                             <label for="">รหัสพนักงาน</label>
                                                             <p class="form-control" readonly>
                                                                 {{ Auth::user()->id }}
+
                                                             </p>
                                                         </div>
                                                     </div>

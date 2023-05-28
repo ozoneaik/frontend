@@ -283,7 +283,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>ต้องการบันทึกข้อมูลข้อมูลหรือไม่??</p>
+                                                    <p>ต้องการบันทึกข้อมูลหรือไม่??</p>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default"
