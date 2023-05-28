@@ -453,9 +453,39 @@
                 function(date) {
                     // return true to disable
                     return (date.getDay() === 0 || date.getDay() === 6);
-
                 }
             ],
+        });
+        var startDateInput = document.getElementById("start-date");
+        var endDateInput = document.getElementById("end-date");
+
+        startDateInput.addEventListener("change", function() {
+            var startDate = moment(this.value, 'DD/MM/YYYY HH:mm');
+            flatpickr(endDateInput, {
+                locale: "th",
+                allowInput: false,
+                altInput: false,
+                enableTime: true,
+                dateFormat: "d/m/Y H:i",
+                minTime: '09:00',
+                maxTime: '18:00',
+                defaultDate: "now",
+                time_24hr: true,
+                disableMobile: "true",
+                minDate: startDate.toDate(),
+                "disable": [
+                    function(date) {
+                        // return true to disable
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ],
+                onChange: function(selectedDates, dateStr, instance) {
+                    var endDate = moment(selectedDates[0]);
+                    if (endDate.isBefore(startDate)) {
+                        instance.setDate(startDate.toDate(), false, 'd/m/Y H:i');
+                    }
+                }
+            });
         });
     </script>
     <script>

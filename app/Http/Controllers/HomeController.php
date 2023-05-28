@@ -58,7 +58,11 @@ class HomeController extends Controller
     public function data_user_detail($id){
         $user = User::findOrFail($id);
         $users = User::all();
+<<<<<<< HEAD
         $leaveforms = LeaveForm::where('user_id',$id)->get();
+=======
+        $leaveforms = LeaveForm::all();
+>>>>>>> 3b54d4ec8b37e8a591b4c2a291331a9affc2439b
         $leave_datas = users_leave_data::where('user_id', $id)->get();
 //        dd($leaveforms);
 

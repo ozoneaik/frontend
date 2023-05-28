@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/req_list_emp_pm',[LeaveFormController::class, 'PM_req'])->name('pm.req.emp');
         Route::match(['get','post'],'/req_list_emp_detail/{id}',[LeaveFormController::class, 'req_list_emp_detail'])->name('pm.req.emp.detail');
         Route::match(['get','post'],'/req_list_emp_detail_update/{id}',[LeaveFormController::class,'req_list_emp_detail_update'])->name('pm.req.emp.update');
-        Route::match(['get','post'],'/req_list_emp_detail_update1/{id}',[LeaveFormController::class,'req_list_emp_detail_update'])->name('pm.req.emp.update1');
+//        Route::match(['get','post'],'/req_list_emp_detail_update1/{id}',[LeaveFormController::class,'req_list_emp_detail_update'])->name('pm.req.emp.update1');
     });
 
     //HR route list

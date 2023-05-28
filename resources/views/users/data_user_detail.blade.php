@@ -128,10 +128,12 @@
                                                     border-radius: 10px;
                                                 }
                                             </style>
-                                            <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
-                                                    class="float-right b1" style="border:none; background: none">
-                                                <i class="fa-solid fa-pen-to-square "></i>
-                                            </button>
+                                            @if(Auth::user()->type == 'hr(admin)')
+                                                <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
+                                                        class="float-right b1" style="border:none; background: none">
+                                                    <i class="fa-solid fa-pen-to-square "></i>
+                                                </button>
+                                            @endif
                                             <form action="{{route('leave.update',$user->id)}}" method="post">
                                                 @csrf
                                                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -139,8 +141,8 @@
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">New
-                                                                    message</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    แก้ไขข้อมูลการลา</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                         aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -191,38 +193,66 @@
                                                                                 $H1 = (int)$parts[2];
                                                                                 $M1 = (int)$parts[4];
                                                                                 $style = 'width: 55px;border-radius: 5px; border:red';
+<<<<<<< HEAD
                                                                             @endphp
                                                                             <td class="table-warning ">
                                                                                 <input type="number" value="{{ $D }}"
+=======
+                                                                                $D2 = $D + $D1;
+                                                                                $H2 = $H + $H1;
+                                                                                $M2 = $M + $M1;
+                                                                                error_log($D2);
+                                                                            @endphp
+                                                                            <td class="table-warning">
+                                                                                <input type="number" min="0"
+                                                                                       value="{{ $D }}"
+>>>>>>> 3b54d4ec8b37e8a591b4c2a291331a9affc2439b
                                                                                        style="{{$style}}"
-                                                                                       name="D_used{{$i}}">
+                                                                                       name="D_used{{$i}}"
+                                                                                       onchange="updateRemainingValue(this, {{$D1}}, {{$i}})">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" value="{{ $H }}"
+                                                                                <input type="number" min="0" max="7"
+                                                                                       value="{{ $H }}"
                                                                                        style="{{$style}}"
                                                                                        name="H_used{{$i}}">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" value="{{ $M }}"
+                                                                                <input type="number" min="0" max="59"
+                                                                                       value="{{ $M }}"
                                                                                        style="{{$style}}"
                                                                                        name="M_used{{$i}}">
                                                                             </td>
-                                                                            <td class="table-info ">
-                                                                                <input type="number" value="{{ $D1 }}"
+                                                                            <td class="table-info">
+                                                                                <input type="number" min="0"
+                                                                                       value="{{ $D1 }}"
                                                                                        style="{{$style}}"
-                                                                                       name="D_remain{{$i}}">
+                                                                                       name="D_remain{{$i}}" readonly>
                                                                             </td>
                                                                             <td class="table-info ">
-                                                                                <input type="number" value="{{ $H1 }}"
+                                                                                <input type="number" min="0" max="7"
+                                                                                       value="{{ $H1 }}"
                                                                                        style="{{$style}}"
-                                                                                       name="H_remain{{$i}}">
+                                                                                       name="H_remain{{$i}}" readonly>
                                                                             </td>
                                                                             <td class="table-info ">
-                                                                                <input type="number" value="{{ $M1 }}"
+                                                                                <input type="number" min="0" max="59"
+                                                                                       value="{{ $M1 }}"
                                                                                        style="{{$style}}"
-                                                                                       name="M_remain{{$i}}">
+                                                                                       name="M_remain{{$i}}" readonly>
                                                                             </td>
                                                                         </tr>
+                                                                        <script>
+                                                                            function updateRemainingValue(input, $D2, index) {
+                                                                                var value = parseInt(input.value);
+                                                                                var remainingField = document.getElementsByName('D_remain' + index)[0];
+                                                                                var usedField = document.getElementsByName('D_used' + index)[0];
+                                                                                $D2 -= value;
+                                                                                remainingField.value = $D2 < 0 ? 0 : $D2;
+                                                                                usedField.value = value;
+                                                                                console.log($D2, remainingField.value, usedField.value);
+                                                                            }
+                                                                        </script>
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table>
