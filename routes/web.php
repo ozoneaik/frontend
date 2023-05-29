@@ -16,15 +16,17 @@ Route::get('/', function () {
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
 
-Auth::routes([
-    'verify' => true
-]);
+//Auth::routes([
+//    'verify' => true
+//]);
+
+Auth::routes();
 
 Route::get('/test',function(){
     return view('test');
 });
-
-Route::middleware(['auth', 'verified'])->group(function () {
+//['auth', 'verified']
+Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::middleware(['auth', 'user-access:hr(admin),ceo'])->group(function () {
