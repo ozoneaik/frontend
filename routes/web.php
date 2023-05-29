@@ -5,11 +5,16 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveFormController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\UserAccess;
+use App\Http\Controllers\PDFController;
 
 
 Route::get('/', function () {
     return view('auth.login');
 });
+
+
+Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+
 
 Auth::routes([
     'verify' => true
@@ -29,8 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->middleware(UserAccess::class);
 
     Route::get('/profile/{id}', [HomeController::class,'profile'])->name('profile');
-    Route::get('/profile_edit/{id}',[HomeController::class,'profile_edit'])->name('profile.edit');
-    Route::get('/profile_update/{id}',[HomeController::class,'profile_update'])->name('profile.update');
+    Route::post('/profile_update/{id}',[HomeController::class,'profile_update'])->name('profile.update');
 
     Route::get('/req_list',[LeaveFormController::class,'req'])->name('req');
     Route::match(['get', 'post'],'/req_list_detail/{id}',[LeaveFormController::class, 'req_list_detail'])->name('req.detail');

@@ -46,7 +46,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title font-weight-bold">
                                                 <i class="fas fa-file-invoice mr-2"></i>
-                                                รายละเอียดใบลา
+                                                รายละเอียดใบลาของผู้ลา
                                             </h3>
                                         </div>
                                         <div class="card-body">

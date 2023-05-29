@@ -31,6 +31,7 @@
                                     <thead>
                                     <tr>
                                         <th>รหัสพนักงาน</th>
+                                        <th>รูปโปรฟาย</th>
                                         <th>ชื่อ-นามสกุล</th>
                                         <th>ชื่อเล่น</th>
                                         <th>อีเมล</th>
@@ -43,6 +44,9 @@
                                     @foreach ($users as $user)
                                         <tr>
                                             <td>{{$user->id}}</td>
+                                            <td>
+                                                <img src="{{asset($user->profile_img)}}" alt="ไม่มีรูปประจำตัว" height="80px" width="80px" onerror="this.src='https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'">
+                                            </td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->nick_name}}</td>
                                             <td>{{$user->email}}</td>
@@ -64,6 +68,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>รหัสพนักงาน</th>
+                                        <th>รูปโปรฟาย</th>
                                         <th>ชื่อ-นามสกุล</th>
                                         <th>ชื่อเล่น</th>
                                         <th>อีเมล</th>

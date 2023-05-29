@@ -129,7 +129,8 @@
                                                 }
                                             </style>
                                             @if(Auth::user()->type == 'hr(admin)')
-                                                <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
+                                                <button data-toggle="modal" data-target=".bd-example-modal-lg"
+                                                        type="button"
                                                         class="float-right b1" style="border:none; background: none">
                                                     <i class="fa-solid fa-pen-to-square "></i>
                                                 </button>
@@ -193,11 +194,7 @@
                                                                                 $H1 = (int)$parts[2];
                                                                                 $M1 = (int)$parts[4];
                                                                                 $style = 'width: 55px;border-radius: 5px; border:red';
-<<<<<<< HEAD
-                                                                            @endphp
-                                                                            <td class="table-warning ">
-                                                                                <input type="number" value="{{ $D }}"
-=======
+
                                                                                 $D2 = $D + $D1;
                                                                                 $H2 = $H + $H1;
                                                                                 $M2 = $M + $M1;
@@ -206,7 +203,6 @@
                                                                             <td class="table-warning">
                                                                                 <input type="number" min="0"
                                                                                        value="{{ $D }}"
->>>>>>> 3b54d4ec8b37e8a591b4c2a291331a9affc2439b
                                                                                        style="{{$style}}"
                                                                                        name="D_used{{$i}}"
                                                                                        onchange="updateRemainingValue(this, {{$D1}}, {{$i}})">
@@ -332,42 +328,40 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($leaveforms as $row)
-                                            <tr>
-                                                <td style="{{ $style }} max-width: 80px;">
-                                                    {{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
-                                                </td>
-                                                <td>{{ $row->leave_type }}</td>
-                                                <td style="{{ $style }} max-width: 100px;">
-                                                    {{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
-                                                    ถึง
-                                                    {{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
-                                                </td>
-                                                <td style="{{ $style }} max-width: 100px;">
-                                                    {{ $row->leave_total }}</td>
-                                                @if (!$row->sel_rep)
-                                                    <td>ไม่มีผู้ปฏิบัติแทน</td>
-                                                @else
-                                                    @foreach ($users as $user)
-                                                        @if ($user->id == $row->sel_rep)
-                                                            <td>{{ $user->name }}</td>
-                                                        @endif
-                                                    @endforeach
+                                    <tr>
+                                        <td style="{{ $style }} max-width: 80px;">
+                                            {{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td>{{ $row->leave_type }}</td>
+                                        <td style="{{ $style }} max-width: 100px;">
+                                            {{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                            ถึง
+                                            {{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td style="{{ $style }} max-width: 100px;">
+                                            {{ $row->leave_total }}</td>
+                                        @if (!$row->sel_rep)
+                                            <td>ไม่มีผู้ปฏิบัติแทน</td>
+                                        @else
+                                            @foreach ($users as $user)
+                                                @if ($user->id == $row->sel_rep)
+                                                    <td>{{ $user->name }}</td>
                                                 @endif
-                                                {{-- <td>{{$row->sel_rep }}</td> --}}
-                                                <td>{{ $row->approve_rep }}
-                                                <td>{{ $row->approve_pm }}</td>
-                                                <td>{{ $row->approve_hr }}</td>
-                                                <td>{{ $row->approve_ceo }}</td>
-                                                <td style="{{ $style }} max-width: 50px;"
-                                                    class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
-                                                    {{ $row->status }}</td>
-                                                <td>
-                                                    <a href="{{ route('req.detail', $row->id) }}"><i
-                                                            class="fas fa-file-invoice"></i></a>
-                                                </td>
-                                            </tr>
-
-
+                                            @endforeach
+                                        @endif
+                                        {{-- <td>{{$row->sel_rep }}</td> --}}
+                                        <td>{{ $row->approve_rep }}
+                                        <td>{{ $row->approve_pm }}</td>
+                                        <td>{{ $row->approve_hr }}</td>
+                                        <td>{{ $row->approve_ceo }}</td>
+                                        <td style="{{ $style }} max-width: 50px;"
+                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
+                                            {{ $row->status }}</td>
+                                        <td>
+                                            <a href="{{ route('req.detail', $row->id) }}"><i
+                                                    class="fas fa-file-invoice"></i></a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
 

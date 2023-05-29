@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_no_1')->nullable();
             $table->string('phone_no_2')->nullable();
+            $table->string('profile_img')->nullable();
+            $table->string('signature')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

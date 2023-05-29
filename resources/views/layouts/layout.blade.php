@@ -160,7 +160,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="{{ route('profile',Auth::user()->id) }}">
-                            <img src="https://www.w3schools.com/bootstrap4/newyork.jpg" class="rounded-circle"
+                            <img src="{{ asset(Auth::user()->profile_img) }}" class="rounded-circle"
                                 alt="Cinque Terre" width="40px" height="40px">
                         </a>
                     </li>
@@ -572,35 +572,7 @@
         });
     </script>
 
-    {{-- modal PM --}}
-{{--    <script>--}}
-{{--        $(document).ready(function() {--}}
-{{--            $('button[name=approve_pm]').click(function() {--}}
-{{--                var value = $(this).val();--}}
-{{--                var confirmModal = $('#confirmModal_pm');--}}
-{{--                console.log(value);--}}
-{{--                confirmModal.find('input[name=approve_pm]').val(value);--}}
-{{--                if (value === '❌') {--}}
-{{--                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');--}}
-{{--                    confirmModal.find('.allowed').hide();--}}
-{{--                    confirmModal.find('.modal-body #not_allowed').show();--}}
-{{--                    confirmModal.find('.reason_pm').hide();--}}
 
-{{--                } else if (value === '✔️') {--}}
-{{--                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');--}}
-{{--                    confirmModal.find('.modal-body .form-group').show();--}}
-{{--                    confirmModal.find('#not_allowed').hide();--}}
-{{--                }--}}
-{{--                confirmModal.modal('show');--}}
-
-{{--            });--}}
-{{--            console.log($("form").serialize());--}}
-{{--            $('#confirmModal form').submit(function(e) {--}}
-{{--                console.log("Form submitted");--}}
-{{--                $('#confirmModal_pm').modal('hide');--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
 
     {{-- modal HR --}}
     <script>

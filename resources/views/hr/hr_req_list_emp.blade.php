@@ -67,11 +67,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($leaves as $leave)
-<<<<<<< HEAD
                                     @if (($leave->approve_pm == '✔️' || $leave->approve_pm == '-') || $leave->approve_hr == '-')
-=======
-                                    @if (($leave->approve_pm == '✔️' || $leave->approve_pm == '-') && $leave->approve_hr != '-')
->>>>>>> 3b54d4ec8b37e8a591b4c2a291331a9affc2439b
                                         <tr>
                                             <td style="{{ $style }} max-width: 50px;">{{$leave->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
                                             <td style="{{ $style }} max-width: 50px;">{{ $usersMap[$leave->user_id] }}</td>
