@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LeaveForm;
+use App\Models\User;
 use Illuminate\Http\Request;
-use PDF;
+use Dompdf\Dompdf;
 
 class PDFController extends Controller
 
@@ -23,22 +25,33 @@ class PDFController extends Controller
 
     {
 
-        $data = [
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml('myPDF');
 
-            'title' => 'Welcome to ItSolutionStuff.com',
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4');
 
-            'date' => date('m/d/Y')
+// Render the HTML as PDF
+        $dompdf->render();
 
-        ];
+// Output the generated PDF to Browser
 
+        return $dompdf->stream();
 
+    }
 
-        $pdf = PDF::loadView('myPDF',);
+    public function pdf($id){
+        $leaveforms = LeaveForm::findOrFail($id);
 
+        // Check if the logged-in user is the owner of the leave form
+        if ($leaveforms->user_id !== auth()->user()->id) {
+            abort(403, 'ไม่ได้รับอนุญาต');
+        }
 
+        $users = User::all();
+//        dd($leaveforms->leave_start);
 
-        return $pdf->download('itsolutionstuff.pdf');
-
+        return view('pdf', compact('leaveforms', 'users'));
     }
 
 }

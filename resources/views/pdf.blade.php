@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            font-size: 8px;
+            margin-bottom: 0.7rem;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        th,
+        td {
+            border: solid black 1px;
+        }
+
+        thead,
+        tr {
+            height: 22px;
+        }
+
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<script>
+    window.onload = function () {
+        window.print();
+    };
+</script>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="col-md-3">
+                    <div class="bg-dark">
+                        <img src="{{asset('img/logo.png')}}" alt="" width="150px" height="150px">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <span style="line-height:24px">
+                    บริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)
+                    <br>
+                    333 หมู่ 4 ต.ท่าศาลา อ.เมืองเชียงใหม่ จ.เชียงใหม่ 50000
+                    <br>
+                    โทร. 05 2005 213 / 089 866 7679
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                ใบลา
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-end ">
+                <span>วันที่</span>__________________________________12 มีนาคม 2566__________________________________
+            </div>
+            <div class="col-md-12 d-flex justify-content-between">
+
+                <div><span>ชื่อ - สกุล</span> __________________________{{Auth::user()->name}}
+                    ({{Auth::user()->nick_name}}) ___________________________
+                </div>
+                <div><span>ตำแหน่ง</span> __________________________________{{Auth::user()->possition}}
+                    __________________________________
+                </div>
+            </div>
+
+
+            <!--  -->
+
+            <div class="col-md-12 d-flex justify-content-between">
+                <div><span>ลาในทำงานตั้งแต่เวลา</span>
+                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->format('H:i') }}
+                    ____________<span>ถึงเวลา</span>
+                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->format('H:i') }}____________
+                </div>
+            </div>
+            <div>
+            </div>
+            <!--  -->
+
+            <div class="col-md-12 d-flex justify-content-between">
+                <div><span>ขอลาอยุดตั้งแต่วันที่</span>
+                    ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d / m / Y') }}
+                    ________<span>และวันที่</span>
+                    ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d / m / Y') }}
+                    ________
+
+                </div>
+            </div>
+
+            <!--  -->
+
+            <div class="col-md-6">
+                <span>รวมเป็นเวลา</span> __________________________________{{$leaveforms->leave_total}}
+                __________________________________
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ประเภทการลา</th>
+                        <th>เหตุผลการลา</th>
+                        <th>หมายเหตุ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{$leaveforms->leave_type}}</td>
+                        @if($leaveforms->reason)
+                            <td>{{$leaveforms->reason}}</td>
+                        @else
+                            <td>ไม่มีเหตุผลการลา</td>
+                        @endif
+                        @if($leaveforms->reason_hr)
+                            <td>{{$leaveforms->reason_hr}}</td>
+                        @else
+                            <td>ไม่มีเหตุผลการลา</td>
+                        @endif
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-between mb-0">
+                <div><span>เอกสารประกอบการลา</span>
+                    __________________________________________ อื่นๆ __________________________________
+                </div>
+                <div>
+                    <span>ลงชื่อ</span>
+                    __________<img src="{{asset('img/Signature-1.png')}}" alt="" height="50px" width="100px">__________
+
+                    <br>
+                    <div class="text-center my-0">{{Auth::user()->name}} ({{Auth::user()->nick_name}})</div>
+                    <br>
+                    <div class="text-center my-0"><span>วันที่</span>
+                        ________{{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->format('d / m / Y') }}
+                        ________
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ประเภทการลา</th>
+                        <th>ลามาแล้ว</th>
+                        <th>ลาครั้งนี้</th>
+                        <th>คงเหลือ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for($i=0;$i<9;$i++)
+                        <tr>
+                            <td>ลาป่วย</td>
+                            <td>0 วัน 0 ชม. 0 นาที</td>
+                            <td>0 วัน 0 ชม. 0 นาที</td>
+                            <td>0 วัน 0 ชม. 0 นาที</td>
+                        </tr>
+                    @endfor
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-start">
+                @if($leaveforms->reason_pm)
+                    <div><span>ความคิดเห็น Leader/PM</span> _______________________{{$leaveforms->reason_pm}}
+                        _______________________
+                    </div>
+                @else
+                    <div><span>ความคิดเห็น Leader/PM</span>
+                        _______________________ไม่มีความคิดเห็น_______________________
+                    </div>
+                @endif
+
+            </div>
+            <div class="col-md-12 d-flex justify-content-start">
+                @if($leaveforms->reason_ceo)
+                    <div><span>ความคิดเห็น Sulution Architext Director</span>
+                        _______________________{{$leaveforms->reason_ceo}}
+                        _______________________
+                    </div>
+                @else
+                    <div><span>ความคิดเห็น Sulution Architext Director</span>
+                        _______________________ไม่มีความคิดเห็น_______________________
+                    </div>
+                @endif
+
+            </div>
+        </div>
+        <div class="col-md-12 d-flex justify-content-start">
+            <div><span>ระหว่างการลามอบหมายให้</span> _______________________ภูวเดช พาณยโสถา ออฟ_______________________
+                <span>เป็นผู้ปฏิบัติงานแทน</span>
+            </div>
+        </div>
+        <div class="col-md-12 d-flex justify-content-start">
+            <div><span>หมายเหตุ : กรณีไม่มีผู้ปฏิบัติงานแทน สามารถ (ติดต่อ)</span>
+                _______________________{{Auth::user()->phone_no_1}} , {{Auth::user()->phone_no_2}}
+                _______________________
+            </div>
+        </div>
+        @if($leaveforms->allowed_pm)
+            <div class="col-md-12 d-flex justify-content-start">
+                <div><span>อนุญาตตามสิทธิ์พนักงาน โดย</span> _______________________{{$leaveforms->allowed_pm}}
+                    _______________________
+                </div>
+            </div>
+        @endif
+        @if($leaveforms->not_allowed_pm)
+            <div class="col-md-12 d-flex justify-content-start">
+                <div>ไม่อนุญาตเนื่องจาก ______________________{{$leaveforms->not_allowed_pm}}________________________
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-12 d-flex justify-content-between">
+            <div class=""><span>ลงชื่อ</span> __________ <img src="{{asset('img/Signature-1.png')}}" alt=""
+                                                              height="50px"
+                                                              width="100px">__________ <span>leader/PM</span>
+            </div>
+            <div class="">
+                <span>ลงชื่อ</span> __________
+                <img src="{{asset('img/Signature-1.png')}}" alt="" height="50px" width="100px">
+                __________ <span>ผู้อนุมัติ</span>
+                <div class="text-center">
+                    นายณัฐดนัย หอมดง
+                    <br>
+                    (Solution Architect Director)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

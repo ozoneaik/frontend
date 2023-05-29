@@ -149,7 +149,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block ">
-                    <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">บริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
+                    <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
                 </li>
             </ul>
 
@@ -160,8 +160,10 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="{{ route('profile',Auth::user()->id) }}">
-                            <img src="{{ asset(Auth::user()->profile_img) }}" class="rounded-circle"
-                                alt="Cinque Terre" width="40px" height="40px">
+                                <img src="{{ asset(Auth::user()->profile_img) }}" class="rounded-circle"
+                                                               width="40px" height="40px" onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnkTRn.png'">
+
+
                         </a>
                     </li>
                     <li class="nav-item">

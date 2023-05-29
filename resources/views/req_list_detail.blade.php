@@ -55,7 +55,6 @@
                                                             <label for="">รหัสพนักงาน</label>
                                                             <p class="form-control" readonly>
                                                                 {{ Auth::user()->id }}
-
                                                             </p>
                                                         </div>
                                                     </div>
@@ -394,7 +393,7 @@
                                 {{-- ปุ่มบันทึกการลา --}}
                                 <div class="col-md-12 justify-content-end d-flex ">
                                     @if ($leaveforms->status == 'อนุมัติ')
-                                        <a href="" class="btn btn-info mr-3">พิมพ์ใบลา</a>
+                                        <a href="{{route('pdf',$leaveforms->id)}}" class="btn btn-info mr-3" target="_blank">พิมพ์ใบลา</a>
                                     @endif
                                     <a href="{{ route('req') }}" class="btn btn-primary">ย้อนกลับ</a>
                                 </div>

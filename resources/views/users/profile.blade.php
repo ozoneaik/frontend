@@ -48,9 +48,9 @@
                                         <div
                                             class="card-body d-flex justify-content-center align-items-center flex-column">
                                             <div class="">
-                                                <img class="rounded-circle d-flex justify-content-end"
-                                                     src="{{ asset($user->profile_img) }}" alt=""
-                                                     style="max-width: 200px; height: 200px;">
+                                                    <img class="rounded-circle d-flex justify-content-end"
+                                                         src="{{ asset($user->profile_img) }}" alt=""
+                                                         style="max-width: 200px; height: 200px;" onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnkTRn.png'">
                                             </div>
                                             <br>
                                             <div class="text-center">
@@ -101,7 +101,7 @@
                                                                 <img class="rounded-circle mr-4 img-fluid"
                                                                      id="previewImg"
                                                                      src="{{ asset($user->profile_img) }}" alt="no picture"
-                                                                     style="max-width: 200px; height: 200px;">
+                                                                     style="max-width: 200px; height: 200px;" onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnkTRn.png'">
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
@@ -186,7 +186,7 @@
                                                                 class="col-md-12 d-flex justify-content-center">
                                                                 <img class="rounded"
                                                                      src="{{asset($user->signature)}}" alt="no picture" id="previewImg1"
-                                                                     style="width: 235px; height: 85px;" onerror="this.src='https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ='">
+                                                                     style="width: 235px; height: 85px;" onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnfAyR.png'">
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
@@ -216,6 +216,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- end Modal แก้ไขข้อมูลส่วนตัว --}}
                                 </div>
                                 {{-- ข้อมูลพนักงาน  --}}
                                 <div class="col-md-6">

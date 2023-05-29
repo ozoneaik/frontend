@@ -8,12 +8,15 @@ use App\Http\Middleware\UserAccess;
 use App\Http\Controllers\PDFController;
 
 
+
 Route::get('/', function () {
     return view('auth.login');
 });
 
 
-Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+Route::get('pdf', [PDFController::class, 'generatePDF']);
+
+Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');
 
 
 //Auth::routes([

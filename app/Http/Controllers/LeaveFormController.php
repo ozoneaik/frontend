@@ -155,6 +155,7 @@ class LeaveFormController extends Controller
 
         $users = User::all();
 
+
         return view('req_list_detail', compact('leaveforms', 'users'));
     }
 
