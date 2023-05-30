@@ -45,7 +45,7 @@
                                         <tr>
                                             <td>{{$user->id}}</td>
                                             <td>
-                                                <img src="{{asset($user->profile_img)}}" alt="ไม่มีรูปประจำตัว" height="80px" width="80px" onerror="this.src='https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'">
+                                                <img class="rounded" src="{{asset($user->profile_img)}}" alt="ไม่มีรูปประจำตัว" height="80px" width="80px" onerror="this.src='https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'">
                                             </td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->nick_name}}</td>

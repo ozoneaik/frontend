@@ -8,6 +8,7 @@
                 <div class="card-header">หน้าเข้าสู่ระบบ</div>
 
                 <div class="card-body">
+
                     @if ($message = Session::get('error'))
                     <div class="alert alert-danger alert-block" id="error-message">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -20,8 +21,8 @@
                             document.querySelector('#error-message').style.display = 'none';
                         });
                     </script>
-
                     @endif
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

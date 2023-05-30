@@ -149,9 +149,9 @@ class LeaveFormController extends Controller
         $leaveforms = LeaveForm::findOrFail($id);
 
         // Check if the logged-in user is the owner of the leave form
-        if ($leaveforms->user_id !== auth()->user()->id) {
-            abort(403, 'ไม่ได้รับอนุญาต');
-        }
+//        if ($leaveforms->user_id !== auth()->user()->id) {
+//            abort(403, 'ไม่ได้รับอนุญาต');
+//        }
 
         $users = User::all();
 
