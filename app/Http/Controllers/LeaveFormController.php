@@ -280,8 +280,6 @@ class LeaveFormController extends Controller
         if ($request->allowed_pm == 'ทำงานชดเชยเป็นจำนวน') {
             $allowed_pm = $request->allowed_pm . ' ' . $day . ' วัน ' . $hour . ' ชั่วโมง ' . $minutes . ' นาที ';
         } else if ($request->allowed_pm == 'อื่นๆ...') {
-            $request->validate([
-                'other' => 'required'], ['other.required' => 'ป้อนด้วย']);
             $allowed_pm = $request->allowed_pm . ' -> ' . $request->other;
         } else {
             $allowed_pm = $request->allowed_pm;

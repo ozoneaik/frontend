@@ -528,9 +528,10 @@
                                                                 <label class="font-weight-normal" for="3">
                                                                     อื่นๆ
                                                                     <input type="text" name="other"
-                                                                           style="width: 350px">
+                                                                           style="width: 350px" >
                                                                 </label>
                                                             </div>
+
 
                                                         </div>
                                                         <span>
@@ -564,6 +565,22 @@
         {{-- end container fluid --}}
     </section>
     {{-- end mian content --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var radio = document.getElementsByName('allowed_pm');
+            var otherInput = document.getElementsByName('other')[0];
+
+            for (var i = 0; i < radio.length; i++) {
+                radio[i].addEventListener('change', function () {
+                    if (this.checked && this.value === 'อื่นๆ...') {
+                        otherInput.setAttribute('required', 'required');
+                    } else {
+                        otherInput.removeAttribute('required');
+                    }
+                });
+            }
+        });
+    </script>
     <script>
         function showInputFields() {
             var radio = document.querySelector('input[name="allowed_pm"]:checked');

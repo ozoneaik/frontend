@@ -33,28 +33,65 @@
         thead,
         tr {
             height: 22px;
+            max-width: 80px;
         }
 
         table {
             width: 100%;
         }
+
+
+
+    </style>
+    <style type="text/css" media="print">
+        @media print
+        {
+            @page {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            body  {
+                padding-top: 72px;
+                padding-bottom: 72px ;
+            }
+        }
     </style>
 </head>
 
 <body>
+{{--<script>--}}
+{{--    window.onload = function () {--}}
+{{--        window.print();--}}
+{{--    };--}}
+{{--</script>--}}
+
 <script>
     window.onload = function () {
         window.print();
     };
+
+    window.addEventListener('afterprint', function () {
+        closeTab();
+    });
+
+    window.onbeforeunload = function () {
+        closeTab();
+    };
+
+    function closeTab() {
+        window.open('', '_self', '');
+        window.close();
+    }
 </script>
+
 
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="d-flex justify-content-start align-items-center">
+            <div class="d-flex justify-content-start align-items-center mb-0">
                 <div class="col-md-3">
                     <div class="bg-dark">
-                        <img src="{{asset('img/logo.png')}}" alt="" width="150px" height="150px">
+                        <img src="{{asset('img/logo.png')}}" alt="" width="140px" height="140px">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -68,20 +105,24 @@
                 </div>
             </div>
             <div class="col-md-12 text-center">
-                ใบลา
+                <span>ใบลา</span>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-end ">
-                <span>วันที่</span>__________________________________12 มีนาคม 2566__________________________________
+                <?php
+                setlocale(LC_TIME, 'French');
+                ?>
+
+                <span>วันที่</span>__________________________________{{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}__________________________________
             </div>
             <div class="col-md-12 d-flex justify-content-between">
 
-                <div><span>ชื่อ - สกุล</span> __________________________{{Auth::user()->name}}
-                    ({{Auth::user()->nick_name}}) ___________________________
+                <div><span>ชื่อ - สกุล</span> __________________________{{$my_user->name}}
+                    ({{$my_user->nick_name}}) ___________________________
                 </div>
-                <div><span>ตำแหน่ง</span> __________________________________{{Auth::user()->possition}}
+                <div><span>ตำแหน่ง</span> __________________________________{{$my_user->possition}}
                     __________________________________
                 </div>
             </div>
@@ -91,9 +132,9 @@
 
             <div class="col-md-12 d-flex justify-content-between">
                 <div><span>ลาในทำงานตั้งแต่เวลา</span>
-                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->format('H:i') }}
+                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->locale('th')->translatedFormat('jS F Y') }}
                     ____________<span>ถึงเวลา</span>
-                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->format('H:i') }}____________
+                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->locale('th')->translatedFormat('jS F Y') }}____________
                 </div>
             </div>
             <div>
@@ -102,9 +143,9 @@
 
             <div class="col-md-12 d-flex justify-content-between">
                 <div><span>ขอลาอยุดตั้งแต่วันที่</span>
-                    ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d / m / Y') }}
+                    ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}
                     ________<span>และวันที่</span>
-                    ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d / m / Y') }}
+                    ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}
                     ________
 
                 </div>
@@ -130,16 +171,16 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{$leaveforms->leave_type}}</td>
+                        <td style="width: 300px">{{$leaveforms->leave_type}}</td>
                         @if($leaveforms->reason)
-                            <td>{{$leaveforms->reason}}</td>
+                            <td style="width: 300px">{{$leaveforms->reason}}</td>
                         @else
-                            <td>ไม่มีเหตุผลการลา</td>
+                            <td style="width: 300px">ไม่มีเหตุผลการลา</td>
                         @endif
                         @if($leaveforms->reason_hr)
-                            <td>{{$leaveforms->reason_hr}}</td>
+                            <td style="width: 300px">{{$leaveforms->reason_hr}}</td>
                         @else
-                            <td>ไม่มีเหตุผลการลา</td>
+                            <td style="width: 300px">ไม่มีเหตุผลการลา</td>
                         @endif
                     </tr>
                     </tbody>
@@ -154,14 +195,12 @@
                 </div>
                 <div>
                     <span>ลงชื่อ</span>
-                    __________<img src="{{asset('img/Signature-1.png')}}" alt="" height="50px" width="100px">__________
+                    __________<img src="{{asset($my_user->signature)}}" alt="" height="50px" width="100px">__________
 
-                    <br>
-                    <div class="text-center my-0">{{Auth::user()->name}} ({{Auth::user()->nick_name}})</div>
-                    <br>
-                    <div class="text-center my-0"><span>วันที่</span>
-                        ________{{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->format('d / m / Y') }}
-                        ________
+                    <div class="text-center mb-3">{{$my_user->name}} ({{$my_user->nick_name}})</div>
+                    <div class="text-center mt-2">
+                        ( วันที่ {{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->locale('th')->translatedFormat('jS F Y') }} )
+
                     </div>
                 </div>
             </div>
@@ -183,14 +222,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @for($i=0;$i<9;$i++)
+
+                    <?php
+                    $i = 0;
+                    ?>
+                    @foreach($data_leaves as $data_leave)
+
                         <tr>
-                            <td>ลาป่วย</td>
-                            <td>0 วัน 0 ชม. 0 นาที</td>
-                            <td>0 วัน 0 ชม. 0 นาที</td>
-                            <td>0 วัน 0 ชม. 0 นาที</td>
+                            <td>{{$data_leave->leave_type_name}}</td>
+                            <td>{{$data_leave->time_already_used}}</td>
+                            <td>{{$this_time[$i]}}</td>
+                            <td>{{$data_leave->time_remain}}</td>
                         </tr>
-                    @endfor
+
+                            <?php
+                            $i++;
+                            ?>
+
+                    @endforeach
 
 
                     </tbody>
@@ -201,11 +250,13 @@
         <div class="row">
             <div class="col-md-12 d-flex justify-content-start">
                 @if($leaveforms->reason_pm)
-                    <div><span>ความคิดเห็น Leader/PM</span> _______________________{{$leaveforms->reason_pm}}
-                        _______________________
+                    <div>
+                        <span>ความคิดเห็น Leader/PM</span>
+                        _______________________{{$leaveforms->reason_pm}} _______________________
                     </div>
                 @else
-                    <div><span>ความคิดเห็น Leader/PM</span>
+                    <div>
+                        <span>ความคิดเห็น Leader/PM</span>
                         _______________________ไม่มีความคิดเห็น_______________________
                     </div>
                 @endif
@@ -226,13 +277,32 @@
             </div>
         </div>
         <div class="col-md-12 d-flex justify-content-start">
-            <div><span>ระหว่างการลามอบหมายให้</span> _______________________ภูวเดช พาณยโสถา ออฟ_______________________
-                <span>เป็นผู้ปฏิบัติงานแทน</span>
-            </div>
+            @if($user_rep)
+                @if($leaveforms->approve_rep == '❌')
+                    <div>
+                        <span>ระหว่างการลามอบหมายให้</span>
+                        _______________________ผู้ทำหน้าที่แทนปฏิเสธการทำงานแทน_______________________
+                    </div>
+                @else
+                    <div>
+                        <span>ระหว่างการลามอบหมายให้</span>
+                        _______________________{{$user_rep->name}} ({{$user_rep->nick_name}})_______________________
+                        <span>เป็นผู้ปฏิบัติงานแทน</span>
+                    </div>
+                @endif
+
+            @else
+                <div>
+                    <span>ระหว่างการลามอบหมายให้</span>
+                    _______________________ไม่มีผู้ปฏิบัติงานแทน_______________________
+                    <span>เป็นผู้ปฏิบัติงานแทน</span>
+                </div>
+            @endif
+
         </div>
         <div class="col-md-12 d-flex justify-content-start">
             <div><span>หมายเหตุ : กรณีไม่มีผู้ปฏิบัติงานแทน สามารถ (ติดต่อ)</span>
-                _______________________{{Auth::user()->phone_no_1}} , {{Auth::user()->phone_no_2}}
+                _______________________{{$my_user->phone_no_1}} , {{$my_user->phone_no_2}}
                 _______________________
             </div>
         </div>
@@ -253,13 +323,14 @@
 
     <div class="row mt-2">
         <div class="col-md-12 d-flex justify-content-between">
-            <div class=""><span>ลงชื่อ</span> __________ <img src="{{asset('img/Signature-1.png')}}" alt=""
-                                                              height="50px"
-                                                              width="100px">__________ <span>leader/PM</span>
+            <div class="">
+                <span>ลงชื่อ</span> __________
+                <img src="{{asset($user_pm->signature)}}" alt="" height="50px" width="100px">
+                __________<span>leader/PM</span>
             </div>
             <div class="">
                 <span>ลงชื่อ</span> __________
-                <img src="{{asset('img/Signature-1.png')}}" alt="" height="50px" width="100px">
+                <img src="{{asset($user_ceo->signature)}}" alt="" height="50px" width="100px">
                 __________ <span>ผู้อนุมัติ</span>
                 <div class="text-center">
                     นายณัฐดนัย หอมดง

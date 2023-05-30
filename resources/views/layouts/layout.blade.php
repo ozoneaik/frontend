@@ -8,7 +8,7 @@
 
     {{-- Google Font: Source Sans Pro --}}
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     {{-- Google Font: TH sarabun --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,24 +35,18 @@
 
     {{-- Tempusdominus Bootstrap 4 --}}
     <link rel="stylesheet"
-        href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+          href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
     {{-- iCheck for checkboxes and radio inputs --}}
-     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
 
     {{-- Date Picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
-
-
     {{-- Theme style --}}
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-
-
-
-
 
 
     <style>
@@ -70,50 +64,50 @@
             }
         }
 
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active,
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:focus,
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:hover {
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active,
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:focus,
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:hover {
             background-color: rgb(255 255 255 / 0%);
             color: rgb(0 123 255);
         }
 
-        [class*=sidebar-dark-] .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link,
-        [class*=sidebar-dark-] .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link.active {
+        [class*=sidebar-dark-] .nav-flat .nav-item .nav-treeview > .nav-item > .nav-link,
+        [class*=sidebar-dark-] .nav-flat .nav-item .nav-treeview > .nav-item > .nav-link.active {
             border-color: rgb(0 123 255);
         }
 
-        .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
-        .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+        .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
             background-color: #1d2531;
             color: #fff;
             border-left: 3px solid #007bff;
         }
 
-        [class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link,
-        [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link,
-        [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
+        [class*=sidebar-dark-] .nav-sidebar > .nav-item.menu-open > .nav-link,
+        [class*=sidebar-dark-] .nav-sidebar > .nav-item:hover > .nav-link,
+        [class*=sidebar-dark-] .nav-sidebar > .nav-item > .nav-link:focus {
             background-color: #1d2531;
             color: #fff;
             border-left: 0.2rem solid #007bff;
         }
 
-        [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link.active {
+        [class*=sidebar-dark-] .nav-sidebar > .nav-item > .nav-link.active {
             color: #fff;
             box-shadow: none;
 
 
         }
 
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active,
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:focus,
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:hover {
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active,
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:focus,
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:hover {
             background-color: #222d3b;
             color: rgb(0 123 255);
         }
 
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link,
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:focus,
-        [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:hover {
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link,
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link:focus,
+        [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link:hover {
             background-color: #222d3b;
         }
 
@@ -121,525 +115,533 @@
             background-color: #263544;
         }
 
-        .nav-sidebar .nav-link>.right,
-        .nav-sidebar .nav-link>p>.right {
+        .nav-sidebar .nav-link > .right,
+        .nav-sidebar .nav-link > p > .right {
             position: absolute;
             right: 1rem;
             top: 1.2rem;
         }
-    </style>
 
+        .navbar-dark {
+            background-color: #263544;
+            border-color: #263544;
+        }
+
+    </style>
 
 
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-mini {{ date('H') >= 23 || date('H') < 6 ? 'dark-mode' : '' }}">
+<body
+    class="hold-transition layout-fixed layout-navbar-fixed sidebar-mini">
 
 
-    {{-- Main Wrapper --}}
-    <div class="wrapper">
+{{-- Main Wrapper --}}
+<div class="wrapper">
 
-        {{-- Nav bar --}}
-        <nav class="main-header navbar navbar-expand  {{ date('H') >= 23  || date('H') < 6 ? 'navbar-dark navbar-dark' : 'navbar-light navbar-light' }}">
-            {{-- Left Navbar Links --}}
+    {{-- Nav bar --}}
+    <nav
+        class="main-header navbar navbar-expand navbar-light">
+        {{-- Left Navbar Links --}}
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+                        class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block ">
+                <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">ระบบการลาบริษัท บิ๊ก ดาต้า
+                    เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
+            </li>
+        </ul>
+
+        {{-- Left Navbar Links --}}
+
+        {{-- Right Navbar Links --}}
+        <ul class="navbar-nav ml-auto">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
+                    <a href="{{ route('profile',Auth::user()->id) }}">
+                        <img src="{{ asset(Auth::user()->profile_img) }}" class="rounded-circle"
+                             width="40px" height="40px"
+                             onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnkTRn.png'">
+
+
+                    </a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block ">
-                    <a href="{{route('home')}}" class="nav-link font-weight-bold text-black">ระบบการลาบริษัท บิ๊ก ดาต้า เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
+                <li class="nav-item">
+                    <a href="{{ route('profile',Auth::user()->id) }}" class="nav-link text-hide-md">[ID
+                        : {{ Auth::user()->id }}]
+                        {{ Auth::user()->name }}</a>
+                </li>
+                <li class="nav-item ml-3">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn bg-danger">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </form>
                 </li>
             </ul>
 
-            {{-- Left Navbar Links --}}
+        </ul>
+        {{-- end Right navbar links --}}
+    </nav>
+    {{-- end navbar --}}
 
-            {{-- Right Navbar Links --}}
-            <ul class="navbar-nav ml-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{{ route('profile',Auth::user()->id) }}">
-                                <img src="{{ asset(Auth::user()->profile_img) }}" class="rounded-circle"
-                                                               width="40px" height="40px" onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnkTRn.png'">
+    {{-- Main Sidebar Container --}}
+    <aside class="main-sidebar sidebar-dark-primary elevation-4 text-sm" style="background: #263544">
 
-
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('profile',Auth::user()->id) }}" class="nav-link text-hide-md">[ID : {{ Auth::user()->id }}]
-                            {{ Auth::user()->name }}</a>
-                    </li>
-                    <li class="nav-item ml-3">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn bg-danger">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-
-            </ul>
-            {{-- end Right navbar links --}}
-        </nav>
-        {{-- end navbar --}}
-
-        {{-- Main Sidebar Container --}}
-        <aside class="main-sidebar sidebar-dark-primary elevation-4 text-sm" style="background: #263544">
-
-            <!-- Brand Logo -->
-            <a href="{{ route('home') }}" class="brand-link text-center">
+        <!-- Brand Logo -->
+        <a href="{{ route('home') }}" class="brand-link text-center">
                 <span class="brand-text font-weight-bold mx-auto">
                     <img src="{{ asset('img/logosidebar1.png') }}" height="54px" width="184px" alt="no picture">
                 </span>
-            </a>
-            <!-- end Brand Logo -->
+        </a>
+        <!-- end Brand Logo -->
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <br>
-                    <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        {{-- เมนูหลัก --}}
-                        <li class="nav-item">
-                            <a href="{{ route('home') }}"
-                                class="nav-link pt-3 pb-3 {{ Request::routeIs('home') ? 'active' : '' }}">
-                                <i class="nav-icon fa-solid fa-house"></i>
-                                <p>เมนูหลัก</p>
-                            </a>
-                        </li>
-                        <li
-                            class="nav-item {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'menu-open' : '' }}">
-                            <a href="#"
-                                class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>
-                                    รายการคำขอ
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('req') }}"
-                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>รายการคำขอใบลา</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('rep') }}"
-                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>รายการคำขอปฏิบัติแทน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        {{-- Project manager --}}
-                        <li
-                            class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
-                            <a href="#"
-                                class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Project manager
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">1</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
-                                    <a href="{{ route('pm.req.emp') }}"
-                                        class="nav-link  pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <br>
+                <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    {{-- เมนูหลัก --}}
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('home') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-house"></i>
+                            <p>เมนูหลัก</p>
+                        </a>
+                    </li>
+                    <li
+                        class="nav-item {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'menu-open' : '' }}">
+                        <a href="#"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file-alt"></i>
+                            <p>
+                                รายการคำขอ
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('req') }}"
+                                   class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                    <p>รายการคำขอใบลา</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('rep') }}"
+                                   class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                    <p>รายการคำขอปฏิบัติแทน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Project manager --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
+                        <a href="#"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>
+                                Project manager
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">1</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item ">
+                                <a href="{{ route('pm.req.emp') }}"
+                                   class="nav-link  pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                    <p>ใบลาพนักงาน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        {{-- HR --}}
-                        <li
-                            class="nav-item {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'menu-open' : '' }}">
-                            <a href="#"
-                                class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
-                                    Human Resources
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('hr.req.emp') }}"
-                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    {{-- HR --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'menu-open' : '' }}">
+                        <a href="#"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-cog"></i>
+                            <p>
+                                Human Resources
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('hr.req.emp') }}"
+                                   class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                    <p>ใบลาพนักงาน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        {{-- CEO --}}
+                    {{-- CEO --}}
 
-                        <li
-                            class="nav-item {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'menu-open' : '' }}">
-                            <a href="#"
-                                class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-lock"></i>
-                                <p>
-                                    Solution Architect ...
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('ceo.req.emp') }}"
-                                        class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        <li class="nav-item">
-                            <a href="{{ route('data.users') }}"
-                                class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
-                                <i class="fa-solid fa-users nav-icon"></i>
-                                <p>ข้อมูลพนักงาน</p>
-                            </a>
-                        </li>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- end sidebar-menu -->
-            </div>
-            <!-- end sidebar -->
-        </aside>
-        {{-- end main sidebar container --}}
+                    <li
+                        class="nav-item {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'menu-open' : '' }}">
+                        <a href="#"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-lock"></i>
+                            <p>
+                                Solution Architect ...
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('ceo.req.emp') }}"
+                                   class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                    <p>ใบลาพนักงาน</p>
+                                </a>
+                            </li>
+                        </ul>
+                    <li class="nav-item">
+                        <a href="{{ route('data.users') }}"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
+                            <i class="fa-solid fa-users nav-icon"></i>
+                            <p>ข้อมูลพนักงาน</p>
+                        </a>
+                    </li>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end sidebar-menu -->
+        </div>
+        <!-- end sidebar -->
+    </aside>
+    {{-- end main sidebar container --}}
 
-        {{-- Content Wrapper --}}
-        <section class="content-wrapper">
-            @yield('content')
-        </section>
-        {{-- end content-wrapper --}}
+    {{-- Content Wrapper --}}
+    <section class="content-wrapper">
+        @yield('content')
+    </section>
+    {{-- end content-wrapper --}}
 
-    </div>
-    {{-- end Main Wrapper --}}
-
-
-    {{-- jQuery --}}
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-
-    {{-- Bootstrap 4 --}}
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-    {{-- overlayScrollbars --}}
-    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-
-    {{-- Font Awesome script cdn --}}
-    <script src="{{ asset('icon/js/all.min.js') }}"></script>
+</div>
+{{-- end Main Wrapper --}}
 
 
-    {{-- DataTables & Plugins --}}
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+{{-- jQuery --}}
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+{{-- Bootstrap 4 --}}
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+{{-- overlayScrollbars --}}
+<script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+
+{{-- Font Awesome script cdn --}}
+<script src="{{ asset('icon/js/all.min.js') }}"></script>
 
 
+{{-- DataTables & Plugins --}}
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            function initDataTable(tableId) {
-                var table = $("#" + tableId).DataTable({
-                    "responsive": true,
-                    "lengthChange": true,
-                    "autoWidth": false,
-                    "order": [
-                        [0, "desc"]
-                    ],
 
-                    initComplete: function() {
+<script>
+    $(document).ready(function () {
+        function initDataTable(tableId) {
+            var table = $("#" + tableId).DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "order": [
+                    [0, "desc"]
+                ],
 
-                        this.api().columns().every(function(index) {
-                            if (index !== 11) {
-                                var column = this;
-                                var select = $(
-                                        '<select class="custom-select"><option value=""></option></select>'
-                                    )
-                                    .appendTo($(column.footer()).empty()).on('change',
-                                        function() {
-                                            var val = $.fn.dataTable.util.escapeRegex($(this)
-                                                .val());
-                                            column.search(val ? '^' + val + '$' : '', true,
-                                                false).draw();
-                                        });
+                initComplete: function () {
 
-                                column.data().unique().sort().each(function(d, j) {
-                                    var option = $(
-                                        '<option class="my-option-class" value="' +
-                                        d + '">' + d + '</option>');
+                    this.api().columns().every(function (index) {
+                        if (index !== 11) {
+                            var column = this;
+                            var select = $(
+                                '<select class="custom-select"><option value=""></option></select>'
+                            )
+                                .appendTo($(column.footer()).empty()).on('change',
+                                    function () {
+                                        var val = $.fn.dataTable.util.escapeRegex($(this)
+                                            .val());
+                                        column.search(val ? '^' + val + '$' : '', true,
+                                            false).draw();
+                                    });
 
-                                    select.append(option);
-                                });
-                            }
-                        });
-                    }
-                });
-            }
+                            column.data().unique().sort().each(function (d, j) {
+                                var option = $(
+                                    '<option class="my-option-class" value="' +
+                                    d + '">' + d + '</option>');
 
-            $(function() {
-                initDataTable("req_list_table");
-                initDataTable("rep_list_table");
-                initDataTable("data_emp_table");
+                                select.append(option);
+                            });
+                        }
+                    });
+                }
             });
+        }
+
+        $(function () {
+            initDataTable("req_list_table");
+            initDataTable("rep_list_table");
+            initDataTable("data_emp_table");
         });
-    </script>
-    <script>
-        $("#data-table").DataTable({
-            "responsive": true,
-            "lengthChange": true,
-            "autoWidth": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "order": [
-                [0, "desc"]
-            ],
-        });
-    </script>
-    <script>
-        $("#data-table1").DataTable({
-            "responsive": true,
-            "lengthChange": true,
-            "autoWidth": false,
-            "searching": false,
-            "paging": false,
-            "info": false,
-            "order": [
-                [0, "desc"]
-            ],
-        });
-    </script>
+    });
+</script>
+<script>
+    $("#data-table").DataTable({
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [
+            [0, "desc"]
+        ],
+    });
+</script>
+<script>
+    $("#data-table1").DataTable({
+        "responsive": true,
+        "lengthChange": true,
+        "autoWidth": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [
+            [0, "desc"]
+        ],
+    });
+</script>
 
 
-    {{-- end DataTables & Plugins --}}
+{{-- end DataTables & Plugins --}}
 
-    {{-- Datatime Picker --}}
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
-    <script>
-        flatpickr("input[type=datetime-local]", {
-            "locale": "th",
-            allowInput: true,
+{{-- Datatime Picker --}}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
+<script>
+    flatpickr("input[type=datetime-local]", {
+        "locale": "th",
+        allowInput: true,
+        altInput: false,
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        minDate: "today",
+        minTime: '09:00',
+        maxTime: '18:00',
+        minDate: new Date(),
+        defaultDate: "now",
+        time_24hr: true,
+        disableMobile: "true",
+        "disable": [
+            function (date) {
+                // return true to disable
+                return (date.getDay() === 0 || date.getDay() === 6);
+            }
+        ],
+    });
+    var startDateInput = document.getElementById("start-date");
+    var endDateInput = document.getElementById("end-date");
+
+    startDateInput.addEventListener("change", function () {
+        var startDate = moment(this.value, 'DD/MM/YYYY HH:mm');
+        flatpickr(endDateInput, {
+            locale: "th",
+            allowInput: false,
             altInput: false,
             enableTime: true,
             dateFormat: "d/m/Y H:i",
-            minDate: "today",
             minTime: '09:00',
             maxTime: '18:00',
-            minDate: new Date(),
             defaultDate: "now",
             time_24hr: true,
             disableMobile: "true",
+            minDate: startDate.toDate(),
             "disable": [
-                function(date) {
+                function (date) {
                     // return true to disable
                     return (date.getDay() === 0 || date.getDay() === 6);
                 }
             ],
-        });
-        var startDateInput = document.getElementById("start-date");
-        var endDateInput = document.getElementById("end-date");
-
-        startDateInput.addEventListener("change", function() {
-            var startDate = moment(this.value, 'DD/MM/YYYY HH:mm');
-            flatpickr(endDateInput, {
-                locale: "th",
-                allowInput: false,
-                altInput: false,
-                enableTime: true,
-                dateFormat: "d/m/Y H:i",
-                minTime: '09:00',
-                maxTime: '18:00',
-                defaultDate: "now",
-                time_24hr: true,
-                disableMobile: "true",
-                minDate: startDate.toDate(),
-                "disable": [
-                    function(date) {
-                        // return true to disable
-                        return (date.getDay() === 0 || date.getDay() === 6);
-                    }
-                ],
-                onChange: function(selectedDates, dateStr, instance) {
-                    var endDate = moment(selectedDates[0]);
-                    if (endDate.isBefore(startDate)) {
-                        instance.setDate(startDate.toDate(), false, 'd/m/Y H:i');
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        function calculate() {
-            var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
-            var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
-
-            startDate.minutes(Math.max(0, Math.min(59, startDate.minutes()))).seconds(0);
-            endDate.minutes(Math.max(0, Math.min(59, endDate.minutes()))).seconds(0);
-
-            var duration = moment.duration(endDate.diff(startDate));
-            var days = Math.floor(duration.asDays());
-            var remainingHours = Math.floor(duration.hours() % 24);
-            var minutes = Math.floor(duration.minutes() % 60);
-
-            for (var i = 0; i <= days; i++) {
-                var currentDate = moment(startDate).add(i, 'days');
-                if (currentDate.isoWeekday() === 6 || currentDate.isoWeekday() === 7) {
-                    days -= 1;
+            onChange: function (selectedDates, dateStr, instance) {
+                var endDate = moment(selectedDates[0]);
+                if (endDate.isBefore(startDate)) {
+                    instance.setDate(startDate.toDate(), false, 'd/m/Y H:i');
                 }
             }
-            if (startDate.hours() <= 12 && endDate.hours() >= 13) {
-                remainingHours -= 1;
-            }
-            if (startDate.hours() >= 13 && endDate.hours() <= 12){
-                remainingHours -= 15;
-            }
-            if (startDate.hours() >= 13 && endDate.hours() >= 13 && startDate.hours() > endDate.hours()){
-                remainingHours -= 8;
+        });
+    });
+</script>
+<script>
+    function calculate() {
+        var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
+        var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
+
+        startDate.minutes(Math.max(0, Math.min(59, startDate.minutes()))).seconds(0);
+        endDate.minutes(Math.max(0, Math.min(59, endDate.minutes()))).seconds(0);
+
+        var duration = moment.duration(endDate.diff(startDate));
+        var days = Math.floor(duration.asDays());
+        var remainingHours = Math.floor(duration.hours() % 24);
+        var minutes = Math.floor(duration.minutes() % 60);
+
+        for (var i = 0; i <= days; i++) {
+            var currentDate = moment(startDate).add(i, 'days');
+            if (currentDate.isoWeekday() === 6 || currentDate.isoWeekday() === 7) {
                 days -= 1;
             }
-
-            if (remainingHours >= 8) {
-                days += 1;
-                remainingHours -= 8;
-            }
-
-            if (isNaN(days) || isNaN(remainingHours) || isNaN(minutes)) {
-                console.log("An error occurred while calculating due to missing time selection. Setting values to 0.");
-                days = 0;
-                remainingHours = 0;
-                minutes = 0;
-            }
-
-            var totalMinutes = minutes + remainingHours * 60;
-
-            var result = days + " วัน " +
-                Math.floor(totalMinutes / 60) + " ชั่วโมง " +
-                (totalMinutes % 60) + " นาที ";
-
-            document.getElementById("result").innerHTML = result;
         }
-    </script>
-    {{-- end datatime picker --}}
-
-    {{-- Form Select 2 --}}
-    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-    <script>
-        $('.select2').select2()
-    </script>
-    {{-- end form select 2 --}}
-
-    {{-- modal ปฏิบัติงานแทน --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_rep]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_rep');
-                console.log(value);
-                confirmModal.find('input[name=approve_rep]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
-                }
-                confirmModal.modal('show');
-
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal').modal('hide');
-            });
-        });
-    </script>
-
-
-
-    {{-- modal HR --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_hr]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_hr');
-                console.log(value);
-                confirmModal.find('input[name=approve_hr]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
-                    confirmModal.find('.reason_hr').hide();
-                    confirmModal.find('#not_allowed_hr').show();
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
-                    confirmModal.find('.modal-body .form-group').show();
-                    confirmModal.find('#not_allowed_hr').hide();
-                }
-                confirmModal.modal('show');
-
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal').modal('hide');
-            });
-        });
-    </script>
-
-    {{-- modal CEO --}}
-    <script>
-        $(document).ready(function() {
-            $('button[name=approve_ceo]').click(function() {
-                var value = $(this).val();
-                var confirmModal = $('#confirmModal_ceo');
-                console.log(value);
-                confirmModal.find('input[name=approve_ceo]').val(value);
-                if (value === '❌') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
-                    confirmModal.find('.reason_ceo').hide();
-                    confirmModal.find('#not_allowed_ceo').show();
-                } else if (value === '✔️') {
-                    confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
-                    confirmModal.find('.modal-body .form-group').show();
-                    confirmModal.find('#not_allowed_ceo').hide();
-                }
-                confirmModal.modal('show');
-
-            });
-            console.log($("form").serialize());
-            $('#confirmModal form').submit(function(e) {
-                console.log("Form submitted");
-                $('#confirmModal').modal('hide');
-            });
-        });
-    </script>
-    <script>
-        function calculate_data(){
-
+        if (startDate.hours() <= 12 && endDate.hours() >= 13) {
+            remainingHours -= 1;
         }
-    </script>
+        if (startDate.hours() >= 13 && endDate.hours() <= 12) {
+            remainingHours -= 15;
+        }
+        if (startDate.hours() >= 13 && endDate.hours() >= 13 && startDate.hours() > endDate.hours()) {
+            remainingHours -= 8;
+            days -= 1;
+        }
+
+        if (remainingHours >= 8) {
+            days += 1;
+            remainingHours -= 8;
+        }
+
+        if (isNaN(days) || isNaN(remainingHours) || isNaN(minutes)) {
+            console.log("An error occurred while calculating due to missing time selection. Setting values to 0.");
+            days = 0;
+            remainingHours = 0;
+            minutes = 0;
+        }
+
+        var totalMinutes = minutes + remainingHours * 60;
+
+        var result = days + " วัน " +
+            Math.floor(totalMinutes / 60) + " ชั่วโมง " +
+            (totalMinutes % 60) + " นาที ";
+
+        document.getElementById("result").innerHTML = result;
+    }
+</script>
+{{-- end datatime picker --}}
+
+{{-- Form Select 2 --}}
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+    $('.select2').select2()
+</script>
+{{-- end form select 2 --}}
+
+{{-- modal ปฏิบัติงานแทน --}}
+<script>
+    $(document).ready(function () {
+        $('button[name=approve_rep]').click(function () {
+            var value = $(this).val();
+            var confirmModal = $('#confirmModal_rep');
+            console.log(value);
+            confirmModal.find('input[name=approve_rep]').val(value);
+            if (value === '❌') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+            } else if (value === '✔️') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+            }
+            confirmModal.modal('show');
+
+        });
+        console.log($("form").serialize());
+        $('#confirmModal form').submit(function (e) {
+            console.log("Form submitted");
+            $('#confirmModal').modal('hide');
+        });
+    });
+</script>
 
 
-    {{-- Theme App --}}
-    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+{{-- modal HR --}}
+<script>
+    $(document).ready(function () {
+        $('button[name=approve_hr]').click(function () {
+            var value = $(this).val();
+            var confirmModal = $('#confirmModal_hr');
+            console.log(value);
+            confirmModal.find('input[name=approve_hr]').val(value);
+            if (value === '❌') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
+                confirmModal.find('.reason_hr').hide();
+                confirmModal.find('#not_allowed_hr').show();
+            } else if (value === '✔️') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
+                confirmModal.find('.modal-body .form-group').show();
+                confirmModal.find('#not_allowed_hr').hide();
+            }
+            confirmModal.modal('show');
+
+        });
+        console.log($("form").serialize());
+        $('#confirmModal form').submit(function (e) {
+            console.log("Form submitted");
+            $('#confirmModal').modal('hide');
+        });
+    });
+</script>
+
+{{-- modal CEO --}}
+<script>
+    $(document).ready(function () {
+        $('button[name=approve_ceo]').click(function () {
+            var value = $(this).val();
+            var confirmModal = $('#confirmModal_ceo');
+            console.log(value);
+            confirmModal.find('input[name=approve_ceo]').val(value);
+            if (value === '❌') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
+                confirmModal.find('.reason_ceo').hide();
+                confirmModal.find('#not_allowed_ceo').show();
+            } else if (value === '✔️') {
+                confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
+                confirmModal.find('.modal-body .form-group').show();
+                confirmModal.find('#not_allowed_ceo').hide();
+            }
+            confirmModal.modal('show');
+
+        });
+        console.log($("form").serialize());
+        $('#confirmModal form').submit(function (e) {
+            console.log("Form submitted");
+            $('#confirmModal').modal('hide');
+        });
+    });
+</script>
+<script>
+    function calculate_data() {
+
+    }
+</script>
+
+
+{{-- Theme App --}}
+<script src="{{ asset('dist/js/adminlte.js') }}"></script>
 </body>
 
 </html>
