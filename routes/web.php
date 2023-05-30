@@ -16,7 +16,7 @@ Route::get('/', function () {
 
 Route::get('pdf', [PDFController::class, 'generatePDF']);
 
-Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');
+
 
 
 //Auth::routes([
@@ -31,6 +31,8 @@ Route::get('/test',function(){
 //['auth', 'verified']
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');
 
     Route::middleware(['auth', 'user-access:hr(admin),ceo'])->group(function () {
         Route::get('/data_users',[HomeController::class,'data_users'])->name('data.users');

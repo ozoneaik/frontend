@@ -152,9 +152,9 @@ class LeaveFormController extends Controller
         $leaveforms = LeaveForm::findOrFail($id);
 
         // Check if the logged-in user is the owner of the leave form
-        if ($leaveforms->user_id !== auth()->user()->id) {
-            abort(403, 'ไม่ได้รับอนุญาต');
-        }
+//        if ($leaveforms->user_id !== auth()->user()->id) {
+//            abort(403, 'ไม่ได้รับอนุญาต');
+//        }
 
         $users = User::all();
 
@@ -283,8 +283,6 @@ class LeaveFormController extends Controller
         if ($request->allowed_pm == 'ทำงานชดเชยเป็นจำนวน') {
             $allowed_pm = $request->allowed_pm . ' ' . $day . ' วัน ' . $hour . ' ชั่วโมง ' . $minutes . ' นาที ';
         } else if ($request->allowed_pm == 'อื่นๆ...') {
-            $request->validate([
-                'other' => 'required'], ['other.required' => 'ป้อนด้วย']);
             $allowed_pm = $request->allowed_pm . ' -> ' . $request->other;
         } else {
             $allowed_pm = $request->allowed_pm;
