@@ -195,7 +195,12 @@
                 </div>
                 <div>
                     <span>ลงชื่อ</span>
-                    __________<img src="{{asset($my_user->signature)}}" alt="" height="50px" width="100px">__________
+                    @if($my_user->signature)
+                        <img src="{{asset($my_user->signature)}}" alt="" height="50px" width="100px">
+                    @else
+                        ______________________________________________________________________________________________
+                    @endif
+
 
                     <div class="text-center mb-3">{{$my_user->name}} ({{$my_user->nick_name}})</div>
                     <div class="text-center mt-2">

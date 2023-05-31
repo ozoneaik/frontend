@@ -19,17 +19,17 @@ Route::get('pdf', [PDFController::class, 'generatePDF']);
 
 
 
-//Auth::routes([
-//    'verify' => true
-//]);
+Auth::routes([
+    'verify' => true
+]);
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/test',function(){
     return view('test');
 });
 //['auth', 'verified']
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');

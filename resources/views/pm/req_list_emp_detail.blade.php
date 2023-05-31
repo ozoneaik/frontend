@@ -307,7 +307,7 @@
                                                     @endif
                                                     @if ($leaveforms->allowed_pm)
                                                         <hr>
-                                                        <span class="font-weight-bold text-success">อนุญาตตามสิทธิ์พนักงานโดย:</span>
+                                                        <span class="font-weight-bold text-success">โดย:</span>
                                                         <br>
                                                         {{ $leaveforms->allowed_pm }}
                                                     @elseif ($leaveforms->not_allowed_pm)
@@ -481,7 +481,7 @@
                                                         </div>
                                                         <div class="form-group allowed">
                                                             <label for="allowed_pm">
-                                                                อนุญาตตามสิทธิ์พนักงาน
+                                                                เลือกตัวเลือกดังต่อไปนี้
                                                             </label>
 
                                                             @if ($errors->has('allowed_pm'))
@@ -492,6 +492,15 @@
                                                             @endif
                                                             <br>
                                                             <input type="hidden" name="approve_pm" value="✔️">
+
+                                                            <div class="icheck-primary d-block">
+                                                                <input type="radio" name="allowed_pm" id="0"
+                                                                       value="อนุญาตตามสิทธิ์พนักงาน" required >
+                                                                <label class="font-weight-normal" for="0">
+                                                                    อนุญาตตามสิทธิ์พนักงาน
+                                                                </label>
+                                                            </div>
+
                                                             <div class="icheck-primary d-block">
                                                                 <input type="radio" name="allowed_pm" id="1"
                                                                        value="ไม่รับค่าแรงตามจำนวนวันที่ลา" required>
@@ -524,7 +533,7 @@
                                                             </div>
                                                             <div class="icheck-primary d-block">
                                                                 <input type="radio" name="allowed_pm" id="3"
-                                                                       value="อื่นๆ..." required>
+                                                                       value="อื่นๆ..." >
                                                                 <label class="font-weight-normal" for="3">
                                                                     อื่นๆ
                                                                     <input type="text" name="other"

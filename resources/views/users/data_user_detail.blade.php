@@ -154,7 +154,7 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th rowspan="2" colspan="1"
-                                                                            class="table-danger ">
+                                                                            class="table-white ">
                                                                             ประเภทการลา
                                                                         </th>
                                                                         <th rowspan="1" colspan="3"
@@ -183,7 +183,7 @@
                                                                             $i = $i + 1;
                                                                             ?>
                                                                         <tr>
-                                                                            <td class="table-danger ">{{ $leave_data->leave_type_name }}</td>
+                                                                            <td class="table-white ">{{ $leave_data->leave_type_name }}</td>
                                                                             @php
                                                                                 $parts = explode(' ', $leave_data->time_already_used);
                                                                                 $D = (int)$parts[0];
@@ -211,7 +211,8 @@
                                                                                 <input type="number" min="0" max="7"
                                                                                        value="{{ $H }}"
                                                                                        style="{{$style}}"
-                                                                                       name="H_used{{$i}}">
+                                                                                       name="H_used{{$i}}"
+                                                                                       onchange="updateRemainingValue1(this, {{$H1}}, {{$i}})">
                                                                             </td>
                                                                             <td class="table-warning ">
                                                                                 <input type="number" min="0" max="59"
@@ -249,6 +250,17 @@
                                                                                 console.log($D2, remainingField.value, usedField.value);
                                                                             }
                                                                         </script>
+                                                                            <script>
+                                                                                function updateRemainingValue1(input, $H2, index) {
+                                                                                    var value = parseInt(input.value);
+                                                                                    var remainingField = document.getElementsByName('D_remain' + index)[1];
+                                                                                    var usedField = document.getElementsByName('D_used' + index)[1];
+                                                                                    $H2 -= value;
+                                                                                    remainingField.value = $H2 < 0 ? 0 : $H2;
+                                                                                    usedField.value = value;
+                                                                                    console.log($H2, remainingField.value, usedField.value);
+                                                                                }
+                                                                            </script>
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table>

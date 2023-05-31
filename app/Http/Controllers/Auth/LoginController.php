@@ -55,7 +55,7 @@ class LoginController extends Controller
                 case 'pm':
                 case 'hr':
                 case 'ceo':
-                    return redirect()->route('ceo.req.emp');
+                    return redirect()->route('home');
                 default:
                     return redirect()->route('home');
             }

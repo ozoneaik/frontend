@@ -189,6 +189,10 @@
                                                 </h3>
                                                 @if ($leaveforms->approve_rep == '❌')
                                                     <span class="card-title float-right text-sm btn btn-xs btn-danger">ปฏิเสธในการปฏิบัติทำแทนแล้ว</span>
+                                                @elseif($leaveforms->approve_rep == '✔️')
+                                                    <span class="card-title float-right text-sm btn btn-xs btn-success">ยินยอมในการปฏิบัติทำแทนแล้ว</span>
+                                                @else
+                                                    <span class="card-title float-right text-sm btn btn-xs btn-info">กำลังดำเนินการ</span>
                                                 @endif
                                             </div>
                                             <div class="card-body">

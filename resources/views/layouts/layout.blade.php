@@ -246,29 +246,33 @@
                         </ul>
                     </li>
                     {{-- Project manager --}}
-                    <li
-                        class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
-                        <a href="#"
-                           class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user-tie"></i>
-                            <p>
-                                Project manager
-                                <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">1</span>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item ">
-                                <a href="{{ route('pm.req.emp') }}"
-                                   class="nav-link  pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                    <p>ใบลาพนักงาน</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if(Auth::user()->type == 'pm')
+                        <li
+                            class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
+                            <a href="#"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Project manager
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">1</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item ">
+                                    <a href="{{ route('pm.req.emp') }}"
+                                       class="nav-link  pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                        <p>ใบลาพนักงาน</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+
 
                     {{-- HR --}}
+                    @if(Auth::user()->type == 'hr(admin)')
                     <li
                         class="nav-item {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'menu-open' : '' }}">
                         <a href="#"
@@ -290,9 +294,10 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
 
                     {{-- CEO --}}
-
+                    @if(Auth::user()->type == 'ceo')
                     <li
                         class="nav-item {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'menu-open' : '' }}">
                         <a href="#"
@@ -313,6 +318,9 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    @endif
+                    @if(Auth::user()->type == 'ceo' || Auth::user()->type == 'hr(admin)')
                     <li class="nav-item">
                         <a href="{{ route('data.users') }}"
                            class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
@@ -320,7 +328,7 @@
                             <p>ข้อมูลพนักงาน</p>
                         </a>
                     </li>
-                    </li>
+                    @endif
                 </ul>
             </nav>
             <!-- end sidebar-menu -->

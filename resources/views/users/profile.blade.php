@@ -80,6 +80,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                     {{-- Modal แก้ไขข้อมูลส่วนตัว --}}
                                     <div id="EditProfile" class="modal fade" role="dialog">
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -276,6 +277,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3787.6620210759834!2d99.3986862!3d18.3170581!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30d96f1a2a70591d%3A0x6a3cce231bbdc357!2z4Liq4LiZ4Liy4Lih4LmA4LiL4Lib4Lix4LiB4LiV4Liw4LiB4Lij4LmJ4Lit!5e0!3m2!1sth!2sth!4v1685439639766!5m2!1sth!2sth" width="100%" height="700" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
