@@ -177,6 +177,7 @@
                                                                     <tbody>
                                                                     @php
                                                                         $i = -1;
+                                                                        $totalMinutes2 = array();
                                                                     @endphp
                                                                     @foreach($leave_datas as $leave_data)
                                                                             <?php
@@ -196,31 +197,29 @@
                                                                                 $M1 = (int)$parts[4];
                                                                                 $totalMinutes1 = ($D1 * 8 * 60) + ($H1 * 60) + $M1;
                                                                                 $style = 'width: 55px;border-radius: 5px; border:red';
-                                                                                $D2 = $D + $D1;
-                                                                                $H2 = $H + $H1;
-                                                                                $M2 = $M + $M1;
-                                                                                $totalMinutes2 = ($D2 * 8 * 60) + ($H2 * 60) + $M2;
+                                                                                $totalMinutes2[$i] = $totalMinutes1 + $totalMinutes;
+                                                                                error_log($totalMinutes2[0]);
                                                                             @endphp
                                                                             <td class="table-warning">
                                                                                 <input type="number" min="0"
                                                                                        value="{{ $D }}"
                                                                                        style="{{$style}}"
                                                                                        name="D_used{{$i}}"
-                                                                                       onchange="calculateRemain({{$i}})">
+                                                                                       onchange="calculateRemain({{$i}},{{$totalMinutes2[$i]}})">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" min="0" max="8"
+                                                                                <input type="number" min="0" max="7"
                                                                                        value="{{ $H }}"
                                                                                        style="{{$style}}"
                                                                                        name="H_used{{$i}}"
-                                                                                       onchange="calculateRemain({{$i}})">
+                                                                                       onchange="calculateRemain({{$i}},{{$totalMinutes2[$i]}})">
                                                                             </td>
                                                                             <td class="table-warning ">
-                                                                                <input type="number" min="0" max="60"
+                                                                                <input type="number" min="0" max="59"
                                                                                        value="{{ $M }}"
                                                                                        style="{{$style}}"
                                                                                        name="M_used{{$i}}"
-                                                                                       onchange="calculateRemain({{$i}})">
+                                                                                       onchange="calculateRemain({{$i}},{{$totalMinutes2[$i]}})">
                                                                             </td>
                                                                             <td class="table-info">
                                                                                 <input type="number" min="0"
@@ -241,35 +240,31 @@
                                                                                        name="M_remain{{$i}}" readonly>
                                                                             </td>
                                                                         </tr>
-                                                                            <script>
-                                                                                function calculateRemain(index) {
-                                                                                    var D_used = parseInt(document.getElementsByName('D_used' + index)[0].value);
-                                                                                    var H_used = parseInt(document.getElementsByName('H_used' + index)[0].value);
-                                                                                    var M_used = parseInt(document.getElementsByName('M_used' + index)[0].value);
-                                                                                    var totalMinutes = (D_used * 8 * 60) + (H_used * 60) + M_used;
+                                                                        <script>
+                                                                            function calculateRemain(index,totalMinutes2) {
+                                                                                console.log("index",index,'total',totalMinutes2);
+                                                                                var D_used = parseInt(document.getElementsByName('D_used' + index)[0].value);
+                                                                                var H_used = parseInt(document.getElementsByName('H_used' + index)[0].value);
+                                                                                var M_used = parseInt(document.getElementsByName('M_used' + index)[0].value);
+                                                                                var totalMinutes = (D_used * 8 * 60) + (H_used * 60) + M_used;
 
-                                                                                    var D_remain_input = document.getElementsByName('D_remain' + index)[0];
-                                                                                    var H_remain_input = document.getElementsByName('H_remain' + index)[0];
-                                                                                    var M_remain_input = document.getElementsByName('M_remain' + index)[0];
+                                                                                var D_remain_input = document.getElementsByName('D_remain' + index)[0];
+                                                                                var H_remain_input = document.getElementsByName('H_remain' + index)[0];
+                                                                                var M_remain_input = document.getElementsByName('M_remain' + index)[0];
 
-                                                                                    var D_remain = parseInt(D_remain_input.value);
-                                                                                    var H_remain = parseInt(H_remain_input.value);
-                                                                                    var M_remain = parseInt(M_remain_input.value);
-                                                                                    var totalMinutes1 = (D_remain * 8 * 60) + (H_remain * 60) + M_remain;
+                                                                                var remainingMinutes = totalMinutes2 - totalMinutes;
 
-                                                                                    var remainingMinutes = totalMinutes1 - totalMinutes;
+                                                                                var newD_remain = Math.floor(remainingMinutes / (8 * 60));
+                                                                                remainingMinutes %= 8 * 60;
+                                                                                var newH_remain = Math.floor(remainingMinutes / 60);
+                                                                                remainingMinutes %= 60;
+                                                                                var newM_remain = remainingMinutes;
 
-                                                                                    var newD_remain = Math.floor(remainingMinutes / (8 * 60));
-                                                                                    remainingMinutes %= 8 * 60;
-                                                                                    var newH_remain = Math.floor(remainingMinutes / 60);
-                                                                                    remainingMinutes %= 60;
-                                                                                    var newM_remain = remainingMinutes;
-
-                                                                                    D_remain_input.value = newD_remain;
-                                                                                    H_remain_input.value = newH_remain;
-                                                                                    M_remain_input.value = newM_remain;
-                                                                                }
-                                                                            </script>
+                                                                                D_remain_input.value = newD_remain;
+                                                                                H_remain_input.value = newH_remain;
+                                                                                M_remain_input.value = newM_remain;
+                                                                            }
+                                                                        </script>
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table>
