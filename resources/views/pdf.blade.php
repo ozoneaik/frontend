@@ -17,8 +17,10 @@
     <style>
         * {
             font-size: 8px;
-            margin-bottom: 0.7rem;
             font-family: 'Sarabun', sans-serif;
+            margin-bottom: 0.65rem;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         span {
@@ -41,18 +43,17 @@
         }
 
 
-
     </style>
     <style type="text/css" media="print">
-        @media print
-        {
+        @media print {
             @page {
                 margin-top: 0;
                 margin-bottom: 0;
             }
-            body  {
+
+            body {
                 padding-top: 72px;
-                padding-bottom: 72px ;
+                padding-bottom: 72px;
             }
         }
     </style>
@@ -115,7 +116,8 @@
                 setlocale(LC_TIME, 'French');
                 ?>
 
-                <span>วันที่</span>__________________________________{{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}__________________________________
+                <span>วันที่</span>__________________________________{{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}
+                __________________________________
             </div>
             <div class="col-md-12 d-flex justify-content-between">
 
@@ -134,7 +136,8 @@
                 <div><span>ลาในทำงานตั้งแต่เวลา</span>
                     ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->locale('th')->translatedFormat('jS F Y') }}
                     ____________<span>ถึงเวลา</span>
-                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->locale('th')->translatedFormat('jS F Y') }}____________
+                    ____________{{ Carbon\Carbon::parse($leaveforms->leave_start)->locale('th')->translatedFormat('jS F Y') }}
+                    ____________
                 </div>
             </div>
             <div>
@@ -142,7 +145,7 @@
             <!--  -->
 
             <div class="col-md-12 d-flex justify-content-between">
-                <div><span>ขอลาอยุดตั้งแต่วันที่</span>
+                <div><span>ขอลาหยุดตั้งแต่วันที่</span>
                     ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}
                     ________<span>และวันที่</span>
                     ________{{ Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}
@@ -171,7 +174,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td style="width: 300px">{{$leaveforms->leave_type}}</td>
+                        <td style="width: 100px">{{$leaveforms->leave_type}}</td>
                         @if($leaveforms->reason)
                             <td style="width: 300px">{{$leaveforms->reason}}</td>
                         @else
@@ -204,7 +207,9 @@
 
                     <div class="text-center mb-3">{{$my_user->name}} ({{$my_user->nick_name}})</div>
                     <div class="text-center mt-2">
-                        ( วันที่ {{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->locale('th')->translatedFormat('jS F Y') }} )
+                        (
+                        วันที่ {{ Carbon\Carbon::parse($leaveforms->created_at)->addYears(543)->locale('th')->translatedFormat('jS F Y') }}
+                        )
 
                     </div>
                 </div>
@@ -232,20 +237,31 @@
                     $i = 0;
                     ?>
                     @foreach($data_leaves as $data_leave)
+                        @php
+                            $minutes_d1 = ($days = (int)explode(' ', $data_leave->time_already_used)[0]) * 8 * 60 + ($hours = (int)explode(' ', $data_leave->time_already_used)[2]) * 60 + (int)explode(' ', $data_leave->time_already_used)[4];
+                            $minutes_d2 = ($days = (int)explode(' ', $leaveforms->leave_total)[0]) * 8 * 60 + ($hours = (int)explode(' ', $leaveforms->leave_total)[2]) * 60 + (int)explode(' ', $leaveforms->leave_total)[4];
+
+                            $diff_minutes = $minutes_d1 - $minutes_d2;
+
+                            $result = floor($diff_minutes / (8 * 60)) . ' วัน ' . floor(($diff_minutes % (8 * 60)) / 60) . ' ชั่วโมง ' . ($diff_minutes % 60) . ' นาที';
+                        @endphp
 
                         <tr>
                             <td>{{$data_leave->leave_type_name}}</td>
-                            <td>{{$data_leave->time_already_used}}</td>
-                            <td>{{$this_time[$i]}}</td>
+
+                            @if($leaveforms->leave_type == $data_leave->leave_type_name)
+                                <td>{{$result}}</td>
+                                <td>{{$leaveforms->leave_total}}</td>
+                            @else
+                                <td>{{ $data_leave->time_already_used }}</td>
+                                <td>0 วัน 0 ชั่วโมง 0 นาที</td>
+                            @endif
                             <td>{{$data_leave->time_remain}}</td>
                         </tr>
-
                             <?php
                             $i++;
                             ?>
-
                     @endforeach
-
 
                     </tbody>
                 </table>
@@ -328,11 +344,13 @@
 
     <div class="row mt-2">
         <div class="col-md-12 d-flex justify-content-between">
-            <div class="">
-                <span>ลงชื่อ</span> __________
-                <img src="{{asset($user_pm->signature)}}" alt="" height="50px" width="100px">
-                __________<span>leader/PM</span>
-            </div>
+            @if($user_pm)
+                <div class="">
+                    <span>ลงชื่อ</span> __________
+                    <img src="{{asset($user_pm->signature)}}" alt="" height="50px" width="100px">
+                    __________<span>leader/PM</span>
+                </div>
+            @endif
             <div class="">
                 <span>ลงชื่อ</span> __________
                 <img src="{{asset($user_ceo->signature)}}" alt="" height="50px" width="100px">

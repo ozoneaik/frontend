@@ -177,6 +177,7 @@
                                                                     <tbody>
                                                                     @php
                                                                         $i = -1;
+                                                                        $totalMinutes2 = array();
                                                                     @endphp
                                                                     @foreach($leave_datas as $leave_data)
                                                                             <?php
@@ -189,36 +190,42 @@
                                                                                 $D = (int)$parts[0];
                                                                                 $H = (int)$parts[2];
                                                                                 $M = (int)$parts[4];
+                                                                                $totalMinutes = ($D * 8 * 60) + ($H * 60) + $M;
                                                                                 $parts = explode(' ', $leave_data->time_remain);
                                                                                 $D1 = (int)$parts[0];
                                                                                 $H1 = (int)$parts[2];
                                                                                 $M1 = (int)$parts[4];
+                                                                                $totalMinutes1 = ($D1 * 8 * 60) + ($H1 * 60) + $M1;
                                                                                 $style = 'width: 55px;border-radius: 5px; border:red';
-
-                                                                                $D2 = $D + $D1;
-                                                                                $H2 = $H + $H1;
-                                                                                $M2 = $M + $M1;
-                                                                                error_log($D2);
+                                                                                $totalMinutes2[$i] = $totalMinutes1 + $totalMinutes;
+                                                                                error_log($totalMinutes2[0]);
                                                                             @endphp
                                                                             <td class="table-warning">
                                                                                 <input type="number" min="0"
                                                                                        value="{{ $D }}"
                                                                                        style="{{$style}}"
                                                                                        name="D_used{{$i}}"
-                                                                                       onchange="updateRemainingValue(this, {{$D1}}, {{$i}})">
+                                                                                       onchange="calculateRemain({{$i}},{{$totalMinutes2[$i]}})"
+                                                                                       onkeydown="handleKeyDown(event)">
                                                                             </td>
+
+
                                                                             <td class="table-warning ">
                                                                                 <input type="number" min="0" max="7"
                                                                                        value="{{ $H }}"
                                                                                        style="{{$style}}"
                                                                                        name="H_used{{$i}}"
-                                                                                       onchange="updateRemainingValue1(this, {{$H1}}, {{$i}})">
+                                                                                       onchange="calculateRemain({{$i}},{{$totalMinutes2[$i]}})"
+                                                                                       onkeydown="handleKeyDown(event)">
+
                                                                             </td>
                                                                             <td class="table-warning ">
                                                                                 <input type="number" min="0" max="59"
                                                                                        value="{{ $M }}"
                                                                                        style="{{$style}}"
-                                                                                       name="M_used{{$i}}">
+                                                                                       name="M_used{{$i}}"
+                                                                                       onchange="calculateRemain({{$i}},{{$totalMinutes2[$i]}})"
+                                                                                       onkeydown="handleKeyDown(event)">
                                                                             </td>
                                                                             <td class="table-info">
                                                                                 <input type="number" min="0"
@@ -239,28 +246,7 @@
                                                                                        name="M_remain{{$i}}" readonly>
                                                                             </td>
                                                                         </tr>
-                                                                        <script>
-                                                                            function updateRemainingValue(input, $D2, index) {
-                                                                                var value = parseInt(input.value);
-                                                                                var remainingField = document.getElementsByName('D_remain' + index)[0];
-                                                                                var usedField = document.getElementsByName('D_used' + index)[0];
-                                                                                $D2 -= value;
-                                                                                remainingField.value = $D2 < 0 ? 0 : $D2;
-                                                                                usedField.value = value;
-                                                                                console.log($D2, remainingField.value, usedField.value);
-                                                                            }
-                                                                        </script>
-                                                                            <script>
-                                                                                function updateRemainingValue1(input, $H2, index) {
-                                                                                    var value = parseInt(input.value);
-                                                                                    var remainingField = document.getElementsByName('D_remain' + index)[1];
-                                                                                    var usedField = document.getElementsByName('D_used' + index)[1];
-                                                                                    $H2 -= value;
-                                                                                    remainingField.value = $H2 < 0 ? 0 : $H2;
-                                                                                    usedField.value = value;
-                                                                                    console.log($H2, remainingField.value, usedField.value);
-                                                                                }
-                                                                            </script>
+
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table>
@@ -384,4 +370,51 @@
             </div>
         </div>
     </div>
+
+    {{--  คำนวนวันลาแบบเรียลทาม  --}}
+    <script>
+        function calculateRemain(index, totalMinutes2) {
+            console.log("index", index, 'total', totalMinutes2);
+            var D_used = parseInt(document.getElementsByName('D_used' + index)[0].value);
+            var H_used = parseInt(document.getElementsByName('H_used' + index)[0].value);
+            var M_used = parseInt(document.getElementsByName('M_used' + index)[0].value);
+            var totalMinutes = (D_used * 8 * 60) + (H_used * 60) + M_used;
+
+            var D_remain_input = document.getElementsByName('D_remain' + index)[0];
+            var H_remain_input = document.getElementsByName('H_remain' + index)[0];
+            var M_remain_input = document.getElementsByName('M_remain' + index)[0];
+
+            var remainingMinutes = totalMinutes2 - totalMinutes;
+
+            var newD_remain = Math.floor(remainingMinutes / (8 * 60));
+            remainingMinutes %= 8 * 60;
+            var newH_remain = Math.floor(remainingMinutes / 60);
+            remainingMinutes %= 60;
+            var newM_remain = remainingMinutes;
+
+            D_remain_input.value = newD_remain;
+            H_remain_input.value = newH_remain;
+            M_remain_input.value = newM_remain;
+        }
+    </script>
+    <script>
+        function updateRemainingValue1(input, $H2, index) {
+            var value = parseInt(input.value);
+            var remainingField = document.getElementsByName('D_remain' + index)[1];
+            var usedField = document.getElementsByName('D_used' + index)[1];
+            $H2 -= value;
+            remainingField.value = $H2 < 0 ? 0 : $H2;
+            usedField.value = value;
+            console.log($H2, remainingField.value, usedField.value);
+        }
+    </script>
+
+    {{-- ดักจับคีย์บอรืดไม่ให้พิมพ์ตัวเลข --}}
+    <script>
+        function handleKeyDown(event) {
+            if (event.keyCode !== 38 && event.keyCode !== 40) {
+                event.preventDefault();
+            }
+        }
+    </script>
 @endsection

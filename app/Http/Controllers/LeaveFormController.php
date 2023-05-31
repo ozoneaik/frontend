@@ -73,7 +73,10 @@ class LeaveFormController extends Controller
         if ($startDate->hour >= 13 && $endDate->hour <= 12) {
             $remainingHours -= 15;
         }
-
+        if ($startDate->hour >= 13 && $endDate->hour >= 13 && $startDate->hour > $endDate->hour){
+            $remainingHours -= 8;
+            $days -= 1;
+        }
         if ($remainingHours >= 8) {
             $days += 1;
             $remainingHours -= 8;

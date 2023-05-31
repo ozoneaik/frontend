@@ -20,7 +20,7 @@
     {{--    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('icon/css/all.min.css') }}">
 
-    {{-- Sidebar Scrollbars --}}
+    {{-- Sidebar Scrollbars (เวลามี เมนูในไซด์บาร์มีเยอะ จะเลื่อนสกอร์เมาส์ได้)--}}
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 
     {{-- Data tables --}}
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 
-    {{-- Select2 --}}
+    {{-- Select2 (สไต dropdown)--}}
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
@@ -37,11 +37,11 @@
     <link rel="stylesheet"
           href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
-    {{-- iCheck for checkboxes and radio inputs --}}
+    {{-- iCheck (checkboxes and radio inputs) --}}
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
 
-    {{-- Date Picker --}}
+    {{-- Date Picker ใช้ flatpickr--}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
@@ -141,9 +141,8 @@
 <div class="wrapper">
 
     {{-- Nav bar --}}
-    <nav
-        class="main-header navbar navbar-expand navbar-light">
-        {{-- Left Navbar Links --}}
+    <nav class="main-header navbar navbar-expand navbar-light">
+        {{-- Left Navbar --}}
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
@@ -154,10 +153,9 @@
                     เอเจนซี่ จำกัด (สาขาเชียงใหม่)</a>
             </li>
         </ul>
+        {{-- Left Navbar --}}
 
-        {{-- Left Navbar Links --}}
-
-        {{-- Right Navbar Links --}}
+        {{-- Right Navbar --}}
         <ul class="navbar-nav ml-auto">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -185,11 +183,11 @@
             </ul>
 
         </ul>
-        {{-- end Right navbar links --}}
+        {{-- end Right navbar --}}
     </nav>
     {{-- end navbar --}}
 
-    {{-- Main Sidebar Container --}}
+    {{-- Main Sidebar --}}
     <aside class="main-sidebar sidebar-dark-primary elevation-4 text-sm" style="background: #263544">
 
         <!-- Brand Logo -->
@@ -273,61 +271,61 @@
 
                     {{-- HR --}}
                     @if(Auth::user()->type == 'hr(admin)')
-                    <li
-                        class="nav-item {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'menu-open' : '' }}">
-                        <a href="#"
-                           class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user-cog"></i>
-                            <p>
-                                Human Resources
-                                <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">2</span>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('hr.req.emp') }}"
-                                   class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                    <p>ใบลาพนักงาน</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li
+                            class="nav-item {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'menu-open' : '' }}">
+                            <a href="#"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>
+                                    Human Resources
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('hr.req.emp') }}"
+                                       class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                        <p>ใบลาพนักงาน</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
 
                     {{-- CEO --}}
                     @if(Auth::user()->type == 'ceo')
-                    <li
-                        class="nav-item {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'menu-open' : '' }}">
-                        <a href="#"
-                           class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user-lock"></i>
-                            <p>
-                                Solution Architect ...
-                                <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">2</span>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('ceo.req.emp') }}"
-                                   class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                    <p>ใบลาพนักงาน</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li
+                            class="nav-item {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'menu-open' : '' }}">
+                            <a href="#"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-lock"></i>
+                                <p>
+                                    Solution Architect ...
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('ceo.req.emp') }}"
+                                       class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
+                                        <p>ใบลาพนักงาน</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
                     @if(Auth::user()->type == 'ceo' || Auth::user()->type == 'hr(admin)')
-                    <li class="nav-item">
-                        <a href="{{ route('data.users') }}"
-                           class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
-                            <i class="fa-solid fa-users nav-icon"></i>
-                            <p>ข้อมูลพนักงาน</p>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="{{ route('data.users') }}"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
+                                <i class="fa-solid fa-users nav-icon"></i>
+                                <p>ข้อมูลพนักงาน</p>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </nav>
@@ -335,7 +333,7 @@
         </div>
         <!-- end sidebar -->
     </aside>
-    {{-- end main sidebar container --}}
+    {{-- end main sidebar --}}
 
     {{-- Content Wrapper --}}
     <section class="content-wrapper">
@@ -366,7 +364,6 @@
 <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-
 
 <script>
     $(document).ready(function () {
@@ -441,11 +438,9 @@
         ],
     });
 </script>
-
-
 {{-- end DataTables & Plugins --}}
 
-{{-- Datatime Picker --}}
+{{-- Datatime Picker ใช้ flatpickr--}}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
 <script>
@@ -501,6 +496,9 @@
         });
     });
 </script>
+{{-- end datatime picker --}}
+
+{{-- คำนวนหักลบ วันที่ลาตั้งแต่ - ถึง ในหน้า form.blade.php --}}
 <script>
     function calculate() {
         var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
@@ -552,7 +550,7 @@
         document.getElementById("result").innerHTML = result;
     }
 </script>
-{{-- end datatime picker --}}
+
 
 {{-- Form Select 2 --}}
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
