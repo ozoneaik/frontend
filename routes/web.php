@@ -6,6 +6,7 @@ use App\Http\Controllers\LeaveFormController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\UserAccess;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\FilterController;
 
 
 
@@ -55,12 +56,13 @@ Route::middleware(['auth','verified'])->group(function () {
 
     //Normal Employee route list
     Route::middleware('user-access:emp')->group(function () {
-        Route::get('/emp/home', [HomeController::class, 'empHome'])->name('emp.home');
+        //filter
+        Route::get('/req/filter',[FilterController::class , 'filter'])->name('filter.req');
     });
 
     //Project manager route list
     Route::middleware('user-access:pm')->group(function () {
-        Route::get('/pm/home', [HomeController::class, 'pmHome'])->name('pm.home');
+
         Route::get('/req_list_emp_pm',[LeaveFormController::class, 'PM_req'])->name('pm.req.emp');
         Route::match(['get','post'],'/req_list_emp_detail/{id}',[LeaveFormController::class, 'req_list_emp_detail'])->name('pm.req.emp.detail');
         Route::match(['get','post'],'/req_list_emp_detail_update/{id}',[LeaveFormController::class,'req_list_emp_detail_update'])->name('pm.req.emp.update');
@@ -69,7 +71,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     //HR route list
     Route::middleware('user-access:hr(admin)')->group(function () {
-        Route::get('/hr/home', [HomeController::class, 'hrHome'])->name('hr.home');
+
         Route::get('/req_list_emp_hr',[LeaveFormController::class,'HR_req'])->name('hr.req.emp');
         Route::match(['get','post'],'/hr_req_list_emp_detail/{id}',[LeaveFormController::class, 'hr_req_list_emp_detail'])->name('hr.req.emp.detail');
         Route::match(['get','post'],'/hr_req_list_emp_detail_update/{id}',[LeaveFormController::class,'hr_req_list_emp_detail_update'])->name('hr.req.emp.update');
@@ -77,7 +79,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     //CEO route list
     Route::middleware('user-access:ceo')->group(function () {
-        Route::get('/ceo/home', [HomeController::class, 'ceoHome'])->name('ceo.home');
+
         Route::get('/req_list_emp_ceo',[LeaveFormController::class,'CEO_req'])->name('ceo.req.emp');
         Route::match(['get','post'],'/ceo_req_list_emp_detail/{id}',[LeaveFormController::class, 'ceo_req_list_emp_detail'])->name('ceo.req.emp.detail');
         Route::match(['get','post'],'/ceo_req_list_emp_detail_update/{id}',[LeaveFormController::class,'ceo_req_list_emp_detail_update'])->name('ceo.req.emp.update');

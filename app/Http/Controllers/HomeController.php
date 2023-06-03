@@ -51,6 +51,8 @@ class HomeController extends Controller
 
     public function profile_update(Request $request, $id)
     {
+
+//        dd($request->all());
 //        dd($request->profile_img,$request->signature);
 //        dd($request->profile_img);
         if ($request->profile_img){

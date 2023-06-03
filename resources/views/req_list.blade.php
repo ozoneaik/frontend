@@ -59,6 +59,52 @@
                                     $usersMap[$user->id] = $user->name;
                                 }
                             @endphp
+
+                            {{-- data rnage filter --}}
+                            <form action="{{route('filter.req')}}" method="get">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="">ลาตั้งแต่</label>
+                                            <div class="input-group">
+                                                <input type="datetime-local" class="form-control"
+                                                       placeholder="{{ $start}}"
+                                                       name="start">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 d-flex align-items-end">
+                                        <div class="form-group">
+                                            -
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="">ถึง</label>
+                                            <div class="input-group">
+                                                <input type="datetime-local" class="form-control"
+                                                       placeholder="{{$end}}" name="end">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-end">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
                             <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>

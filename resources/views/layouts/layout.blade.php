@@ -373,7 +373,7 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "order": [
-                    [0, "desc"]
+                    [0, "asc"]
                 ],
 
                 initComplete: function () {
@@ -450,19 +450,19 @@
         altInput: false,
         enableTime: true,
         dateFormat: "d/m/Y H:i",
-        minDate: "today",
+        // minDate: "today",
         minTime: '09:00',
         maxTime: '18:00',
-        minDate: new Date(),
-        defaultDate: "now",
-        time_24hr: true,
-        disableMobile: "true",
-        "disable": [
-            function (date) {
-                // return true to disable
-                return (date.getDay() === 0 || date.getDay() === 6);
-            }
-        ],
+        // minDate: new Date(),
+        // defaultDate: "now",
+        // time_24hr: true,
+        // disableMobile: "true",
+        // "disable": [
+        //     function (date) {
+        //         // return true to disable
+        //         return (date.getDay() === 0 || date.getDay() === 6);
+        //     }
+        // ],
     });
     var startDateInput = document.getElementById("start-date");
     var endDateInput = document.getElementById("end-date");
@@ -480,19 +480,19 @@
             defaultDate: "now",
             time_24hr: true,
             disableMobile: "true",
-            minDate: startDate.toDate(),
-            "disable": [
-                function (date) {
-                    // return true to disable
-                    return (date.getDay() === 0 || date.getDay() === 6);
-                }
-            ],
-            onChange: function (selectedDates, dateStr, instance) {
-                var endDate = moment(selectedDates[0]);
-                if (endDate.isBefore(startDate)) {
-                    instance.setDate(startDate.toDate(), false, 'd/m/Y H:i');
-                }
-            }
+            // minDate: startDate.toDate(),
+            // "disable": [
+            //     function (date) {
+            //         // return true to disable
+            //         return (date.getDay() === 0 || date.getDay() === 6);
+            //     }
+            // ],
+            // onChange: function (selectedDates, dateStr, instance) {
+            //     var endDate = moment(selectedDates[0]);
+            //     if (endDate.isBefore(startDate)) {
+            //         instance.setDate(startDate.toDate(), false, 'd/m/Y H:i');
+            //     }
+            // }
         });
     });
 </script>
