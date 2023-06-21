@@ -38,4 +38,17 @@ class LeaveForm extends Model
         'reason_ceo',
         'not_allowed_ceo',
     ];
+
+    public function representative()
+    {
+        return $this->belongsTo(User::class, 'sel_rep', 'id');
+    }
+
+    public function relation_user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function relation_user_pm(){
+        return $this->belongsTo(User::class,'sel_pm','id');
+    }
 }

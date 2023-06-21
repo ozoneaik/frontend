@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Support\Facades\Validator;
-use Laravel\Ui\Presets\React;
-use App\Models\users_leave_data;
+
 
 class RegisterController extends Controller
 {

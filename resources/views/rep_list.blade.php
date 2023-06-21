@@ -4,6 +4,7 @@
     {{ 'รายการคำขอใบลา' }}
 @endsection
 
+
 @section('content')
     {{-- Part --}}
     <div class="content-header">
@@ -43,10 +44,7 @@
                             @endif
                             @php
                                 $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
-                                $usersMap = [];
-                                foreach ($users as $user) {
-                                    $usersMap[$user->id] = $user->name;
-                                }
+
                             @endphp
                             <table id="rep_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
@@ -57,10 +55,6 @@
                                     <th style="{{ $style }} max-width: 80px;">ถึง</th>
                                     <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
                                     <th style="{{ $style }} max-width: 50px;">จาก</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(PM)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(HR)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(CEO)</th>
                                     <th style="{{ $style }} max-width: 30px;">สถานะ</th>
                                     <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
                                 </tr>
@@ -68,23 +62,17 @@
                                 <tbody>
                                 @foreach ($leaves as $row)
                                     <tr>
-                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}
-                                        </td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->leave_type }}</td>
-                                        <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
-                                        </td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
-                                        </td>
+                                        <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}</td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->leave_total }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ $usersMap[$row->user_id] }}</td>
-                                        {{-- <td>{{$row->sel_rep}}</td> --}}
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_rep }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_pm }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_hr }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_ceo }}</td>
-                                        <td style="{{ $style }} max-width: 40px;"
-                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
-                                            {{ $row->status }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{$row->relation_user->name}}</td>
+                                        <td style="{{ $style }} max-width: 40px;" class="">
+                                            <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                                {{ $row->status }}
+                                            </button>
+                                        </td>
                                         <td style="{{ $style }} max-width: 10px;">
                                             <a href="{{ route('rep.detail', $row->id) }}">
                                                 <i class="fas fa-file-invoice"></i>
@@ -93,22 +81,6 @@
                                     </tr>
                                 @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>วันที่ยื่นคำร้อง</th>
-                                    <th>ประเภทการลา</th>
-                                    <th>วันที่ลาตั้งแต่</th>
-                                    <th>ถึง</th>
-                                    <th>ลาทั้งหมด</th>
-                                    <th>จาก</th>
-                                    <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th>อนุมัติ(PM)</th>
-                                    <th>อนุมัติ(HR)</th>
-                                    <th>อนุมัติ(CEO)</th>
-                                    <th>สถานะ</th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

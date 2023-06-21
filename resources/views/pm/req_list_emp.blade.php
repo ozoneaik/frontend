@@ -47,7 +47,7 @@
                                 $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
                                 $usersMap = [];
                                 foreach ($users as $user) {
-                                    $usersMap[$user->id] = $user->name;
+                                    $usersMap[$user->sel_rep] = $user->sel_rep;
                                 }
                             @endphp
 
@@ -59,10 +59,7 @@
                                     <th style="{{$style}} max-width:50px">วันที่ลาตั้งแต่</th>
                                     <th style="{{$style}} max-width:50px">ถึง</th>
                                     <th style="{{$style}} max-width:50px">ลาทั้งหมด</th>
-                                    <th style="{{$style}} max-width:90px">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th style="{{$style}} max-width:90px">อนุมัติ(PM)</th>
-                                    <th style="{{$style}} max-width:90px">อนุมัติ(HR)</th>
-                                    <th style="{{$style}} max-width:90px">อนุมัติ(CEO)</th>
+                                    <th style="{{$style}} max-width:90px">ผู้ปฏิบัติงานแทน</th>
                                     <th style="{{$style}} max-width:50px">สถานะ</th>
                                     <th style="{{$style}} max-width:20px">รายละเอียด</th>
                                 </tr>
@@ -73,7 +70,8 @@
                                         @if ($leave->approve_rep != '⌛')
                                             <tr>
                                                 <td style="{{$style}} max-width:50px">{{$leave->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
-                                                <td style="{{ $style }} max-width: 80px;">{{ $usersMap[$leave->user_id] }}</td>
+{{--                                                <td style="{{ $style }} max-width: 80px;">{{ $usersMap[$leave->user_id] }}</td>--}}
+                                                <td style="{{ $style }} max-width: 80px;">{{$leave->relation_user->name}}</td>
                                                 <td style="{{$style}} max-width:50px">{{ \Carbon\Carbon::parse($leave->leave_start)->addYears(543)->format('d/m/Y
                                         H:i')
                                         }}</td>
@@ -81,11 +79,20 @@
                                         }}
                                                 </td>
                                                 <td style="{{$style}} max-width:50px">{{$leave->leave_total}}</td>
-                                                <td style="{{$style}} max-width:50px">{{$leave->approve_rep}}</td>
-                                                <td style="{{$style}} max-width:50px">{{$leave->approve_pm}}</td>
-                                                <td style="{{$style}} max-width:50px">{{$leave->approve_hr}}</td>
-                                                <td style="{{$style}} max-width:50px">{{$leave->approve_ceo}}</td>
-                                                <td style="{{$style}} max-width:50px" class="{{ $leave->status == 'อนุมัติ' ? 'text-success table-success' : ($leave->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $leave->status }}</td>
+                                                @if (!$leave->sel_rep || $leave->approve_rep == '❌')
+                                                    <td style="{{ $style }} max-width: 40px;">
+                                                        ไม่มีผู้ปฏิบัติแทน @if($leave->approve_rep == '❌')
+                                                            ถูกปฏิเสธ
+                                                        @endif</td>
+                                                @else
+{{--                                                    <td style="{{ $style }} max-width: 40px;">{{ $usersMap[$user->sel_rep] }}</td>--}}
+                                                    <td style="{{ $style }} max-width: 40px;">{{$leave->representative->name}}</td>
+                                                @endif
+                                                <td style="{{ $style }} max-width: 40px;" class="">
+                                                    <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($leave->status == 'อนุมัติ') #c8ffd5 @elseif($leave->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                                        {{ $leave->status }}
+                                                    </button>
+                                                </td>
                                                 <td style="{{$style}} max-width:20px">
                                                     <a href="{{route('pm.req.emp.detail',$leave->id)}}"><i
                                                             class="fas fa-file-invoice"></i>
@@ -96,21 +103,6 @@
                                     @endif
                                 @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>วันที่ยื่นคำร้อง</th>
-                                    <th>ผู้ลา</th>
-                                    <th>วันที่ลาตั้งแต่</th>
-                                    <th>ถึง</th>
-                                    <th>ลาทั้งหมด</th>
-                                    <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th>อนุมัติ(PM)</th>
-                                    <th>อนุมัติ(HR)</th>
-                                    <th>อนุมัติ(CEO)</th>
-                                    <th>สถานะ</th>
-                                    <th>รายละเอียด</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

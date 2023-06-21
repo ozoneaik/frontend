@@ -27,7 +27,6 @@
         <div class="container-fluid">
             <div class="row">
                 {{-- ปุ่มเพิ่มใบลา --}}
-                {{-- col-12 d-flex justify-content-end d-flex mb-4 --}}
                 <div class="col-md-12 d-flex justify-content-end mb-3">
                     <a href="{{ route('create') }}">
                         <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> เพิ่มใบลา</button>
@@ -41,8 +40,7 @@
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
                                 <i class="fas fa-list-alt mr-2"></i>
-                                รายการคำขอใบลา
-                            </h3>
+                                รายการคำขอใบลา </h3>
                         </div>
                         <div class="card-body">
 
@@ -52,12 +50,9 @@
                                     <span>{{ $message }}</span>
                                 </div>
                             @endif
+
                             @php
                                 $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
-                                $usersMap = [];
-                                foreach ($users as $user) {
-                                    $usersMap[$user->id] = $user->name;
-                                }
                             @endphp
 
                             {{-- data rnage filter --}}
@@ -65,11 +60,8 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="">ลาตั้งแต่</label>
                                             <div class="input-group">
-                                                <input type="datetime-local" class="form-control"
-                                                       placeholder="{{ $start}}"
-                                                       name="start">
+                                                <input type="datetime-local" class="form-control filter" placeholder="ลาตั้งแต่ {{Request::routeIs('filter.req') ? $start_format : ''}}" name="start" readonly>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <i class="fa fa-calendar"></i>
@@ -78,17 +70,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 d-flex align-items-end">
-                                        <div class="form-group">
-                                            -
-                                        </div>
-                                    </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="">ถึง</label>
                                             <div class="input-group">
-                                                <input type="datetime-local" class="form-control"
-                                                       placeholder="{{$end}}" name="end">
+                                                <input type="datetime-local" class="form-control filter" placeholder="ถึง {{Request::routeIs('filter.req') ? $end_format : ''}}" name="end" readonly>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <i class="fa fa-calendar"></i>
@@ -98,13 +83,24 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2 d-flex align-items-end">
-                                        <div class="form-group">
+                                        <div class="form-group mr-2">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
+                                        @if(Request::RouteIs('filter.req'))
+
+                                            <div class="form-group">
+                                                <a href="{{route('req')}}">
+                                                    <button type="button" class="btn btn-warning">ล้าง</button>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
 
                                 </div>
+
                             </form>
+
+
                             <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
@@ -114,12 +110,8 @@
                                     <th style="{{ $style }} max-width: 40px;">ถึง</th>
                                     <th style="{{ $style }} max-width: 40px;">ลาทั้งหมด</th>
                                     <th style="{{ $style }} max-width: 30px;">ผู้ปฏิบัติงานแทน</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(PM)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(HR)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(CEO)</th>
                                     <th style="{{ $style }} max-width: 50px;">สถานะ</th>
-                                    <th style="{{ $style }} max-width: 50px;">รายละเอียด</th>
+                                    <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -133,19 +125,19 @@
                                         <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
                                         </td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->leave_total }}</td>
-                                        @if (!$row->sel_rep)
-                                            <td style="{{ $style }} max-width: 40px;">ไม่มีผู้ปฏิบัติแทน</td>
+                                        @if (!$row->sel_rep || $row->approve_rep == '❌')
+                                            <td style="{{ $style }} max-width: 40px;">
+                                                ไม่มีผู้ปฏิบัติแทน @if($row->approve_rep == '❌')
+                                                    ถูกปฏิเสธ
+                                                @endif</td>
                                         @else
-                                            <td style="{{ $style }} max-width: 40px;">{{ $usersMap[$row->sel_rep] }}</td>
+                                            <td style="{{ $style }} max-width: 40px;">{{ $row->representative->name }}</td>
                                         @endif
-                                        {{-- <td>{{$row->sel_rep}}</td> --}}
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_rep }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_pm }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_hr }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_ceo }}</td>
-                                        <td style="{{ $style }} max-width: 40px;"
-                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
-                                            {{ $row->status }}</td>
+                                        <td style="{{ $style }} max-width: 40px;" class="">
+                                            <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                                {{ $row->status }}
+                                            </button>
+                                        </td>
                                         <td style="{{ $style }} max-width: 20px;">
                                             <a href="{{ route('req.detail', $row->id) }}">
                                                 <i class="fas fa-file-invoice"></i>
@@ -154,22 +146,6 @@
                                     </tr>
                                 @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>วันที่ยื่นคำร้อง</th>
-                                    <th>ประเภทการลา</th>
-                                    <th>วันที่ลาตั้งแต่</th>
-                                    <th>ถึง</th>
-                                    <th>ลาทั้งหมด</th>
-                                    <th>ผู้ปฏิบัติงานแทน</th>
-                                    <th>อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th>อนุมัติ(PM)</th>
-                                    <th>อนุมัติ(HR)</th>
-                                    <th>อนุมัติ(CEO)</th>
-                                    <th>สถานะ</th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -179,5 +155,24 @@
         </div>
         {{-- end container fluid --}}
     </section>
+
+    {{-- Datatime Picker ใช้ flatpickr--}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
+    <script>
+        flatpickr(".filter", {
+            "locale": "th",
+            allowInput: true,
+            altInput: false,
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            // minDate: "today",
+            minTime: '09:00',
+            maxTime: '18:00',
+
+        });
+    </script>
+    {{-- end datatime picker --}}
+
     {{--  end mian content  --}}
 @endsection

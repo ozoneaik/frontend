@@ -25,7 +25,7 @@
     <section class="content">
         {{-- Example data --}}
         <?php
-        $leave = array('ลาป่วย', 'ลากิจ', 'ลาพักผ่อนประจำปี', 'ลาเพื่อทำหมัน', 'ลาเพื่อฝึกอบรม', 'ลาอุปสมบท', 'ลาคลอดบุตร' ,'ลารับราชการทหาร', 'ลาเพื่อสมรส');
+        $leave = array('ลาป่วย', 'ลากิจ', 'ลาพักผ่อนประจำปี', 'ลาเพื่อทำหมัน', 'ลาเพื่อฝึกอบรม', 'ลาอุปสมบท', 'ลาคลอดบุตร', 'ลารับราชการทหาร', 'ลาเพื่อสมรส');
         ?>
         {{-- end example data --}}
 
@@ -39,8 +39,7 @@
                             <div class="card-header">
                                 <h3 class="card-title font-weight-bold">
                                     <i class="fas fa-file-medical mr-2"></i>
-                                    เพิ่มใบลา
-                                </h3>
+                                    เพิ่มใบลา </h3>
                             </div>
                             <div class="card-body">
                                 {{-- รายละเอียดใบลา --}}
@@ -48,8 +47,7 @@
                                     <div class="card-header">
                                         <h3 class="card-title font-weight-bold">
                                             <i class="fas fa-file-invoice mr-2"></i>
-                                            รายละเอียดใบลา
-                                        </h3>
+                                            รายละเอียดใบลา </h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -57,17 +55,14 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                    <input class="form-control"
-                                                           value="{{Auth::user()->id}} {{Auth::user()->name}} {{Auth::user()->possition}}"
-                                                           disabled>
+                                                    <input class="form-control" value="{{Auth::user()->id}} {{Auth::user()->name}} {{Auth::user()->possition}}" disabled>
                                                 </div>
                                             </div>
                                             {{-- ประเภทการลา --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="">ประเภทการลา</label>
-                                                    <select name="leave_type" id="" class="form-control select2"
-                                                            style="width:100%;">
+                                                    <label for="">* ประเภทการลา</label>
+                                                    <select name="leave_type" id="" class="form-control select2" style="width:100%;">
                                                         @foreach($leave as $row)
                                                             <option value="{{ $row }}">{{$row}}</option>
                                                         @endforeach
@@ -77,13 +72,9 @@
                                             {{-- ลาตังแต่ --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>ลาตั้งแต่ :</label>
+                                                    <label>* ลาตั้งแต่ :</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local"
-                                                               class="form-control @error('leave_start') is-invalid @enderror"
-                                                               name="leave_start" id="start-date" onchange="calculate()"
-                                                               value="{{ old('leave_start')}}"
-                                                               placeholder="เลือกวันที่ลาตั้งแต่..." readonly/>
+                                                        <input type="datetime-local" class="form-control @error('leave_start') is-invalid @enderror" name="leave_start" id="start-date" onchange="calculate()" value="{{ old('leave_start')}}" placeholder="เลือกวันที่ลาตั้งแต่..." readonly/>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>
@@ -92,8 +83,7 @@
                                                     </div>
 
                                                     @if ($errors->has('leave_start'))
-                                                        <span
-                                                            class="text-danger">{{ $errors->first('leave_start') }}
+                                                        <span class="text-danger">{{ $errors->first('leave_start') }}
                                                         </span>
                                                     @endif
                                                 </div>
@@ -101,13 +91,9 @@
                                             {{-- ถึง --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>ถึง :</label>
+                                                    <label>* ถึง :</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local"
-                                                               class="form-control @error('leave_end') is-invalid @enderror"
-                                                               name="leave_end" id="end-date" onchange="calculate()"
-                                                               value="{{ old('leave_end') }}"
-                                                               placeholder="เลือกวันที่ลาถึง..." readonly/>
+                                                        <input type="datetime-local" class="form-control @error('leave_end') is-invalid @enderror" name="leave_end" id="end-date" onchange="calculate()" value="{{ old('leave_end') }}" placeholder="เลือกวันที่ลาถึง..." readonly/>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>
@@ -116,8 +102,7 @@
                                                     </div>
 
                                                     @if ($errors->has('leave_end'))
-                                                        <span
-                                                            class="text-danger">{{ $errors->first('leave_end') }}
+                                                        <span class="text-danger">{{ $errors->first('leave_end') }}
                                                         </span>
                                                     @endif
                                                 </div>
@@ -132,14 +117,12 @@
                                                 <div class="form-group">
                                                     <label>
                                                         เหตุผลการลา
-                                                        <span id="reason-count"
-                                                              class="text-secondary text-secondary font-weight-normal">
+                                                        <span id="reason-count" class="text-secondary text-secondary font-weight-normal">
                                                             0/255
                                                         </span>
                                                     </label>
 
-                                                    <textarea id="reason" class="form-control @error('reason') is-invalid @enderror" rows="5" name="reason"
-                                                              placeholder="กรอกเหตุผลการลาที่นี่...">{{ old('reason') }}</textarea>
+                                                    <textarea id="reason" class="form-control @error('reason') is-invalid @enderror" rows="5" name="reason" placeholder="กรอกเหตุผลการลาที่นี่...">{{ old('reason') }}</textarea>
 
                                                     @if ($errors->has('reason'))
                                                         <span class="text-danger">{{ $errors->first('reason') }}</span>
@@ -153,10 +136,8 @@
                                                     <label for="">เอกสารประกอบการลา</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="file1"
-                                                                   name="file1" value="{{ old('file1', '') }}">
-                                                            <label class="custom-file-label"
-                                                                   for="file1">อัปโหลด</label>
+                                                            <input type="file" class="custom-file-input" id="file1" name="file1" value="{{ old('file1', '') }}">
+                                                            <label class="custom-file-label" for="file1">อัปโหลด</label>
                                                         </div>
                                                     </div>
                                                     @if ($errors->has('file1'))
@@ -170,8 +151,7 @@
                                                     <label for="">เอกสารประกอบการลาเพิ่มเติม (ถ้ามี)</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="file2"
-                                                                   name="file2" value="{{ old('file2', '') }}">
+                                                            <input type="file" class="custom-file-input" id="file2" name="file2" value="{{ old('file2', '') }}">
                                                             <label class="custom-file-label" for="file2">อัปโหลด</label>
                                                         </div>
                                                     </div>
@@ -189,41 +169,36 @@
                                         <div class="card-header">
                                             <h3 class="card-title font-weight-bold">
                                                 <i class="fa-solid fa-user mr-2"></i>
-                                                ระหว่างการลามอบหมายให้
-                                            </h3>
+                                                ระหว่างการลามอบหมายให้ </h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                        <select name="sel_rep" id="" class="form-control select2"
-                                                                style="width:100%;">
+                                                        <select name="sel_rep" id="" class="form-control select2" style="width:100%;">
                                                             @if(Auth::user()->type != 'hr' && Auth::user()->type != 'hr(admin)')
                                                                 <option value="">ไม่มีผู้ปฏิบัติงานแทน</option>
                                                             @endif
-                                                                @foreach($users as $user_rep)
-                                                                    @php
-                                                                        $isDisabled = ($user_rep->id == Auth::user()->id) ? 'disabled="disabled"' : '';
-                                                                    @endphp
+                                                            @foreach($users as $user_rep)
+                                                                @php
+                                                                    $isDisabled = ($user_rep->id == Auth::user()->id) ? 'disabled="disabled"' : '';
+                                                                @endphp
 
-                                                                    @if(Auth::user()->type == 'emp' && $user_rep->type == '0' ||
-                                                                        (in_array(Auth::user()->type, ['hr', 'hr(admin)']) && in_array($user_rep->type, ['4', '2'])))
-                                                                        <option value="{{$user_rep->id}}" {{ old('sel_rep') == $user_rep->id ? 'selected' : '' }} {{$isDisabled}}>
-                                                                            {{$user_rep->id}} {{$user_rep->name}} {{$user_rep->possition}}
-                                                                        </option>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if(Auth::user()->type == 'emp' && $user_rep->type == '0' ||
+                                                                    (in_array(Auth::user()->type, ['hr', 'hr(admin)']) && in_array($user_rep->type, ['4', '2'])))
+                                                                    <option value="{{$user_rep->id}}" {{ old('sel_rep') == $user_rep->id ? 'selected' : '' }} {{$isDisabled}}>
+                                                                        {{$user_rep->id}} {{$user_rep->name}} {{$user_rep->possition}}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">กรณีไม่มีผู้ปฏิบัติงานแทนสามารถ(ติดต่อ)</label>
-                                                        <input
-                                                            class="form-control @error('case_no_rep') is-invalid @enderror"
-                                                            type="text" name="case_no_rep"
-                                                            value="{{ old('case_no_rep', Auth::user()->phone_no_1) }}">
+                                                        <input class="form-control @error('case_no_rep') is-invalid @enderror" type="text" name="case_no_rep" value="{{ old('case_no_rep', Auth::user()->phone_no_1) }}">
                                                         @if ($errors->has('case_no_rep'))
                                                             <span class="text-danger">
                                                             {{ $errors->first('case_no_rep') }}
@@ -240,20 +215,17 @@
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
                                                     <i class="fa-solid fa-user-gear mr-2"></i>
-                                                    เลือก Project manager
-                                                </h3>
+                                                    เลือก Project manager </h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                            <select name="sel_pm" id="" class="form-control select2"
-                                                                    style="width:100%;">
+                                                            <select name="sel_pm" id="" class="form-control select2" style="width:100%;">
                                                                 @foreach($users as $user_pm)
                                                                     @if ($user_pm->type == '1')
-                                                                        <option
-                                                                            value="{{$user_pm->id}}">{{$user_pm->id}} {{$user_pm->name}} {{$user_pm->nick_name}}
+                                                                        <option value="{{$user_pm->id}}">{{$user_pm->id}} {{$user_pm->name}} {{$user_pm->nick_name}}
                                                                         </option>
                                                                     @endif
                                                                 @endforeach
@@ -268,8 +240,8 @@
                                 {{-- ปุ่มบันทึกการลา --}}
                                 <div class="col-md-12 justify-content-end d-flex ">
                                     <a href="{{route('home')}}" class="btn btn-danger">ยกเลิก</a>
-                                    <button class="btn btn-primary ml-2" type="button" data-toggle="modal"
-                                            data-target="#modal-default">บันทึก
+                                    <button class="btn btn-primary ml-2" type="button" data-toggle="modal" data-target="#modal-default">
+                                        บันทึก
                                     </button>
                                     {{-- Modal --}}
                                     <div class="modal fade" id="modal-default">
@@ -277,8 +249,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">บันทึกข้อมูล</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -286,8 +257,8 @@
                                                     <p>ต้องการบันทึกข้อมูลหรือไม่??</p>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">ยกเลิก
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        ยกเลิก
                                                     </button>
                                                     <button type="submit" class="btn btn-primary">บันทึก</button>
                                                 </div>
@@ -308,6 +279,64 @@
     </section>
     {{-- end mian content --}}
 
+    {{-- Datatime Picker ใช้ flatpickr--}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
+    <script>
+        flatpickr("#start-date , #end-date", {
+            "locale": "th",
+            allowInput: true,
+            altInput: false,
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            // minDate: "today",
+            minTime: '09:00',
+            maxTime: '18:00',
+            // minDate: new Date(),
+            // defaultDate: "now",
+            // time_24hr: true,
+            // disableMobile: "true",
+            "disable": [
+                function (date) {
+                    // return true to disable
+                    return (date.getDay() === 0 || date.getDay() === 6);
+                }
+            ],
+        });
+        var startDateInput = document.getElementById("start-date");
+        var endDateInput = document.getElementById("end-date");
+
+        startDateInput.addEventListener("change", function () {
+            var startDate = moment(this.value, 'DD/MM/YYYY HH:mm');
+            flatpickr(endDateInput, {
+                locale: "th",
+                allowInput: false,
+                altInput: false,
+                enableTime: true,
+                dateFormat: "d/m/Y H:i",
+                minTime: '09:00',
+                maxTime: '18:00',
+                defaultDate: "now",
+                time_24hr: true,
+                disableMobile: "true",
+                // minDate: startDate.toDate(),
+                "disable": [
+                    function (date) {
+                        // return true to disable
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ],
+                // onChange: function (selectedDates, dateStr, instance) {
+                //     var endDate = moment(selectedDates[0]);
+                //     if (endDate.isBefore(startDate)) {
+                //         instance.setDate(startDate.toDate(), false, 'd/m/Y H:i');
+                //     }
+                // }
+            });
+        });
+    </script>
+    {{-- end datatime picker --}}
+
     {{-- นับตัวอักษร Reason --}}
     <script>
         var reason = document.getElementById('reason');
@@ -324,6 +353,7 @@
             }
         });
     </script>
+
     {{-- Upload Files --}}
     <script>
         document.querySelectorAll('input[type="file"]').forEach((fileInput, index) => {
@@ -333,5 +363,57 @@
         });
     </script>
 
+    {{-- คำนวนหักลบ วันที่ลาตั้งแต่ - ถึง ในหน้า form.blade.php --}}
+    <script>
+        function calculate() {
+            var startDate = moment(document.getElementById("start-date").value, 'DD/MM/YYYY HH:mm');
+            var endDate = moment(document.getElementById("end-date").value, 'DD/MM/YYYY HH:mm');
+
+            startDate.minutes(Math.max(0, Math.min(59, startDate.minutes()))).seconds(0);
+            endDate.minutes(Math.max(0, Math.min(59, endDate.minutes()))).seconds(0);
+
+            var duration = moment.duration(endDate.diff(startDate));
+            var days = Math.floor(duration.asDays());
+            var remainingHours = Math.floor(duration.hours() % 24);
+            var minutes = Math.floor(duration.minutes() % 60);
+
+            for (var i = 0; i <= days; i++) {
+                var currentDate = moment(startDate).add(i, 'days');
+                if (currentDate.isoWeekday() === 6 || currentDate.isoWeekday() === 7) {
+                    days -= 1;
+                }
+            }
+            if (startDate.hours() <= 12 && endDate.hours() >= 13) {
+                remainingHours -= 1;
+            }
+            if (startDate.hours() >= 13 && endDate.hours() <= 12) {
+                remainingHours -= 15;
+            }
+            if (startDate.hours() >= 13 && endDate.hours() >= 13 && startDate.hours() > endDate.hours()) {
+                remainingHours -= 8;
+                days -= 1;
+            }
+
+            if (remainingHours >= 8) {
+                days += 1;
+                remainingHours -= 8;
+            }
+
+            if (isNaN(days) || isNaN(remainingHours) || isNaN(minutes)) {
+                console.log("An error occurred while calculating due to missing time selection. Setting values to 0.");
+                days = 0;
+                remainingHours = 0;
+                minutes = 0;
+            }
+
+            var totalMinutes = minutes + remainingHours * 60;
+
+            var result = days + " วัน " +
+                Math.floor(totalMinutes / 60) + " ชั่วโมง " +
+                (totalMinutes % 60) + " นาที ";
+
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
     {{--end upload fliles--}}
 @endsection

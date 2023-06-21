@@ -141,7 +141,7 @@ class LeaveFormController extends Controller
     //ตารางแสดงขอใบลา
     public function req()
     {
-        $leaves = LeaveForm::where('user_id', Auth::user()->id)->get();
+        $leaves = LeaveForm::where('user_id', Auth::user()->id)->orderByDesc('created_at')->get();
         $users = User::all();
         return view('req_list', compact('leaves', 'users'));
     }
@@ -151,10 +151,10 @@ class LeaveFormController extends Controller
     {
         $leaveforms = LeaveForm::findOrFail($id);
 
-        // Check if the logged-in user is the owner of the leave form
-//        if ($leaveforms->user_id !== auth()->user()->id) {
-//            abort(403, 'ไม่ได้รับอนุญาต');
-//        }
+//         Check if the logged-in user is the owner of the leave form
+        if ($leaveforms->user_id !== auth()->user()->id) {
+            abort(403, 'ไม่ได้รับอนุญาต');
+        }
 
         $users = User::all();
 

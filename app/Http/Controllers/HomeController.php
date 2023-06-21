@@ -43,7 +43,7 @@ class HomeController extends Controller
         $user = User::findOrFail($id);
 
         if ($id != Auth::user()->id){
-            abort(404);
+            abort(403,'การกระทำที่ไม่ได้รับอนุญาต');
         }
 
         return view('users.profile', compact('user'));
@@ -100,7 +100,7 @@ class HomeController extends Controller
             'address' => $request->address,
         ]);
 
-        if ($request->birthday){
+        if ($request->has('birthday')){
             User::find($id)->update([
                'birthday' => $request->birthday,
             ]);

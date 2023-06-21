@@ -1,5 +1,4 @@
-@extends('layouts.layout')
-{{-- <link rel="stylesheet" href="{{ asset('style/css.css') }}"> --}}
+@extends('layouts.layout'){{-- <link rel="stylesheet" href="{{ asset('style/css.css') }}"> --}}
 @section('title')
     {{ 'ระบบการลา' }}
 @endsection
@@ -23,10 +22,8 @@
                             <div class="col-lg-4 mb-2">
                                 <div class="card-box" style="background-color: {{ $colors[$count % count($colors)] }};">
                                     <div class="content1">
-                                        <div class="icon-card"
-                                             style="background-color:{{ $colors1[$count % count($colors1)] }}">
-                                            <i class="{{ $icon[$count % count($icon)] }}"
-                                               style="width: 50px; height:50px; color:white"></i>
+                                        <div class="icon-card" style="background-color:{{ $colors1[$count % count($colors1)] }}">
+                                            <i class="{{ $icon[$count % count($icon)] }}" style="width: 50px; height:50px; color:white"></i>
                                         </div>
                                         @php
                                             $parts = explode(' ', $row->time_already_used);
@@ -41,8 +38,8 @@
                                             }
                                         @endphp
                                         <div class="day">
-                                            <span class="Hday">{{ $D }}</span><span class="Sday">/{{ $D2 }}</span> <span
-                                                class="SSday">วัน</span>
+                                            <span class="Hday">{{ $D }}</span><span class="Sday">/{{ $D2 }}</span>
+                                            <span class="SSday">วัน</span>
                                         </div>
                                     </div>
                                     <br>
@@ -51,23 +48,19 @@
                                             <p class="mb-0">{{ $row->leave_type_name }}</p>
                                         </div>
                                         <div class="detail">
-                                            <button class="btn btn-link pr-0" href="" data-toggle="modal"
-                                                    data-target="#card{{$count}}">
+                                            <button class="btn btn-link pr-0" href="" data-toggle="modal" data-target="#card{{$count}}">
                                                 <i class="fas fa-file-lines fa-xl" style="color:white"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                                 {{-- modal ลาป่วย --}}
-                                <div class="modal fade" id="card{{$count}}" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal fade" id="card{{$count}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title"
-                                                    id="exampleModalLongTitle">{{ $row->leave_type_name }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $row->leave_type_name }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -94,8 +87,7 @@
             {{-- ลาอื่นๆ --}}
             <div class="row">
                 <div class="col-lg-12">
-                    <a class="btn btn-outline-primary btn-block mb-3" data-toggle="collapse" href="#collapseExample"
-                       role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="btn btn-outline-primary btn-block mb-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                         ประเภทการลาเพิ่มเติม
                     </a>
                 </div>
@@ -116,14 +108,10 @@
                                         @if ($count >= 3 && $count < 9)
                                             {{-- ลาอื่นๆ --}}
                                             <div class="col-md-2">
-                                                <div
-                                                    class="card-box-other d-flex justify-content-between align-items-center"
-                                                    data-toggle="modal" data-target="#modal{{ $count }}">
+                                                <div class="card-box-other d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modal{{ $count }}">
                                                     <div class="d-flex justify-content-between">
-                                                        <div class="align-items-center d-flex justify-content-center"
-                                                             style="background-color: {{ $bg[$count] }}; height:70px;width:70px;border-radius:50px">
-                                                            <i class="{{ $icon[$count] }} fa-2xl"
-                                                               style="color:{{ $icon_color[$count] }}"></i>
+                                                        <div class="align-items-center d-flex justify-content-center" style="background-color: {{ $bg[$count] }}; height:70px;width:70px;border-radius:50px">
+                                                            <i class="{{ $icon[$count] }} fa-2xl" style="color:{{ $icon_color[$count] }}"></i>
                                                         </div>
                                                         @php
                                                             $parts = explode(' ', $row->time_already_used);
@@ -138,8 +126,7 @@
                                                             }
                                                         @endphp
                                                         <div class="ml-2 d-flex flex-column justify-content-center">
-                                                            <p class="text-dark font-weight-bold mb-0"
-                                                               style="font-size: 18px;">
+                                                            <p class="text-dark font-weight-bold mb-0" style="font-size: 18px;">
                                                                 {{ $row->leave_type_name }}
                                                             </p>
                                                             <p class="text-dark mb-0" style="color:black">{{ $D }}
@@ -150,16 +137,13 @@
                                                 </div>
                                             </div>
                                             <!-- Modal ลาอื่นๆ -->
-                                            <div class="modal fade" id="modal{{ $count }}" tabindex="-1"
-                                                 role="dialog" aria-labelledby="modal{{ $count }}Label"
-                                                 aria-hidden="true">
+                                            <div class="modal fade" id="modal{{ $count }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ $count }}Label" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="modal{{ $count }}Label">
                                                                 {{ $row->leave_type_name  }}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -206,10 +190,11 @@
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
                                 <i class="fas fa-list-alt mr-2"></i>
-                                รายการคำขอใบลา
-                            </h3>
+                                รายการคำขอใบลา </h3>
                         </div>
                         <div class="card-body">
+                            {{-- data-table --}}
+
                             <table id="data-table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
@@ -257,8 +242,7 @@
                                             <td>{{ $row->approve_pm }}</td>
                                             <td>{{ $row->approve_hr }}</td>
                                             <td>{{ $row->approve_ceo }}</td>
-                                            <td style="{{ $style }} max-width: 50px;"
-                                                class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
+                                            <td style="{{ $style }} max-width: 50px;" class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
                                                 {{ $row->status }}
                                             </td>
                                             <td>
@@ -274,6 +258,8 @@
                                 @endforeach
                                 </tbody>
                             </table>
+
+
                         </div>
 
                     </div>
@@ -290,8 +276,7 @@
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
                                 <i class="fas fa-list-alt mr-2"></i>
-                                รายการคำขอปฏิบัติแทน
-                            </h3>
+                                รายการคำขอปฏิบัติแทน </h3>
                         </div>
                         <div class="card-body">
                             @if ($message = Session::get('success'))
@@ -341,8 +326,7 @@
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->approve_pm }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->approve_hr }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->approve_ceo }}</td>
-                                        <td style="{{ $style }} max-width: 40px;"
-                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
+                                        <td style="{{ $style }} max-width: 40px;" class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
                                             {{ $row->status }}</td>
                                         <td style="{{ $style }} max-width: 10px;">
                                             <a href="{{ route('rep.detail', $row->id) }}">
