@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
     {{-- Part --}}
     <div class="content-header">
         <div class="container-fluid">
@@ -61,7 +62,7 @@
                                             {{-- ประเภทการลา --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="">* ประเภทการลา</label>
+                                                    <label for="leave_type"><span style="color: red">* </span>ประเภทการลา</label>
                                                     <select name="leave_type" id="" class="form-control select2" style="width:100%;">
                                                         @foreach($leave as $row)
                                                             <option value="{{ $row }}">{{$row}}</option>
@@ -72,7 +73,7 @@
                                             {{-- ลาตังแต่ --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>* ลาตั้งแต่ :</label>
+                                                    <label><span style="color: red">* </span>ลาตั้งแต่ :</label>
                                                     <div class="input-group">
                                                         <input type="datetime-local" class="form-control @error('leave_start') is-invalid @enderror" name="leave_start" id="start-date" onchange="calculate()" value="{{ old('leave_start')}}" placeholder="เลือกวันที่ลาตั้งแต่..." readonly/>
                                                         <div class="input-group-append">
@@ -91,7 +92,7 @@
                                             {{-- ถึง --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>* ถึง :</label>
+                                                    <label><span style="color: red">* </span>ถึง :</label>
                                                     <div class="input-group">
                                                         <input type="datetime-local" class="form-control @error('leave_end') is-invalid @enderror" name="leave_end" id="end-date" onchange="calculate()" value="{{ old('leave_end') }}" placeholder="เลือกวันที่ลาถึง..." readonly/>
                                                         <div class="input-group-append">

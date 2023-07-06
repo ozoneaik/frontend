@@ -50,11 +50,13 @@ Route::middleware('auth')->group(function () {
     Route::match(['get', 'post'], '/rep_list_detail/{id}', [LeaveFormController::class, 'rep_list_detail'])->name('rep.detail');
     Route::match(['get', 'post'], '/rep_list_detail_update/{id}', [LeaveFormController::class, 'rep_list_detail_update'])->name('rep.update');
 
+    //filter
+    Route::get('/req/filter', [FilterController::class, 'filter'])->name('filter.req');
+
 
     //Normal Employee route list
     Route::middleware('user-access:emp')->group(function () {
-        //filter
-        Route::get('/req/filter', [FilterController::class, 'filter'])->name('filter.req');
+
     });
 
     //Project manager route list
