@@ -56,8 +56,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected function type(): Attribute
     {
         return new Attribute(
-            // 0emp 1pm 2admin 3ceo 4hr
-            get: fn ($value) =>  ["emp", "pm", "hr(admin)", "ceo", "hr"][$value],
+            // 0emp 1pm 2admin 3hr 4ceo
+            get: fn ($value) =>  ["emp", "pm", "hr(admin)", "hr", "ceo"][$value],
         );
     }
 }

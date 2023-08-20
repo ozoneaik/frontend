@@ -146,7 +146,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('rep') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
-                            <i class="nav-icon fa-solid fa-chevron-right nav-icon"></i>
+                            <i class="nav-icon fas fa-file-signature nav-icon"></i>
                             <p>รายการคำขอปฏิบัติแทน</p>
                         </a>
                     </li>

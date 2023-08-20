@@ -103,21 +103,19 @@
                     <div class="collapse" id="collapseExample">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
+                                <div class="row d-flex justify-content-center">
                                     @php
-                                        $bg = ['','','','','#f1fbff;', '#ffe6f5', '#f9e3ff', '#e2f5de', '#fff7f0', '#eff4f9'];
-                                        $icon_color = ['','','','','#00b7fe', '#ff009b', '#c600fe', '#1fb500', '#ff6a00', '#507090'];
-                                        $icon = ['','','','','fa-solid fa-baby', 'fa-solid fa-heart', 'fa-solid fa-hospital-user', 'fa-solid fa-person-rifle', 'fa-solid fa-hands-praying', 'fa-solid fa-book'];
+                                        $bg = ['','','','#eef7ff','#f1fbff;', '#ffe6f5', '#f9e3ff', '#e2f5de', '#fff7f0'];
+                                        $icon_color = ['','','','#6d99c5','#00b7fe', '#ff009b', '#c600fe', '#1fb500', '#ff6a00'];
+                                        $icon = ['','','','fa-solid fa-book','fa-solid fa-baby', 'fa-solid fa-heart', 'fa-solid fa-hospital-user', 'fa-solid fa-person-rifle', 'fa-solid fa-hands-praying'];
                                         $count = 0;
                                     @endphp
                                     @foreach($users_data as $row)
 
-                                        @if ($count >= 4 && $count < 9)
+                                        @if ($count >= 3 && $count < 9)
                                             {{-- ลาอื่นๆ --}}
                                             <div class="col-md-2">
-                                                <div
-                                                    class="card-box-other d-flex justify-content-between align-items-center"
-                                                    data-toggle="modal" data-target="#modal{{ $count }}">
+                                            <div class="card-box-other d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modal{{ $count }}">
                                                     <div class="d-flex justify-content-between">
                                                         <div class="align-items-center d-flex justify-content-center"
                                                              style="background-color: {{ $bg[$count] }}; height:70px;width:70px;border-radius:50px">

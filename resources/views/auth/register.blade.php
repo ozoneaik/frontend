@@ -134,7 +134,8 @@
                                     <input id="email" type="email"
                                            class="form-control @error('email') is-invalid @enderror"
                                            name="email" value="{{ old('email') }}" required
-                                           title="อีเมลต้องเป็น @bda.co.th เท่านั้น" pattern=".+@bda.co.th" autocomplete="email">
+                                           title="อีเมลต้องเป็น @bda.co.th เท่านั้น" pattern=".+@bda.co.th"
+                                           autocomplete="email">
 
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -154,8 +155,8 @@
 
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
@@ -179,7 +180,8 @@
                                         <option value="0">พนักงานทั่วไป</option>
                                         <option value="1">Project Manager</option>
                                         <option value="2">HR (รับผิดชอบในส่วนของใบลา)</option>
-                                        <option value="4">HR</option>
+                                        <option value="3">HR</option>
+                                        <option value="4">CEO</option>
                                     </select>
 
                                 </div>

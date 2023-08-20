@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="col-md-2 d-flex align-items-end">
                                         <div class="form-group mr-2">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-success">ค้นหา</button>
                                         </div>
                                         @if(Request::RouteIs('filter.req'))
 
