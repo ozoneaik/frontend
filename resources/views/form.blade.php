@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
-@section('title')
-    {{'เพิ่มใบลา'}}
-@endsection
+@section('title'){{'เพิ่มใบลา'}}@endsection
 
 @section('content')
 
@@ -112,6 +110,7 @@
                                             <div class="col-md-12">
                                                 <label>ลาทั้งหมด</label>
                                                 <p id="result" class="form-control"></p>
+                                                <input type="hidden" id="calculated-result" name="leave_total">
                                             </div>
                                             {{-- เหตุผลการลา --}}
                                             <div class="col-md-12">
@@ -413,6 +412,7 @@
                 Math.floor(totalMinutes / 60) + " ชั่วโมง " +
                 (totalMinutes % 60) + " นาที ";
 
+            document.getElementById("calculated-result").value = result;
             document.getElementById("result").innerHTML = result;
         }
     </script>

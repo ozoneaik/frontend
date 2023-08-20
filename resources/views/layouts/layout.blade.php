@@ -153,11 +153,6 @@
 
                     {{-- Project manager --}}
                     @if(Auth::user()->type == 'pm')
-
-
-
-
-
                         <li class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
@@ -347,9 +342,9 @@
             var confirmModal = $('#confirmModal_rep');
             console.log(value);
             confirmModal.find('input[name=approve_rep]').val(value);
-            if (value === '❌') {
+            if (value === 'disapproval') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
-            } else if (value === '✔️') {
+            } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
             }
             confirmModal.modal('show');
@@ -372,11 +367,11 @@
             var confirmModal = $('#confirmModal_hr');
             console.log(value);
             confirmModal.find('input[name=approve_hr]').val(value);
-            if (value === '❌') {
+            if (value === 'disapproval') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                 confirmModal.find('.reason_hr').hide();
                 confirmModal.find('#not_allowed_hr').show();
-            } else if (value === '✔️') {
+            } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                 confirmModal.find('.modal-body .form-group').show();
                 confirmModal.find('#not_allowed_hr').hide();
@@ -400,11 +395,11 @@
             var confirmModal = $('#confirmModal_ceo');
             console.log(value);
             confirmModal.find('input[name=approve_ceo]').val(value);
-            if (value === '❌') {
+            if (value === 'disapproval') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                 confirmModal.find('.reason_ceo').hide();
                 confirmModal.find('#not_allowed_ceo').show();
-            } else if (value === '✔️') {
+            } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                 confirmModal.find('.modal-body .form-group').show();
                 confirmModal.find('#not_allowed_ceo').hide();

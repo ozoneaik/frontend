@@ -161,9 +161,9 @@
                                             <h3 class="card-title font-weight-bold">
                                                 <i class="fa-solid fa-user mr-2"></i>
                                                 ระหว่างการลามอบหมายให้ </h3>
-                                            @if ($leaveforms->approve_rep == '❌')
+                                            @if ($leaveforms->approve_rep == 'disapproval')
                                                 <span class="card-title float-right text-sm btn btn-xs btn-danger">ปฏิเสธในการปฏิบัติทำแทนแล้ว</span>
-                                            @elseif($leaveforms->approve_rep == '✔️')
+                                            @elseif($leaveforms->approve_rep == 'approve')
                                                 <span class="card-title float-right text-sm btn btn-xs btn-success">ยินยอมในการปฏิบัติทำแทนแล้ว</span>
                                             @elseif(is_null($leaveforms->sel_rep))
                                                 <span class="card-title float-right text-sm btn btn-xs btn-info">ไม่มีผู้ปฏิบัติงานแทน</span>
@@ -237,7 +237,8 @@
                                         <div class="card-header">
                                             <h3 class="card-title font-weight-bold">
                                                 <i class="fa-solid fa-file-waveform mr-2"></i>
-                                                สถานะ </h3>
+                                                สถานะ
+                                            </h3>
                                         </div>
                                         <div class="card-body text-center">
                                             <h1 class="pb-4 display-3 font-weight-bold {{ $leaveforms->status == 'อนุมัติ' ? 'text-success' : ($leaveforms->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
@@ -256,12 +257,46 @@
                                                             Solution Architect Director
                                                         </span>
                                                 </h5>
+                                            @else
+                                                <p class="font-weight-bold">Project manager(PM)
+                                                    <button class="btn btn-sm @if($leaveforms->approve_pm == 'in_progress') btn-secondary">กำลังดำเนินการ
+                                                        @elseif($leaveforms->approve_pm == 'approve')
+                                                            btn-success">อนุมัติแล้ว
+                                                        @elseif($leaveforms->approve_pm == 'disapproval')
+                                                            btn-danger">ไม่อนุมัติ
+                                                        @elseif($leaveforms->approve_pm == '-')
+                                                            btn-light"> -
+                                                        @endif
+                                                    </button>
+                                                </p>
+                                                <p class="font-weight-bold">Human Resources(HR)
+                                                    <button class="btn btn-sm @if($leaveforms->approve_hr == 'in_progress') btn-secondary">กำลังดำเนินการ
+                                                        @elseif($leaveforms->approve_hr == 'approve')
+                                                            btn-success">อนุมัติแล้ว
+                                                        @elseif($leaveforms->approve_hr == 'disapproval')
+                                                            btn-danger">ไม่อนุมัติ
+                                                        @elseif($leaveforms->approve_hr == '-')
+                                                            btn-light"> -
+                                                        @endif
+                                                    </button>
+                                                </p>
+                                                <p class="font-weight-bold">Solution Architect Director(CEO)
+                                                    <button class="btn btn-sm @if($leaveforms->approve_ceo == 'in_progress') btn-secondary">กำลังดำเนินการ
+                                                        @elseif($leaveforms->approve_ceo == 'approve')
+                                                            btn-success">อนุมัติแล้ว
+                                                        @elseif($leaveforms->approve_ceo == 'disapproval')
+                                                            btn-danger">ไม่อนุมัติ
+                                                        @elseif($leaveforms->approve_ceo == '-')
+                                                            btn-light"> -
+                                                        @endif
+                                                    </button>
+                                                </p>
                                             @endif
 
                                         </div>
                                     </div>
                                     {{-- ความเห็น Project manager --}}
-                                    @if ($leaveforms->approve_pm != '⌛' && $leaveforms->approve_pm != '-')
+                                    @if ($leaveforms->approve_pm != 'in_progress' && $leaveforms->approve_pm != '-')
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
@@ -293,7 +328,7 @@
                                         </div>
                                     @endif
                                     {{-- ความเห็น Human Resources (HR) --}}
-                                    @if ($leaveforms->approve_hr != '⌛' && $leaveforms->approve_hr != '-')
+                                    @if ($leaveforms->approve_hr != 'in_progress' && $leaveforms->approve_hr != '-')
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
@@ -302,14 +337,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>
-                                                    @if($leaveforms->approve_hr != '❌')
+                                                    @if($leaveforms->approve_hr != 'disapproval')
                                                         @if ($leaveforms->reason_hr)
                                                             {{ $leaveforms->reason_hr}}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
                                                     @endif
-                                                    @if($leaveforms->approve_hr != '✔️')
+                                                    @if($leaveforms->approve_hr != 'approve')
                                                         @if ($leaveforms->not_allowed_hr)
                                                             {{ $leaveforms->not_allowed_hr }}
                                                         @else
@@ -321,7 +356,7 @@
                                         </div>
                                     @endif
                                     {{-- ความเห็น Solution Architect Director --}}
-                                    @if ($leaveforms->approve_ceo != '⌛' && $leaveforms->approve_ceo != '-')
+                                    @if ($leaveforms->approve_ceo != 'in_progress' && $leaveforms->approve_ceo != '-')
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
@@ -330,14 +365,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>
-                                                    @if($leaveforms->approve_ceo != '❌')
+                                                    @if($leaveforms->approve_ceo != 'disapproval')
                                                         @if ($leaveforms->reason_ceo)
                                                             {{ $leaveforms->reason_ceo}}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
                                                     @endif
-                                                    @if($leaveforms->approve_ceo != '✔️')
+                                                    @if($leaveforms->approve_ceo != 'approve')
                                                         @if ($leaveforms->not_allowed_ceo)
                                                             {{ $leaveforms->not_allowed_ceo }}
                                                         @else

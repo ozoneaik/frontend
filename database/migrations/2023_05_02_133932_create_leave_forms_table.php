@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('sel_rep')->index()->nullable();
             $table->foreign('sel_rep')->references('id')->on('users');
-            $table->string('approve_rep')->nullable()->default('⌛')->comment('อนุมัติโดย rep');//✔️❌⌛
+            $table->string('approve_rep')->nullable()->default('in_progress')->comment('อนุมัติโดย rep');
             $table->string('case_no_rep')->nullable()->comment('กรณีไม่มีผู้ปฏิบัติงานแทน');
 
             $table->unsignedBigInteger('sel_pm')->index()->nullable();
@@ -35,13 +35,13 @@ return new class extends Migration
             $table->string('reason_pm')->nullable()->comment('ความเห็น PM');
             $table->string('allowed_pm')->nullable()->comment('อนุญาตตามสิทธิ์พนักงาน');
             $table->string('not_allowed_pm')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
-            $table->string('approve_pm')->nullable()->default('⌛')->comment('อนุมัติโดย pm');
+            $table->string('approve_pm')->nullable()->default('in_progress')->comment('อนุมัติโดย pm');
 
-            $table->string('approve_hr')->nullable()->default('⌛')->comment('อนุมัติโดย hr');
+            $table->string('approve_hr')->nullable()->default('in_progress')->comment('อนุมัติโดย hr');
             $table->string('reason_hr')->nullable()->comment('ความเห็น HR');
             $table->string('not_allowed_hr')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
 
-            $table->string('approve_ceo')->nullable()->default('⌛')->comment('อนุมัติโดย ceo');
+            $table->string('approve_ceo')->nullable()->default('in_progress')->comment('อนุมัติโดย ceo');
             $table->string('reason_ceo')->nullable()->comment('ความเห็น CEO');
             $table->string('not_allowed_ceo')->nullable()->comment('ไม่อนุญาติเนื่องจาก');
 
