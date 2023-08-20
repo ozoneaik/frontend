@@ -27,8 +27,8 @@ class LeaveFormController extends Controller
                 'leave_start' => 'required',
                 'leave_end' => 'required',
                 'reason' => 'nullable|max:255',
-                'file1' => 'nullable|mimes:pdf,png,jpg',
-                'file2' => 'nullable|mimes:pdf,png,jpg',
+                'file1' => 'nullable|mimes:pdf,png,jpg|max:10240',
+                'file2' => 'nullable|mimes:pdf,png,jpg|max:10240',
                 'sel_rep' => 'nullable',
                 'sel_pm' => 'nullable',
                 'case_no_rep' => 'nullable|numeric|digits:10',
@@ -41,7 +41,9 @@ class LeaveFormController extends Controller
                 'leave_start.required' => 'กรุณากรอกวันที่เริ่มต้นการลา',
                 'leave_end.required' => 'กรุณากรอกวันที่สิ้นสุดการลา',
                 'file1.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น',
-                'file2.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น'
+                'file2.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น',
+                'file1.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',
+                'file2.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',
             ]
         );
 
@@ -73,7 +75,7 @@ class LeaveFormController extends Controller
         if ($startDate->hour >= 13 && $endDate->hour <= 12) {
             $remainingHours -= 15;
         }
-        if ($startDate->hour >= 13 && $endDate->hour >= 13 && $startDate->hour > $endDate->hour){
+        if ($startDate->hour >= 13 && $endDate->hour >= 13 && $startDate->hour > $endDate->hour) {
             $remainingHours -= 8;
             $days -= 1;
         }
@@ -165,7 +167,7 @@ class LeaveFormController extends Controller
     //ตารางแสดงขอปฏิบัติแทน
     public function rep()
     {
-        $leaves = LeaveForm::where('sel_rep', Auth::user()->id)->get();
+        $leaves = LeaveForm::where('sel_rep', Auth::user()->id)->orderByDesc('created_at')->get();
         $users = User::all();
         return view('rep_list', compact('leaves', 'users'));
     }
@@ -216,7 +218,7 @@ class LeaveFormController extends Controller
     //เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน[Project manager]
     public function PM_req()
     {
-        $leaves = leaveform::all();
+        $leaves = Leaveform::orderByDesc('created_at')->get();
         $users = User::all();
         return view('pm.req_list_emp', compact('leaves', 'users'));
     }

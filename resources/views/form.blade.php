@@ -137,7 +137,7 @@
                                                     <label for="">เอกสารประกอบการลา</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="file1" name="file1" value="{{ old('file1', '') }}">
+                                                            <input type="file" class="custom-file-input" id="file1" name="file1" value="{{ old('file1', '') }}" accept=".png, .jpg, .pdf, .jpeg">
                                                             <label class="custom-file-label" for="file1">อัปโหลด</label>
                                                         </div>
                                                     </div>
@@ -152,7 +152,7 @@
                                                     <label for="">เอกสารประกอบการลาเพิ่มเติม (ถ้ามี)</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="file2" name="file2" value="{{ old('file2', '') }}">
+                                                            <input type="file" class="custom-file-input" id="file2" name="file2" value="{{ old('file2', '') }}" accept=".png, .jpg, .pdf, .jpeg">
                                                             <label class="custom-file-label" for="file2">อัปโหลด</label>
                                                         </div>
                                                     </div>

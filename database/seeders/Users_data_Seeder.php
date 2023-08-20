@@ -37,38 +37,38 @@ class Users_data_Seeder extends Seeder
             ],
             [
                 'leave_type_id' => 4,
+                'leave_type_name' => 'ลาเพื่อฝึกอบรม',
+                'time_remain' => '7 วัน 0 ชั่วโมง 0 นาที',
+                'time_already_used' => '0 วัน 0 ชั่วโมง 0 นาที',
+            ],
+            [
+                'leave_type_id' => 5,
                 'leave_type_name' => 'ลาคลอดบุตร',
                 'time_remain' => '98 วัน 0 ชั่วโมง 0 นาที',
                 'time_already_used' => '0 วัน 0 ชั่วโมง 0 นาที',
             ],
             [
-                'leave_type_id' => 5,
+                'leave_type_id' => 6,
                 'leave_type_name' => 'ลาเพื่อสมรส',
                 'time_remain' => '7 วัน 0 ชั่วโมง 0 นาที',
                 'time_already_used' => '0 วัน 0 ชั่วโมง 0 นาที',
             ],
             [
-                'leave_type_id' => 6,
+                'leave_type_id' => 7,
                 'leave_type_name' => 'ลาเพื่อทำหมัน',
                 'time_remain' => '5 วัน 0 ชั่วโมง 0 นาที',
                 'time_already_used' => '0 วัน 0 ชั่วโมง 0 นาที',
             ],
             [
-                'leave_type_id' => 7,
+                'leave_type_id' => 8,
                 'leave_type_name' => 'ลารับราชการทหาร',
                 'time_remain' => '60 วัน 0 ชั่วโมง 0 นาที',
                 'time_already_used' => '0 วัน 0 ชั่วโมง 0 นาที',
             ],
             [
-                'leave_type_id' => 8,
+                'leave_type_id' => 9,
                 'leave_type_name' => 'ลาอุปสมบท',
                 'time_remain' => '5 วัน 0 ชั่วโมง 0 นาที',
-                'time_already_used' => '0 วัน 0 ชั่วโมง 0 นาที',
-            ],
-            [
-                'leave_type_id' => 9,
-                'leave_type_name' => 'ลาเพื่อฝึกอบรม',
-                'time_remain' => '7 วัน 0 ชั่วโมง 0 นาที',
                 'time_already_used' => '0 วัน 0 ชั่วโมง 0 นาที',
             ]
         ];

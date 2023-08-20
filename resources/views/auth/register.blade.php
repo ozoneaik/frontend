@@ -134,7 +134,7 @@
                                     <input id="email" type="email"
                                            class="form-control @error('email') is-invalid @enderror"
                                            name="email" value="{{ old('email') }}" required
-                                           title="อีเมลต้องเป็น @bda.co.th เท่านั้น" autocomplete="email">
+                                           title="อีเมลต้องเป็น @bda.co.th เท่านั้น" pattern=".+@bda.co.th" autocomplete="email">
 
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">

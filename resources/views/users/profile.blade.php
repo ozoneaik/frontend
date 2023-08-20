@@ -135,7 +135,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="birthday">วันเดือนปีเกิด</label>
-                                                                    <input class="form-control" type="datetime-local" name="birthday" placeholder="{{ \Carbon\Carbon::parse($user->birthday)->addYears(543)->format('d/m/Y') }}">
+                                                                    <input class="form-control" type="date" name="birthday" placeholder="{{ \Carbon\Carbon::parse($user->birthday)->addYears(543)->format('d/m/Y') }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">

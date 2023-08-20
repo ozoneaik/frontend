@@ -33,8 +33,8 @@ class HomeController extends Controller
         $leaves = LeaveForm::where('user_id', Auth::user()->id)->latest()->get();
         $users_data = users_leave_data::where('user_id', Auth::user()->id)->get();
         $leaves_rep = LeaveForm::where('sel_rep', Auth::user()->id)->latest()->get();
-        // dd($leaves);
-        return view('home', compact('leaves', 'users', 'users_data', 'leaves_rep'));
+//         dd($users_data);
+        return view('home', compact('leaves','users', 'users_data', 'leaves_rep'));
     }
 
     // โปรไฟล์ตัวเอง

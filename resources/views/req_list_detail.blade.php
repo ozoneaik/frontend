@@ -165,6 +165,8 @@
                                                 <span class="card-title float-right text-sm btn btn-xs btn-danger">ปฏิเสธในการปฏิบัติทำแทนแล้ว</span>
                                             @elseif($leaveforms->approve_rep == '✔️')
                                                 <span class="card-title float-right text-sm btn btn-xs btn-success">ยินยอมในการปฏิบัติทำแทนแล้ว</span>
+                                            @elseif(is_null($leaveforms->sel_rep))
+                                                <span class="card-title float-right text-sm btn btn-xs btn-info">ไม่มีผู้ปฏิบัติงานแทน</span>
                                             @else
                                                 <span class="card-title float-right text-sm btn btn-xs btn-info">กำลังดำเนินการ</span>
                                             @endif

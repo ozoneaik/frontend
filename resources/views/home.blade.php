@@ -6,24 +6,28 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            {{-- ลา 3 อันแรก--}}
+            {{-- ลา 4 อันแรก--}}
             <div class="row mb-3">
                 <link rel="stylesheet" href="{{ asset('style/css.css') }}">
-                @php
-                    $colors = array('#E8533D', '#5182FF', '#FEAD10');
-                    $colors1 = array('#F37762', '#759CFF', '#FFCA62');
-                    $icon = array('fa-solid fa-stethoscope','fa-solid fa-business-time', 'fa-solid fa-umbrella-beach');
 
+                @php
+                    $colors = array('#E8533D', '#5182FF', '#FEAD10','#6d99c5');
+                    $colors1 = array('#F37762', '#759CFF', '#FFCA62','#92b3d4');
+                    $icon = array('fa-solid fa-stethoscope','fa-solid fa-business-time', 'fa-solid fa-umbrella-beach','fa-solid fa-book',);
                     $count = 0;
                 @endphp
+
                 @foreach($users_data as $row)
                     @if($row->user_id == Auth::user()->id)
-                        @if ($count < 3)
-                            <div class="col-lg-4 mb-2">
+                        @if ($count == 0 ||$count == 1||$count == 2||$count == 3)
+
+                            <div class="col-lg-3 mb-2">
                                 <div class="card-box" style="background-color: {{ $colors[$count % count($colors)] }};">
                                     <div class="content1">
-                                        <div class="icon-card" style="background-color:{{ $colors1[$count % count($colors1)] }}">
-                                            <i class="{{ $icon[$count % count($icon)] }}" style="width: 50px; height:50px; color:white"></i>
+                                        <div class="icon-card"
+                                             style="background-color:{{ $colors1[$count % count($colors1)] }}">
+                                            <i class="{{ $icon[$count % count($icon)] }}"
+                                               style="width: 50px; height:50px; color:white"></i>
                                         </div>
                                         @php
                                             $parts = explode(' ', $row->time_already_used);
@@ -48,19 +52,23 @@
                                             <p class="mb-0">{{ $row->leave_type_name }}</p>
                                         </div>
                                         <div class="detail">
-                                            <button class="btn btn-link pr-0" href="" data-toggle="modal" data-target="#card{{$count}}">
+                                            <button class="btn btn-link pr-0" href="" data-toggle="modal"
+                                                    data-target="#card{{$count}}">
                                                 <i class="fas fa-file-lines fa-xl" style="color:white"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- modal ลาป่วย --}}
-                                <div class="modal fade" id="card{{$count}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                {{--                                 modal ลาป่วย--}}
+                                <div class="modal fade" id="card{{$count}}" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $row->leave_type_name }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <h5 class="modal-title"
+                                                    id="exampleModalLongTitle">{{ $row->leave_type_name }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -72,22 +80,21 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>@php
-                                $count++;
-                            @endphp
+                            </div>
+                            @php $count++; @endphp
                         @endif
                     @endif
-                    @if ($count >= 3)
-                        @break
-                    @endif
+                    {{--                    @if ($count >= 4)--}}
+                    {{--                        @break--}}
+                    {{--                    @endif--}}
                 @endforeach
             </div>
-
 
             {{-- ลาอื่นๆ --}}
             <div class="row">
                 <div class="col-lg-12">
-                    <a class="btn btn-outline-primary btn-block mb-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="btn btn-outline-primary btn-block mb-3" data-toggle="collapse" href="#collapseExample"
+                       role="button" aria-expanded="false" aria-controls="collapseExample">
                         ประเภทการลาเพิ่มเติม
                     </a>
                 </div>
@@ -98,20 +105,24 @@
                             <div class="card-body">
                                 <div class="row">
                                     @php
-                                        $bg = [' ',' ',' ', '#f1fbff;', '#ffe6f5', '#f9e3ff', '#e2f5de', '#fff7f0', '#eff4f9'];
-                                        $icon_color = [' ',' ',' ','#00b7fe', '#ff009b', '#c600fe', '#1fb500', '#ff6a00', '#507090'];
-                                        $icon = [' ',' ',' ','fa-solid fa-baby', 'fa-solid fa-heart', 'fa-solid fa-hospital-user', 'fa-solid fa-person-rifle', 'fa-solid fa-hands-praying', 'fa-solid fa-book'];
+                                        $bg = ['','','','','#f1fbff;', '#ffe6f5', '#f9e3ff', '#e2f5de', '#fff7f0', '#eff4f9'];
+                                        $icon_color = ['','','','','#00b7fe', '#ff009b', '#c600fe', '#1fb500', '#ff6a00', '#507090'];
+                                        $icon = ['','','','','fa-solid fa-baby', 'fa-solid fa-heart', 'fa-solid fa-hospital-user', 'fa-solid fa-person-rifle', 'fa-solid fa-hands-praying', 'fa-solid fa-book'];
                                         $count = 0;
                                     @endphp
                                     @foreach($users_data as $row)
 
-                                        @if ($count >= 3 && $count < 9)
+                                        @if ($count >= 4 && $count < 9)
                                             {{-- ลาอื่นๆ --}}
                                             <div class="col-md-2">
-                                                <div class="card-box-other d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modal{{ $count }}">
+                                                <div
+                                                    class="card-box-other d-flex justify-content-between align-items-center"
+                                                    data-toggle="modal" data-target="#modal{{ $count }}">
                                                     <div class="d-flex justify-content-between">
-                                                        <div class="align-items-center d-flex justify-content-center" style="background-color: {{ $bg[$count] }}; height:70px;width:70px;border-radius:50px">
-                                                            <i class="{{ $icon[$count] }} fa-2xl" style="color:{{ $icon_color[$count] }}"></i>
+                                                        <div class="align-items-center d-flex justify-content-center"
+                                                             style="background-color: {{ $bg[$count] }}; height:70px;width:70px;border-radius:50px">
+                                                            <i class="{{ $icon[$count] }} fa-2xl"
+                                                               style="color:{{ $icon_color[$count] }}"></i>
                                                         </div>
                                                         @php
                                                             $parts = explode(' ', $row->time_already_used);
@@ -126,7 +137,8 @@
                                                             }
                                                         @endphp
                                                         <div class="ml-2 d-flex flex-column justify-content-center">
-                                                            <p class="text-dark font-weight-bold mb-0" style="font-size: 18px;">
+                                                            <p class="text-dark font-weight-bold mb-0"
+                                                               style="font-size: 18px;">
                                                                 {{ $row->leave_type_name }}
                                                             </p>
                                                             <p class="text-dark mb-0" style="color:black">{{ $D }}
@@ -137,13 +149,15 @@
                                                 </div>
                                             </div>
                                             <!-- Modal ลาอื่นๆ -->
-                                            <div class="modal fade" id="modal{{ $count }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ $count }}Label" aria-hidden="true">
+                                            <div class="modal fade" id="modal{{ $count }}" tabindex="-1" role="dialog"
+                                                 aria-labelledby="modal{{ $count }}Label" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="modal{{ $count }}Label">
                                                                 {{ $row->leave_type_name  }}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -194,67 +208,50 @@
                         </div>
                         <div class="card-body">
                             {{-- data-table --}}
-
-                            <table id="data-table" class="table table-bordered table-hover text-center">
+                            <table id="req_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
-                                    <th>วันที่ยื่น</th>
-                                    <th style="{{ $style }} max-width: 80px;">ประเภทการลา</th>
-                                    <th style="{{ $style }} max-width: 80px;">ลาตั้งแต่ - ถึง</th>
-                                    <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
-                                    <th style="{{ $style }} max-width: 80px;">ผู้ปฏิบัติงานแทน</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(PM)</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(HR)</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(CEO)</th>
-                                    <th>สถานะ</th>
-                                    <th style="{{ $style }} max-width: 50px;">
-                                        รายละเอียด
-                                    </th>
+                                    <th style="{{ $style }} max-width: 40px;">วันที่ยื่นคำร้อง</th>
+                                    <th style="{{ $style }} max-width: 40px;">ประเภทการลา</th>
+                                    <th style="{{ $style }} max-width: 40px;">วันที่ลาตั้งแต่</th>
+                                    <th style="{{ $style }} max-width: 40px;">ถึง</th>
+                                    <th style="{{ $style }} max-width: 40px;">ลาทั้งหมด</th>
+                                    <th style="{{ $style }} max-width: 30px;">ผู้ปฏิบัติงานแทน</th>
+                                    <th style="{{ $style }} max-width: 50px;">สถานะ</th>
+                                    <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php
-                                    $counter_req = 0;
-                                    $counter_rep = 0;
-                                @endphp
                                 @foreach ($leaves as $row)
-                                    @if ($counter_req < 10)
-                                        <tr>
-                                            <td style="{{ $style }} max-width: 80px;">
-                                                {{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
+                                    <tr>
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->leave_type }}</td>
+                                        <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->leave_total }}</td>
+                                        @if (!$row->sel_rep || $row->approve_rep == '❌')
+                                            <td style="{{ $style }} max-width: 40px;">
+                                                ไม่มีผู้ปฏิบัติแทน
+                                                @if($row->approve_rep == '❌') ถูกปฏิเสธ @endif
                                             </td>
-                                            <td>{{ $row->leave_type }}</td>
-                                            <td style="{{ $style }} max-width: 100px;">
-                                                {{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
-                                                ถึง
-                                                {{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
-                                            </td>
-                                            <td style="{{ $style }} max-width: 100px;">
-                                                {{ $row->leave_total }}</td>
-                                            @if (!$row->sel_rep)
-                                                <td>ไม่มีผู้ปฏิบัติแทน</td>
-                                            @else
-                                                <td>{{ $usersMap[$row->sel_rep] }}</td>
-                                            @endif
-                                            {{-- <td>{{$row->sel_rep }}</td> --}}
-                                            <td>{{ $row->approve_rep }}</td>
-                                            <td>{{ $row->approve_pm }}</td>
-                                            <td>{{ $row->approve_hr }}</td>
-                                            <td>{{ $row->approve_ceo }}</td>
-                                            <td style="{{ $style }} max-width: 50px;" class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
+                                        @else
+                                            <td style="{{ $style }} max-width: 40px;">{{ $row->representative->name }}</td>
+                                        @endif
+                                        <td style="{{ $style }} max-width: 40px;" class="">
+                                            <button class="btn btn-sm rounded-pill text-dark"
+                                                    style="background-color: @if($row->status == 'อนุมัติ') #c8ffd5;width: 80px @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
                                                 {{ $row->status }}
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('req.detail', $row->id) }}">
-                                                    <i class="fas fa-file-invoice"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                    @php
-                                        $counter_req++;
-                                    @endphp
+                                            </button>
+                                        </td>
+                                        <td style="{{ $style }} max-width: 20px;">
+                                            <a href="{{ route('req.detail', $row->id) }}">
+                                                <i class="fas fa-file-invoice"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -301,10 +298,6 @@
                                     <th style="{{ $style }} max-width: 80px;">ถึง</th>
                                     <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
                                     <th style="{{ $style }} max-width: 50px;">จาก</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(PM)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(HR)</th>
-                                    <th style="{{ $style }} max-width: 90px;">อนุมัติ(CEO)</th>
                                     <th style="{{ $style }} max-width: 30px;">สถานะ</th>
                                     <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
                                 </tr>
@@ -312,22 +305,17 @@
                                 <tbody>
                                 @foreach ($leaves_rep as $row)
                                     <tr>
-                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}
-                                        </td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->leave_type }}</td>
-                                        <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
-                                        </td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
-                                        </td>
+                                        <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}</td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->leave_total }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">{{ $usersMap[$row->user_id] }}</td>
-                                        {{-- <td>{{$row->sel_rep}}</td> --}}
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_rep }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_pm }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_hr }}</td>
-                                        <td style="{{ $style }} max-width: 40px;">{{ $row->approve_ceo }}</td>
-                                        <td style="{{ $style }} max-width: 40px;" class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
-                                            {{ $row->status }}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{$row->relation_user->name}}</td>
+                                        <td style="{{ $style }} max-width: 40px;" class="">
+                                            <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                                {{ $row->status }}
+                                            </button>
+                                        </td>
                                         <td style="{{ $style }} max-width: 10px;">
                                             <a href="{{ route('rep.detail', $row->id) }}">
                                                 <i class="fas fa-file-invoice"></i>

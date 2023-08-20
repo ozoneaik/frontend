@@ -136,41 +136,34 @@
                             <p>เมนูหลัก</p>
                         </a>
                     </li>
-                    <li class="nav-item {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'rep', 'rep.detail', 'create') ? 'active' : '' }}">
+
+                    {{-- รายการคำขอ --}}
+                    <li class="nav-item">
+                        <a href="{{ route('req') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-file-alt"></i>
-                            <p>
-                                รายการคำขอ
-                                <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">2</span>
-                            </p>
+                            <p>รายการคำขอใบลา</p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('req') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
-                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                    <p>รายการคำขอใบลา</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('rep') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
-                                    <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                    <p>รายการคำขอปฏิบัติแทน</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('rep') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-chevron-right nav-icon"></i>
+                            <p>รายการคำขอปฏิบัติแทน</p>
+                        </a>
+                    </li>
+
                     {{-- Project manager --}}
                     @if(Auth::user()->type == 'pm')
+
+
+
+
+
                         <li class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
                                     Project manager
                                     <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">1</span>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
