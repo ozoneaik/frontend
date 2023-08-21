@@ -363,7 +363,6 @@ class LeaveFormController extends Controller
             ],
             [
                 'approve_ceo.required' => 'no requ',
-                // 'allowed_pm.required' => 'โปรดเลือก',
                 'reason_ceo.max' => 'ป้อนเกิน 255',
                 'not_allowed_ceo.max' => 'ป้อนเกิน 255',
             ]

@@ -79,7 +79,11 @@
                                             @else
                                                 <td style="{{ $style }} max-width: 40px;">{{$leave->representative->name}}</td>
                                             @endif
-                                            <td style="{{ $style }} max-width: 50px;" class="{{ $leave->status == 'อนุมัติ' ? 'text-success table-success' : ($leave->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">{{ $leave->status }}</td>
+                                            <td style="{{ $style }} max-width: 40px;" class="">
+                                                <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($leave->status == 'อนุมัติ') #c8ffd5 @elseif($leave->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                                    {{ $leave->status }}
+                                                </button>
+                                            </td>
                                             <td style="{{ $style }} max-width: 50px;">
                                                 <a href="{{route('hr.req.emp.detail',$leave->id)}}"><i
                                                         class="fas fa-file-invoice"></i>

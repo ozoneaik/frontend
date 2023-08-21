@@ -77,6 +77,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::middleware(['auth', 'user-access:hr(admin),ceo'])->group(function () {
         Route::get('/data_users', [HomeController::class, 'data_users'])->name('data.users');
         Route::get('/data_user_detail/{id}', [HomeController::class, 'data_user_detail'])->name('data.user.detail');
+        Route::get('/data_user_history/{id}', [HomeController::class,'data_user_history'])->name('data.user.history');
         Route::match(['get', 'post'], '/leave_update/{id}', [HomeController::class, 'update_leave_data'])->name('leave.update');
     })->middleware(UserAccess::class);
 

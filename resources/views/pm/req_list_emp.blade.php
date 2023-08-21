@@ -75,10 +75,7 @@
                                                 <td style="{{$style}} max-width:50px">{{ \Carbon\Carbon::parse($leave->leave_end)->addYears(543)->format('d/m/Y H:i')}}</td>
                                                 <td style="{{$style}} max-width:50px">{{$leave->leave_total}}</td>
                                                 @if (!$leave->sel_rep || $leave->approve_rep == 'disapproval')
-                                                    <td style="{{ $style }} max-width: 40px;">
-                                                        ไม่มีผู้ปฏิบัติแทน @if($leave->approve_rep == 'disapproval')
-                                                            ถูกปฏิเสธ
-                                                        @endif</td>
+                                                    <td style="{{ $style }} max-width: 40px;">ไม่มีผู้ปฏิบัติแทน@if($leave->approve_rep == 'disapproval') ถูกปฏิเสธ @endif</td>
                                                 @else
                                                     <td style="{{ $style }} max-width: 40px;">{{$leave->representative->name}}</td>
                                                 @endif
