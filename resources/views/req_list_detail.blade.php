@@ -50,35 +50,40 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="">รหัสพนักงาน</label>
-                                                        <p class="form-control" readonly>{{$leaveforms->relation_user->id}}</p>
+                                                        <p class="form-control"
+                                                           readonly>{{$leaveforms->relation_user->id}}</p>
                                                     </div>
                                                 </div>
                                                 {{-- ชื่อ-นามสกุล --}}
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="">ชื่อ-นามสกุล</label>
-                                                        <p class="form-control" readonly>{{$leaveforms->relation_user->name}}</p>
+                                                        <p class="form-control"
+                                                           readonly>{{$leaveforms->relation_user->name}}</p>
                                                     </div>
                                                 </div>
                                                 {{-- ชื่อเล่น --}}
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="">ชื่อเล่น</label>
-                                                        <p class="form-control" readonly>{{$leaveforms->relation_user->nick_name}}</p>
+                                                        <p class="form-control"
+                                                           readonly>{{$leaveforms->relation_user->nick_name}}</p>
                                                     </div>
                                                 </div>
                                                 {{-- ตำแหน่ง --}}
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="">ตำแหน่ง</label>
-                                                        <p class="form-control" readonly>{{$leaveforms->relation_user->possition}}</p>
+                                                        <p class="form-control"
+                                                           readonly>{{$leaveforms->relation_user->possition}}</p>
                                                     </div>
                                                 </div>
                                                 {{-- ประเภทการลา --}}
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="">ประเภทการลา</label>
-                                                        <p class="form-control" readonly>{{ $leaveforms->leave_type }}</p>
+                                                        <p class="form-control"
+                                                           readonly>{{ $leaveforms->leave_type }}</p>
                                                     </div>
                                                 </div>
                                                 {{-- ลาตังแต่ --}}
@@ -86,7 +91,8 @@
                                                     <div class="form-group">
                                                         <label>ลาตั้งแต่ :</label>
                                                         <div class="input-group">
-                                                            <p class="form-control" readonly>{{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i') }}</p>
+                                                            <p class="form-control"
+                                                               readonly>{{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i') }}</p>
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
                                                                     <i class="fa fa-calendar"></i>
@@ -100,7 +106,8 @@
                                                     <div class="form-group">
                                                         <label>ถึง :</label>
                                                         <div class="input-group">
-                                                            <p class="form-control" readonly>{{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i') }}</p>
+                                                            <p class="form-control"
+                                                               readonly>{{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i') }}</p>
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
                                                                     <i class="fa fa-calendar"></i>
@@ -119,7 +126,8 @@
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
                                                         @if ($leaveforms->reason)
-                                                            <textarea class="form-control p-2" rows="4" readonly>{{ $leaveforms->reason }}</textarea>
+                                                            <textarea class="form-control p-2" rows="4"
+                                                                      readonly>{{ $leaveforms->reason }}</textarea>
                                                         @else
                                                             <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
                                                         @endif
@@ -131,7 +139,8 @@
                                                         <label for="">เอกสารประกอบการลา</label>
                                                         <br>
                                                         @if ($leaveforms->file1)
-                                                            <a href="{{ asset($leaveforms->file1) }}" download>ดาวน์โหลด</a>
+                                                            <a href="{{ asset($leaveforms->file1) }}"
+                                                               download>ดาวน์โหลด</a>
                                                         @else
                                                             <p class="text-secondary">ไม่มีเอกสารประกอบการลา</p>
                                                         @endif
@@ -144,7 +153,8 @@
                                                         <label for="">เอกสารประกอบการลาเพิ่มเติม (ถ้ามี)</label>
                                                         <br>
                                                         @if ($leaveforms->file2)
-                                                            <a href="{{ asset($leaveforms->file2) }}" download>ดาวน์โหลด</a>
+                                                            <a href="{{ asset($leaveforms->file2) }}"
+                                                               download>ดาวน์โหลด</a>
                                                         @else
                                                             <p class="text-secondary">
                                                                 ไม่มีเอกสารประกอบการลาเพิ่มเติม</p>
@@ -178,7 +188,8 @@
                                                     <div class="form-group">
                                                         <label for="">รหัสพนักงาน</label>
                                                         @if ($leaveforms->sel_rep)
-                                                            <p class="form-control " readonly>{{ $leaveforms->sel_rep }}</p>
+                                                            <p class="form-control "
+                                                               readonly>{{ $leaveforms->sel_rep }}</p>
                                                         @else
                                                             <p class="form-control" readonly> - </p>
                                                         @endif
@@ -189,7 +200,8 @@
                                                     <div class="form-group">
                                                         <label for="">ชื่อ-นามสกุล</label>
                                                         @if ($leaveforms->sel_rep)
-                                                            <p class="form-control " readonly>{{$leaveforms->representative->name}}</p>
+                                                            <p class="form-control "
+                                                               readonly>{{$leaveforms->representative->name}}</p>
                                                         @else
                                                             <p class="form-control" readonly> - </p>
                                                         @endif
@@ -200,7 +212,8 @@
                                                     <div class="form-group">
                                                         <label for="">ชื่อเล่น</label>
                                                         @if ($leaveforms->sel_rep)
-                                                            <p class="form-control " readonly>{{$leaveforms->representative->nick_name}}</p>
+                                                            <p class="form-control "
+                                                               readonly>{{$leaveforms->representative->nick_name}}</p>
                                                         @else
                                                             <p class="form-control" readonly> - </p>
                                                         @endif
@@ -211,7 +224,8 @@
                                                     <div class="form-group">
                                                         <label for="">ตำแหน่ง</label>
                                                         @if ($leaveforms->sel_rep)
-                                                            <p class="form-control " readonly>{{ $leaveforms->representative->possition }}</p>
+                                                            <p class="form-control "
+                                                               readonly>{{ $leaveforms->representative->possition }}</p>
                                                         @else
                                                             <p class="form-control" readonly> - </p>
                                                         @endif
@@ -221,7 +235,8 @@
                                                     <div class="form-group">
                                                         <label for="">กรณีไม่มีผู้ปฏิบัติงานแทนสามารถ(ติดต่อ)</label>
                                                         @if ($leaveforms->case_no_rep)
-                                                            <p class="form-control" readonly>{{ $leaveforms->case_no_rep }}</p>
+                                                            <p class="form-control"
+                                                               readonly>{{ $leaveforms->case_no_rep }}</p>
                                                         @else
                                                             <p class="form-control" readonly>-</p>
                                                         @endif
@@ -258,39 +273,45 @@
                                                         </span>
                                                 </h5>
                                             @else
-                                                <p class="font-weight-bold">Project manager(PM)
-                                                    <button class="btn btn-sm @if($leaveforms->approve_pm == 'in_progress') btn-secondary">กำลังดำเนินการ
-                                                        @elseif($leaveforms->approve_pm == 'approve')
-                                                            btn-success">อนุมัติแล้ว
-                                                        @elseif($leaveforms->approve_pm == 'disapproval')
-                                                            btn-danger">ไม่อนุมัติ
-                                                        @elseif($leaveforms->approve_pm == '-')
-                                                            btn-light"> -
+                                                @if($leaveforms->approve_pm == 'in_progress')
+                                                    <p>Project manager (PM)
+                                                        <button class="btn btn-sm btn-secondary">กำลังดำเนินการ</button>
+                                                    </p>
+                                                @endif
+                                                @if($leaveforms->approve_pm == 'approve')
+                                                    <p>Project manager (PM)
+                                                        <button class="btn btn-sm btn-success">อนุมัติ</button>
+                                                    </p>
+                                                    @if($leaveforms->approve_hr == 'in_progress')
+                                                        <p>Human Resources(HR)
+                                                            <button class="btn btn-sm btn-secondary">กำลังดำเนินการ
+                                                            </button>
+                                                        </p>
+                                                    @elseif($leaveforms->approve_hr == 'approve')
+                                                        <p>Human Resources(HR)
+                                                            <button class="btn btn-sm btn-success">อนุมัติ</button>
+                                                        </p>
+                                                        @if($leaveforms->approve_ceo == 'in_progress')
+                                                            <p>Solution Architect Director
+                                                                <button class="btn btn-sm btn-secondary">กำลังดำเนินการ</button>
+                                                            </p>
+                                                            @elseif($leaveforms->approve_ceo == 'disapproval')
+                                                                <p>Solution Architect Director
+                                                                    <button class="btn btn-sm btn-danger">ไม่อนุมัติ</button>
+                                                                </p>
                                                         @endif
-                                                    </button>
-                                                </p>
-                                                <p class="font-weight-bold">Human Resources(HR)
-                                                    <button class="btn btn-sm @if($leaveforms->approve_hr == 'in_progress') btn-secondary">กำลังดำเนินการ
-                                                        @elseif($leaveforms->approve_hr == 'approve')
-                                                            btn-success">อนุมัติแล้ว
-                                                        @elseif($leaveforms->approve_hr == 'disapproval')
-                                                            btn-danger">ไม่อนุมัติ
-                                                        @elseif($leaveforms->approve_hr == '-')
-                                                            btn-light"> -
-                                                        @endif
-                                                    </button>
-                                                </p>
-                                                <p class="font-weight-bold">Solution Architect Director(CEO)
-                                                    <button class="btn btn-sm @if($leaveforms->approve_ceo == 'in_progress') btn-secondary">กำลังดำเนินการ
-                                                        @elseif($leaveforms->approve_ceo == 'approve')
-                                                            btn-success">อนุมัติแล้ว
-                                                        @elseif($leaveforms->approve_ceo == 'disapproval')
-                                                            btn-danger">ไม่อนุมัติ
-                                                        @elseif($leaveforms->approve_ceo == '-')
-                                                            btn-light"> -
-                                                        @endif
-                                                    </button>
-                                                </p>
+
+                                                    @elseif($leaveforms->approve_hr == 'disapproval')
+                                                        <p>Human Resources(HR)
+                                                            <button class="btn btn-sm btn-danger">ไม่อนุมัติ</button>
+                                                        </p>
+                                                    @endif
+                                                @endif
+                                                @if($leaveforms->approve_pm == 'disapproval')
+                                                    <p>Project manager (PM)
+                                                        <button class="btn btn-sm btn-danger">ไม่อนุมัติ</button>
+                                                    </p>
+                                                @endif
                                             @endif
 
                                         </div>
@@ -388,7 +409,8 @@
                             {{-- ปุ่มบันทึกการลา --}}
                             <div class="col-md-12 justify-content-end d-flex ">
                                 @if ($leaveforms->status == 'อนุมัติ')
-                                    <a href="{{route('pdf',$leaveforms->id)}}" class="btn btn-info mr-3" target="_blank">พิมพ์ใบลา</a>
+                                    <a href="{{route('pdf',$leaveforms->id)}}" class="btn btn-info mr-3"
+                                       target="_blank">พิมพ์ใบลา</a>
                                 @endif
                                 <a href="{{ route('req') }}" class="btn btn-primary">ย้อนกลับ</a>
                             </div>
