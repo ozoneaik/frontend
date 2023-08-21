@@ -67,25 +67,16 @@
                                 <tbody>
                                 @foreach ($leaves as $leave)
                                     @if ($leave->sel_pm == Auth::user()->id)
-                                        @if ($leave->approve_rep != '⌛')
+                                        @if ($leave->approve_rep != 'in_progress')
                                             <tr>
                                                 <td style="{{$style}} max-width:50px">{{$leave->created_at->addYears(543)->format('d/m/Y H:i:s') }}</td>
-{{--                                                <td style="{{ $style }} max-width: 80px;">{{ $usersMap[$leave->user_id] }}</td>--}}
                                                 <td style="{{ $style }} max-width: 80px;">{{$leave->relation_user->name}}</td>
-                                                <td style="{{$style}} max-width:50px">{{ \Carbon\Carbon::parse($leave->leave_start)->addYears(543)->format('d/m/Y
-                                        H:i')
-                                        }}</td>
-                                                <td style="{{$style}} max-width:50px">{{ \Carbon\Carbon::parse($leave->leave_end)->addYears(543)->format('d/m/Y H:i')
-                                        }}
-                                                </td>
+                                                <td style="{{$style}} max-width:50px">{{ \Carbon\Carbon::parse($leave->leave_start)->addYears(543)->format('d/m/Y H:i')}}</td>
+                                                <td style="{{$style}} max-width:50px">{{ \Carbon\Carbon::parse($leave->leave_end)->addYears(543)->format('d/m/Y H:i')}}</td>
                                                 <td style="{{$style}} max-width:50px">{{$leave->leave_total}}</td>
-                                                @if (!$leave->sel_rep || $leave->approve_rep == '❌')
-                                                    <td style="{{ $style }} max-width: 40px;">
-                                                        ไม่มีผู้ปฏิบัติแทน @if($leave->approve_rep == '❌')
-                                                            ถูกปฏิเสธ
-                                                        @endif</td>
+                                                @if (!$leave->sel_rep || $leave->approve_rep == 'disapproval')
+                                                    <td style="{{ $style }} max-width: 40px;">ไม่มีผู้ปฏิบัติแทน@if($leave->approve_rep == 'disapproval') ถูกปฏิเสธ @endif</td>
                                                 @else
-{{--                                                    <td style="{{ $style }} max-width: 40px;">{{ $usersMap[$user->sel_rep] }}</td>--}}
                                                     <td style="{{ $style }} max-width: 40px;">{{$leave->representative->name}}</td>
                                                 @endif
                                                 <td style="{{ $style }} max-width: 40px;" class="">

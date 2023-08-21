@@ -47,60 +47,30 @@ class LeaveFormController extends Controller
             ]
         );
 
-
         $leaveform = new LeaveForm();
         $leaveform->user_id = Auth::user()->id;
         $leaveform->leave_type = $request->input('leave_type');
-
-        // คำนวณหาจำนวนวันลาทั้งหมด
         $startDate = Carbon::createFromFormat('d/m/Y H:i', $request->input('leave_start'));
         $endDate = Carbon::createFromFormat('d/m/Y H:i', $request->input('leave_end'));
-        $startDate->setMinutes(max(0, min(59, $startDate->minute)))->setSeconds(0);
-        $endDate->setMinutes(max(0, min(59, $endDate->minute)))->setSeconds(0);
-        $duration = $endDate->diff($startDate);
-        $days = $duration->days;
-        $remainingHours = $duration->h % 24;
-        $minutes = $duration->i;
-
-        for ($i = 0; $i <= $days; $i++) {
-            $currentDate = $startDate->copy()->addDays($i);
-            if ($currentDate->isoWeekday() === 6 || $currentDate->isoWeekday() === 7) {
-                $days -= 1;
-            }
-        }
-
-        if ($startDate->hour <= 12 && $endDate->hour >= 13) {
-            $remainingHours -= 1;
-        }
-        if ($startDate->hour >= 13 && $endDate->hour <= 12) {
-            $remainingHours -= 15;
-        }
-        if ($startDate->hour >= 13 && $endDate->hour >= 13 && $startDate->hour > $endDate->hour) {
-            $remainingHours -= 8;
-            $days -= 1;
-        }
-        if ($remainingHours >= 8) {
-            $days += 1;
-            $remainingHours -= 8;
-        }
-
         $leaveform->leave_start = $startDate;
         $leaveform->leave_end = $endDate;
-        $leaveform->leave_total = "{$days} วัน {$remainingHours} ชั่วโมง {$minutes} นาที";
-        // dd($leaveform->leave_total,$request->leave_start,$request->leave_end);
-
+        $leaveform->leave_total = $request->leave_total;
         $leaveform->reason = $request->input('reason');
 
-        //generete file เก็บเป็นสตริง เป็นแบบ part เก็บไฟล์ไว้ที่ public/stored/file1หรือ2/
+        //generete file เก็บเป็นสตริง เป็นแบบ part เก็บไฟล์ไว้ที่ public/file1
         if ($request->hasFile('file1')) {
-            $leaveform->file1 = 'storage/' . $request->file('file1')
-                    ->storeAs('file1', hexdec(uniqid()) . '.' . strtolower($request->file('file1')
-                            ->getClientOriginalExtension()), 'public');
+            $file = $request->file('file1');
+            $file_name = uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+            $upload_location_file = 'file1/';
+            $file->move($upload_location_file, $file_name);
+            $leaveform->file1 = $upload_location_file . $file_name;
         }
         if ($request->hasFile('file2')) {
-            $leaveform->file2 = 'storage/' . $request->file('file2')
-                    ->storeAs('file2', hexdec(uniqid()) . '.' . strtolower($request->file('file2')
-                            ->getClientOriginalExtension()), 'public');
+            $file = $request->file('file2');
+            $file_name = uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+            $upload_location_file = 'file2/';
+            $file->move($upload_location_file, $file_name);
+            $leaveform->file2 = $upload_location_file . $file_name;
         }
 
         $leaveform->sel_rep = $request->input('sel_rep');
@@ -116,20 +86,20 @@ class LeaveFormController extends Controller
 
             if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'hr') {
                 $leaveform->approve_pm = '-';
-                $leaveform->approve_hr = '⌛';
+                $leaveform->approve_hr = 'in_progress';
             } else {
-                $leaveform->approve_rep = '⌛';
+                $leaveform->approve_rep = 'in_progress';
             }
 
         }
 
         $leaveform->sel_pm = $request->input('sel_pm');
 
-        if ($leaveform->approve_pm == '❌' || $leaveform->approve_hr == '❌' || $leaveform->approve_ceo == '❌') {
+        if ($leaveform->approve_pm == 'disapproval' || $leaveform->approve_hr == 'disapproval' || $leaveform->approve_ceo == 'disapproval') {
             $leaveform->status = 'ไม่อนุมัติ';
-        } else if ($leaveform->approve_pm == '✔️' && $leaveform->approve_hr == '✔️' && $leaveform->approve_ceo == '✔️') {
+        } else if ($leaveform->approve_pm == 'approve' && $leaveform->approve_hr == 'approve' && $leaveform->approve_ceo == 'approve') {
             $leaveform->status = 'อนุมัติ';
-        } else if ($leaveform->approve_pm == '✔️' || $leaveform->approve_hr == '✔️' || $leaveform->approve_ceo == '✔️') {
+        } else if ($leaveform->approve_pm == 'approve' || $leaveform->approve_hr == 'approve' || $leaveform->approve_ceo == 'approve') {
             $leaveform->status = 'กำลังดำเนินการ';
         } else {
             $leaveform->status = 'กำลังดำเนินการ';
@@ -161,6 +131,7 @@ class LeaveFormController extends Controller
         $users = User::all();
 
 
+
         return view('req_list_detail', compact('leaveforms', 'users'));
     }
 
@@ -190,9 +161,9 @@ class LeaveFormController extends Controller
             ['approve_rep.required' => 'no requ']
         );
 
-        $approve_ceo = '⌛';
+        $approve_ceo = 'in_progress';
         if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'hr') {
-            if ($request->approve_rep == '❌') {
+            if ($request->approve_rep == 'disapproval') {
                 $request->status = 'ไม่อนุมัติ';
                 $approve_ceo = '-';
                 LeaveForm::find($id)->update(['approve_ceo' => $approve_ceo]);
@@ -262,7 +233,7 @@ class LeaveFormController extends Controller
             ]
         );
 
-        if ($request->approve_pm == '✔️') {
+        if ($request->approve_pm == 'approve') {
             $request->validate(
                 ['allowed_pm' => 'required'], ['allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ',]
             );
@@ -292,10 +263,10 @@ class LeaveFormController extends Controller
         // dd($allowed_pm);
 
         // dd($request->approve_pm,$allowed_pm,$request->reason_pm,$request->not_allowed_pm);
-        $approve_hr = '⌛';
-        $approve_ceo = '⌛';
+        $approve_hr = 'in_progress';
+        $approve_ceo = 'in_progress';
         $status = 'กำลังดำเนินการ';
-        if ($request->approve_pm == '❌') {
+        if ($request->approve_pm == 'disapproval') {
             $status = 'ไม่อนุมัติ';
             $approve_ceo = '-';
             $approve_hr = '-';
@@ -315,7 +286,7 @@ class LeaveFormController extends Controller
     //เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน[HR]
     public function HR_req()
     {
-        $leaves = LeaveForm::all();
+        $leaves = LeaveForm::orderByDesc('created_at')->get();
         $users = User::all();
         return view('hr.hr_req_list_emp', compact('leaves', 'users'));
     }
@@ -345,8 +316,8 @@ class LeaveFormController extends Controller
             ]
         );
 
-        $approve_ceo = '⌛';
-        if ($request->approve_hr == '❌') {
+        $approve_ceo = 'in_progress';
+        if ($request->approve_hr == 'disapproval') {
             $status = 'ไม่อนุมัติ';
             $approve_ceo = '-';
         } else {
@@ -368,7 +339,7 @@ class LeaveFormController extends Controller
     // เอาข้อมูลไปแสดงในหน้ารายการคำขอใบลาพนักงาน [CEO]
     public function CEO_req()
     {
-        $leaves = LeaveForm::all();
+        $leaves = LeaveForm::orderByDesc('created_at')->get();
         $users = User::all();
         return view('ceo.ceo_req_list_emp', compact('leaves', 'users'));
     }
@@ -392,14 +363,13 @@ class LeaveFormController extends Controller
             ],
             [
                 'approve_ceo.required' => 'no requ',
-                // 'allowed_pm.required' => 'โปรดเลือก',
                 'reason_ceo.max' => 'ป้อนเกิน 255',
                 'not_allowed_ceo.max' => 'ป้อนเกิน 255',
             ]
         );
         $leaveForm = LeaveForm::find($id);
         $item = users_leave_data::all();
-        if ($request->approve_ceo == '❌') {
+        if ($request->approve_ceo == 'disapproval') {
             $status = 'ไม่อนุมัติ';
         } else {
             $status = 'อนุมัติ';

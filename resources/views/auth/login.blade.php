@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">หน้าเข้าสู่ระบบ</div>
-
                 <div class="card-body">
 
                     @if ($message = Session::get('error'))

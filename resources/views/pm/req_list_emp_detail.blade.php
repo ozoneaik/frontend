@@ -178,7 +178,7 @@
                                             <h3 class="card-title font-weight-bold">
                                                 <i class="fa-solid fa-user mr-2"></i>
                                                 ระหว่างการลามอบหมายให้ </h3>
-                                            @if ($leaveforms->approve_rep == '❌')
+                                            @if ($leaveforms->approve_rep == 'disapproval')
                                                 <span class="card-title float-right text-sm btn btn-xs btn-danger">ปฏิเสธในการปฏิบัติทำแทนแล้ว</span>
                                             @endif
                                         </div>
@@ -276,11 +276,45 @@
                                                         Solution Architect Director
                                                     </span>
                                                 </h5>
+                                            @else
+                                                <p class="font-weight-bold">Project manager(PM)
+                                                    <button class="btn btn-sm @if($leaveforms->approve_pm == 'in_progress') btn-secondary">กำลังดำเนินการ
+                                                        @elseif($leaveforms->approve_pm == 'approve')
+                                                            btn-success">อนุมัติแล้ว
+                                                        @elseif($leaveforms->approve_pm == 'disapproval')
+                                                            btn-danger">ไม่อนุมัติ
+                                                        @elseif($leaveforms->approve_pm == '-')
+                                                            btn-light"> -
+                                                        @endif
+                                                    </button>
+                                                </p>
+                                                <p class="font-weight-bold">Human Resources(HR)
+                                                    <button class="btn btn-sm @if($leaveforms->approve_hr == 'in_progress') btn-secondary">กำลังดำเนินการ
+                                                        @elseif($leaveforms->approve_hr == 'approve')
+                                                            btn-success">อนุมัติแล้ว
+                                                        @elseif($leaveforms->approve_hr == 'disapproval')
+                                                            btn-danger">ไม่อนุมัติ
+                                                        @elseif($leaveforms->approve_hr == '-')
+                                                            btn-light"> -
+                                                        @endif
+                                                    </button>
+                                                </p>
+                                                <p class="font-weight-bold">Solution Architect Director(CEO)
+                                                    <button class="btn btn-sm @if($leaveforms->approve_ceo == 'in_progress') btn-secondary">กำลังดำเนินการ
+                                                        @elseif($leaveforms->approve_ceo == 'approve')
+                                                            btn-success">อนุมัติแล้ว
+                                                        @elseif($leaveforms->approve_ceo == 'disapproval')
+                                                            btn-danger">ไม่อนุมัติ
+                                                        @elseif($leaveforms->approve_ceo == '-')
+                                                            btn-light"> -
+                                                        @endif
+                                                    </button>
+                                                </p>
                                             @endif
                                         </div>
                                     </div>
                                     {{-- ความเห็น Project manager --}}
-                                    @if ($leaveforms->approve_pm != '⌛' && $leaveforms->approve_pm != '-')
+                                    @if ($leaveforms->approve_pm != 'in_progress' && $leaveforms->approve_pm != '-')
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
@@ -310,7 +344,7 @@
                                         </div>
                                     @endif
                                     {{-- ความเห็น Human Resources (HR) --}}
-                                    @if ($leaveforms->approve_hr != '⌛' && $leaveforms->approve_hr != '-')
+                                    @if ($leaveforms->approve_hr != 'in_progress' && $leaveforms->approve_hr != '-')
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
@@ -319,14 +353,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>
-                                                    @if($leaveforms->approve_hr != '❌')
+                                                    @if($leaveforms->approve_hr != 'disapproval')
                                                         @if ($leaveforms->reason_hr)
                                                             {{ $leaveforms->reason_hr}}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
                                                     @endif
-                                                    @if($leaveforms->approve_hr != '✔️')
+                                                    @if($leaveforms->approve_hr != 'approve')
                                                         @if ($leaveforms->not_allowed_hr)
                                                             {{ $leaveforms->not_allowed_hr }}
                                                         @else
@@ -338,7 +372,7 @@
                                         </div>
                                     @endif
                                     {{-- ความเห็น Solution Architect Director --}}
-                                    @if ($leaveforms->approve_ceo != '⌛' && $leaveforms->approve_ceo != '-')
+                                    @if ($leaveforms->approve_ceo != 'in_progress' && $leaveforms->approve_ceo != '-')
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
@@ -347,14 +381,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <span>
-                                                    @if($leaveforms->approve_ceo != '❌')
+                                                    @if($leaveforms->approve_ceo != 'disapproval')
                                                         @if ($leaveforms->reason_ceo)
                                                             {{ $leaveforms->reason_ceo}}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
                                                     @endif
-                                                    @if($leaveforms->approve_ceo != '✔️')
+                                                    @if($leaveforms->approve_ceo != 'approve')
                                                         @if ($leaveforms->not_allowed_ceo)
                                                             {{ $leaveforms->not_allowed_ceo }}
                                                         @else
@@ -368,7 +402,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12 justify-content-end d-flex pr-0">
-                                @if ($leaveforms->approve_pm != '⌛')
+                                @if ($leaveforms->approve_pm != 'in_progress')
                                     <span class="text-danger">ไม่สามารถแก้ไขได้ เนื่องจากคุณได้ดำเนินการแล้ว</span>
                                 @endif
                             </div>
@@ -378,7 +412,7 @@
                                 <div class="col-md-12 d-flex justify-content-end">
 
                                     {{-- ไม่อนุมัติ PM --}}
-                                    <button type="button" class="btn btn-danger mr-3" @if ($leaveforms->approve_pm != '⌛') disabled @endif  data-toggle="modal" data-target="#not_confirmModal_pm">
+                                    <button type="button" class="btn btn-danger mr-3" @if ($leaveforms->approve_pm != 'in_progress') disabled @endif  data-toggle="modal" data-target="#not_confirmModal_pm">
                                         ไม่อนุมัติ
                                     </button>
                                     {{-- Modal ไม่อนุมัติ PM --}}
@@ -395,7 +429,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <input type="hidden" name="approve_pm" value="❌">
+                                                        <input type="hidden" name="approve_pm" value="disapproval">
                                                         <div class="form-group" id="not_allowed">
                                                             <label for="not_allowed">ไม่อนุญาติเนื่องจาก</label>
                                                             @if($errors->has('not_allowed_pm'))
@@ -425,7 +459,7 @@
                                     </form>
 
                                     {{-- อนุมัติ PM --}}
-                                    <button type="button" class="btn btn-primary" @if ($leaveforms->approve_pm != '⌛') disabled @endif data-toggle="modal" data-target="#confirmModal_pm">
+                                    <button type="button" class="btn btn-primary" @if ($leaveforms->approve_pm != 'in_progress') disabled @endif data-toggle="modal" data-target="#confirmModal_pm">
                                         อนุมัติ
                                     </button>
                                     {{-- modal อนุมัติ PM --}}
@@ -462,7 +496,7 @@
                                                             </span>
                                                             @endif
                                                             <br>
-                                                            <input type="hidden" name="approve_pm" value="✔️">
+                                                            <input type="hidden" name="approve_pm" value="approve">
 
                                                             <div class="icheck-primary d-block">
                                                                 <input type="radio" name="allowed_pm" id="0" value="อนุญาตตามสิทธิ์พนักงาน" required>
@@ -472,8 +506,8 @@
                                                             </div>
 
                                                             <div class="icheck-primary d-block">
-                                                                <input type="radio" name="allowed_pm" id="1" value="ไม่รับค่าแรงตามจำนวนวันที่ลา" required>
-                                                                <label class="font-weight-normal" for="1">
+                                                                <input type="radio" name="allowed_pm" id="3" value="ไม่รับค่าแรงตามจำนวนวันที่ลา" required>
+                                                                <label for="3" class="font-weight-normal">
                                                                     ไม่รับค่าแรงตามจำนวนวันที่ลา
                                                                 </label>
                                                             </div>
@@ -515,11 +549,7 @@
                                         </div>
                                     </form>
                                 </div>
-
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>

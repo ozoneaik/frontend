@@ -33,7 +33,6 @@ class HomeController extends Controller
         $leaves = LeaveForm::where('user_id', Auth::user()->id)->latest()->get();
         $users_data = users_leave_data::where('user_id', Auth::user()->id)->get();
         $leaves_rep = LeaveForm::where('sel_rep', Auth::user()->id)->latest()->get();
-//         dd($users_data);
         return view('home', compact('leaves','users', 'users_data', 'leaves_rep'));
     }
 
@@ -52,9 +51,6 @@ class HomeController extends Controller
     public function profile_update(Request $request, $id)
     {
 
-//        dd($request->all());
-//        dd($request->profile_img,$request->signature);
-//        dd($request->profile_img);
         if ($request->profile_img){
             //การเข้ารหัสรูปภาพ
             $service_image = $request->file('profile_img');
@@ -125,6 +121,12 @@ class HomeController extends Controller
 //        dd($leaveforms);
 
         return view('users.data_user_detail', compact('user', 'users', 'leave_datas', 'leaveforms'));
+    }
+
+    public function data_user_history($id){
+        $leaveforms = LeaveForm::findOrFail($id);
+        $users = User::all();
+        return view('users.data_user_history', compact('leaveforms', 'users'));
     }
 
     public function update_leave_data(Request $request, $id)

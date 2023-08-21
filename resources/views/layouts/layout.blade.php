@@ -7,11 +7,14 @@
     <title>@yield('title')</title>
 
     {{-- Google Font: Source Sans Pro --}}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     {{-- Google Font: TH sarabun --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
 
     {{-- Font Awesome --}}
     {{--    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}"> --}}
@@ -31,7 +34,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
     {{-- Tempusdominus Bootstrap 4 --}}
-    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
     {{-- iCheck (checkboxes and radio inputs) --}}
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
@@ -89,7 +93,8 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="{{ route('profile',Auth::user()->id) }}">
-                        <img src="{{ asset(Auth::user()->profile_img) }}" class="rounded-circle" width="40px" height="40px" onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnkTRn.png'">
+                        <img src="{{ asset(Auth::user()->profile_img) }}" class="rounded-circle" width="40px"
+                             height="40px" onerror="this.src='https://sv1.picz.in.th/images/2023/05/29/FnkTRn.png'">
                     </a>
                 </li>
                 <li class="nav-item">
@@ -128,10 +133,12 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <br>
-                <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     {{-- เมนูหลัก --}}
                     <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('home') ? 'active' : '' }}">
+                        <a href="{{ route('home') }}"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('home') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-house"></i>
                             <p>เมนูหลัก</p>
                         </a>
@@ -139,91 +146,57 @@
 
                     {{-- รายการคำขอ --}}
                     <li class="nav-item">
-                        <a href="{{ route('req') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
+                        <a href="{{ route('req') }}"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-file-alt"></i>
                             <p>รายการคำขอใบลา</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('rep') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-file-signature nav-icon"></i>
+                        <a href="{{ route('rep') }}"
+                           class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file-signature"></i>
                             <p>รายการคำขอปฏิบัติแทน</p>
                         </a>
                     </li>
 
                     {{-- Project manager --}}
                     @if(Auth::user()->type == 'pm')
-
-
-
-
-
-                        <li class="nav-item {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('pm.req.emp') }}"
+                               class="nav-link pt-3 pb-3 {{Request::routeIs('pm.req.emp','pm.req.emp.detail') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Project manager
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
+                                <p>รายการคำขอใบลาพนักงาน</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
-                                    <a href="{{ route('pm.req.emp') }}" class="nav-link  pt-3 pb-3 {{ Request::routeIs('pm.req.emp', 'pm.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     @endif
 
-
                     {{-- HR --}}
                     @if(Auth::user()->type == 'hr(admin)')
-                        <li class="nav-item {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('hr.req.emp') }}"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
-                                    Human Resources
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
+                                <p>รายการคำขอใบลาพนักงาน</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('hr.req.emp') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
+
                     @endif
 
                     {{-- CEO --}}
                     @if(Auth::user()->type == 'ceo')
-                        <li class="nav-item {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{route('ceo.req.emp')}}" class="nav-link pt-3 pb-3 {{Request::routeIs('ceo.req.emp','ceo.req.emp.detail') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-user-lock"></i>
-                                <p>
-                                    Solution Architect ...
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
+                                <p>รายการคำขอใบลาพนักงาน</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('ceo.req.emp') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('ceo.req.emp', 'ceo.req.emp.detail') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-chevron-right nav-icon"></i>
-                                        <p>ใบลาพนักงาน</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     @endif
+
                     @if(Auth::user()->type == 'ceo' || Auth::user()->type == 'hr(admin)')
                         <li class="nav-item">
-                            <a href="{{ route('data.users') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
+                            <a href="{{ route('data.users') }}"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
                                 <i class="fa-solid fa-users nav-icon"></i>
                                 <p>ข้อมูลพนักงาน</p>
                             </a>
@@ -347,9 +320,9 @@
             var confirmModal = $('#confirmModal_rep');
             console.log(value);
             confirmModal.find('input[name=approve_rep]').val(value);
-            if (value === '❌') {
+            if (value === 'disapproval') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
-            } else if (value === '✔️') {
+            } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
             }
             confirmModal.modal('show');
@@ -372,11 +345,11 @@
             var confirmModal = $('#confirmModal_hr');
             console.log(value);
             confirmModal.find('input[name=approve_hr]').val(value);
-            if (value === '❌') {
+            if (value === 'disapproval') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                 confirmModal.find('.reason_hr').hide();
                 confirmModal.find('#not_allowed_hr').show();
-            } else if (value === '✔️') {
+            } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                 confirmModal.find('.modal-body .form-group').show();
                 confirmModal.find('#not_allowed_hr').hide();
@@ -400,11 +373,11 @@
             var confirmModal = $('#confirmModal_ceo');
             console.log(value);
             confirmModal.find('input[name=approve_ceo]').val(value);
-            if (value === '❌') {
+            if (value === 'disapproval') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                 confirmModal.find('.reason_ceo').hide();
                 confirmModal.find('#not_allowed_ceo').show();
-            } else if (value === '✔️') {
+            } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                 confirmModal.find('.modal-body .form-group').show();
                 confirmModal.find('#not_allowed_ceo').hide();

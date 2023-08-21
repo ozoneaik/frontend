@@ -356,7 +356,7 @@
                                             class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
                                             {{ $row->status }}</td>
                                         <td>
-                                            <a href="{{ route('req.detail', $row->id) }}"><i
+                                            <a href="{{ route('data.user.history', $row->id) }}"><i
                                                     class="fas fa-file-invoice"></i></a>
                                         </td>
                                     </tr>
