@@ -156,7 +156,20 @@ class HomeController extends Controller
     }
 
     public function switch_per(){
-        return view('hr.hr_switch_per');
+        $HRs = User::where('type',3)->get();
+        return view('hr.hr_switch_per',compact('HRs'));
+    }
+
+    public function update_per(Request $request){
+
+        User::find($request->select_hr)->update([
+            'type' => 2,
+        ]);
+        User::find(Auth::user()->id)->update([
+            'type' => 3,
+        ]);
+
+        return redirect('home');
     }
 
 }
