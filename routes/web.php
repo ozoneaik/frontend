@@ -79,6 +79,7 @@ Route::middleware(['auth','verified'])->group(function () {
         Route::get('/data_user_detail/{id}', [HomeController::class, 'data_user_detail'])->name('data.user.detail');
         Route::get('/data_user_history/{id}', [HomeController::class,'data_user_history'])->name('data.user.history');
         Route::match(['get', 'post'], '/leave_update/{id}', [HomeController::class, 'update_leave_data'])->name('leave.update');
+        Route::get('/switch_per',[HomeController::class,'switch_per'])->name('hr.switch.per');
     })->middleware(UserAccess::class);
 
     Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');

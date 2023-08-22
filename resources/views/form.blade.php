@@ -186,7 +186,7 @@
                                                                 @endphp
 
                                                                 @if(Auth::user()->type == 'emp' && $user_rep->type == '0' ||
-                                                                    (in_array(Auth::user()->type, ['hr', 'hr(admin)']) && in_array($user_rep->type, ['4', '2'])))
+                                                                    (in_array(Auth::user()->type, ['hr', 'hr(admin)']) && in_array($user_rep->type, ['3', '2'])))
                                                                     <option value="{{$user_rep->id}}" {{ old('sel_rep') == $user_rep->id ? 'selected' : '' }} {{$isDisabled}}>
                                                                         {{$user_rep->id}} {{$user_rep->name}} {{$user_rep->possition}}
                                                                     </option>

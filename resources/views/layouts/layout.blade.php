@@ -180,6 +180,12 @@
                                 <p>รายการคำขอใบลาพนักงาน</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hr.switch.per') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.switch.per') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-exchange-alt"></i>
+                                <p>โอนสิทธิ์อนุมัติใบลาพนักงาน</p>
+                            </a>
+                        </li>
 
                     @endif
 

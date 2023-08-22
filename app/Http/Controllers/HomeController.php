@@ -131,7 +131,7 @@ class HomeController extends Controller
 
     public function update_leave_data(Request $request, $id)
     {
-//        dd($request->all());
+
         $leaveDatas = DB::table('users_leave_datas')
             ->where('user_id', $id)
             ->get();
@@ -143,8 +143,6 @@ class HomeController extends Controller
             $du = $request->input('D_used' . $i);
             $hu = $request->input('H_used' . $i);
             $mu = $request->input('M_used' . $i);
-//            dd($dr);
-//dd($leaveDatas);
             DB::table('users_leave_datas')
                 ->where('id', $leaveData->id)
                 ->update([
@@ -156,4 +154,9 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function switch_per(){
+        return view('hr.hr_switch_per');
+    }
+
 }
