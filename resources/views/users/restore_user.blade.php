@@ -23,15 +23,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title font-weight-bold"><i class="fa-solid fa-users mr-3"></i>ข้อมูลพนักงาน</h3>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div></div>
-                                    @if(Auth::user()->type === 'hr(admin)')
-                                        <a href="{{ route('restore.index') }}" style="border: none; background: none;">
-                                            <i class="fa-solid fa-trash"></i> หน้าต่างกู้คืนข้อมูล
-                                        </a>
-                                    @endif
-                                </div>
+                                <h3 class="card-title font-weight-bold"><i class="fa-solid fa-users mr-3"></i>ข้อมูลพนักงาน
+                                </h3>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered" id="data_emp_table">
@@ -48,7 +41,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($softDeletedUsers as $user)
                                         <tr>
                                             <td>{{$user->id}}</td>
                                             <td>
@@ -64,9 +57,14 @@
                                             @else
                                                 <td class="text-danger">ยังไม่ได้ยืนยัน</td>
                                             @endif
-                                            <td><a href="{{route('data.user.detail', $user->id)}}">
-                                                    <i class="fas fa-file-invoice"></i>
-                                                </a>
+                                            <td>
+                                                @if($user->trashed())
+                                                    <form action="{{ route('user.restore', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PATCH') <!-- Use 'PATCH' method for restoration -->
+                                                        <button type="submit" class="btn btn-success">กู้คืนข้อมูล</button>
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
