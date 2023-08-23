@@ -225,7 +225,7 @@
                                                             <select name="sel_pm" id="" class="form-control select2" style="width:100%;">
                                                                 @foreach($users as $user_pm)
                                                                     @if ($user_pm->type == '1')
-                                                                        <option value="{{$user_pm->id}}">{{$user_pm->id}} {{$user_pm->name}} {{$user_pm->nick_name}}
+                                                                        <option value="{{$user_pm->id}}">{{$user_pm->id}} {{$user_pm->name}} {{$user_pm->possition}}
                                                                         </option>
                                                                     @endif
                                                                 @endforeach
