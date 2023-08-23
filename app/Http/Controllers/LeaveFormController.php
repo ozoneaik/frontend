@@ -16,6 +16,9 @@ class LeaveFormController extends Controller
     public function create()
     {
         $users = DB::table('users')->get();
+        if (auth()->user()->type == 'hr(admin)') {
+            abort(403, 'ไม่สามารถยื่นแบบฟอร์มการลาได้ ต้องโอนย้ายสิทธ์หน้าที่การลาให้ HR คนอื่นก่อน');
+        }
         return view('form', compact('users'));
     }
 

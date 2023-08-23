@@ -66,15 +66,24 @@
 
 </head>
 {{-- sidebar-mini layout-fixed control-sidebar-slide-open layout-navbar-fixed --}}
+{{-- [backup] hold-transition layout-fixed layout-navbar-fixed sidebar-mini --}}
 
-<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-mini">
+@php
+    $now = now(); // Get the current time
+    $startTime = now()->setTime(18, 0, 0); // Set the start time to 18:00 (6:00 PM)
+    $endTime = now()->setTime(6, 0, 0)->addDay(); // Set the end time to 06:00 (6:00 AM) of the next day
+
+    $darkModeClass = ($now >= $startTime || $now < $endTime) ? 'dark-mode' : '';
+@endphp
+
+<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-mini {{ $darkModeClass }}">
 
 
 {{-- Main Wrapper --}}
 <div class="wrapper">
 
     {{-- Nav bar --}}
-    <nav class="main-header navbar navbar-expand navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-dark">
         {{-- Left Navbar --}}
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -178,6 +187,12 @@
                                class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.req.emp', 'hr.req.emp.detail') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>รายการคำขอใบลาพนักงาน</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hr.switch.per') }}" class="nav-link pt-3 pb-3 {{ Request::routeIs('hr.switch.per') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-exchange-alt"></i>
+                                <p>โอนสิทธิ์อนุมัติใบลาพนักงาน</p>
                             </a>
                         </li>
 

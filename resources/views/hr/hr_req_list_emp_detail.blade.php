@@ -268,50 +268,69 @@
                                             </h1>
                                             @if ($leaveforms->status == 'อนุมัติ')
                                                 <h6 class="pb-3 text-muted font-weight-light">
-                                                    อนุมัติเมื่อ {{ $leaveforms->updated_at }}
+                                                    อนุมัติเมื่อ
+                                                    {{ \Carbon\Carbon::parse($leaveforms->updated_at)->addYears(543)->format('d/m/Y H:i:s') }}
                                                 </h6>
                                                 <h5 class="pb-3">ผู้อนุมัติ</h5>
                                                 <h5 class="pb-3 text-muted font-weight-light">นายณัฐดนัย หอมดง</h5>
                                                 <h5 class="pb-3">
                                                     ตำแหน่ง
                                                     <span class="text-muted font-weight-light">
-                                                        Solution Architect Director
-                                                    </span>
+                                                            Solution Architect Director
+                                                        </span>
                                                 </h5>
                                             @else
-                                                <p class="font-weight-bold">Project manager(PM)
-                                                    <button class="btn btn-sm @if($leaveforms->approve_pm == 'in_progress') btn-secondary">กำลังดำเนินการ
-                                                        @elseif($leaveforms->approve_pm == 'approve')
-                                                            btn-success">อนุมัติแล้ว
-                                                        @elseif($leaveforms->approve_pm == 'disapproval')
-                                                            btn-danger">ไม่อนุมัติ
-                                                        @elseif($leaveforms->approve_pm == '-')
-                                                            btn-light"> -
+                                                @if($leaveforms->approve_pm == 'in_progress')
+                                                    <p>Project manager (PM)
+                                                        <button class="btn btn-sm btn-secondary">กำลังดำเนินการ</button>
+                                                    </p>
+                                                @elseif($leaveforms->approve_pm == 'approve' || $leaveforms->approve_pm == '-')
+                                                    @if($leaveforms->approve_pm == 'approve')
+                                                        <p>Project manager (PM)
+                                                            <button class="btn btn-sm btn-success">อนุมัติ</button>
+                                                        </p>
+                                                    @else
+                                                        <p>Project manager (PM)
+                                                            <button class="btn btn-sm btn-secondary">-</button>
+                                                        </p>
+                                                    @endif
+                                                    @if($leaveforms->approve_hr == 'in_progress')
+                                                        <p>Human Resources(HR)
+                                                            <button class="btn btn-sm btn-secondary">กำลังดำเนินการ
+                                                            </button>
+                                                        </p>
+                                                    @elseif($leaveforms->approve_hr == 'approve' || $leaveforms->approve_hr == '-')
+                                                        @if($leaveforms->approve_hr == 'approve')
+                                                            <p>Human Resources(HR)
+                                                                <button class="btn btn-sm btn-success">อนุมัติ</button>
+                                                            </p>
+                                                        @else
+                                                            <p>Human Resources(HR)
+                                                                <button class="btn btn-sm btn-secondary">-</button>
+                                                            </p>
                                                         @endif
-                                                    </button>
-                                                </p>
-                                                <p class="font-weight-bold">Human Resources(HR)
-                                                    <button class="btn btn-sm @if($leaveforms->approve_hr == 'in_progress') btn-secondary">กำลังดำเนินการ
-                                                        @elseif($leaveforms->approve_hr == 'approve')
-                                                            btn-success">อนุมัติแล้ว
-                                                        @elseif($leaveforms->approve_hr == 'disapproval')
-                                                            btn-danger">ไม่อนุมัติ
-                                                        @elseif($leaveforms->approve_hr == '-')
-                                                            btn-light"> -
-                                                        @endif
-                                                    </button>
-                                                </p>
-                                                <p class="font-weight-bold">Solution Architect Director(CEO)
-                                                    <button class="btn btn-sm @if($leaveforms->approve_ceo == 'in_progress') btn-secondary">กำลังดำเนินการ
-                                                        @elseif($leaveforms->approve_ceo == 'approve')
-                                                            btn-success">อนุมัติแล้ว
+                                                        @if($leaveforms->approve_ceo == 'in_progress')
+                                                            <p>Solution Architect Director
+                                                                <button class="btn btn-sm btn-secondary">
+                                                                    กำลังดำเนินการ
+                                                                </button>
+                                                            </p>
                                                         @elseif($leaveforms->approve_ceo == 'disapproval')
-                                                            btn-danger">ไม่อนุมัติ
-                                                        @elseif($leaveforms->approve_ceo == '-')
-                                                            btn-light"> -
+                                                            <p>Solution Architect Director
+                                                                <button class="btn btn-sm btn-danger">ไม่อนุมัติ
+                                                                </button>
+                                                            </p>
                                                         @endif
-                                                    </button>
-                                                </p>
+                                                    @elseif($leaveforms->approve_hr == 'disapproval')
+                                                        <p>Human Resources(HR)
+                                                            <button class="btn btn-sm btn-danger">ไม่อนุมัติ</button>
+                                                        </p>
+                                                    @endif
+                                                @elseif($leaveforms->approve_pm == 'disapproval')
+                                                    <p>Project manager (PM)
+                                                        <button class="btn btn-sm btn-danger">ไม่อนุมัติ</button>
+                                                    </p>
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
