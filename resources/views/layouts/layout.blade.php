@@ -208,7 +208,7 @@
                         </li>
                     @endif
 
-                    @if(Auth::user()->type == 'ceo' || Auth::user()->type == 'hr(admin)')
+                    @if(Auth::user()->type == 'ceo' || Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'pm')
                         <li class="nav-item">
                             <a href="{{ route('data.users') }}"
                                class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">

@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
         Route::match(['get', 'post'], '/ceo_req_list_emp_detail_update/{id}', [LeaveFormController::class, 'ceo_req_list_emp_detail_update'])->name('ceo.req.emp.update');
     });
 
-    Route::middleware(['auth', 'user-access:hr(admin),ceo'])->group(function () {
+    Route::middleware(['auth', 'user-access:hr(admin),ceo,pm'])->group(function () {
         Route::get('/data_users', [HomeController::class, 'data_users'])->name('data.users');
         Route::get('/data_user_detail/{id}', [HomeController::class, 'data_user_detail'])->name('data.user.detail');
         Route::get('/data_user_history/{id}', [HomeController::class,'data_user_history'])->name('data.user.history');
