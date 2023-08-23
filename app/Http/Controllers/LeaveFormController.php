@@ -139,7 +139,7 @@ class LeaveFormController extends Controller
     {
         $users = User::all();
         $leaveforms = LeaveForm::findOrFail($id);
-        // dd($leaveforms->all());
+        //dd($leaveforms->all());
         return view('rep_list_detail', compact('leaveforms', 'users'));
     }
 

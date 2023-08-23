@@ -34,8 +34,46 @@
                                                 <i class="fas fa-file-invoice mr-2"></i>
                                                 ข้อมูลพนักงาน
                                             </h3>
+                                            <style>
+                                                .d1:hover {
+                                                    background: red !important;
+                                                    border-radius: 10px;
+                                                }
+                                            </style>
+                                        @if(Auth::user()->type == 'hr(admin)')
+                                                <form action="{{ route('hr.delete', $user->id) }}" method="POST" class="float-right">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="d1" style="border:none; background: none" data-toggle="modal" data-target="#deleteModal">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteModalLabel">ยืนยันการลบ</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            คุณต้องการลบบัญชีผู้ใช้นี้ใช่หรือไม่ ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                            <form action="{{ route('hr.delete', $user->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">ยืนยัน</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
+                                            <div class="card-body">
                                             <div class="row">
                                                 {{-- รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง --}}
                                                 <div class="col-md-2">

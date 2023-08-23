@@ -81,4 +81,8 @@ Route::middleware('auth')->group(function () {
     })->middleware(UserAccess::class);
 
     Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');
+    Route::delete('/users/{id}', [HomeController::class,'destroy'])->name('hr.delete');
+    Route::patch('/users/{id}/restore', [HomeController::class,'restore'])->name('user.restore');
+    Route::get('/restore', [HomeController::class, 'recovery'])->name('restore.index');
+
 });

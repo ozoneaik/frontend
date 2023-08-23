@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 //implements MustVerifyEmail
 class User extends Authenticatable implements MustVerifyEmail
@@ -60,4 +62,5 @@ class User extends Authenticatable implements MustVerifyEmail
             get: fn ($value) =>  ["emp", "pm", "hr(admin)", "hr", "ceo"][$value],
         );
     }
+    use SoftDeletes;
 }

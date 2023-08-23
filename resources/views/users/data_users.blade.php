@@ -23,8 +23,15 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title font-weight-bold"><i class="fa-solid fa-users mr-3"></i>ข้อมูลพนักงาน
-                                </h3>
+                                <h3 class="card-title font-weight-bold"><i class="fa-solid fa-users mr-3"></i>ข้อมูลพนักงาน</h3>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div></div>
+                                    @if(Auth::user()->type === 'hr(admin)')
+                                        <a href="{{ route('restore.index') }}" style="border: none; background: none;">
+                                            <i class="fa-solid fa-trash"></i> หน้าต่างกู้คืนข้อมูล
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered" id="data_emp_table">
@@ -57,7 +64,6 @@
                                             @else
                                                 <td class="text-danger">ยังไม่ได้ยืนยัน</td>
                                             @endif
-
                                             <td><a href="{{route('data.user.detail', $user->id)}}">
                                                     <i class="fas fa-file-invoice"></i>
                                                 </a>
