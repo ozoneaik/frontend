@@ -32,8 +32,7 @@ class LeaveFormController extends Controller
                 'reason' => 'nullable|max:255',
                 'file1' => 'nullable|mimes:pdf,png,jpg|max:10240',
                 'file2' => 'nullable|mimes:pdf,png,jpg|max:10240',
-                'sel_rep' => 'nullable',
-                'sel_pm' => 'nullable',
+                'sel_rep' => 'nullable', 'sel_pm' => 'nullable',
                 'case_no_rep' => 'nullable|numeric|digits:10',
             ],
             [
@@ -46,9 +45,7 @@ class LeaveFormController extends Controller
                 'file1.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น',
                 'file2.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น',
                 'file1.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',
-                'file2.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',
-            ]
-        );
+                'file2.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',]);
 
         $leaveform = new LeaveForm();
         $leaveform->user_id = Auth::user()->id;
@@ -125,16 +122,7 @@ class LeaveFormController extends Controller
     public function req_list_detail($id)
     {
         $leaveforms = LeaveForm::findOrFail($id);
-
-//         Check if the logged-in user is the owner of the leave form
-        if ($leaveforms->user_id !== auth()->user()->id) {
-            abort(403, 'ไม่ได้รับอนุญาต');
-        }
-
         $users = User::all();
-
-
-
         return view('req_list_detail', compact('leaveforms', 'users'));
     }
 
@@ -158,18 +146,83 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของผู้ปฏิบัติงานแทน
     public function rep_list_detail_update(Request $request, $id)
     {
-        // dd($request->all());
-        $request->validate(
-            ['approve_rep' => 'required',],
-            ['approve_rep.required' => 'no requ']
-        );
+//        dd($request->all());
+
+
+        $get_user_type = LeaveForm::where('user_id', $request->user_id)
+            ->join('users', 'leave_forms.user_id', '=', 'users.id')
+            ->select('users.type')
+            ->first();
+//        dd($get_user_type->type);
+
+        $request->validate(['approve_rep' => 'required',], ['approve_rep.required' => 'no requ']);
+
+        $reason_hr = $request->reason_hr;
+//        dd($reason_hr);
+
+        if($get_user_type->type == '3'){
+            $request->approve_hr = $request->approve_rep;
+//            dd($request->approve_hr);
+            if ($request->reason_hr) {
+                $reason_hr = $request->reason_hr . '<hr>' . '<span class="font-weight-bold text-success">' . 'โดย:' . '</span>' . '<br>';
+            } else {
+//                dd('reson_hr',$request->reason_hr,$request->approve_hr);
+                if ($request->approve_hr == 'approve') {
+                    $reason_hr = 'ไม่มีความเห็น' . '<hr>' . '<span class="font-weight-bold text-success">' . 'โดย:' . '</span>' . '<br>';
+                }
+
+            }
+
+
+
+            if ($request->approve_hr == 'disapproval') {
+                $status = 'ไม่อนุมัติ';
+                $approve_ceo = '-';
+            } elseif ($request->approve_hr == 'approve') {
+                if ($request->allowed_hr_admin  == 'ทำงานชดเชยเป็นจำนวน') {
+                    if ($request->day) {
+                        if ($request->hour) {
+                            if ($request->minutes) {
+                                $reason_hr = $reason_hr . $request->allowed_hr_admin . ' ' . $request->day . ' วัน ' . $request->hour . ' ชั่วโมง ' . $request->minutes . 'นาที';
+                                LeaveForm::find($id)->update(['reason_hr' => $reason_hr]);
+                            }
+                        }
+                    }
+                } elseif ($request->allowed_hr_admin == 'อื่นๆ...') {
+                    $reason_hr = $reason_hr . $request->allowed_hr_admin . ' -> ' . $request->other;
+                    LeaveForm::find($id)->update(['reason_hr' => $reason_hr]);
+                } else {
+                    $reason_hr = $reason_hr . $request->allowed_hr_admin;
+                    LeaveForm::find($id)->update(['reason_hr' => $reason_hr]);
+                }
+                $status = 'กำลังดำเนินการ';
+                LeaveForm::find($id)->update([
+                    'status' => $status,
+                ]);
+            } else {
+                $status = 'กำลังดำเนินการ';
+                LeaveForm::find($id)->update([
+                    'status' => $status,
+                ]);
+            }
+        }
+
+//        dd($reason_hr);
+
+
+
 
         $approve_ceo = 'in_progress';
+
+
+
         if (Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'hr') {
             if ($request->approve_rep == 'disapproval') {
                 $request->status = 'ไม่อนุมัติ';
                 $approve_ceo = '-';
-                LeaveForm::find($id)->update(['approve_ceo' => $approve_ceo]);
+                LeaveForm::find($id)->update([
+                    'approve_ceo' => $approve_ceo
+                ]);
             } else {
                 $request->status = 'กำลังดำเนินการ';
             }
@@ -211,35 +264,13 @@ class LeaveFormController extends Controller
     {
 //         dd($request->all());
 
-        $request->validate(
-            [
-                'approve_pm' => 'required',
-                'reason_pm' => 'nullable|max:255',
-                'allowed_pm' => 'nullable',
-                'not_allowed_pm' => 'nullable|max:255',
-                'day' => 'nullable|numeric|between:0,150',
-                'hour' => 'nullable|numeric|between:0,8',
-                'minutes' => 'nullable|numeric|between:0,60',
-            ],
-            [
-                'approve_pm.required' => 'no requ',
-                // 'allowed_pm.required' => 'โปรดเลือก',
-                'reason_pm.max' => 'ป้อนเกิน 255',
-                'not_allowed_pm' => 'ป้อนเกิน 255',
+        $request->validate(['approve_pm' => 'required', 'reason_pm' => 'nullable|max:255', 'allowed_pm' => 'nullable', 'not_allowed_pm' => 'nullable|max:255', 'day' => 'nullable|numeric|between:0,150', 'hour' => 'nullable|numeric|between:0,8', 'minutes' => 'nullable|numeric|between:0,60',], ['approve_pm.required' => 'no requ', // 'allowed_pm.required' => 'โปรดเลือก',
+                'reason_pm.max' => 'ป้อนเกิน 255', 'not_allowed_pm' => 'ป้อนเกิน 255',
 
-                'day.numeric' => 'ป้อนตัวเลขเท่านั้น',
-                'hour.numeric' => 'ป้อนตัวเลขเท่านั้น',
-                'minutes.numeric' => 'ป้อนตัวเลขเท่านั้น',
-                'day.between' => 'ป้อนเลข 2 ตัว',
-                'hour.between' => 'ป้อนเลข 2 ตัว',
-                'minutes.between' => 'ป้อนเลข 2 ตัว',
-            ]
-        );
+                'day.numeric' => 'ป้อนตัวเลขเท่านั้น', 'hour.numeric' => 'ป้อนตัวเลขเท่านั้น', 'minutes.numeric' => 'ป้อนตัวเลขเท่านั้น', 'day.between' => 'ป้อนเลข 2 ตัว', 'hour.between' => 'ป้อนเลข 2 ตัว', 'minutes.between' => 'ป้อนเลข 2 ตัว',]);
 
         if ($request->approve_pm == 'approve') {
-            $request->validate(
-                ['allowed_pm' => 'required'], ['allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ',]
-            );
+            $request->validate(['allowed_pm' => 'required'], ['allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ',]);
         }
 
         $day = $request->day;
@@ -274,15 +305,7 @@ class LeaveFormController extends Controller
             $approve_ceo = '-';
             $approve_hr = '-';
         }
-        LeaveForm::find($id)->update([
-            'reason_pm' => $request->reason_pm,
-            'approve_pm' => $request->approve_pm,
-            'allowed_pm' => $allowed_pm,
-            'not_allowed_pm' => $request->not_allowed_pm,
-            'approve_hr' => $approve_hr,
-            'approve_ceo' => $approve_ceo,
-            'status' => $status,
-        ]);
+        LeaveForm::find($id)->update(['reason_pm' => $request->reason_pm, 'approve_pm' => $request->approve_pm, 'allowed_pm' => $allowed_pm, 'not_allowed_pm' => $request->not_allowed_pm, 'approve_hr' => $approve_hr, 'approve_ceo' => $approve_ceo, 'status' => $status,]);
         return redirect()->route('pm.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
 
@@ -305,6 +328,13 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของ HR
     public function hr_req_list_emp_detail_update(Request $request, $id)
     {
+        //dd($request->all());
+        //กรณีที่ PM ลา
+        $get_user_type = LeaveForm::where('user_id', $request->user_id)
+            ->join('users', 'leave_forms.user_id', '=', 'users.id')
+            ->select('users.type')
+            ->first();
+        //dd($get_user_type->type,$id,$request->all());
         $request->validate(
             [
                 'approve_hr' => 'required',
@@ -312,29 +342,56 @@ class LeaveFormController extends Controller
                 'not_allowed_hr' => 'nullable|max:255',
             ],
             [
-                'approve_hr.required' => 'no requ',
-                // 'allowed_pm.required' => 'โปรดเลือก',
+                'approve_hr.required' => 'no requ', // 'allowed_pm.required' => 'โปรดเลือก',
                 'reason_hr.max' => 'ป้อนอักขระเกิน 255',
                 'not_allowed_hr.max' => 'ป้อนเกิน 255',
-            ]
-        );
+            ]);
+        $reason_hr = $request->reason_hr;
+        //dd($reason_hr);
+        //กรณีที่ PM ลา
+        if($get_user_type->type == '1'){
+            if ($request->reason_hr) {
+                $reason_hr = $request->reason_hr . '<hr>' . '<span class="font-weight-bold text-success">' . 'โดย:' . '</span>' . '<br>';
+            } else {
+                if ($request->approve_hr == 'approve') {
+                    $reason_hr = 'ไม่มีความเห็น' . '<hr>' . '<span class="font-weight-bold text-success">' . 'โดย:' . '</span>' . '<br>';
+                }
 
+            }
+        }
         $approve_ceo = 'in_progress';
+        //กรณีที่ PM ลา
         if ($request->approve_hr == 'disapproval') {
             $status = 'ไม่อนุมัติ';
             $approve_ceo = '-';
+        } elseif ($request->approve_hr == 'approve') {
+            if ($request->allowed_hr == 'ทำงานชดเชยเป็นจำนวน') {
+                if ($request->day) {
+                    if ($request->hour) {
+                        if ($request->minutes) {
+                            $reason_hr = $reason_hr . $request->allowed_hr . ' ' . $request->day . ' วัน ' . $request->hour . ' ชั่วโมง ' . $request->minutes . 'นาที';
+                            LeaveForm::find($id)->update(['reason_hr' => $reason_hr]);
+                        }
+                    }
+                }
+            } elseif ($request->allowed_hr == 'อื่นๆ...') {
+                $reason_hr = $reason_hr . $request->allowed_hr . ' -> ' . $request->other;
+                LeaveForm::find($id)->update(['reason_hr' => $reason_hr]);
+            } else {
+                $reason_hr = $reason_hr . $request->allowed_hr;
+                LeaveForm::find($id)->update(['reason_hr' => $reason_hr]);
+            }
+            $status = 'กำลังดำเนินการ';
         } else {
             $status = 'กำลังดำเนินการ';
         }
         LeaveForm::find($id)->update([
-            'reason_hr' => $request->reason_hr,
+            'reason_hr' => $reason_hr,
             'approve_hr' => $request->approve_hr,
             'not_allowed_hr' => $request->not_allowed_hr,
             'approve_ceo' => $approve_ceo,
             'status' => $status,
         ]);
-        // dd(LeaveForm::find($id)->not_allowed_hr);
-        // dd($request->not_allowed_hr);
         return redirect()->route('hr.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
 
@@ -358,18 +415,7 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของ CEO
     public function ceo_req_list_emp_detail_update(Request $request, $id)
     {
-        $request->validate(
-            [
-                'approve_ceo' => 'required',
-                'reason_ceo' => 'nullable|max:255',
-                'not_allowed_ceo' => 'nullable|max:255',
-            ],
-            [
-                'approve_ceo.required' => 'no requ',
-                'reason_ceo.max' => 'ป้อนเกิน 255',
-                'not_allowed_ceo.max' => 'ป้อนเกิน 255',
-            ]
-        );
+        $request->validate(['approve_ceo' => 'required', 'reason_ceo' => 'nullable|max:255', 'not_allowed_ceo' => 'nullable|max:255',], ['approve_ceo.required' => 'no requ', 'reason_ceo.max' => 'ป้อนเกิน 255', 'not_allowed_ceo.max' => 'ป้อนเกิน 255',]);
         $leaveForm = LeaveForm::find($id);
         $item = users_leave_data::all();
         if ($request->approve_ceo == 'disapproval') {
@@ -429,12 +475,7 @@ class LeaveFormController extends Controller
                 }
             }
         }
-        LeaveForm::find($id)->update([
-            'reason_ceo' => $request->reason_ceo,
-            'approve_ceo' => $request->approve_ceo,
-            'not_allowed_ceo' => $request->not_allowed_ceo,
-            'status' => $status,
-        ]);
+        LeaveForm::find($id)->update(['reason_ceo' => $request->reason_ceo, 'approve_ceo' => $request->approve_ceo, 'not_allowed_ceo' => $request->not_allowed_ceo, 'status' => $status,]);
         // dd(LeaveForm::find($id)->not_allowed_ceo);
 
         return redirect()->route('ceo.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');

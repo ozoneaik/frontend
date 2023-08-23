@@ -298,7 +298,7 @@
                                                 <span>
                                                     @if ($leaveforms->approve_hr != 'disapproval')
                                                         @if ($leaveforms->reason_hr)
-                                                            {{ $leaveforms->reason_hr }}
+                                                            {!! $leaveforms->reason_hr  !!}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
@@ -345,8 +345,12 @@
                                     @endif
                                 </div>
                             </div>
-                            <form action="{{ route('rep.update', $leaveforms->id) }}" method="post">
+                            <form action="{{ route('rep.update', $leaveforms->id) }}" method="POST">
+                                @method('PUT')
                                 @csrf
+
+                                <input type="hidden" name="user_id" value="{{$leaveforms->user_id}}">
+
                                 {{-- ปุ่มปฏิบัติงานแทน --}}
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
                                     @if ($leaveforms->approve_rep != 'in_progress')
@@ -387,7 +391,74 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด
                                                 </button>
-                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
+
+
+                                                <!-- Modal HR ลา -->
+                                                @if($leaveforms->relation_user->type == 'hr')
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">ยืนยัน</button>
+
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+
+
+                                                                    <div class="form-group allowed">
+                                                                        <label for="allowed_hr_admin">เลือกตัวเลือกดังต่อไปนี้</label>
+
+                                                                        @if ($errors->has('allowed_hr_admin'))
+                                                                            <br>
+                                                                            <span class="text-danger">{{ $errors->first('allowed_hr_admin') }}</span>
+                                                                        @endif
+                                                                        <br>
+                                                                        <input type="hidden" name="allowed_hr_admin" value="approve">
+
+                                                                        <div class="icheck-primary d-block">
+                                                                            <input type="radio" name="allowed_hr_admin" id="0" value="อนุญาตตามสิทธิ์พนักงาน" required>
+                                                                            <label class="font-weight-normal" for="0">อนุญาตตามสิทธิ์พนักงาน</label>
+                                                                        </div>
+
+                                                                        <div class="icheck-primary d-block">
+                                                                            <input type="radio" name="allowed_hr_admin" id="3" value="ไม่รับค่าแรงตามจำนวนวันที่ลา" required>
+                                                                            <label for="3" class="font-weight-normal">ไม่รับค่าแรงตามจำนวนวันที่ลา</label>
+                                                                        </div>
+
+                                                                        <div class="icheck-primary d-block">
+                                                                            <input type="radio" name="allowed_hr_admin" id="2" value="ทำงานชดเชยเป็นจำนวน" onchange="showInputFields()" required>
+                                                                            <label class="font-weight-normal" for="2">ทำงานชดเชยเป็นจำนวน</label>
+                                                                            <input type="number" name="day" id="day" style="width: 10%; display: none;" min="0" max="150">วัน
+                                                                            <input type="number" name="hour" id="hour" style="width: 10%; display: none;" min="0" max="8">ชั่วโมง
+                                                                            <input type="number" name="minutes" id="minutes" style="width: 10%; display: none;" min="0" max="59">นาที
+                                                                        </div>
+                                                                        <div class="icheck-primary d-block">
+                                                                            <input type="radio" name="allowed_hr_admin" id="4" value="อื่นๆ...">
+                                                                            <label class="font-weight-normal" for="4">
+                                                                                อื่นๆ
+                                                                                <input type="text" name="other" style="width: 350px">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                                    <button type="submit" class="btn btn-success">ยืนยัน</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <button type="submit" class="btn btn-success">ยืนยัน</button>
+                                                @endif
                                             </div>
                                             <input type="hidden" name="approve_rep" value="">
                                         </div>
@@ -402,4 +473,46 @@
         {{-- end container fluid --}}
     </section>
     {{-- end mian content --}}
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var radio = document.getElementsByName('allowed_hr_admin');
+            var otherInput = document.getElementsByName('other')[0];
+            var day = document.getElementsByName('day')[0];
+            var hour = document.getElementsByName('hour')[0];
+            var minutes = document.getElementsByName('minutes')[0];
+
+            for (var i = 0; i < radio.length; i++) {
+                radio[i].addEventListener('change', function () {
+                    if (this.checked && this.value === 'อื่นๆ...'){
+                        otherInput.setAttribute('required', 'required');
+                    }
+                    else if(this.checked && this.value === 'ทำงานชดเชยเป็นจำนวน'){
+                        day.setAttribute('required', 'required');
+                        hour.setAttribute('required', 'required');
+                        minutes.setAttribute('required', 'required');
+                    }
+                    else {
+                        otherInput.removeAttribute('required');
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        function showInputFields() {
+            var radio = document.querySelector('input[name="allowed_hr_admin"]:checked');
+            if (radio && radio.value === "ทำงานชดเชยเป็นจำนวน") {
+                document.getElementById("day").style.display = "inline-block"; // show day input field
+                document.getElementById("hour").style.display = "inline-block"; // show hour input field
+                document.getElementById("minutes").style.display = "inline-block"; // show minutes input field
+            } else {
+                document.getElementById("day").style.display = "none"; // hide day input field
+                document.getElementById("hour").style.display = "none"; // hide hour input field
+                document.getElementById("minutes").style.display = "none"; // hide minutes input field
+            }
+
+        }
+    </script>
 @endsection

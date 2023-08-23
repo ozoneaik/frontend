@@ -76,14 +76,14 @@
     $darkModeClass = ($now >= $startTime || $now < $endTime) ? 'dark-mode' : '';
 @endphp
 
-<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-mini {{ $darkModeClass }}">
+<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-mini">
 
 
 {{-- Main Wrapper --}}
 <div class="wrapper">
 
     {{-- Nav bar --}}
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
         {{-- Left Navbar --}}
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -337,8 +337,10 @@
             confirmModal.find('input[name=approve_rep]').val(value);
             if (value === 'disapproval') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิเสธงานแทน[❌]หรือไม่?');
+                confirmModal.find('.allowed input').prop('disabled', true);
             } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะปฏิบัติงานแทน[✔️]หรือไม่?');
+                confirmModal.find('.allowed input').prop('disabled', false);
             }
             confirmModal.modal('show');
 
@@ -364,10 +366,15 @@
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?');
                 confirmModal.find('.reason_hr').hide();
                 confirmModal.find('#not_allowed_hr').show();
+                // Disable all input elements within elements with class "allowed"
+                confirmModal.find('.allowed input').prop('disabled', true);
+
             } else if (value === 'approve') {
                 confirmModal.find('.modal-body .content').text('ยืนยันที่จะอนุมัติ[✔️]หรือไม่?');
                 confirmModal.find('.modal-body .form-group').show();
+                confirmModal.find('.allowed').show();
                 confirmModal.find('#not_allowed_hr').hide();
+                confirmModal.find('.allowed input').prop('disabled', false);
             }
             confirmModal.modal('show');
 

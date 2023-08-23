@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('layouts.layout')
 
 @section('title')
@@ -109,7 +110,7 @@
                                                     <div class="form-group">
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i') }}
+                                                            {{ Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -118,7 +119,7 @@
                                                     <div class="form-group">
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                                            {{ Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -134,7 +135,8 @@
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
                                                         @if ($leaveforms->reason)
-                                                            <textarea class="form-control p-2" rows="4" readonly>{{ $leaveforms->reason }}</textarea>
+                                                            <textarea class="form-control p-2" rows="4"
+                                                                      readonly>{{ $leaveforms->reason }}</textarea>
                                                         @else
                                                             <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
                                                         @endif
@@ -269,7 +271,7 @@
                                             @if ($leaveforms->status == 'อนุมัติ')
                                                 <h6 class="pb-3 text-muted font-weight-light">
                                                     อนุมัติเมื่อ
-                                                    {{ \Carbon\Carbon::parse($leaveforms->updated_at)->addYears(543)->format('d/m/Y H:i:s') }}
+                                                    {{ Carbon::parse($leaveforms->updated_at)->addYears(543)->format('d/m/Y H:i:s') }}
                                                 </h6>
                                                 <h5 class="pb-3">ผู้อนุมัติ</h5>
                                                 <h5 class="pb-3 text-muted font-weight-light">นายณัฐดนัย หอมดง</h5>
@@ -433,19 +435,23 @@
                                 <div class="col-md-12 d-flex justify-content-end">
 
                                     {{-- ไม่อนุมัติ PM --}}
-                                    <button type="button" class="btn btn-danger mr-3" @if ($leaveforms->approve_pm != 'in_progress') disabled @endif  data-toggle="modal" data-target="#not_confirmModal_pm">
+                                    <button type="button" class="btn btn-danger mr-3"
+                                            @if ($leaveforms->approve_pm != 'in_progress') disabled
+                                            @endif  data-toggle="modal" data-target="#not_confirmModal_pm">
                                         ไม่อนุมัติ
                                     </button>
                                     {{-- Modal ไม่อนุมัติ PM --}}
                                     <form action="{{ route('pm.req.emp.update', $leaveforms->id) }}" method="post">
                                         @csrf
-                                        <div class="modal fade" id="not_confirmModal_pm" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
+                                        <div class="modal fade" id="not_confirmModal_pm" tabindex="-1" role="dialog"
+                                             aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="confirmModalLabel_pm">
                                                             บันทึกข้อมูล</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -458,7 +464,10 @@
                                                                 {{$errors->first('not_allowed_pm')}}
                                                             </span>
                                                             @endif
-                                                            <textarea class="form-control @error('not_allowed_pm') is-invalid @enderror" name="not_allowed_pm" id="" cols="30" rows="4"></textarea>
+                                                            <textarea
+                                                                    class="form-control @error('not_allowed_pm') is-invalid @enderror"
+                                                                    name="not_allowed_pm" id="" cols="30"
+                                                                    rows="4"></textarea>
                                                         </div>
                                                         <span>
                                                             ยืนยันที่จะไม่อนุมัติ[❌]หรือไม่?
@@ -469,7 +478,8 @@
                                                         </span>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">
                                                             ปิด
                                                         </button>
                                                         <button type="submit" class="btn btn-primary">ยืนยัน</button>
@@ -480,19 +490,23 @@
                                     </form>
 
                                     {{-- อนุมัติ PM --}}
-                                    <button type="button" class="btn btn-primary" @if ($leaveforms->approve_pm != 'in_progress') disabled @endif data-toggle="modal" data-target="#confirmModal_pm">
+                                    <button type="button" class="btn btn-primary"
+                                            @if ($leaveforms->approve_pm != 'in_progress') disabled
+                                            @endif data-toggle="modal" data-target="#confirmModal_pm">
                                         อนุมัติ
                                     </button>
                                     {{-- modal อนุมัติ PM --}}
                                     <form action="{{ route('pm.req.emp.update', $leaveforms->id) }}" method="post">
                                         @csrf
-                                        <div class="modal fade" id="confirmModal_pm" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
+                                        <div class="modal fade" id="confirmModal_pm" tabindex="-1" role="dialog"
+                                             aria-labelledby="confirmModalLabel_pm" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="confirmModalLabel_pm">
                                                             บันทึกข้อมูล</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -503,7 +517,9 @@
                                                                 <span class="text-danger">{{ $errors->first('reason_pm') }}
                                                             </span>
                                                             @endif
-                                                            <textarea class="form-control @error('reason_pm') is-invalid @enderror " id="reason_pm" name="reason_pm" rows="3"></textarea>
+                                                            <textarea
+                                                                    class="form-control @error('reason_pm') is-invalid @enderror "
+                                                                    id="reason_pm" name="reason_pm" rows="3"></textarea>
                                                         </div>
                                                         <div class="form-group allowed">
                                                             <label for="allowed_pm">
@@ -520,14 +536,16 @@
                                                             <input type="hidden" name="approve_pm" value="approve">
 
                                                             <div class="icheck-primary d-block">
-                                                                <input type="radio" name="allowed_pm" id="0" value="อนุญาตตามสิทธิ์พนักงาน" required>
+                                                                <input type="radio" name="allowed_pm" id="0"
+                                                                       value="อนุญาตตามสิทธิ์พนักงาน" required>
                                                                 <label class="font-weight-normal" for="0">
                                                                     อนุญาตตามสิทธิ์พนักงาน
                                                                 </label>
                                                             </div>
 
                                                             <div class="icheck-primary d-block">
-                                                                <input type="radio" name="allowed_pm" id="3" value="ไม่รับค่าแรงตามจำนวนวันที่ลา" required>
+                                                                <input type="radio" name="allowed_pm" id="3"
+                                                                       value="ไม่รับค่าแรงตามจำนวนวันที่ลา" required>
                                                                 <label for="3" class="font-weight-normal">
                                                                     ไม่รับค่าแรงตามจำนวนวันที่ลา
                                                                 </label>
@@ -535,19 +553,14 @@
 
                                                             <div class="icheck-primary d-block">
                                                                 <input type="radio" name="allowed_pm" id="2" value="ทำงานชดเชยเป็นจำนวน" onchange="showInputFields()" required>
-                                                                <label class="font-weight-normal" for="2">
-                                                                    ทำงานชดเชยเป็นจำนวน
-                                                                </label>
-                                                                <input type="number" name="day" id="day" style="width: 10%; display: none;" min="0" max="150">
-                                                                วัน
-                                                                <input type="number" name="hour" id="hour" style="width: 10%; display: none;" min="0" max="8">
-                                                                ชั่วโมง
-                                                                <input type="number" name="minutes" id="minutes" style="width: 10%; display: none;" min="0" max="59">
-                                                                นาที
+                                                                <label class="font-weight-normal" for="2">ทำงานชดเชยเป็นจำนวน</label>
+                                                                <input type="number" name="day" id="day" style="width: 10%; display: none;" min="0" max="150">วัน
+                                                                <input type="number" name="hour" id="hour" style="width: 10%; display: none;" min="0" max="8">ชั่วโมง
+                                                                <input type="number" name="minutes" id="minutes" style="width: 10%; display: none;" min="0" max="59">นาที
                                                             </div>
                                                             <div class="icheck-primary d-block">
-                                                                <input type="radio" name="allowed_pm" id="3" value="อื่นๆ...">
-                                                                <label class="font-weight-normal" for="3">
+                                                                <input type="radio" name="allowed_pm" id="4" value="อื่นๆ...">
+                                                                <label class="font-weight-normal" for="4">
                                                                     อื่นๆ
                                                                     <input type="text" name="other" style="width: 350px">
                                                                 </label>
@@ -560,9 +573,7 @@
                                                         <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                            ปิด
-                                                        </button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
                                                         <button type="submit" class="btn btn-primary">ยืนยัน</button>
                                                     </div>
                                                 </div>

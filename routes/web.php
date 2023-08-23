@@ -14,14 +14,11 @@ Route::get('/', function () {
 });
 
 
-//Route::get('pdf', [PDFController::class, 'generatePDF']);
+//Auth::routes([
+//    'verify' => true
+//]);
 
-
-Auth::routes([
-    'verify' => true
-]);
-
-//Auth::routes();
+Auth::routes();
 
 Route::get('/test', function () {
     return view('test');
@@ -29,20 +26,20 @@ Route::get('/test', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 //['auth', 'verified']
-Route::middleware(['auth','verified'])->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile/{id}', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile_update/{id}', [HomeController::class, 'profile_update'])->name('profile.update');
 
     Route::get('/req_list', [LeaveFormController::class, 'req'])->name('req');
-    Route::match(['get', 'post'], '/req_list_detail/{id}', [LeaveFormController::class, 'req_list_detail'])->name('req.detail');
+    Route::get('/req_list_detail/{id}', [LeaveFormController::class, 'req_list_detail'])->name('req.detail');
     Route::get('/form', [LeaveFormController::class, 'create'])->name('create');
     Route::post('/store', [LeaveFormController::class, 'store'])->name('leaveform.store');
 
     Route::get('/rep_list', [LeaveFormController::class, 'rep'])->name('rep');
     Route::match(['get', 'post'], '/rep_list_detail/{id}', [LeaveFormController::class, 'rep_list_detail'])->name('rep.detail');
-    Route::match(['get', 'post'], '/rep_list_detail_update/{id}', [LeaveFormController::class, 'rep_list_detail_update'])->name('rep.update');
+    Route::put('/rep_list_detail_update/{id}', [LeaveFormController::class, 'rep_list_detail_update'])->name('rep.update');
 
     //filter
     Route::get('/req/filter', [FilterController::class, 'filter'])->name('filter.req');
