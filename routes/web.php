@@ -14,11 +14,11 @@ Route::get('/', function () {
 });
 
 
-//Auth::routes([
-//    'verify' => true
-//]);
+Auth::routes([
+    'verify' => true
+]);
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/test', function () {
     return view('test');
@@ -26,7 +26,7 @@ Route::get('/test', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 //['auth', 'verified']
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile/{id}', [HomeController::class, 'profile'])->name('profile');

@@ -378,7 +378,7 @@
                                                 <span>
                                                     @if($leaveforms->approve_hr != 'disapproval')
                                                         @if ($leaveforms->reason_hr)
-                                                            {{ $leaveforms->reason_hr}}
+                                                            {!! $leaveforms->reason_hr !!}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif

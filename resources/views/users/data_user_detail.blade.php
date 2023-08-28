@@ -337,7 +337,9 @@
                     {{-- ประวัติการของ --}}
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">ประวัติการของ </h3>
+                            <h3 class="card-title font-weight-bold">
+                                <i class="fas fa-user mr-2"></i>
+                                ประวัติการลาของ {{$user->name}} ({{$user->nick_name}})</h3>
                         </div>
                         @php
                             $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
@@ -347,55 +349,44 @@
                             <table id="data-table" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
-                                    <th>วันที่ยื่น</th>
-                                    <th style="{{ $style }} max-width: 80px;">ประเภทการลา</th>
-                                    <th style="{{ $style }} max-width: 80px;">ลาตั้งแต่ - ถึง</th>
-                                    <th style="{{ $style }} max-width: 80px;">ลาทั้งหมด</th>
-                                    <th style="{{ $style }} max-width: 80px;">ผู้ปฏิบัติงานแทน</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(ผู้ปฏิบัติงานแทน)</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(PM)</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(HR)</th>
-                                    <th style="{{ $style }} max-width: 50px;">อนุมัติ(CEO)</th>
-                                    <th>สถานะ</th>
-                                    <th style="{{ $style }} max-width: 50px;">
-                                        รายละเอียด
-                                    </th>
+                                    <th style="{{ $style }} max-width: 40px;">วันที่ยื่นคำร้อง</th>
+                                    <th style="{{ $style }} max-width: 40px;">ประเภทการลา</th>
+                                    <th style="{{ $style }} max-width: 40px;">วันที่ลาตั้งแต่</th>
+                                    <th style="{{ $style }} max-width: 40px;">ถึง</th>
+                                    <th style="{{ $style }} max-width: 40px;">ลาทั้งหมด</th>
+                                    <th style="{{ $style }} max-width: 30px;">ผู้ปฏิบัติงานแทน</th>
+                                    <th style="{{ $style }} max-width: 50px;">สถานะ</th>
+                                    <th style="{{ $style }} max-width: 10px;">รายละเอียด</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($leaveforms as $row)
+                                @foreach ($leaves as $row)
                                     <tr>
-                                        <td style="{{ $style }} max-width: 80px;">
-                                            {{ $row->created_at->addYears(543)->format('d/m/Y H:i') }}
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->created_at)->addYears(543)->format('d/m/Y H:i') }}
                                         </td>
-                                        <td>{{ $row->leave_type }}</td>
-                                        <td style="{{ $style }} max-width: 100px;">
-                                            {{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
-                                            ถึง
-                                            {{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->leave_type }}</td>
+                                        <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}
                                         </td>
-                                        <td style="{{ $style }} max-width: 100px;">
-                                            {{ $row->leave_total }}</td>
-                                        @if (!$row->sel_rep)
-                                            <td>ไม่มีผู้ปฏิบัติแทน</td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}
+                                        </td>
+                                        <td style="{{ $style }} max-width: 40px;">{{ $row->leave_total }}</td>
+                                        @if (!$row->sel_rep || $row->approve_rep == '❌')
+                                            <td style="{{ $style }} max-width: 40px;">
+                                                ไม่มีผู้ปฏิบัติแทน @if($row->approve_rep == '❌')
+                                                    ถูกปฏิเสธ
+                                                @endif</td>
                                         @else
-                                            @foreach ($users as $user)
-                                                @if ($user->id == $row->sel_rep)
-                                                    <td>{{ $user->name }}</td>
-                                                @endif
-                                            @endforeach
+                                            <td style="{{ $style }} max-width: 40px;">{{ $row->representative->name }}</td>
                                         @endif
-                                        {{-- <td>{{$row->sel_rep }}</td> --}}
-                                        <td>{{ $row->approve_rep }}
-                                        <td>{{ $row->approve_pm }}</td>
-                                        <td>{{ $row->approve_hr }}</td>
-                                        <td>{{ $row->approve_ceo }}</td>
-                                        <td style="{{ $style }} max-width: 50px;"
-                                            class="{{ $row->status == 'อนุมัติ' ? 'text-success table-success' : ($row->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger table-danger') }}">
-                                            {{ $row->status }}</td>
-                                        <td>
-                                            <a href="{{ route('data.user.history', $row->id) }}"><i
-                                                    class="fas fa-file-invoice"></i></a>
+                                        <td style="{{ $style }} max-width: 40px;" class="">
+                                            <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                                {{ $row->status }}
+                                            </button>
+                                        </td>
+                                        <td style="{{ $style }} max-width: 20px;">
+                                            <a href="{{ route('data.user.history', $row->id) }}">
+                                                <i class="fas fa-file-invoice"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

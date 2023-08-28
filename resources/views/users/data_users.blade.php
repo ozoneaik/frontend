@@ -59,8 +59,7 @@
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->phone_no_1}}</td>
                                             @if($user->email_verified_at)
-                                                <td class="text-success">
-                                                    ยืนยันแล้วเมื่อ {{$user->email_verified_at}}</td>
+                                                <td class="text-success">ยืนยันแล้วเมื่อ {{$user->email_verified_at}}</td>
                                             @else
                                                 <td class="text-danger">ยังไม่ได้ยืนยัน</td>
                                             @endif

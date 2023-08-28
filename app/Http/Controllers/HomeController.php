@@ -116,11 +116,11 @@ class HomeController extends Controller
     {
         $user = User::findOrFail($id);
         $users = User::all();
-        $leaveforms = LeaveForm::where('user_id', $id)->get();
+        $leaves = LeaveForm::where('user_id', $id)->get();
         $leave_datas = users_leave_data::where('user_id', $id)->get();
 //        dd($leaveforms);
 
-        return view('users.data_user_detail', compact('user', 'users', 'leave_datas', 'leaveforms'));
+        return view('users.data_user_detail', compact('user', 'users', 'leave_datas', 'leaves'));
     }
 
     public function data_user_history($id){

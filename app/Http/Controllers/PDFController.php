@@ -44,10 +44,6 @@ class PDFController extends Controller
     {
         $leaveforms = LeaveForm::findOrFail($id);
 
-        // Check if the logged-in user is the owner of the leave form
-        if ($leaveforms->user_id !== auth()->user()->id) {
-            abort(403, 'ไม่ได้รับอนุญาต');
-        }
 
         $my_user = DB::table('users')->where('id', Auth::user()->id)->first();
         $user_rep = DB::table('users')->where('id', $leaveforms->sel_rep)->first();
@@ -70,7 +66,7 @@ class PDFController extends Controller
         ;
 //        $leaveform_created_at = Carbon::parse($leaveforms->created_at)->addYears(543)->locale('th')->translatedFormat('jS F Y');
 //
-//        dd($leaveform_created_at);
+//        dd($leaveform_created_at)
 
         return view('pdf', compact(
             'leaveforms',

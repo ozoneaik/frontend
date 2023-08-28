@@ -154,20 +154,23 @@
                     </li>
 
                     {{-- รายการคำขอ --}}
-                    <li class="nav-item">
-                        <a href="{{ route('req') }}"
-                           class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-file-alt"></i>
-                            <p>รายการคำขอใบลา</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('rep') }}"
-                           class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-file-signature"></i>
-                            <p>รายการคำขอปฏิบัติแทน</p>
-                        </a>
-                    </li>
+                    @if(Auth::user()->type != 'ceo')
+                        <li class="nav-item">
+                            <a href="{{ route('req') }}"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('req', 'req.detail', 'create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>รายการคำขอใบลา</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('rep') }}"
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('rep', 'rep.detail') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-file-signature"></i>
+                                <p>รายการคำขอปฏิบัติแทน</p>
+                            </a>
+                        </li>
+                    @endif
+
 
                     {{-- Project manager --}}
                     @if(Auth::user()->type == 'pm')
@@ -211,7 +214,7 @@
                     @if(Auth::user()->type == 'ceo' || Auth::user()->type == 'hr(admin)' || Auth::user()->type == 'pm')
                         <li class="nav-item">
                             <a href="{{ route('data.users') }}"
-                               class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail') ? 'active' : '' }}">
+                               class="nav-link pt-3 pb-3 {{ Request::routeIs('data.users', 'data.user.detail','data.user.history') ? 'active' : '' }}">
                                 <i class="fa-solid fa-users nav-icon"></i>
                                 <p>ข้อมูลพนักงาน</p>
                             </a>
