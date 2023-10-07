@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 
-@section('title'){{'เพิ่มใบลา'}}@endsection
+@section('title')
+    {{ 'เพิ่มใบลา' }}
+@endsection
 
 @section('content')
 
@@ -11,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb text-start">
                         <li class="breadcrumb-item">รายการคำขอ</li>
-                        <li class="breadcrumb-item active"><a href="{{route('req')}}">รายการคำขอใบลา</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('req') }}">รายการคำขอใบลา</a></li>
                         <li class="breadcrumb-item active">เพิ่มใบลา</li>
                     </ol>
                 </div>
@@ -24,11 +26,11 @@
     <section class="content">
         {{-- Example data --}}
         <?php
-        $leave = array('ลาป่วย', 'ลากิจ', 'ลาพักผ่อนประจำปี', 'ลาเพื่อทำหมัน', 'ลาเพื่อฝึกอบรม', 'ลาอุปสมบท', 'ลาคลอดบุตร', 'ลารับราชการทหาร', 'ลาเพื่อสมรส');
+        $leave = ['ลาป่วย', 'ลากิจ', 'ลาพักผ่อนประจำปี', 'ลาเพื่อทำหมัน', 'ลาเพื่อฝึกอบรม', 'ลาอุปสมบท', 'ลาคลอดบุตร', 'ลารับราชการทหาร', 'ลาเพื่อสมรส'];
         ?>
         {{-- end example data --}}
 
-        {{-- Container Fluid--}}
+        {{-- Container Fluid --}}
         <div class="container-fluid">
             <form action="{{ route('leaveform.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -38,7 +40,8 @@
                             <div class="card-header">
                                 <h3 class="card-title font-weight-bold">
                                     <i class="fas fa-file-medical mr-2"></i>
-                                    เพิ่มใบลา </h3>
+                                    เพิ่มใบลา
+                                </h3>
                             </div>
                             <div class="card-body">
                                 {{-- รายละเอียดใบลา --}}
@@ -46,7 +49,8 @@
                                     <div class="card-header">
                                         <h3 class="card-title font-weight-bold">
                                             <i class="fas fa-file-invoice mr-2"></i>
-                                            รายละเอียดใบลา </h3>
+                                            รายละเอียดใบลา
+                                        </h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -54,7 +58,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
-                                                    <input class="form-control" value="{{Auth::user()->id}} {{Auth::user()->name}} {{Auth::user()->possition}}" disabled>
+                                                    <input class="form-control" value="{{ Auth::user()->id }} {{ Auth::user()->name }} {{ Auth::user()->position }}" disabled>
                                                 </div>
                                             </div>
                                             {{-- ประเภทการลา --}}
@@ -62,8 +66,8 @@
                                                 <div class="form-group">
                                                     <label for="leave_type"><span style="color: red">* </span>ประเภทการลา</label>
                                                     <select name="leave_type" id="" class="form-control select2" style="width:100%;">
-                                                        @foreach($leave as $row)
-                                                            <option value="{{ $row }}">{{$row}}</option>
+                                                        @foreach ($leave as $row)
+                                                            <option value="{{ $row }}">{{ $row }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -73,7 +77,7 @@
                                                 <div class="form-group">
                                                     <label><span style="color: red">* </span>ลาตั้งแต่ :</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local" class="form-control @error('leave_start') is-invalid @enderror" name="leave_start" id="start-date" onchange="calculate()" value="{{ old('leave_start')}}" placeholder="เลือกวันที่ลาตั้งแต่..." readonly/>
+                                                        <input type="datetime-local" class="form-control @error('leave_start') is-invalid @enderror" name="leave_start" id="start-date" onchange="calculate()" value="{{ old('leave_start') }}" placeholder="เลือกวันที่ลาตั้งแต่..." readonly />
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>
@@ -92,7 +96,7 @@
                                                 <div class="form-group">
                                                     <label><span style="color: red">* </span>ถึง :</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local" class="form-control @error('leave_end') is-invalid @enderror" name="leave_end" id="end-date" onchange="calculate()" value="{{ old('leave_end') }}" placeholder="เลือกวันที่ลาถึง..." readonly/>
+                                                        <input type="datetime-local" class="form-control @error('leave_end') is-invalid @enderror" name="leave_end" id="end-date" onchange="calculate()" value="{{ old('leave_end') }}" placeholder="เลือกวันที่ลาถึง..." readonly />
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <i class="fa fa-calendar"></i>
@@ -131,7 +135,7 @@
                                                 </div>
                                             </div>
                                             {{-- เอกสารประกอบการลา --}}
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">เอกสารประกอบการลา</label>
                                                     <div class="input-group">
@@ -146,7 +150,7 @@
                                                 </div>
                                             </div>
                                             {{-- เอกสารประกอบการลาเพิ่มเติม (ถ้ามี) --}}
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">เอกสารประกอบการลาเพิ่มเติม (ถ้ามี)</label>
                                                     <div class="input-group">
@@ -163,59 +167,60 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if(Auth::user()->type != 'pm')
+                                @if (Auth::user()->type != 'pm')
                                     {{-- ระหว่างการลามอบหมายให้ --}}
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title font-weight-bold">
                                                 <i class="fa-solid fa-user mr-2"></i>
-                                                ระหว่างการลามอบหมายให้ </h3>
+                                                ระหว่างการลามอบหมายให้
+                                            </h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
                                                         <select name="sel_rep" id="" class="form-control select2" style="width:100%;">
-                                                            @if(Auth::user()->type != 'hr' && Auth::user()->type != 'hr(admin)')
+                                                            @if (Auth::user()->type != 'hr' && Auth::user()->type != 'hr(admin)')
                                                                 <option value="">ไม่มีผู้ปฏิบัติงานแทน</option>
                                                             @endif
-                                                            @foreach($users as $user_rep)
+                                                            @foreach ($users as $user_rep)
                                                                 @php
-                                                                    $isDisabled = ($user_rep->id == Auth::user()->id) ? 'disabled="disabled"' : '';
+                                                                    $isDisabled = $user_rep->id == Auth::user()->id ? 'disabled="disabled"' : '';
                                                                 @endphp
 
-                                                                @if(Auth::user()->type == 'emp' && $user_rep->type == '0' ||
-                                                                    (in_array(Auth::user()->type, ['hr', 'hr(admin)']) && in_array($user_rep->type, ['3', '2'])))
-                                                                    <option value="{{$user_rep->id}}" {{ old('sel_rep') == $user_rep->id ? 'selected' : '' }} {{$isDisabled}}>
-                                                                        {{$user_rep->id}} {{$user_rep->name}} {{$user_rep->possition}}
+                                                                @if ((Auth::user()->type == 'emp' && $user_rep->type == '0') || (in_array(Auth::user()->type, ['hr', 'hr(admin)']) && in_array($user_rep->type, ['3', '2'])))
+                                                                    <option value="{{ $user_rep->id }}" {{ old('sel_rep') == $user_rep->id ? 'selected' : '' }} {{ $isDisabled }}>
+                                                                        {{ $user_rep->id }} {{ $user_rep->name }} {{ $user_rep->position }}
                                                                     </option>
                                                                 @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">กรณีไม่มีผู้ปฏิบัติงานแทนสามารถ(ติดต่อ)</label>
                                                         <input class="form-control @error('case_no_rep') is-invalid @enderror" type="text" name="case_no_rep" value="{{ old('case_no_rep', Auth::user()->phone_no_1) }}">
                                                         @if ($errors->has('case_no_rep'))
                                                             <span class="text-danger">
-                                                            {{ $errors->first('case_no_rep') }}
-                                                        </span>
+                                                                {{ $errors->first('case_no_rep') }}
+                                                            </span>
                                                         @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    @if(Auth::user()->type != 'hr' && Auth::user()->type != 'hr(admin)')
+                                    @if (Auth::user()->type != 'hr' && Auth::user()->type != 'hr(admin)')
                                         {{-- เลือก Project manager --}}
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title font-weight-bold">
                                                     <i class="fa-solid fa-user-gear mr-2"></i>
-                                                    เลือก Project manager </h3>
+                                                    เลือก Project manager
+                                                </h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -223,9 +228,9 @@
                                                         <div class="form-group">
                                                             <label for="">รหัสพนักงาน ชื่อ-นามสกุล ตำแหน่ง</label>
                                                             <select name="sel_pm" id="" class="form-control select2" style="width:100%;">
-                                                                @foreach($users as $user_pm)
+                                                                @foreach ($users as $user_pm)
                                                                     @if ($user_pm->type == '1')
-                                                                        <option value="{{$user_pm->id}}">{{$user_pm->id}} {{$user_pm->name}} {{$user_pm->possition}}
+                                                                        <option value="{{ $user_pm->id }}">{{ $user_pm->id }} {{ $user_pm->name }} {{ $user_pm->position }}
                                                                         </option>
                                                                     @endif
                                                                 @endforeach
@@ -239,7 +244,7 @@
                                 @endif
                                 {{-- ปุ่มบันทึกการลา --}}
                                 <div class="col-md-12 justify-content-end d-flex ">
-                                    <a href="{{route('home')}}" class="btn btn-danger">ยกเลิก</a>
+                                    <a href="{{ route('home') }}" class="btn btn-danger">ยกเลิก</a>
                                     <button class="btn btn-primary ml-2" type="button" data-toggle="modal" data-target="#modal-default">
                                         บันทึก
                                     </button>
@@ -275,11 +280,11 @@
                 </div>
             </form>
         </div>
-        {{-- end container fluid--}}
+        {{-- end container fluid --}}
     </section>
     {{-- end mian content --}}
 
-    {{-- Datatime Picker ใช้ flatpickr--}}
+    {{-- Datatime Picker ใช้ flatpickr --}}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/th.js"></script>
     <script>
@@ -297,7 +302,7 @@
             // time_24hr: true,
             // disableMobile: "true",
             "disable": [
-                function (date) {
+                function(date) {
                     // return true to disable
                     return (date.getDay() === 0 || date.getDay() === 6);
                 }
@@ -306,7 +311,7 @@
         var startDateInput = document.getElementById("start-date");
         var endDateInput = document.getElementById("end-date");
 
-        startDateInput.addEventListener("change", function () {
+        startDateInput.addEventListener("change", function() {
             var startDate = moment(this.value, 'DD/MM/YYYY HH:mm');
             flatpickr(endDateInput, {
                 locale: "th",
@@ -321,7 +326,7 @@
                 disableMobile: "true",
                 // minDate: startDate.toDate(),
                 "disable": [
-                    function (date) {
+                    function(date) {
                         // return true to disable
                         return (date.getDay() === 0 || date.getDay() === 6);
                     }
@@ -342,7 +347,7 @@
         var reason = document.getElementById('reason');
         var reasonCount = document.getElementById('reason-count');
 
-        reason.addEventListener('input', function () {
+        reason.addEventListener('input', function() {
             var count = reason.value.length;
             reasonCount.innerHTML = count + '/255';
             if (count >= 255) {
@@ -416,5 +421,5 @@
             document.getElementById("result").innerHTML = result;
         }
     </script>
-    {{--end upload fliles--}}
+    {{-- end upload fliles --}}
 @endsection

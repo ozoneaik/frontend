@@ -62,7 +62,7 @@
                                                 <br>
                                                 <span>
                                                         <span class="font-weight-bold">ตำแหน่ง : </span>
-                                                        {{ $user->possition }}
+                                                        {{ $user->position }}
                                                 </span>
                                             </div>
                                         </div>
@@ -128,8 +128,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="possition">ตำแหน่ง</label>
-                                                                    <input class="form-control" name="possition" value="{{$user->possition}}" type="text"/>
+                                                                    <label for="position">ตำแหน่ง</label>
+                                                                    <input class="form-control" name="position" value="{{$user->position}}" type="text"/>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">

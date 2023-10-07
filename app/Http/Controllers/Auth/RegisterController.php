@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 use Illuminate\Support\Facades\DB;
@@ -54,18 +55,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'nick_name' => ['required', 'string', 'max:255'],
-            'possition' => ['required', 'string', 'max:255'],
-            'birthday' => ['required'],
-            'address' => ['required', 'string', 'max:255'],
-            'phone_no_1' => ['required', 'string', 'max:11'],
-            'phone_no_2' => ['required', 'string', 'max:11'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
-            'type' => ['required'],
+
+        $validator = Validator::make($data, [
+            // 'name' => ['required', 'string', 'max:255'],
+            // 'nick_name' => ['required', 'string', 'max:255'],
+            // 'possition' => ['required', 'string', 'max:255'],
+            // 'birthday' => ['required'],
+            // 'address' => ['required', 'string', 'max:255'],
+            // 'phone_1' => ['max:11'],
+            // 'phone_2' => ['max:11'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'password' => ['required', 'string', 'min:4', 'confirmed'],
+            // 'type' => ['required'],
         ]);
+        return $validator;
+
     }
 
     /**
@@ -76,18 +80,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        // dd($data,"validated");
+        $user_id_gen = uniqid();
         $user = User::create([
+            'user_id' => $user_id_gen,
             'name' => $data['name'],
             'nick_name' => $data['nick_name'],
-            'possition' => $data['possition'],
+            'position' => $data['position'],
             'birthday' => $data['birthday'],
             'address' => $data['address'],
-            'phone_no_1' => $data['phone_no_1'],
-            'phone_no_2' => $data['phone_no_2'],
+            'phone_no_1' => $data['phone_1'],
+            'phone_no_2' => $data['phone_2'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'type' => $data['type'],
+            // 'type' => $data['type'],
         ]);
         $users_leave_datas = [
             [

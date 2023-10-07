@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('leave_type_name');
             $table->string('time_remain')->nullable();
             $table->string('time_already_used')->nullable();
+            $table->string('previous_time_al_used')->nullable();
             $table->timestamps();
         });
     }

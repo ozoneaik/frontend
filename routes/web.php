@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\UserAccess;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\GoogleAuthController;
 
 
 Route::get('/', function () {
@@ -86,3 +87,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/restore', [HomeController::class, 'recovery'])->name('restore.index');
 
 });
+
+//Login with Google
+Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);

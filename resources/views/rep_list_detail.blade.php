@@ -36,8 +36,7 @@
                         </div>
                         <div class="card-body">
                             @if ($errors->has('approve_rep'))
-                                <span class="text-danger">{{ $errors->first('approve_rep') }}
-                                </span>
+                                <span class="text-danger">{{ $errors->first('approve_rep') }}</span>
                             @endif
                             <div class="row">
                                 <div class="col-md-8">
@@ -104,8 +103,7 @@
                                                     <div class="form-group">
                                                         <label>ลาตั้งแต่ :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                                                                                    H:i') }}
+                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_start)->addYears(543)->format('d/m/Y                                                                                                                                                                                                                                                                                                         H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -114,8 +112,7 @@
                                                     <div class="form-group">
                                                         <label>ถึง :</label>
                                                         <p class="form-control" readonly>
-                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y
-                                                                                                                                                                                                                                                                                                                                                                    H:i') }}
+                                                            {{ \Carbon\Carbon::parse($leaveforms->leave_end)->addYears(543)->format('d/m/Y                                                                                                                                                                                                                                                                                              H:i') }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -131,8 +128,7 @@
                                                     <div class="form-group">
                                                         <label>เหตุผลการลา</label>
                                                         @if ($leaveforms->reason)
-                                                            <textarea class="form-control p-2" rows="4"
-                                                                      readonly>{{ $leaveforms->reason }}</textarea>
+                                                            <textarea class="form-control p-2" rows="4" readonly>{{ $leaveforms->reason }}</textarea>
                                                         @else
                                                             <textarea class="form-control p-2" rows="4" readonly>ไม่ได้กรอกเหตุผลการลา</textarea>
                                                         @endif
@@ -144,9 +140,7 @@
                                                         <label for="">เอกสารประกอบการลา</label>
                                                         <br>
                                                         @if ($leaveforms->file1)
-                                                            <a href="{{ asset($leaveforms->file1) }}" download>
-                                                                ดาวน์โหลด
-                                                            </a>
+                                                            <a href="{{ asset($leaveforms->file1) }}" download>ดาวน์โหลด</a>
                                                         @else
                                                             <p>ไม่มีเอกสารประกอบการลา</p>
                                                         @endif
@@ -180,8 +174,7 @@
                                             </h3>
                                         </div>
                                         <div class="card-body text-center">
-                                            <h1
-                                                class="pb-4 display-3 font-weight-bold {{ $leaveforms->status == 'อนุมัติ' ? 'text-success' : ($leaveforms->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
+                                            <h1 class="pb-4 display-3 font-weight-bold {{ $leaveforms->status == 'อนุมัติ' ? 'text-success' : ($leaveforms->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
                                                 {{ $leaveforms->status }}
                                             </h1>
                                             @if ($leaveforms->status == 'อนุมัติ')
@@ -194,32 +187,37 @@
                                                 <h5 class="pb-3">
                                                     ตำแหน่ง
                                                     <span class="text-muted font-weight-light">
-                                                            Solution Architect Director
-                                                        </span>
+                                                        Solution Architect Director
+                                                    </span>
                                                 </h5>
                                             @else
-                                                @if($leaveforms->approve_pm == 'in_progress')
-                                                    <p>Project manager (PM)
+                                                @if ($leaveforms->approve_pm == 'in_progress')
+                                                    <p>
+                                                        Project manager (PM)
                                                         <button class="btn btn-sm btn-secondary">กำลังดำเนินการ</button>
                                                     </p>
                                                 @elseif($leaveforms->approve_pm == 'approve' || $leaveforms->approve_pm == '-')
-                                                    @if($leaveforms->approve_pm == 'approve')
-                                                        <p>Project manager (PM)
+                                                    @if ($leaveforms->approve_pm == 'approve')
+                                                        <p>
+                                                            Project manager (PM)
                                                             <button class="btn btn-sm btn-success">อนุมัติ</button>
                                                         </p>
                                                     @else
-                                                        <p>Project manager (PM)
+                                                        <p>
+                                                            Project manager (PM)
                                                             <button class="btn btn-sm btn-secondary">-</button>
                                                         </p>
                                                     @endif
-                                                    @if($leaveforms->approve_hr == 'in_progress')
-                                                        <p>Human Resources(HR)
+                                                    @if ($leaveforms->approve_hr == 'in_progress')
+                                                        <p>
+                                                            Human Resources(HR)
                                                             <button class="btn btn-sm btn-secondary">กำลังดำเนินการ
                                                             </button>
                                                         </p>
                                                     @elseif($leaveforms->approve_hr == 'approve' || $leaveforms->approve_hr == '-')
-                                                        @if($leaveforms->approve_hr == 'approve')
-                                                            <p>Human Resources(HR)
+                                                        @if ($leaveforms->approve_hr == 'approve')
+                                                            <p>
+                                                                Human Resources(HR)
                                                                 <button class="btn btn-sm btn-success">อนุมัติ</button>
                                                             </p>
                                                         @else
@@ -227,25 +225,29 @@
                                                                 <button class="btn btn-sm btn-secondary">-</button>
                                                             </p>
                                                         @endif
-                                                        @if($leaveforms->approve_ceo == 'in_progress')
-                                                            <p>Solution Architect Director
+                                                        @if ($leaveforms->approve_ceo == 'in_progress')
+                                                            <p>
+                                                                Solution Architect Director
                                                                 <button class="btn btn-sm btn-secondary">
                                                                     กำลังดำเนินการ
                                                                 </button>
                                                             </p>
                                                         @elseif($leaveforms->approve_ceo == 'disapproval')
-                                                            <p>Solution Architect Director
+                                                            <p>
+                                                                Solution Architect Director
                                                                 <button class="btn btn-sm btn-danger">ไม่อนุมัติ
                                                                 </button>
                                                             </p>
                                                         @endif
                                                     @elseif($leaveforms->approve_hr == 'disapproval')
-                                                        <p>Human Resources(HR)
+                                                        <p>
+                                                            Human Resources(HR)
                                                             <button class="btn btn-sm btn-danger">ไม่อนุมัติ</button>
                                                         </p>
                                                     @endif
                                                 @elseif($leaveforms->approve_pm == 'disapproval')
-                                                    <p>Project manager (PM)
+                                                    <p>
+                                                        Project manager (PM)
                                                         <button class="btn btn-sm btn-danger">ไม่อนุมัติ</button>
                                                     </p>
                                                 @endif
@@ -298,7 +300,7 @@
                                                 <span>
                                                     @if ($leaveforms->approve_hr != 'disapproval')
                                                         @if ($leaveforms->reason_hr)
-                                                            {!! $leaveforms->reason_hr  !!}
+                                                            {!! $leaveforms->reason_hr !!}
                                                         @else
                                                             ไม่มีความเห็น
                                                         @endif
@@ -349,7 +351,7 @@
                                 @method('PUT')
                                 @csrf
 
-                                <input type="hidden" name="user_id" value="{{$leaveforms->user_id}}">
+                                <input type="hidden" name="user_id" value="{{ $leaveforms->user_id }}">
 
                                 {{-- ปุ่มปฏิบัติงานแทน --}}
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
@@ -359,12 +361,10 @@
                                 </div>
 
                                 <div class="col-md-12 justify-content-end d-flex pr-0">
-                                    <button type="button" class="btn btn-danger mr-3 " name="approve_rep" value="disapproval"
-                                            @if ($leaveforms->approve_rep != 'in_progress') disabled @endif>
+                                    <button type="button" class="btn btn-danger mr-3 " name="approve_rep" value="disapproval" @if ($leaveforms->approve_rep != 'in_progress') disabled @endif>
                                         ปฏิเสธการปฏิบัติงานแทน
                                     </button>
-                                    <button type="button" class="btn btn-primary" name="approve_rep" value="approve"
-                                            @if ($leaveforms->approve_rep != 'in_progress') disabled @endif>
+                                    <button type="button" class="btn btn-primary" name="approve_rep" value="approve" @if ($leaveforms->approve_rep != 'in_progress') disabled @endif>
                                         ยินยอมปฏิบัติงานแทน
                                     </button>
                                     <input type="hidden" name="approve_rep" value="{{ $leaveforms->approve_rep }}"/>
@@ -377,37 +377,38 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="confirmModalLabel_rep">บันทึกข้อมูล</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <span class="content"></span>
                                                 <br>
-                                                <span
-                                                    class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
+                                                <span class="text-danger">*เมื่อกดยืนยันคุณจะไม่สามารถกลับมาแก้ไขได้</span>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    ปิด
                                                 </button>
 
 
                                                 <!-- Modal HR ลา -->
-                                                @if($leaveforms->relation_user->type == 'hr')
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">ยืนยัน</button>
+                                                @if ($leaveforms->relation_user->type == 'hr')
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                        ยืนยัน
+                                                    </button>
 
                                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Modal
+                                                                        title</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-
 
 
                                                                     <div class="form-group allowed">
@@ -419,7 +420,6 @@
                                                                         @endif
                                                                         <br>
                                                                         <input type="hidden" name="allowed_hr_admin" value="approve">
-
                                                                         <div class="icheck-primary d-block">
                                                                             <input type="radio" name="allowed_hr_admin" id="0" value="อนุญาตตามสิทธิ์พนักงาน" required>
                                                                             <label class="font-weight-normal" for="0">อนุญาตตามสิทธิ์พนักงาน</label>
@@ -447,11 +447,14 @@
                                                                     </div>
 
 
-
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                                                    <button type="submit" class="btn btn-success">ยืนยัน</button>
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">ยกเลิก
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-success">
+                                                                        ยืนยัน
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -485,15 +488,13 @@
 
             for (var i = 0; i < radio.length; i++) {
                 radio[i].addEventListener('change', function () {
-                    if (this.checked && this.value === 'อื่นๆ...'){
+                    if (this.checked && this.value === 'อื่นๆ...') {
                         otherInput.setAttribute('required', 'required');
-                    }
-                    else if(this.checked && this.value === 'ทำงานชดเชยเป็นจำนวน'){
+                    } else if (this.checked && this.value === 'ทำงานชดเชยเป็นจำนวน') {
                         day.setAttribute('required', 'required');
                         hour.setAttribute('required', 'required');
                         minutes.setAttribute('required', 'required');
-                    }
-                    else {
+                    } else {
                         otherInput.removeAttribute('required');
                     }
                 });
