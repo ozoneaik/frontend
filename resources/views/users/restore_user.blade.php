@@ -61,8 +61,13 @@
                                                 @if($user->trashed())
                                                     <form action="{{ route('user.restore', $user->id) }}" method="POST">
                                                         @csrf
-                                                        @method('PATCH') <!-- Use 'PATCH' method for restoration -->
-                                                        <button type="submit" class="btn btn-success">กู้คืนข้อมูล</button>
+                                                        @method('PATCH')
+                                                        <button type="submit" class="btn btn-success" style="margin-bottom: 10px;">กู้คืนข้อมูล</button>
+                                                    </form>
+                                                    <form method="POST" action="{{ route('user.hardDelete', $user->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">ลบข้อมูลถาวร</button>
                                                     </form>
                                                 @endif
                                             </td>

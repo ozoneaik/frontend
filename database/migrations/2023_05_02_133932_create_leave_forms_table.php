@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('leave_forms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('leave_type')->nullable();
             $table->timestamp('leave_start')->nullable();
             $table->timestamp('leave_end')->nullable();

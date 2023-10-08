@@ -77,7 +77,7 @@
                                                     <div class="form-group">
                                                         <label for="">ชื่อเล่น</label>
                                                         <p class="form-control" readonly>
-                                                            {{ $user->nick_name }}
+                                                            {{ $user->nick_name}}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -86,7 +86,7 @@
                                                     <div class="form-group">
                                                         <label for="">ตำแหน่ง</label>
                                                         <p class="form-control" readonly>
-                                                            {{ $user->possition }}
+                                                            {{ $user->position }}
                                                         </p>
                                                     </div>
                                                 </div>

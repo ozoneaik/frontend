@@ -8,6 +8,7 @@ use App\Http\Middleware\UserAccess;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\DeleteController;
 
 
 Route::get('/', function () {
@@ -82,9 +83,10 @@ Route::middleware(['auth','verified'])->group(function () {
     })->middleware(UserAccess::class);
 
     Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');
-    Route::delete('/users/{id}', [HomeController::class,'destroy'])->name('hr.delete');
-    Route::patch('/users/{id}/restore', [HomeController::class,'restore'])->name('user.restore');
-    Route::get('/restore', [HomeController::class, 'recovery'])->name('restore.index');
+    Route::delete('/users/{id}', [DeleteController::class,'destroy'])->name('hr.delete');
+    Route::patch('/users/{id}/restore', [DeleteController::class,'restore'])->name('user.restore');
+    Route::delete('/users/{id}/hard-delete', [DeleteController::class, 'hardDelete'])->name('user.hardDelete');
+    Route::get('/restore', [DeleteController::class, 'recovery'])->name('restore.index');
 
 });
 

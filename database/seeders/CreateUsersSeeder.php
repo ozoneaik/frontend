@@ -76,7 +76,7 @@ class CreateUsersSeeder extends Seeder
                 'address' => '56 หมู่4 อ.เมือง จ.น่าน 55220',
                 'phone_no_1' => '0908901234',
                 'phone_no_2' => '0904321098',
-                'email' => 'pm@gbda.co.th',
+                'email' => 'pm@bda.co.th',
                 'type' => 1,
                 'password' => bcrypt('1111'),
                 'email_verified_at' => '2023-10-21 09:31:56',

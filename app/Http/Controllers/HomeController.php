@@ -187,29 +187,4 @@ class HomeController extends Controller
         return redirect('home');
     }
 
-    public function destroy($id)
-    {
-        $Users = User::find($id);
-
-        if ($Users) {
-            $Users->delete();
-            return redirect()->route('data.users')->with('success', 'การลบบัญชีผู้ใช้สำเร็จ');
-        } else {
-            return redirect()->route('data.users')->with('error', 'การลบบัญชีผู้ใช้มีข้อผิดพลาด');
-        }
-    }
-    public function restore($id)
-    {
-        $user = User::withTrashed()->findOrFail($id);
-
-        $user->restore();
-
-        return redirect()->route('data.users')->with('success', 'User restored successfully.');
-    }
-
-    public function recovery()
-    {
-        $softDeletedUsers = User::onlyTrashed()->get();
-        return view('users.restore_user', compact('softDeletedUsers'));
-    }
 }
