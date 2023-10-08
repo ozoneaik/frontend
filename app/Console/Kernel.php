@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Commands\ResetData;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -10,9 +11,14 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // เรียกใช้ Command ที่เราสร้าง
+        $schedule->command('reset:data')
+            ->dailyAt('00:00')
+            ->when(function () {
+                return now()->day === 1 && now()->month === 1; // 1 มกราคม (วันแรกของปี)
+            });
     }
 
     /**
