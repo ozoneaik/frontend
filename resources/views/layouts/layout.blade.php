@@ -207,6 +207,13 @@
                                 </a>
                             </li>
                         @endif
+
+                        <li class="nav-item">
+                            <a href="{{route('profile',Auth::user()->id)}}" class="nav-link pt-3 pb-3 {{Request::routeIs('profile') ? 'active' :''}}">
+                                <i class="fa-solid fa-users nav-icon"></i>
+                                <p>โปรไฟล์ส่วนตัว</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- end sidebar-menu -->

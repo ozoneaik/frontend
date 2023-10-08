@@ -93,7 +93,7 @@
             {{-- ลาอื่นๆ --}}
             <div class="row">
                 <div class="col-lg-12">
-                    <a class="btn btn-outline-primary btn-block mb-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="btn btn-outline-secondary btn-block mb-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                         ประเภทการลาเพิ่มเติม
                     </a>
                 </div>

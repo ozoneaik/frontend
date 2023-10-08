@@ -32,6 +32,16 @@
 
         {{-- Container Fluid --}}
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    @if($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <span>{{ $message }}</span>
+                        </div>
+                    @endif
+                </div>
+            </div>
             <form action="{{ route('leaveform.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">

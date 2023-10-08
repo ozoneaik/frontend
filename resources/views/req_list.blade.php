@@ -42,7 +42,7 @@
                                 <i class="fas fa-list-alt mr-2"></i>
                                 รายการคำขอใบลา
                             </h3>
-                            <a href="{{ route('req') }}" class= "float-right text-info">↻ รีเฟรชข้อมูล</a>
+                            <a href="{{ route('refresh') }}" class= "float-right text-info">↻ รีเฟรชข้อมูล</a>
                         </div>
                         <div class="card-body">
 
@@ -136,7 +136,11 @@
                                             <td style="{{ $style }} max-width: 40px;">{{ $row->representative->name }}</td>
                                         @endif
                                         <td style="{{ $style }} max-width: 40px;" class="">
-                                            <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                            <button class="btn btn-sm rounded-pill text-dark"
+                                                    style="background-color:
+                                                    @if($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef
+                                                    @elseif($row->status == 'ยกเลิกใบลา') #1fd1ff
+                                                    @else #ff9292 @endif;">
                                                 {{ $row->status }}
                                             </button>
                                         </td>
