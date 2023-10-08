@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\users_leave_data;
 
+use Illuminate\Support\Facades\Response;
+
+
 class LeaveFormController extends Controller
 {
     //
@@ -45,7 +48,9 @@ class LeaveFormController extends Controller
                 'file1.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น',
                 'file2.mimes' => 'ไฟล์ที่อัพโหลดต้องเป็นไฟล์ PDF, PNG, หรือ JPG เท่านั้น',
                 'file1.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',
-                'file2.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',]);
+                'file2.max' => 'อัปโหลดไฟล์ได้ไม่เกิน 10MB',
+            ]
+        );
 
         $leaveform = new LeaveForm();
         $leaveform->user_id = Auth::user()->id;
@@ -60,7 +65,7 @@ class LeaveFormController extends Controller
         //generete file เก็บเป็นสตริง เป็นแบบ part เก็บไฟล์ไว้ที่ public/file1
         if ($request->hasFile('file1')) {
             $file = $request->file('file1');
-            $file_name = uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+            $file_name = uniqid() . uniqid() . '.' . strtolower($file->getClientOriginalExtension());
             $upload_location_file = 'file1/';
             $file->move($upload_location_file, $file_name);
             $leaveform->file1 = $upload_location_file . $file_name;
@@ -90,7 +95,6 @@ class LeaveFormController extends Controller
             } else {
                 $leaveform->approve_rep = 'in_progress';
             }
-
         }
 
         $leaveform->sel_pm = $request->input('sel_pm');
@@ -124,6 +128,10 @@ class LeaveFormController extends Controller
         $leaveforms = LeaveForm::findOrFail($id);
         $users = User::all();
         return view('req_list_detail', compact('leaveforms', 'users'));
+        // return response()->json([
+        //     'leaveforms' => $leaveforms,
+        //     'users' => $users,
+        // ]);
     }
 
     //ตารางแสดงขอปฏิบัติแทน
@@ -146,31 +154,30 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของผู้ปฏิบัติงานแทน
     public function rep_list_detail_update(Request $request, $id)
     {
-//        dd($request->all());
+//                dd($request->all());
 
 
         $get_user_type = LeaveForm::where('user_id', $request->user_id)
             ->join('users', 'leave_forms.user_id', '=', 'users.id')
             ->select('users.type')
             ->first();
-//        dd($get_user_type->type);
+//                dd($get_user_type->type);
 
         $request->validate(['approve_rep' => 'required',], ['approve_rep.required' => 'no requ']);
 
         $reason_hr = $request->reason_hr;
-//        dd($reason_hr);
+        //        dd($reason_hr);
 
         if ($get_user_type->type == '3') {
             $request->approve_hr = $request->approve_rep;
-//            dd($request->approve_hr);
+            //            dd($request->approve_hr);
             if ($request->reason_hr) {
                 $reason_hr = $request->reason_hr . '<hr>' . '<span class="font-weight-bold text-success">' . 'โดย:' . '</span>' . '<br>';
             } else {
-//                dd('reson_hr',$request->reason_hr,$request->approve_hr);
+                //                dd('reson_hr',$request->reason_hr,$request->approve_hr);
                 if ($request->approve_hr == 'approve') {
                     $reason_hr = 'ไม่มีความเห็น' . '<hr>' . '<span class="font-weight-bold text-success">' . 'โดย:' . '</span>' . '<br>';
                 }
-
             }
 
 
@@ -223,7 +230,7 @@ class LeaveFormController extends Controller
             }
         }
 
-//        dd($reason_hr);
+        //        dd($reason_hr);
 
 
         $approve_ceo = 'in_progress';
@@ -275,15 +282,37 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของ Project manager
     public function req_list_emp_detail_update(Request $request, $id)
     {
-//         dd($request->all());
+        //         dd($request->all());
 
-        $request->validate(['approve_pm' => 'required', 'reason_pm' => 'nullable|max:255', 'allowed_pm' => 'nullable', 'not_allowed_pm' => 'nullable|max:255', 'day' => 'nullable|numeric|between:0,150', 'hour' => 'nullable|numeric|between:0,8', 'minutes' => 'nullable|numeric|between:0,60',], ['approve_pm.required' => 'no requ', // 'allowed_pm.required' => 'โปรดเลือก',
-            'reason_pm.max' => 'ป้อนเกิน 255', 'not_allowed_pm' => 'ป้อนเกิน 255',
-
-            'day.numeric' => 'ป้อนตัวเลขเท่านั้น', 'hour.numeric' => 'ป้อนตัวเลขเท่านั้น', 'minutes.numeric' => 'ป้อนตัวเลขเท่านั้น', 'day.between' => 'ป้อนเลข 2 ตัว', 'hour.between' => 'ป้อนเลข 2 ตัว', 'minutes.between' => 'ป้อนเลข 2 ตัว',]);
+        $request->validate([
+            'approve_pm' => 'required',
+            'reason_pm' => 'nullable|max:255',
+            'allowed_pm' => 'nullable',
+            'not_allowed_pm' => 'nullable|max:255',
+            'day' => 'nullable|numeric|between:0,150',
+            'hour' => 'nullable|numeric|between:0,8',
+            'minutes' => 'nullable|numeric|between:0,60',
+        ], [
+            'approve_pm.required' => 'no requ', // 'allowed_pm.required' => 'โปรดเลือก',
+            'reason_pm.max' => 'ป้อนเกิน 255',
+            'not_allowed_pm' => 'ป้อนเกิน 255',
+            'day.numeric' => 'ป้อนตัวเลขเท่านั้น',
+            'hour.numeric' => 'ป้อนตัวเลขเท่านั้น',
+            'minutes.numeric' => 'ป้อนตัวเลขเท่านั้น',
+            'day.between' => 'ป้อนเลข 2 ตัว',
+            'hour.between' => 'ป้อนเลข 2 ตัว',
+            'minutes.between' => 'ป้อนเลข 2 ตัว',
+        ]);
 
         if ($request->approve_pm == 'approve') {
-            $request->validate(['allowed_pm' => 'required'], ['allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ',]);
+            $request->validate(
+                [
+                    'allowed_pm' => 'required'
+                ],
+                [
+                    'allowed_pm.required' => '👇ถ้ากดอนุมัติโปรดเลือกตรงนี้ด้วยครับ',
+                ]
+            );
         }
 
         $day = $request->day;
@@ -341,12 +370,15 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของ HR
     public function hr_req_list_emp_detail_update(Request $request, $id)
     {
-        //dd($request->all());
+        // dd($request->all());
         //กรณีที่ PM ลา
-        $get_user_type = LeaveForm::where('user_id', $request->user_id)
-            ->join('users', 'leave_forms.user_id', '=', 'users.id')
-            ->select('users.type')
-            ->first();
+        
+        $get_user_type = LeaveForm::where('leave_forms.user_id', $request->user_id)
+    ->join('users', 'leave_forms.user_id', '=', 'users.id')
+    ->select('users.type')
+    ->first();
+
+            
         //dd($get_user_type->type,$id,$request->all());
         $request->validate(
             [
@@ -358,7 +390,8 @@ class LeaveFormController extends Controller
                 'approve_hr.required' => 'no requ', // 'allowed_pm.required' => 'โปรดเลือก',
                 'reason_hr.max' => 'ป้อนอักขระเกิน 255',
                 'not_allowed_hr.max' => 'ป้อนเกิน 255',
-            ]);
+            ]
+        );
         $reason_hr = $request->reason_hr;
         //dd($reason_hr);
         //กรณีที่ PM ลา
@@ -369,7 +402,6 @@ class LeaveFormController extends Controller
                 if ($request->approve_hr == 'approve') {
                     $reason_hr = 'ไม่มีความเห็น' . '<hr>' . '<span class="font-weight-bold text-success">' . 'โดย:' . '</span>' . '<br>';
                 }
-
             }
         }
         $approve_ceo = 'in_progress';
@@ -493,5 +525,4 @@ class LeaveFormController extends Controller
 
         return redirect()->route('ceo.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
     }
-
 }

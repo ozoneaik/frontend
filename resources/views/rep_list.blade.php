@@ -44,7 +44,6 @@
                             @endif
                             @php
                                 $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
-
                             @endphp
                             <table id="rep_list_table" class="table table-bordered table-hover text-center">
                                 <thead>
@@ -67,9 +66,10 @@
                                         <td style="{{ $style }} max-width:40px;">{{ \Carbon\Carbon::parse($row->leave_start)->addYears(543)->format('d/m/Y H:i') }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ \Carbon\Carbon::parse($row->leave_end)->addYears(543)->format('d/m/Y H:i') }}</td>
                                         <td style="{{ $style }} max-width: 40px;">{{ $row->leave_total }}</td>
-                                        <td style="{{ $style }} max-width: 50px;">{{$row->relation_user->name}}</td>
+                                        <td style="{{ $style }} max-width: 50px;">{{ $row->relation_user->name }}</td>
                                         <td style="{{ $style }} max-width: 40px;" class="">
-                                            <button class="btn btn-sm rounded-pill text-dark" style="background-color: @if($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
+                                            <button class="btn btn-sm rounded-pill text-dark"
+                                                    style="background-color: @if ($row->status == 'อนุมัติ') #c8ffd5 @elseif($row->status == 'กำลังดำเนินการ') #efefef @else #ff9292 @endif;">
                                                 {{ $row->status }}
                                             </button>
                                         </td>

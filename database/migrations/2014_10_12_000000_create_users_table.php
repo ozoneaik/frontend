@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->nullable();
+            $table->string('google_id')->nullable();
             $table->string('name')->comment('ชื่อ-นามสกุล');
             $table->string('nick_name')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->tinyInteger('type')->default(0);//0=emp, 1=pm, 2=hr, 3=ceo ❌ ⌛ ✔️
-            $table->string('possition')->nullable()->comment("ตำแหน่ง");
-            $table->string('password');
+            $table->tinyInteger('type')->default(0);//0=emp, 1=pm, 2=hr, 3=ceo
+            $table->string('position')->nullable()->comment("ตำแหน่ง");
+
+            $table->string('password')->nullable();
             $table->timestamp('birthday')->nullable()->comment("วันเกิด");
             $table->string('address')->nullable();
             $table->string('phone_no_1')->nullable();

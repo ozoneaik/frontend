@@ -40,7 +40,9 @@
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
                                 <i class="fas fa-list-alt mr-2"></i>
-                                รายการคำขอใบลา </h3>
+                                รายการคำขอใบลา
+                            </h3>
+                            <a href="{{ route('req') }}" class= "float-right text-info">↻ รีเฟรชข้อมูล</a>
                         </div>
                         <div class="card-body">
 
@@ -55,7 +57,7 @@
                                 $style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
                             @endphp
 
-                            {{-- data rnage filter --}}
+                            {{-- data range filter --}}
                             <form action="{{route('filter.req')}}" method="get">
                                 <div class="row">
                                     <div class="col-md-2">
