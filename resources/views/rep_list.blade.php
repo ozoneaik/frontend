@@ -34,6 +34,7 @@
                                 <i class="fas fa-list-alt mr-2"></i>
                                 รายการคำขอปฏิบัติแทน
                             </h3>
+                            <a href="{{ route('refresh') }}" class= "float-right text-info">↻ รีเฟรชข้อมูล</a>
                         </div>
                         <div class="card-body">
                             @if ($message = Session::get('success'))

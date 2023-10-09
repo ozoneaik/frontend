@@ -9,6 +9,7 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\SendMailController;
 
 
 Route::get('/', function () {
@@ -30,12 +31,17 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //['auth', 'verified']
 Route::middleware(['auth','verified'])->group(function () {
 
+    Route::get('/refresh',function (){
+       return back();
+    })->name('refresh');
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile/{id}', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile_update/{id}', [HomeController::class, 'profile_update'])->name('profile.update');
 
     Route::get('/req_list', [LeaveFormController::class, 'req'])->name('req');
     Route::get('/req_list_detail/{id}', [LeaveFormController::class, 'req_list_detail'])->name('req.detail');
+    Route::get('/cancel/{id}',[LeaveFormController::class,'cancel'])->name('cancel');
     Route::get('/form', [LeaveFormController::class, 'create'])->name('create');
     Route::post('/store', [LeaveFormController::class, 'store'])->name('leaveform.store');
 
@@ -93,3 +99,8 @@ Route::middleware(['auth','verified'])->group(function () {
 //Login with Google
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
+
+Route::get('/send-mail', [SendMailController::class, 'index']);
+Route::get('/page-mail',function (){
+    return view('emails.sample');
+});

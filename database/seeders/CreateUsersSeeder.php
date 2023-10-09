@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -27,7 +28,7 @@ class CreateUsersSeeder extends Seeder
                 'email' => 'emp@bda.co.th',
                 'type' => 0,
                 'password' => bcrypt('1111'),
-                'email_verified_at' => '2023-10-21 09:31:56',
+                'email_verified_at' => Carbon::now(),
             ],
             [
                 'name' => 'อรอุมา จันศรีเกิด',
@@ -40,7 +41,7 @@ class CreateUsersSeeder extends Seeder
                 'email' => 'emp1@bda.co.th',
                 'type' => 0,
                 'password' => bcrypt('1111'),
-                'email_verified_at' => '2023-10-21 09:31:56',
+                'email_verified_at' => Carbon::now(),
             ],
             [
                 'name' => 'สุดใจ ความสุข',
@@ -53,7 +54,7 @@ class CreateUsersSeeder extends Seeder
                 'email' => 'emp2@bda.co.th',
                 'type' => 0,
                 'password' => bcrypt('1111'),
-                'email_verified_at' => '2023-10-21 09:31:56',
+                'email_verified_at' => Carbon::now(),
             ],
             [
                 'name' => 'วิไล กิจวัฒนา',
@@ -66,7 +67,7 @@ class CreateUsersSeeder extends Seeder
                 'email' => 'emp3@bda.co.th',
                 'type' => 0,
                 'password' => bcrypt('1111'),
-                'email_verified_at' => '2023-10-21 09:31:56',
+                'email_verified_at' => Carbon::now(),
             ],
             [
                 'name' => 'ธนกฤต นักเตะ',

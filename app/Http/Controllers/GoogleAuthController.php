@@ -123,7 +123,7 @@ class GoogleAuthController extends Controller
                 }
             } else {
                 // ไม่อนุญาตให้ผู้ใช้ที่มีอีเมลไม่ใช่ @bda.co.th เข้าสู่ระบบ
-                return response()->json(['message' => 'ไม่อนุญาตให้ผู้ใช้ที่มีอีเมลไม่ใช่ @bda.co.th เข้าสู่ระบบ'], 403);
+                return response()->json(['message' => 'ไม่อนุญาตให้ผู้ใช้ที่มีอีเมลไม่ใช่ @bda.co.th เข้าสู่ระบบ']);
             }
         } catch (\Throwable $th) {
             //throw $th;

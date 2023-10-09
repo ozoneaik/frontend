@@ -33,6 +33,7 @@
                                 <i class="fas fa-list-alt mr-2"></i>
                                 ใบลาพนักงาน
                             </h3>
+                            <a href="{{ route('refresh') }}" class= "float-right text-info">↻ รีเฟรชข้อมูล</a>
                         </div>
                         <div class="card-body">
 

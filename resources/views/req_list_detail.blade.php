@@ -28,6 +28,21 @@
 
             <div class="row">
                 <div class="col-12">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-info alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <span>{{ $message }}</span>
+                        </div>
+                    @elseif($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <span>{{ $message }}</span>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
@@ -77,7 +92,7 @@
                                                     <div class="form-group">
                                                         <label for="">ตำแหน่ง</label>
                                                         <p class="form-control" readonly>
-                                                            {{ $leaveforms->relation_user->possition }}</p>
+                                                            {{ $leaveforms->relation_user->position }}</p>
                                                     </div>
                                                 </div>
                                                 {{-- ประเภทการลา --}}
@@ -142,11 +157,12 @@
                                                         <br>
                                                         @if ($leaveforms->file1)
                                                             <a href="{{ asset($leaveforms->file1) }}"
-                                                                download>ดาวน์โหลด</a>
+                                                               download>ดาวน์โหลด</a>
                                                         @else
                                                             <p class="text-secondary">ไม่มีเอกสารประกอบการลา</p>
                                                         @endif
-                                                    </div>d
+                                                    </div>
+                                                    d
                                                 </div>
 
                                                 {{-- เอกสารประกอบการลาเพิ่มเติม (ถ้ามี) --}}
@@ -156,7 +172,7 @@
                                                         <br>
                                                         @if ($leaveforms->file2)
                                                             <a href="{{ asset($leaveforms->file2) }}"
-                                                                download>ดาวน์โหลด</a>
+                                                               download>ดาวน์โหลด</a>
                                                         @else
                                                             <p class="text-secondary">
                                                                 ไม่มีเอกสารประกอบการลาเพิ่มเติม</p>
@@ -232,7 +248,7 @@
                                                         <label for="">ตำแหน่ง</label>
                                                         @if ($leaveforms->sel_rep)
                                                             <p class="form-control " readonly>
-                                                                {{ $leaveforms->representative->possition }}</p>
+                                                                {{ $leaveforms->representative->position }}</p>
                                                         @else
                                                             <p class="form-control" readonly> - </p>
                                                         @endif
@@ -265,7 +281,7 @@
                                         </div>
                                         <div class="card-body text-center">
                                             <h1
-                                                class="pb-4 display-3 font-weight-bold {{ $leaveforms->status == 'อนุมัติ' ? 'text-success' : ($leaveforms->status == 'กำลังดำเนินการ' ? 'text-secondary' : 'text-danger') }}">
+                                                class="pb-4 display-3 font-weight-bold {{ $leaveforms->status == 'อนุมัติ' ? 'text-success' : ($leaveforms->status == 'กำลังดำเนินการ' ? 'text-secondary' : ($leaveforms->status == 'ยกเลิกใบลา' ? 'text-info' : 'text-danger')) }}">
                                                 {{ $leaveforms->status }}
                                             </h1>
                                             @if ($leaveforms->status == 'อนุมัติ')
@@ -281,6 +297,10 @@
                                                         Solution Architect Director
                                                     </span>
                                                 </h5>
+                                            @elseif($leaveforms->status == 'ยกเลิกใบลา')
+                                                <h6 class="pb-3 text-muted font-weight-light">
+                                                    ยกเลิกเมื่อ {{\Carbon\Carbon::parse($leaveforms->updated_at)->addYears(543)->format('d/m/y H:i:s')}}
+                                                </h6>
                                             @else
                                                 @if ($leaveforms->approve_pm == 'in_progress')
                                                     <p>Project manager (PM)
@@ -432,10 +452,10 @@
                             {{-- ปุ่มบันทึกการลา --}}
                             <div class="col-md-12 justify-content-end d-flex ">
                                 @if ($leaveforms->status == 'อนุมัติ')
-                                    <a href="{{ route('pdf', $leaveforms->id) }}" class="btn btn-info mr-3"
-                                        target="_blank">พิมพ์ใบลา</a>
+                                    <a href="{{ route('pdf', $leaveforms->id) }}" class="btn btn-info mr-3" target="_blank">พิมพ์ใบลา</a>
                                 @endif
-                                <a href="{{ route('req') }}" class="btn btn-primary">ย้อนกลับ</a>
+                                    <a href="{{ route('cancel', $leaveforms->id) }}" class="btn btn-danger mr-2" onclick="event.preventDefault(); cancelLeaveForm({{ $leaveforms->id }});">ยกเลิกใบลา</a>
+                                    <a href="{{ route('req') }}" class="btn btn-primary">ย้อนกลับ</a>
                             </div>
                         </div>
                     </div>
@@ -446,4 +466,25 @@
         {{-- end container fluid --}}
     </section>
     {{-- end mian content --}}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function cancelLeaveForm(leaveFormId) {
+            Swal.fire({
+                title: 'ยืนยันการยกเลิกใบลา',
+                text: 'คุณต้องการยกเลิกใบลานี้หรือไม่?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to the cancellation route when confirmed
+                    window.location.href = "{{ route('cancel', ':id') }}".replace(':id', leaveFormId);
+                }
+            });
+        }
+    </script>
+
+
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Carbon\Carbon;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -93,6 +94,7 @@ class RegisterController extends Controller
             'phone_no_2' => $data['phone_2'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'email_verified_at' => Carbon::now()
             // 'type' => $data['type'],
         ]);
         $users_leave_datas = [

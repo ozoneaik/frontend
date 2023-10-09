@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\users_leave_data;
 
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+
 use Illuminate\Support\Facades\Response;
 
 
@@ -19,14 +23,25 @@ class LeaveFormController extends Controller
     public function create()
     {
         $users = DB::table('users')->get();
+
         if (auth()->user()->type == 'hr(admin)') {
-            abort(403, 'ไม่สามารถยื่นแบบฟอร์มการลาได้ ต้องโอนย้ายสิทธ์หน้าที่การลาให้ HR คนอื่นก่อน');
+            return response()->json(['message' => 'ไม่สามารถยื่นแบบฟอร์มการลาได้ ต้องโอนย้ายสิทธ์หน้าที่การลาให้ HR คนอื่นก่อน']);
+//            abort(403, 'ไม่สามารถยื่นแบบฟอร์มการลาได้ ต้องโอนย้ายสิทธ์หน้าที่การลาให้ HR คนอื่นก่อน');
         }
         return view('form', compact('users'));
     }
 
+    // สร้างใบลา
     public function store(Request $request)
     {
+        $status = DB::table('leave_forms')
+            ->where('user_id', Auth::user()->id)->where('status','กำลังดำเนินการ')
+            ->select('status')
+            ->first();
+//        dd($status);
+        if($status){
+            return back()->with('error','ไม่สามารถลาได้เนื่องจากมีใบลาที่กำลังดำเนินการอยู่');
+        }
         $request->validate(
             [
                 'leave_type' => 'required',
@@ -82,6 +97,7 @@ class LeaveFormController extends Controller
         $leaveform->case_no_rep = $request->input('case_no_rep');
 
 
+        // ถ้าไม่ได้เลือกผู้ปฏิบัติแทน
         if (!$leaveform->sel_rep) {
             $leaveform->approve_rep = '-';
             if (Auth::user()->type == 'pm') {
@@ -110,6 +126,12 @@ class LeaveFormController extends Controller
         }
 
         // dd($request->all(),$leaveform->all());
+        $content = [
+            'subject' => 'This is the mail subject',
+            'body' => Auth::user()->name.' '.'ภูวเดช พาณิชยโสภา ต้องการให้คุณช่วยยินยอมในการปฏิบัติงานแทนในระหว่างที่เขาลา😊😊😊😊😊😊'
+        ];
+
+        Mail::to(Auth::user()->email)->send(new TestEmail($content));
         $leaveform->save();
         return redirect()->route('req')->with('success', 'บันทึกข้อมูลใบลาเสร็จสมบูรณ์');
     }
@@ -154,16 +176,21 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของผู้ปฏิบัติงานแทน
     public function rep_list_detail_update(Request $request, $id)
     {
-//                dd($request->all());
+//                dd($request->user_id);
 
 
-        $get_user_type = LeaveForm::where('user_id', $request->user_id)
+        $get_user_type = DB::table('leave_forms')
             ->join('users', 'leave_forms.user_id', '=', 'users.id')
+            ->where('leave_forms.user_id', '=', $request->user_id)
             ->select('users.type')
             ->first();
 //                dd($get_user_type->type);
 
-        $request->validate(['approve_rep' => 'required',], ['approve_rep.required' => 'no requ']);
+        $request->validate([
+            'approve_rep' => 'required',
+        ], [
+            'approve_rep.required' => 'no requ'
+        ]);
 
         $reason_hr = $request->reason_hr;
         //        dd($reason_hr);
@@ -372,13 +399,13 @@ class LeaveFormController extends Controller
     {
         // dd($request->all());
         //กรณีที่ PM ลา
-        
-        $get_user_type = LeaveForm::where('leave_forms.user_id', $request->user_id)
-    ->join('users', 'leave_forms.user_id', '=', 'users.id')
-    ->select('users.type')
-    ->first();
 
-            
+        $get_user_type = LeaveForm::where('leave_forms.user_id', $request->user_id)
+            ->join('users', 'leave_forms.user_id', '=', 'users.id')
+            ->select('users.type')
+            ->first();
+
+
         //dd($get_user_type->type,$id,$request->all());
         $request->validate(
             [
@@ -460,7 +487,15 @@ class LeaveFormController extends Controller
     // ทำการอัปเดทข้อมูลการอนุมัติของ CEO
     public function ceo_req_list_emp_detail_update(Request $request, $id)
     {
-        $request->validate(['approve_ceo' => 'required', 'reason_ceo' => 'nullable|max:255', 'not_allowed_ceo' => 'nullable|max:255',], ['approve_ceo.required' => 'no requ', 'reason_ceo.max' => 'ป้อนเกิน 255', 'not_allowed_ceo.max' => 'ป้อนเกิน 255',]);
+        $request->validate([
+            'approve_ceo' => 'required',
+            'reason_ceo' => 'nullable|max:255',
+            'not_allowed_ceo' => 'nullable|max:255',
+        ], [
+            'approve_ceo.required' => 'no requ',
+            'reason_ceo.max' => 'ป้อนเกิน 255',
+            'not_allowed_ceo.max' => 'ป้อนเกิน 255',
+        ]);
         $leaveForm = LeaveForm::find($id);
         $item = users_leave_data::all();
         if ($request->approve_ceo == 'disapproval') {
@@ -520,9 +555,77 @@ class LeaveFormController extends Controller
                 }
             }
         }
-        LeaveForm::find($id)->update(['reason_ceo' => $request->reason_ceo, 'approve_ceo' => $request->approve_ceo, 'not_allowed_ceo' => $request->not_allowed_ceo, 'status' => $status,]);
+        LeaveForm::find($id)->update([
+            'reason_ceo' => $request->reason_ceo,
+            'approve_ceo' => $request->approve_ceo,
+            'not_allowed_ceo' => $request->not_allowed_ceo,
+            'status' => $status,
+        ]);
         // dd(LeaveForm::find($id)->not_allowed_ceo);
 
         return redirect()->route('ceo.req.emp')->with('success', 'บันทึกข้อมูลสำเร็จ');
+    }
+
+    public function cancel($id)
+    {
+        $leaveForm = LeaveForm::find($id);
+        if (Carbon::now()->diffInHours($leaveForm->created_at) >= 3) {
+            return redirect()->back()->with('error', 'ไม่สามารถยกเลิกใบลาได้เนื่องจากใบลามีอายุเกิน 3 ชั่วโมงแล้ว');
+        }
+
+        if ($leaveForm->status == 'อนุมัติ'){
+            $parts = explode(' ', $leaveForm->leave_total);
+            $D = (int)$parts[0];
+            $H = (int)$parts[2];
+            $M = (int)$parts[4];
+            $totalMinutes = ($D * 8 * 60) + ($H * 60) + $M;
+//            leaveForm->leave_type = ลาป่วย
+            $userLeaveData = users_leave_data::where('leave_type_name', $leaveForm->leave_type)
+                ->where('user_id', $leaveForm->user_id)
+                ->first(); // Use first() to retrieve a single record
+
+            $parts1 = explode(' ', $userLeaveData->time_remain);
+            $D1 = (int)$parts1[0];
+            $H1 = (int)$parts1[2];
+            $M1 = (int)$parts1[4];
+            $totalMinutes1 = ($D1 * 8 * 60) + ($H1 * 60) + $M1;
+            $parts2 = explode(' ', $userLeaveData->time_already_used);
+            $D2 = (int)$parts2[0];
+            $H2 = (int)$parts2[2];
+            $M2 = (int)$parts2[4];
+            $totalMinutes2 = ($D2 * 8 * 60) + ($H2 * 60) + $M2;
+
+
+            $difference = sqrt(pow($totalMinutes - $totalMinutes2,2));
+            $D = floor($difference / (8 * 60));
+            $H = floor(($difference % (8 * 60)) / 60);
+            $M = $difference % 60;
+
+            $parts[0] = $D;
+            $parts[2] = $H;
+            $parts[4] = $M;
+            $time_already_used = implode(' ', $parts);
+
+
+            $difference = $totalMinutes + $totalMinutes1;
+            $D = floor($difference / (8 * 60));
+            $H = floor(($difference % (8 * 60)) / 60);
+            $M = $difference % 60;
+
+
+            $parts[0] = $D;
+            $parts[2] = $H;
+            $parts[4] = $M;
+            $time_remain = implode(' ', $parts);
+//            dd($time_remain,$time_already_used);
+
+            $userLeaveData->time_remain = $time_remain;
+            $userLeaveData->time_already_used = $time_already_used;
+            $userLeaveData->save();
+
+        }
+        $leaveForm->status = 'ยกเลิกใบลา';
+        $leaveForm->save();
+        return redirect()->back()->with('success','ยกเลิกใบลาแล้ว');
     }
 }
