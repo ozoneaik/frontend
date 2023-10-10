@@ -26,7 +26,12 @@
                                 <h3 class="card-title font-weight-bold"><i class="fa-solid fa-users mr-3"></i>ข้อมูลพนักงาน</h3>
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <div></div>
-                                    @if(Auth::user()->type === 'hr(admin)')
+                                    <form method="POST" action="{{ route('reset.data') }}">
+                                        @csrf
+                                        @method('POST')
+                                        <button type="submit">รีเซตวันลาทั้งหมด</button>
+                                    </form>
+                                @if(Auth::user()->type === 'hr(admin)')
                                         <a href="{{ route('restore.index') }}" style="border: none; background: none;">
                                             <i class="fa-solid fa-trash"></i> หน้าต่างกู้คืนข้อมูล
                                         </a>
@@ -38,7 +43,7 @@
                                     <thead>
                                     <tr>
                                         <th>รหัสพนักงาน</th>
-                                        <th>รูปโปรฟาย</th>
+                                        <th>รูปโปรไฟล์</th>
                                         <th>ชื่อ-นามสกุล</th>
                                         <th>ชื่อเล่น</th>
                                         <th>อีเมล</th>
@@ -73,7 +78,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>รหัสพนักงาน</th>
-                                        <th>รูปโปรฟาย</th>
+                                        <th>รูปโปรไฟล์</th>
                                         <th>ชื่อ-นามสกุล</th>
                                         <th>ชื่อเล่น</th>
                                         <th>อีเมล</th>

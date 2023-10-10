@@ -10,6 +10,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\DeleteController;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\DataResetController;
 
 
 Route::get('/', function () {
@@ -93,6 +94,8 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::patch('/users/{id}/restore', [DeleteController::class,'restore'])->name('user.restore');
     Route::delete('/users/{id}/hard-delete', [DeleteController::class, 'hardDelete'])->name('user.hardDelete');
     Route::get('/restore', [DeleteController::class, 'recovery'])->name('restore.index');
+    Route::post('/reset-data', [DataResetController::class, 'resetData'])->name('reset.data');
+
 
 });
 
