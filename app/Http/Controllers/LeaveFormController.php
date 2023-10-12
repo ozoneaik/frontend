@@ -149,12 +149,12 @@ class LeaveFormController extends Controller
         }
 
         // dd($request->all(),$leaveform->all());
-//        $content = [
-//            'subject' => 'This is the mail subject',
-//            'body' => Auth::user()->name.' '.'ภูวเดช พาณิชยโสภา ต้องการให้คุณช่วยยินยอมในการปฏิบัติงานแทนในระหว่างที่เขาลา😊😊😊😊😊😊'
-//        ];
-//
-//        Mail::to(Auth::user()->email)->send(new TestEmail($content));
+        $content = [
+            'subject' => 'This is the mail subject',
+            'body' => 'ใบลาของคุณอยู่ในสถานะกำลังดำเนินการ 🔄'
+        ];
+
+        Mail::to(Auth::user()->email)->send(new TestEmail($content));
         $leaveform->save();
         return redirect()->route('req')->with('success', 'บันทึกข้อมูลใบลาเสร็จสมบูรณ์');
     }
@@ -603,6 +603,9 @@ class LeaveFormController extends Controller
         if (Carbon::now()->diffInHours($leaveForm->created_at) >= 3) {
             return redirect()->back()->with('error', 'ไม่สามารถยกเลิกใบลาได้เนื่องจากใบลามีอายุเกิน 3 ชั่วโมงแล้ว');
         }
+        $user = DB::table('users')
+            ->where('id', $leaveForm->user_id)
+            ->value('email');
 
         if ($leaveForm->status == 'อนุมัติ'){
             $parts = explode(' ', $leaveForm->leave_total);
@@ -656,6 +659,11 @@ class LeaveFormController extends Controller
 
         }
         $leaveForm->status = 'ยกเลิกใบลา';
+        $content = [
+            'subject' => 'This is the mail subject',
+            'body' => 'ใบลาของคุณได้รับยกเลิกเรียบร้อยแล้ว ❌'
+        ];
+        Mail::to($user)->send(new TestEmail($content));
         $leaveForm->save();
         return redirect()->back()->with('success','ยกเลิกใบลาแล้ว');
     }
