@@ -24,11 +24,6 @@
 
     {{-- Mian Content --}}
     <section class="content">
-        {{-- Example data --}}
-        <?php
-        $leave = ['ลาป่วย', 'ลากิจ', 'ลาพักผ่อนประจำปี', 'ลาเพื่อทำหมัน', 'ลาเพื่อฝึกอบรม', 'ลาอุปสมบท', 'ลาคลอดบุตร', 'ลารับราชการทหาร', 'ลาเพื่อสมรส'];
-        ?>
-        {{-- end example data --}}
 
         {{-- Container Fluid --}}
         <div class="container-fluid">
@@ -76,8 +71,8 @@
                                                 <div class="form-group">
                                                     <label for="leave_type"><span style="color: red">* </span>ประเภทการลา</label>
                                                     <select name="leave_type" id="" class="form-control select2" style="width:100%;">
-                                                        @foreach ($leave as $row)
-                                                            <option value="{{ $row }}">{{ $row }}</option>
+                                                        @foreach ($users_data as $data)
+                                                            <option value="{{ $data->leave_type_name }}">{{ $data->leave_type_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

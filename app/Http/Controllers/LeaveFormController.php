@@ -23,12 +23,15 @@ class LeaveFormController extends Controller
     public function create()
     {
         $users = DB::table('users')->get();
+        $users_data = users_leave_data::where('user_id', Auth::user()->id)
+            ->select('leave_type_name')
+            ->get();
 
         if (auth()->user()->type == 'hr(admin)') {
             return response()->json(['message' => 'ไม่สามารถยื่นแบบฟอร์มการลาได้ ต้องโอนย้ายสิทธ์หน้าที่การลาให้ HR คนอื่นก่อน']);
 //            abort(403, 'ไม่สามารถยื่นแบบฟอร์มการลาได้ ต้องโอนย้ายสิทธ์หน้าที่การลาให้ HR คนอื่นก่อน');
         }
-        return view('form', compact('users'));
+        return view('form', compact('users','users_data'));
     }
 
     // สร้างใบลา
@@ -38,7 +41,7 @@ class LeaveFormController extends Controller
             ->where('user_id', Auth::user()->id)->where('status','กำลังดำเนินการ')
             ->select('status')
             ->first();
-//        dd($status);
+        //dd($status);
         if($status){
             return back()->with('error','ไม่สามารถลาได้เนื่องจากมีใบลาที่กำลังดำเนินการอยู่');
         }
@@ -75,6 +78,26 @@ class LeaveFormController extends Controller
         $leaveform->leave_start = $startDate;
         $leaveform->leave_end = $endDate;
         $leaveform->leave_total = $request->leave_total;
+            $userLeaveData = DB::table('users_leave_datas')
+                ->where('user_id', Auth::user()->id)
+                ->where('leave_type_name', $leaveform->leave_type)
+                ->select('time_remain')
+                ->first();
+            $parts1 = explode(' ', $leaveform->leave_total);
+            $D1 = (int)$parts1[0];
+            $H1 = (int)$parts1[2];
+            $M1 = (int)$parts1[4];
+            $totalMinutes1 = ($D1 * 8 * 60) + ($H1 * 60) + $M1;
+            $parts2 = explode(' ', $userLeaveData->time_remain);
+            $D2 = (int)$parts2[0];
+            $H2 = (int)$parts2[2];
+            $M2 = (int)$parts2[4];
+            $totalMinutes2 = ($D2 * 8 * 60) + ($H2 * 60) + $M2;
+
+            if ($totalMinutes1 > $totalMinutes2) {
+                return back()->with('error', 'ไม่สามารถลาได้เนื่องวันลาคงเหลือของคุณไม่เพียงพอ');
+            }
+
         $leaveform->reason = $request->input('reason');
 
         //generete file เก็บเป็นสตริง เป็นแบบ part เก็บไฟล์ไว้ที่ public/file1
@@ -126,12 +149,12 @@ class LeaveFormController extends Controller
         }
 
         // dd($request->all(),$leaveform->all());
-        $content = [
-            'subject' => 'This is the mail subject',
-            'body' => Auth::user()->name.' '.'ภูวเดช พาณิชยโสภา ต้องการให้คุณช่วยยินยอมในการปฏิบัติงานแทนในระหว่างที่เขาลา😊😊😊😊😊😊'
-        ];
-
-        Mail::to(Auth::user()->email)->send(new TestEmail($content));
+//        $content = [
+//            'subject' => 'This is the mail subject',
+//            'body' => Auth::user()->name.' '.'ภูวเดช พาณิชยโสภา ต้องการให้คุณช่วยยินยอมในการปฏิบัติงานแทนในระหว่างที่เขาลา😊😊😊😊😊😊'
+//        ];
+//
+//        Mail::to(Auth::user()->email)->send(new TestEmail($content));
         $leaveform->save();
         return redirect()->route('req')->with('success', 'บันทึกข้อมูลใบลาเสร็จสมบูรณ์');
     }
@@ -498,6 +521,9 @@ class LeaveFormController extends Controller
         ]);
         $leaveForm = LeaveForm::find($id);
         $item = users_leave_data::all();
+        $user = DB::table('users')
+            ->where('id', $leaveForm->user_id)
+            ->value('email');
         if ($request->approve_ceo == 'disapproval') {
             $status = 'ไม่อนุมัติ';
         } else {
@@ -551,6 +577,11 @@ class LeaveFormController extends Controller
                     $time_already_used = implode(' ', $parts1);
                     $time->time_remain = $time_remain;
                     $time->time_already_used = $time_already_used;
+                    $content = [
+                        'subject' => 'This is the mail subject',
+                        'body' => 'ใบลาของคุณได้รับการอนุมัติเรียบร้อยแล้ว ✅'
+                    ];
+                    Mail::to($user)->send(new TestEmail($content));
                     $time->save();
                 }
             }

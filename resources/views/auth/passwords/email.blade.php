@@ -11,7 +11,7 @@
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
 {{--                            {{ session('status') }}--}}
-                            ส่งลิงก์รีเซ็ตรหัสผ่านของคุณทางอีเมลแล้ว
+                            ส่งลิงค์รีเซ็ตรหัสผ่านของคุณทางอีเมลแล้ว
                         </div>
                     @endif
 
@@ -36,7 +36,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('ส่งลิงค์รีเซ็ตรหัสผ่าน') }}
+                                    {{ __('ส่งลิงค์เพื่อรีเซ็ตรหัสผ่าน') }}
                                 </button>
                             </div>
                         </div>

@@ -11,7 +11,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <ol class="breadcrumb text-start">
-                        <li class="breadcrumb-item">โปรฟายส่วนตัว</li>
+                        <li class="breadcrumb-item">โปรไฟล์ส่วนตัว</li>
                         <li class="breadcrumb-item active">รายละเอียด {{$user->name}}</li>
                     </ol>
                 </div>
@@ -38,7 +38,7 @@
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold">
                                 <i class="fas fa-file-medical mr-2"></i>
-                                โปรฟายส่วนตัว </h3>
+                                โปรไฟล์ส่วนตัว </h3>
                         </div>
                         <div class="card-body">
                             <div class="row">

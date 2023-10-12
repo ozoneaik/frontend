@@ -86,7 +86,7 @@
                                                     <div class="form-group">
                                                         <label for="">ตำแหน่ง</label>
                                                         <p class="form-control" readonly>
-                                                            {{ $user->possition }}
+                                                            {{ $user->position }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -233,7 +233,7 @@
                                                         <label for="">ตำแหน่ง</label>
                                                         @if ($leaveforms->sel_rep)
                                                             <p class="form-control " readonly>
-                                                                {{ $user->possition }}
+                                                                {{ $user->position }}
                                                             </p>
                                                         @else
                                                             <p class="form-control" readonly> - </p>

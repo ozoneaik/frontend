@@ -103,7 +103,8 @@ Route::middleware(['auth','verified'])->group(function () {
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
 
-Route::get('/send-mail', [SendMailController::class, 'index']);
-Route::get('/page-mail',function (){
-    return view('emails.sample');
-});
+Route::get('/send-mail-pdf', [SendMailController::class, 'index']);
+Route::get('pdf/{id}', [PDFController::class, 'pdf'])->name('pdf');
+//Route::get('/page-mail',function (){
+//    return view('emails.sample');
+//});
