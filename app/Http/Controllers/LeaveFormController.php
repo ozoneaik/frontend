@@ -95,7 +95,7 @@ class LeaveFormController extends Controller
             $totalMinutes2 = ($D2 * 8 * 60) + ($H2 * 60) + $M2;
 
             if ($totalMinutes1 > $totalMinutes2) {
-                return back()->with('error', 'ไม่สามารถลาได้เนื่องวันลาคงเหลือของคุณไม่เพียงพอ');
+                return back()->with('error', 'ไม่สามารถลาได้เนื่องจากวันลาคงเหลือของคุณไม่เพียงพอ');
             }
 
         $leaveform->reason = $request->input('reason');
